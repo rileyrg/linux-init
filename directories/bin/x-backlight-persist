@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+
+save() {
+    l=$(xbacklight -get);
+    echo  $l > ~/.x-backlight-persist
+}
+
+restore() {
+    b=100
+    [[ -f ~/.x-backlight-persist ]] && read b < ~/.x-backlight-persist
+    xbacklight -set $b
+    unset b
+}
+
+case "$1" in
+    save)
+        save
+        [[ ! -z "$2" ]] && xbacklight -set "$2"
+        ;;
+    restore)
+        restore
+        ;;
+    *)
+        save
+        ;;
+esac
+
+exit 0

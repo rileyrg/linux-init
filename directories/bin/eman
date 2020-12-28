@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+mp=${1:-"man"}
+pgrep -x emacs > /dev/null && ( (emacsclient -c -e "(manual-entry \"-a ${mp}\"))" &> /dev/null) & ) || /usr/bin/man "$@"

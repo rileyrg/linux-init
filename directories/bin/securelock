@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+# tell agent to forget all if so tasked.
+[[ "$1" == gpg_clear ]] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
+#i3lock -n -c 000000
+i3lock-fancy -n

@@ -1,0 +1,5 @@
+# /etc/acpi/events/user-powerstate
+# Called when the user connects ac power to us
+#
+event=ac_adapter.*
+action=/etc/acpi/actions/user-powerstate.sh

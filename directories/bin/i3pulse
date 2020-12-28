@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+if pgrep -x "pulseaudio" >/dev/null
+then
+    echo "pulseaudio started so kill"
+    pulseaudio -k && sleep 2
+fi
+echo "starting pulseaudio daemon"
+(pulseaudio -D && sleep 5) || true

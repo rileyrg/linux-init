@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+systemctl --user start  pulseaudio &> /dev/null || true
+
+xidlehook \
+    `# Don't lock when there's a fullscreen application` \
+    --not-when-fullscreen \
+    `# Don't lock when there's audio playing` \
+    --not-when-audio \
+    --timer ${XIDLEHOOK_KBD:-30}\
+    'pre-blank' \
+    'post-blank' \
+    --timer ${XIDLEHOOK_DIM:-120}\
+    'xbacklight -set 5' \
+    'post-blank' \
+    --timer ${XIDLEHOOK_BLANK:-120}\
+    'xbacklight -set 0' \
+    'post-blank' \
+    --timer ${XIDLEHOOK_LOCK:-180}\
+    'xset dpms force standby' \
+    'post-blank' \
+    --timer ${XIDLEHOOK_SUSPEND:-300}\
+    'systemctl suspend' \
+    '' &
+exit 0

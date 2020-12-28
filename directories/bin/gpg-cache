@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+SERVICE="gpg-agent"
+if pgrep -x "$SERVICE" >/dev/null
+then
+    echo "agent already running"
+else
+    p=$(zenity --password --title "Password for SSH")
+    if [[ ! -z $p ]]
+    then
+        [[ ! -z "$GPG_KEY1" ]] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY1" &> /dev/null
+        [[ ! -z "$GPG_KEY2" ]] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY2" &> /dev/null
+    fi
+fi

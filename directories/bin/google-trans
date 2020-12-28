@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+src=$1;shift;
+dst=$1;shift;
+txt=$@;
+trans -e google -s ${src} -t ${dst} -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$txt"

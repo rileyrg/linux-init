@@ -1,0 +1,83 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+
+sf="$HOME/.xmg-neo-kbd"
+
+if ! command -v ite8291r3-ctl &> /dev/null;  then
+    echo "xmg rgb keyboard light controller not found. install ite8291r3-ctl?"
+    exit 1;
+fi
+
+save() (
+    echo "$lightstatus:$brightness:$color:$rgb" > "$sf"
+)
+
+restore(){
+    lightstatus="on";brightness=20;rgb="";color="silver";
+    if [[ -f "$sf" ]]; then
+        _ifs="$IFS";IFS=':' read -r lightstatus brightness color rgb < "$sf";IFS="$_ifs";
+    fi
+}
+
+update(){
+    if [[ "$lightstatus" == "off" ]]; then
+        ite8291r3-ctl off
+    else
+        ite8291r3-ctl monocolor $([[ -n "$color" ]] && echo "--name $color" || echo "--rgb $rgb") --brightness "$brightness" &> /dev/null
+    fi
+    save
+}
+
+restore
+
+case "${1:-on}" in
+    on)
+        lightstatus="on"
+        update
+        ;;
+    off)
+        lightstatus="off"
+        update
+        ;;
+    sleep)
+        # use sleep to turn off light for less noise when not interacting with the keyboard
+        ite8291r3-ctl brightness 0
+        ;;
+    wake)
+        update
+        ;;
+    get-brightness)
+        ite8291r3-ctl query --brightness
+        ;;
+    set-brightness)
+        brightness=${2:-"$brightness"}
+        if [[ -z "${brightness##*[!0-9]*}" ]]; then
+            brightness=50
+        elif (( $brightness > 50 )); then
+            brightness=50
+        fi
+        update
+        ;;
+    set-color)
+        color=${2:-"$color"};rgb="";
+        update
+        ;;
+    set-rgb)
+        rgb=${2:-"$rgb"};color="";
+        update
+        ;;
+    toggle)
+        lightstatus=$( [[ $lightstatus == "off" ]] && echo "on" || echo "off")
+        update
+        ;;
+    inc)
+        ;;
+    dec)
+        ;;
+    *)
+        echo "Usage:${0} on|off|sleep|wake|set-brightness|get-brightness|set-color|set-rgb|inc v|dec v"
+        exit 1
+        ;;
+esac
+
+exit 0

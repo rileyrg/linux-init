@@ -1,0 +1,3 @@
+# Maintained in linux-init-files.org
+logger -t "startup-initfile"  ADD_USER_PATHS
+#export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
