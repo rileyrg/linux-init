@@ -133,15 +133,12 @@
      export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
      case $HOSTNAME in
-         (xmgneo)
+         "thinkpadx270")
+
+             ;;
+         ,*)
+             # default
              picom --backend glx --vsync &
-             # xmg-rgb-keys on # done in post-lock
-             ;;
-         (thinkpadx270)
-             # picom --backend glx --vsync &
-             ;;
-         (*)
-             # no host
              ;;
      esac
      [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
