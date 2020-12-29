@@ -19,7 +19,8 @@ xidlehook \
     --timer ${XIDLEHOOK_LOCK:-180}\
     'xset dpms force standby' \
     'post-blank' \
-    --timer ${XIDLEHOOK_SUSPEND:-300}\
+    --timer ${XI
+              DLEHOOK_SUSPEND:-300}\
     'systemctl suspend' \
     '' &
 exit 0

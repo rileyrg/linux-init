@@ -198,8 +198,6 @@ modifier $mod
 bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-bindsym $mod+Control+s exec "notify-send -t 2000 'DPMS Screen OFF' && sleep 1 && xset dpms force off"
-bindsym $mod+Control+d exec "notify-send -t 2000 'DPMS disabled' && sleep 1 && xset -dpms"
 bindsym $mod+Control+SHIFT+d  exec "xset +dpms && notify-send -t 2000 'DPMS enabled'"
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force standby)
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle
