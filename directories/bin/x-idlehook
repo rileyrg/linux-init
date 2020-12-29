@@ -7,7 +7,7 @@ xidlehook \
     --not-when-fullscreen \
     `# Don't lock when there's audio playing` \
     --not-when-audio \
-    --timer ${XIDLEHOOK_KBD:-30}\
+    --timer ${XIDLEHOOK_KBD:-60}\
     'pre-blank' \
     'post-blank' \
     --timer ${XIDLEHOOK_DIM:-120}\
@@ -16,11 +16,10 @@ xidlehook \
     --timer ${XIDLEHOOK_BLANK:-120}\
     'xbacklight -set 0' \
     'post-blank' \
-    --timer ${XIDLEHOOK_LOCK:-180}\
+    --timer ${XIDLEHOOK_LOCK:-300}\
     'xset dpms force standby' \
     'post-blank' \
-    --timer ${XI
-              DLEHOOK_SUSPEND:-300}\
+    --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
     '' &
 exit 0

@@ -33,11 +33,11 @@ esac
 [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
 
 # sugestions for .xsessionrc.local
-# export XIDLEHOOK_KBD=30
-# export XIDLEHOOK_DIM=180
+# export XIDLEHOOK_KBD=60
+# export XIDLEHOOK_DIM=120
 # export XIDLEHOOK_BLANK=120
-# export XIDLEHOOK_LOCK=120
-# export XIDLEHOOK_SUSPEND=300
+# export XIDLEHOOK_LOCK=300
+# export XIDLEHOOK_SUSPEND=3600
 
 x-idlehook &
 
