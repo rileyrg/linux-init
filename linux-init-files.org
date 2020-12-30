@@ -107,56 +107,64 @@
      exec i3
    #+end_src
 ** ~/.xsessionrc
-   processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc
-     #!/usr/bin/bash
-     # Maintained in linux-init-files.org
-     logger -t "startup-initfile"  XPROFILE
-     xhost +
+   :LOGBOOK:
+   - State "TODO"       from              [2020-12-30 Mi 23:47]
+   :END:
+*** TODO check that picom is started for all but x270
+    SCHEDULED: <2020-12-31 Do>
+    :LOGBOOK:
+    - State "TODO"       from              [2020-12-30 Mi 23:48]
+    :END:
+*** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
+    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      logger -t "startup-initfile"  XPROFILE
+      xhost +
 
-     xset s off
-     xset -dpms
+      xset s off
+      xset -dpms
 
-     # xss lock is told when we suspend or screen saver or dpms kicks in
-     xss-lock -- x-lock-utils lock &
+      # xss lock is told when we suspend or screen saver or dpms kicks in
+      xss-lock -- x-lock-utils lock &
 
-     x-backlight-persist restore &
+      x-backlight-persist restore &
 
-     nm-applet &
-     i3-battery-popup.sh -N &
+      nm-applet &
+      i3-battery-popup.sh -N &
 
-     feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current &
+      feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current &
 
-     command -v steam &> /dev/null && steam -silent &> /dev/null &
-     command -v dropbox &> /dev/null &&  dropbox start &> /dev/null &
+      command -v steam &> /dev/null && steam -silent &> /dev/null &
+      command -v dropbox &> /dev/null &&  dropbox start &> /dev/null &
 
-     export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
+      export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
-     case "$(hostname)" in
-        "thinkpadx270")
-             true
-             ;;
-        ,*)
-             picom --backend glx --vsync &
-             ;;
-     esac
+      case "$(hostname)" in
+          "thinkpadx270")
+              true
+              ;;
+          ,*)
+              picom --backend glx --vsync &
+              ;;
+      esac
 
-     [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
+      [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
 
-     # sugestions for .xsessionrc.local
-     # export XIDLEHOOK_KBD=60
-     # export XIDLEHOOK_DIM=120
-     # export XIDLEHOOK_BLANK=120
-     # export XIDLEHOOK_LOCK=300
-     # export XIDLEHOOK_SUSPEND=3600
+      # sugestions for .xsessionrc.local
+      # export XIDLEHOOK_KBD=60
+      # export XIDLEHOOK_DIM=120
+      # export XIDLEHOOK_BLANK=120
+      # export XIDLEHOOK_LOCK=300
+      # export XIDLEHOOK_SUSPEND=3600
 
-     x-idlehook &
+      x-idlehook &
 
-     post-lock &
-     (sleep 2 && gpg-cache &) &
+      post-lock &
+      (sleep 2 && gpg-cache &) &
 
 
-   #+end_src
+    #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
 *** task
@@ -191,55 +199,55 @@
 ** ~/bin/x-lock-utils
    Just a gathering place of locky/suspendy type things...
    #+begin_src bash :tangle ./directories/bin/x-lock-utils
-          #!/usr/bin/bash
-          # Maintained in linux-init-files.org
+     #!/usr/bin/bash
+     # Maintained in linux-init-files.org
 
-          lock() {
-              logger -t "x-lock-utils"  lock
-              pre-lock
-     #         i3lock -c 000000 -n
-              xset dpms 5
-              xbacklight -set 5
-              i3lock-fancy
-              xset -dpms
-              x-backlight-persist restore
-              post-lock
-          }
+     lock() {
+         logger -t "x-lock-utils"  lock
+         pre-lock
+         #         i3lock -c 000000 -n
+         xset dpms 5
+         xbacklight -set 5
+         i3lock-fancy
+         xset -dpms
+         x-backlight-persist restore
+         post-lock
+     }
 
-          lock_gpg_clear() {
-              logger -t "x-lock-utils"  lock_gpg_clear
-              [[ "$1" == gpg_clear ]] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
-              lock
-          }
+     lock_gpg_clear() {
+         logger -t "x-lock-utils"  lock_gpg_clear
+         [[ "$1" == gpg_clear ]] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
+         lock
+     }
 
-          case "$1" in
-              lock)
-                  lock
-                  ;;
-              lock_gpg_clear)
-                  lock_gpg_clear
-                  ;;
-              logout)
-                  i3-msg exit
-                  ;;
-              suspend)
-                  systemctl suspend
-                  ;;
-              hibernate)
-                  systemctl hibernate
-                  ;;
-              reboot)
-                  systemctl reboot
-                  ;;
-              shutdown)
-                  systemctl poweroff
-                  ;;
-              ,*)
-                  lock
-                  ;;
-          esac
+     case "$1" in
+         lock)
+             lock
+             ;;
+         lock_gpg_clear)
+             lock_gpg_clear
+             ;;
+         logout)
+             i3-msg exit
+             ;;
+         suspend)
+             systemctl suspend
+             ;;
+         hibernate)
+             systemctl hibernate
+             ;;
+         reboot)
+             systemctl reboot
+             ;;
+         shutdown)
+             systemctl poweroff
+             ;;
+         ,*)
+             lock
+             ;;
+     esac
 
-          exit 0
+     exit 0
    #+end_src
 ** xidlehook for handling dim and pause prefs
    See [[https://github.com/jD91mZM2/xidlehook][xidlehook]]. Better handling of idle things. Dont dim or blank when watching a video or in full screen.
