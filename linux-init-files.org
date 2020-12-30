@@ -132,15 +132,15 @@
 
      export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
-     case $HOSTNAME in
-         "thinkpadx270")
-
+     case "$(hostname)" in
+        "thinkpadx270")
+             true
              ;;
-         ,*)
-             # default
+        ,*)
              picom --backend glx --vsync &
              ;;
      esac
+
      [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
 
      # sugestions for .xsessionrc.local
