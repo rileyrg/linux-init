@@ -22,10 +22,10 @@ command -v dropbox &> /dev/null &&  dropbox start &> /dev/null &
 export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
 case "$(hostname)" in
-   "thinkpadx270")
+    "thinkpadx270")
         true
         ;;
-   *)
+    *)
         picom --backend glx --vsync &
         ;;
 esac

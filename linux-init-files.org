@@ -96,7 +96,14 @@
      # all moved to .xsessionrc so /etc/X11/Xsession loads it
 
    #+end_src
-** ~/.xsession
+** TODO ~/.xsession
+    :LOGBOOK:
+    - State "TODO"       from "DONE"       [2020-12-31 Thu 10:56]
+    - State "DONE"       from              [2020-12-31 Thu 10:56]
+    - Note taken on [2020-12-31 Thu 10:54] \\
+      find out why use dbus-luanch and why XSession doesnt do it
+    - State "TODO"       from              [2020-12-31 Thu 10:54]
+    :END:
    [[file:/etc/X11][/etc/X11/Xsession.d]] does the most work. It's processed by [[file:/usr/bin/startx::!/bin/sh][startx]]->[[file:/etc/X11/xinit/xinitrc::!/bin/sh][xinitrc]] which in turn calls [[file:/etc/X11/Xsession::!/bin/sh][/etc/X11/Xsession]]
    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsession
      #!/usr/bin/env bash
@@ -107,20 +114,12 @@
      exec dbus-launch --sh-syntax --exit-with-session i3
    #+end_src
 ** ~/.xsessionrc
-   :LOGBOOK:
-   - State "TODO"       from              [2020-12-30 Mi 23:47]
-   :END:
 *** TODO check that picom is started for all but x270
     SCHEDULED: <2020-12-31 Do>
     :LOGBOOK:
     - State "TODO"       from              [2020-12-30 Mi 23:48]
     :END:
-*** TODO processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
-    :LOGBOOK:
-    - Note taken on [2020-12-31 Thu 10:54] \\
-      find out why use dbus-luanch and why XSession doesnt do it
-    - State "TODO"       from              [2020-12-31 Thu 10:54]
-    :END:
+*** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
     #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
