@@ -104,7 +104,7 @@
 
      logger -t "startup-initfile"  USER-XSESSION
 
-     exec i3
+     exec dbus-launch --sh-syntax --exit-with-session i3
    #+end_src
 ** ~/.xsessionrc
    :LOGBOOK:
@@ -115,7 +115,12 @@
     :LOGBOOK:
     - State "TODO"       from              [2020-12-30 Mi 23:48]
     :END:
-*** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
+*** TODO processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
+    :LOGBOOK:
+    - Note taken on [2020-12-31 Thu 10:54] \\
+      find out why use dbus-luanch and why XSession doesnt do it
+    - State "TODO"       from              [2020-12-31 Thu 10:54]
+    :END:
     #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
