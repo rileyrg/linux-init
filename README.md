@@ -1,139 +1,139 @@
-- [Introduction](#orge519fa4)
-  - [Status](#org0b8b4b7)
-  - [GIT](#orga398afd)
-- [X Related](#org05658b9)
-  - [~/.xinitrc](#orgf027737)
-  - [~/.xprofile](#org5a406ff)
-  - [~/.xsession](#org25d2fff)
-  - [~/.xsessionrc](#org0f6cc01)
-    - [check that picom is started for all but x270](#org5464b68)
-    - [processed by [XSession](file:///etc/X11/Xsession)](#orgc1fee28)
-  - [~/.xsessionrc.local](#orgfd9bf4d)
-    - [task](#org2def82b)
-    - [code](#org69c6163)
-  - [~/.Xresources](#org0ece05c)
-  - [~/bin/x-lock-utils](#orgbf11296)
-  - [xidlehook for handling dim and pause prefs](#orgc8def63)
-    - [look into only time suspend if on battery](#org36cead8)
-    - [~/bin/x-idlehook](#org331ff40)
-  - [~/bin/rnv](#org4656ae9)
-  - [~/bin/display-id](#orgc228956)
-  - [~/bin/x-backlight-persist](#orga003f8f)
-  - [~/bin/xmg-dual-screens](#org53ad67d)
-    - [background](#org1872627)
-    - [code](#org2a93f52)
-    - [testing](#org054dae2)
-  - [Xorg](#org86418ff)
-    - [XMG Neo 15](#orgac51a05)
-  - [Compton Compositor](#org1cb85e1)
-    - [Important - replaced by PICOM](#org21975c7)
-    - [~/.config/compton/compton.conf](#org917378d)
-  - [Picom compositor](#org25aa81a)
-- [PAM Environment](#org6438c56)
-  - [~/.pam\_environment](#org516e441)
-- [User system services](#org45f0680)
-    - [gpg-agent](#orga9917b3)
-- [Bash related](#orgcd8cd6f)
-  - [~/.profile](#org3a5b099)
-  - [~/.bash\_profile](#org064175b)
-  - [~/.bashrc](#org8171695)
-- [ZSH Related](#orgf5791ef)
-  - [~/.config/zsh/.zshrc](#org0e1cc2a)
-  - [~/.config/zsh/.zlogin](#orgf8fb225)
-  - [zprofile](#org679c0c0)
-  - [zshenv](#org3f2ea7b)
-  - [Oh-My-Zsh Related](#org09fdbf6)
-- [Path](#org8b72a7d)
-  - [~/bin/add-user-paths](#org35b75d0)
-- [Tmux Related](#org7e50c08)
-  - [~/.tmux.conf](#org3602c97)
-- [I3 window manager](#orgc9d887f)
-  - [~/.config/i3/config](#org94cffd4)
-  - [~/.config/i3status/config](#org2121b2f)
-  - [~/bin/i3pulse](#org4c827e1)
-- [Vim](#org0459c6d)
-  - [~/.vimrc](#orgeb222fa)
-- [ripgrep](#orgd10a231)
-  - [~/.ripgreprc](#org9a52b90)
-- [Conky](#orgd1dbabc)
-  - [~/.config/conky/conky.conf](#orgb26ddf2)
-- [Radare](#org62141c0)
-  - [~/.config/radare2/radare2rc](#org8f19e63)
-- [GDB](#org5518f45)
-  - [~/.gdbinit](#org6a67ddb)
-- [PGP/GNUPG/GPG](#org6f2658e)
-  - [~/.gnupg/gpg.conf](#org1cb8abf)
-  - [~/.gnupg/gpg-agent.conf](#org774fe57)
-  - [~/.profile](#orgf28a1b1)
-- [systemd](#orgaac22d9)
-  - [lock when lid closed](#orge8a6761)
-    - [~/.config/systemd/user/lidlock.service](#org32d51e2)
-- [ACPI](#orgca5f7e5)
-  - [power status](#org9a0913b)
-    - [acpid events](#org82e56fc)
-    - [acpid actions](#org98e206b)
-- [Misc utils](#org1a14790)
-  - [~/bin/acpi-](#org57e7c91)
-  - [~/bin/edit](#orgfafb5ae)
-  - [~/bin/eman](#orgdec4332)
-  - [~/bin/expert-advice](#org0072f0d)
-  - [~/bin/extract-debug-info](#org917688d)
-  - [~/bin/make-compile\_commands](#org0adede3)
-  - [~/bin/onehtop](#orgd5cba3d)
-  - [~/bin/oneterminal](#orgfda104d)
-  - [~/bin/pop-window](#org78d8e26)
-  - [~/bin/random-man-page](#orge85c8da)
-  - [~/bin/remove-broken-symlinks](#org7b7b1ad)
-  - [~/bin/remove-conflicted-copies](#org55cd3d6)
-  - [~/bin/resgithub](#org17864ba)
-  - [~/bin/sharemouse](#orgfbbb55d)
-  - [~/bin/sys-logger](#orgd337b31)
-  - [XMG Neo 15 Specifics](#org695bd13)
-    - [~/bin/xmg-neo-rgb-kbd-lights](#org7767c74)
-    - [test](#org8655b89)
-  - [Google Translate Helpers](#org17838af)
-    - [~/bin/google-trans](#orge824182)
-    - [~/bin/google-trans-de-en](#org4546934)
-    - [~/bin/google-trans-en-de](#org7421177)
-  - [Security/Locking/GPG](#org42b9cb6)
-    - [~/bin/cache-gpg](#org42c530d)
-    - [~/bin/pre-lock](#orgb65065c)
-    - [~/bin/post-lock](#org1ebe84d)
-    - [~/bin/pre-blank](#org5e79ea6)
-    - [~/bin/post-blank](#orgac7d348)
-- [tailends](#org4742e8f)
-  - [~/.bash\_profile](#org6748756)
-  - [Late addition to ~/.profile](#orgeb54f5d)
+- [Introduction](#orgc35f133)
+  - [Status](#orgef5186f)
+  - [GIT](#org80c366f)
+- [X Related](#orgcbaa147)
+  - [~/.xinitrc](#org53e32e8)
+  - [~/.xprofile](#orgc08dae0)
+  - [~/.xsession](#orgd9bf863)
+  - [~/.xsessionrc](#org014d2e3)
+    - [check that picom is started for all but x270](#orge0d0faa)
+    - [processed by [XSession](file:///etc/X11/Xsession)](#org0e6c9b2)
+  - [~/.xsessionrc.local](#orgfc49dc0)
+    - [task](#org460de72)
+    - [code](#orgc33f591)
+  - [~/.Xresources](#org1cdb533)
+  - [~/bin/x-lock-utils](#org6cccb01)
+  - [xidlehook for handling dim and pause prefs](#org9e9601d)
+    - [look into only time suspend if on battery](#org2fe9824)
+    - [~/bin/x-idlehook](#org02a18ee)
+  - [~/bin/rnv](#orge539b15)
+  - [~/bin/display-id](#org2951cc7)
+  - [~/bin/x-backlight-persist](#orga706ea1)
+  - [~/bin/xmg-dual-screens](#org05e5aa0)
+    - [background](#org24f16a7)
+    - [code](#org7a713a7)
+    - [testing](#org15df8ff)
+  - [Xorg](#orgd63ca46)
+    - [XMG Neo 15](#orga196e8b)
+  - [Compton Compositor](#org96a2bfd)
+    - [Important - replaced by PICOM](#orgd813708)
+    - [~/.config/compton/compton.conf](#org87a2db2)
+  - [Picom compositor](#org42c5063)
+- [PAM Environment](#org42c7088)
+  - [~/.pam\_environment](#org762539e)
+- [User system services](#org574dfcc)
+    - [gpg-agent](#org6487029)
+- [Bash related](#org434ba99)
+  - [~/.profile](#orgd39d167)
+  - [~/.bash\_profile](#org0d1b47d)
+  - [~/.bashrc](#orgeda5ce0)
+- [ZSH Related](#org25079eb)
+  - [~/.config/zsh/.zshrc](#org6f17166)
+  - [~/.config/zsh/.zlogin](#org60fee17)
+  - [zprofile](#org5d30c06)
+  - [zshenv](#org256f3e6)
+  - [Oh-My-Zsh Related](#org6549733)
+- [Path](#orga1bc25d)
+  - [~/bin/add-user-paths](#org27336c2)
+- [Tmux Related](#orgdcb3c45)
+  - [~/.tmux.conf](#org3f40a3e)
+- [I3 window manager](#org256f15f)
+  - [~/.config/i3/config](#orgfc3a7e7)
+  - [~/.config/i3status/config](#org1dc18cc)
+  - [~/bin/i3pulse](#org2288cfe)
+- [Vim](#orgac747c6)
+  - [~/.vimrc](#org2f6baf7)
+- [ripgrep](#orgd70527d)
+  - [~/.ripgreprc](#org4140ab0)
+- [Conky](#orgf381926)
+  - [~/.config/conky/conky.conf](#org6b1f320)
+- [Radare](#orge0a19e2)
+  - [~/.config/radare2/radare2rc](#org82b764e)
+- [GDB](#orga66c454)
+  - [~/.gdbinit](#org5224bb1)
+- [PGP/GNUPG/GPG](#org7fc7f75)
+  - [~/.gnupg/gpg.conf](#orga42ddd2)
+  - [~/.gnupg/gpg-agent.conf](#org4824291)
+  - [~/.profile](#orgc245f0d)
+- [systemd](#org764c489)
+  - [lock when lid closed](#orga3b1d9a)
+    - [~/.config/systemd/user/lidlock.service](#orgc8ec64c)
+- [ACPI](#org7d137b5)
+  - [power status](#org17cd36d)
+    - [acpid events](#orgf62c0ad)
+    - [acpid actions](#orgc9e1312)
+- [Misc utils](#org27db631)
+  - [~/bin/acpi-](#orga010262)
+  - [~/bin/edit](#orgdb45827)
+  - [~/bin/eman](#org5fb21e6)
+  - [~/bin/expert-advice](#org838f24b)
+  - [~/bin/extract-debug-info](#org8a4bf0b)
+  - [~/bin/make-compile\_commands](#org6889507)
+  - [~/bin/onehtop](#org77c6c86)
+  - [~/bin/oneterminal](#org7cd7c3d)
+  - [~/bin/pop-window](#orgc79bb9a)
+  - [~/bin/random-man-page](#org31a6932)
+  - [~/bin/remove-broken-symlinks](#orgbf20e1f)
+  - [~/bin/remove-conflicted-copies](#org2c417e8)
+  - [~/bin/resgithub](#org7c4cfd3)
+  - [~/bin/sharemouse](#orgd076bb9)
+  - [~/bin/sys-logger](#orgd51a2da)
+  - [XMG Neo 15 Specifics](#org1c99416)
+    - [~/bin/xmg-neo-rgb-kbd-lights](#org0d35e2e)
+    - [test](#org19d0378)
+  - [Google Translate Helpers](#orgb40b33e)
+    - [~/bin/google-trans](#orgc19a491)
+    - [~/bin/google-trans-de-en](#org20c0952)
+    - [~/bin/google-trans-en-de](#orgd2b1d53)
+  - [Security/Locking/GPG](#org2ef2e65)
+    - [~/bin/cache-gpg](#org35aea53)
+    - [~/bin/pre-lock](#org48fbcbe)
+    - [~/bin/post-lock](#orgb611b95)
+    - [~/bin/pre-blank](#orgd1085f1)
+    - [~/bin/post-blank](#orgc5d3629)
+- [tailends](#org6829b4a)
+  - [~/.bash\_profile](#org503b860)
+  - [Late addition to ~/.profile](#org6775f8d)
 
 
 
-<a id="orge519fa4"></a>
+<a id="orgc35f133"></a>
 
 # Introduction
 
 
-<a id="org0b8b4b7"></a>
+<a id="orgef5186f"></a>
 
 ## Status
 
 Work in progress!! Keep all config and scripts in a single org file for documentation. Use org tangling for exporting them.
 
 
-<a id="orga398afd"></a>
+<a id="org80c366f"></a>
 
 ## GIT
 
 .gitignore isn't stored in here as its prone to being edited a lot.
 
 
-<a id="org05658b9"></a>
+<a id="orgcbaa147"></a>
 
 # X Related
 
 Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting_x>
 
 
-<a id="orgf027737"></a>
+<a id="org53e32e8"></a>
 
 ## DONE ~/.xinitrc
 
@@ -148,7 +148,7 @@ I use this as a kind of placeholder to remind me that system xinitrc is doing th
 ```
 
 
-<a id="org5a406ff"></a>
+<a id="orgc08dae0"></a>
 
 ## ~/.xprofile
 
@@ -161,7 +161,7 @@ Another placeholder doing nothing as xinit launches XSession which uses .xsessio
 ```
 
 
-<a id="org25d2fff"></a>
+<a id="orgd9bf863"></a>
 
 ## TODO ~/.xsession
 
@@ -177,17 +177,17 @@ exec dbus-launch --sh-syntax --exit-with-session i3
 ```
 
 
-<a id="org0f6cc01"></a>
+<a id="org014d2e3"></a>
 
 ## ~/.xsessionrc
 
 
-<a id="org5464b68"></a>
+<a id="orge0d0faa"></a>
 
 ### DONE check that picom is started for all but x270
 
 
-<a id="orgc1fee28"></a>
+<a id="org0e6c9b2"></a>
 
 ### processed by [XSession](file:///etc/X11/Xsession)
 
@@ -221,27 +221,28 @@ esac
 # export XIDLEHOOK_SUSPEND=3600
 
 x-idlehook &
+(sleep 2 && gpg-cache)&
 
 post-lock &
 
 ```
 
 
-<a id="orgfd9bf4d"></a>
+<a id="orgfc49dc0"></a>
 
 ## ~/.xsessionrc.local
 
 Add machine specifics. The xmg neo 15 [keyboard backlight repo](https://github.com/pobrn/ite8291r3-ctl) for example.
 
 
-<a id="org2def82b"></a>
+<a id="org460de72"></a>
 
 ### task
 
 1.  DONE do I really need a local if we $HOSTNAME things? Think not. Keep it in the org master file.
 
 
-<a id="org69c6163"></a>
+<a id="orgc33f591"></a>
 
 ### code
 
@@ -253,7 +254,7 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 ```
 
 
-<a id="org0ece05c"></a>
+<a id="org1cdb533"></a>
 
 ## ~/.Xresources
 
@@ -271,7 +272,7 @@ urxvt.font: xft:Monospace:pixelsize=12
 ```
 
 
-<a id="orgbf11296"></a>
+<a id="org6cccb01"></a>
 
 ## ~/bin/x-lock-utils
 
@@ -330,19 +331,19 @@ exit 0
 ```
 
 
-<a id="orgc8def63"></a>
+<a id="org9e9601d"></a>
 
 ## xidlehook for handling dim and pause prefs
 
 See [xidlehook](https://github.com/jD91mZM2/xidlehook). Better handling of idle things. Dont dim or blank when watching a video or in full screen. [acpilight](https://gitlab.com/wavexx/acpilight ) provides a better xbacklight.\*
 
 
-<a id="org36cead8"></a>
+<a id="org2fe9824"></a>
 
 ### TODO look into only time suspend if on battery
 
 
-<a id="org331ff40"></a>
+<a id="org02a18ee"></a>
 
 ### ~/bin/x-idlehook
 
@@ -375,7 +376,7 @@ exit 0
 ```
 
 
-<a id="org4656ae9"></a>
+<a id="orge539b15"></a>
 
 ## ~/bin/rnv
 
@@ -388,7 +389,7 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia ${@}
 ```
 
 
-<a id="orgc228956"></a>
+<a id="org2951cc7"></a>
 
 ## ~/bin/display-id
 
@@ -401,7 +402,7 @@ xrandr -q | grep " connected " | cut -d' ' -f1 | head -n 1
 ```
 
 
-<a id="orga003f8f"></a>
+<a id="orga706ea1"></a>
 
 ## ~/bin/x-backlight-persist
 
@@ -441,19 +442,19 @@ exit 0
 ```
 
 
-<a id="org53ad67d"></a>
+<a id="org05e5aa0"></a>
 
 ## ~/bin/xmg-dual-screens
 
 
-<a id="org1872627"></a>
+<a id="org24f16a7"></a>
 
 ### background
 
 It's worth looking into using [arandr](https://christian.amsuess.com/tools/arandr/) for using the somewhat complex xrandr command. This link is very helpful: [What does “sink output, source output, sink offload, source offload” mean for GPUs?](https://superuser.com/questions/861530/what-does-sink-output-source-output-sink-offload-source-offload-mean-for-gp)
 
 
-<a id="org2a93f52"></a>
+<a id="org7a713a7"></a>
 
 ### code
 
@@ -473,7 +474,7 @@ echo "Dual Screens $([[ $on == "on" ]] && echo -n "on, hires:$hires" || echo "of
 ```
 
 
-<a id="org054dae2"></a>
+<a id="org15df8ff"></a>
 
 ### testing
 
@@ -496,12 +497,12 @@ echo "Dual Screens $([[ $on == "on" ]] && echo -n "on, hires:$hires" || echo "of
     ```
 
 
-<a id="org86418ff"></a>
+<a id="orgd63ca46"></a>
 
 ## Xorg
 
 
-<a id="orgac51a05"></a>
+<a id="orga196e8b"></a>
 
 ### XMG Neo 15
 
@@ -579,19 +580,19 @@ Using an Itel iGPU and an NVIDIA 2070 super dGPU , boot using hybrid mode.
             ```
 
 
-<a id="org1cb85e1"></a>
+<a id="org96a2bfd"></a>
 
 ## Compton Compositor
 
 
-<a id="org21975c7"></a>
+<a id="orgd813708"></a>
 
 ### DONE Important - replaced by PICOM
 
 [Compton](https://github.com/chjj/compton) is a compositor for X, and a fork of xcompmgr-dana
 
 
-<a id="org917378d"></a>
+<a id="org87a2db2"></a>
 
 ### ~/.config/compton/compton.conf
 
@@ -673,7 +674,7 @@ dnd = { shadow = false };
 ```
 
 
-<a id="org25aa81a"></a>
+<a id="org42c5063"></a>
 
 ## Picom compositor
 
@@ -685,7 +686,7 @@ picom --backend glx --vsync &
 ```
 
 
-<a id="org6438c56"></a>
+<a id="org42c7088"></a>
 
 # TODO PAM Environment
 
@@ -694,7 +695,7 @@ Ended up giving up on this. PAM is a configuration nightmare.
 This IS working with startx but not with gdm3 i3
 
 
-<a id="org516e441"></a>
+<a id="org762539e"></a>
 
 ## ~/.pam\_environment
 
@@ -704,24 +705,24 @@ This IS working with startx but not with gdm3 i3
 ```
 
 
-<a id="org45f0680"></a>
+<a id="org574dfcc"></a>
 
 # User system services
 
 
-<a id="orga9917b3"></a>
+<a id="org6487029"></a>
 
 ### gpg-agent
 
 If using startx on debian this is taken care of by the system XSession loading everyhing in /etc/X11/Xsession.d. see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 
 
-<a id="orgcd8cd6f"></a>
+<a id="org434ba99"></a>
 
 # Bash related
 
 
-<a id="org3a5b099"></a>
+<a id="orgd39d167"></a>
 
 ## ~/.profile
 
@@ -765,7 +766,7 @@ export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.car
 ```
 
 
-<a id="org064175b"></a>
+<a id="org0d1b47d"></a>
 
 ## ~/.bash\_profile
 
@@ -783,7 +784,7 @@ post-lock
 ```
 
 
-<a id="org8171695"></a>
+<a id="orgeda5ce0"></a>
 
 ## ~/.bashrc
 
@@ -839,12 +840,12 @@ export GPG_TTY
 ```
 
 
-<a id="orgf5791ef"></a>
+<a id="org25079eb"></a>
 
 # ZSH Related
 
 
-<a id="org0e1cc2a"></a>
+<a id="org6f17166"></a>
 
 ## ~/.config/zsh/.zshrc
 
@@ -976,7 +977,7 @@ DEFAULT_USER=$USER
 ```
 
 
-<a id="orgf8fb225"></a>
+<a id="org60fee17"></a>
 
 ## ~/.config/zsh/.zlogin
 
@@ -987,7 +988,7 @@ logger -t "startup-initfile"  ZLOGIN
 ```
 
 
-<a id="org679c0c0"></a>
+<a id="org5d30c06"></a>
 
 ## zprofile
 
@@ -1016,7 +1017,7 @@ logger -t "startup-initfile"  ZLOGIN
     ```
 
 
-<a id="org3f2ea7b"></a>
+<a id="org256f3e6"></a>
 
 ## zshenv
 
@@ -1053,7 +1054,7 @@ logger -t "startup-initfile"  ZLOGIN
     ```
 
 
-<a id="org09fdbf6"></a>
+<a id="org6549733"></a>
 
 ## Oh-My-Zsh Related
 
@@ -1077,12 +1078,12 @@ Directory is [here](.oh-my-zsh/).
     ```
 
 
-<a id="org8b72a7d"></a>
+<a id="orga1bc25d"></a>
 
 # Path
 
 
-<a id="org35b75d0"></a>
+<a id="org27336c2"></a>
 
 ## ~/bin/add-user-paths
 
@@ -1093,12 +1094,12 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 ```
 
 
-<a id="org7e50c08"></a>
+<a id="orgdcb3c45"></a>
 
 # Tmux Related
 
 
-<a id="org3602c97"></a>
+<a id="org3f40a3e"></a>
 
 ## ~/.tmux.conf
 
@@ -1197,12 +1198,12 @@ run -b '~/.tmux/plugins/tpm/tpm'
 ```
 
 
-<a id="orgc9d887f"></a>
+<a id="org256f15f"></a>
 
 # I3 window manager
 
 
-<a id="org94cffd4"></a>
+<a id="orgfc3a7e7"></a>
 
 ## ~/.config/i3/config
 
@@ -1426,7 +1427,6 @@ bindsym Shift+Print exec gnome-screenshot -a
  exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
  # xss lock is told when we suspend or screen saver or dpms kicks in
  exec --no-startup-id xss-lock -- x-lock-utils lock
- exec --no-startup-id gpg-cache
 
 
 #rofi instead of dmenu
@@ -1592,7 +1592,7 @@ bindsym Escape mode "default"
 ```
 
 
-<a id="org2121b2f"></a>
+<a id="org1dc18cc"></a>
 
 ## ~/.config/i3status/config
 
@@ -1654,7 +1654,7 @@ format = "%Y-%m-%d %H:%M:%S"
 ```
 
 
-<a id="org4c827e1"></a>
+<a id="org2288cfe"></a>
 
 ## ~/bin/i3pulse
 
@@ -1671,12 +1671,12 @@ echo "starting pulseaudio daemon"
 ```
 
 
-<a id="org0459c6d"></a>
+<a id="orgac747c6"></a>
 
 # Vim
 
 
-<a id="orgeb222fa"></a>
+<a id="org2f6baf7"></a>
 
 ## ~/.vimrc
 
@@ -1733,12 +1733,12 @@ set splitright
 ```
 
 
-<a id="orgd10a231"></a>
+<a id="orgd70527d"></a>
 
 # ripgrep
 
 
-<a id="org9a52b90"></a>
+<a id="org4140ab0"></a>
 
 ## ~/.ripgreprc
 
@@ -1773,12 +1773,12 @@ web:*.{html,css,js}*
 ```
 
 
-<a id="orgd1dbabc"></a>
+<a id="orgf381926"></a>
 
 # Conky
 
 
-<a id="orgb26ddf2"></a>
+<a id="org6b1f320"></a>
 
 ## ~/.config/conky/conky.conf
 
@@ -1871,14 +1871,14 @@ ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 ```
 
 
-<a id="org62141c0"></a>
+<a id="orge0a19e2"></a>
 
 # Radare
 
 Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/content/first_steps/intro.html).
 
 
-<a id="org8f19e63"></a>
+<a id="org82b764e"></a>
 
 ## ~/.config/radare2/radare2rc
 
@@ -1889,12 +1889,12 @@ e dbg.bep=main
 ```
 
 
-<a id="org5518f45"></a>
+<a id="orga66c454"></a>
 
 # GDB
 
 
-<a id="org6a67ddb"></a>
+<a id="org5224bb1"></a>
 
 ## ~/.gdbinit
 
@@ -1912,12 +1912,12 @@ set history expansion on
 ```
 
 
-<a id="org6f2658e"></a>
+<a id="org7fc7f75"></a>
 
 # PGP/GNUPG/GPG
 
 
-<a id="org1cb8abf"></a>
+<a id="orga42ddd2"></a>
 
 ## ~/.gnupg/gpg.conf
 
@@ -1927,7 +1927,7 @@ use-agent
 ```
 
 
-<a id="org774fe57"></a>
+<a id="org4824291"></a>
 
 ## ~/.gnupg/gpg-agent.conf
 
@@ -1944,7 +1944,7 @@ enable-ssh-support
 ```
 
 
-<a id="orgf28a1b1"></a>
+<a id="orgc245f0d"></a>
 
 ## ~/.profile
 
@@ -1955,17 +1955,17 @@ export USE_GPG_FOR_SSH="yes" # used in xsession
 ```
 
 
-<a id="orgaac22d9"></a>
+<a id="org764c489"></a>
 
 # systemd
 
 
-<a id="orge8a6761"></a>
+<a id="orga3b1d9a"></a>
 
 ## DONE lock when lid closed
 
 
-<a id="org32d51e2"></a>
+<a id="orgc8ec64c"></a>
 
 ### ~/.config/systemd/user/lidlock.service
 
@@ -1985,17 +1985,17 @@ WantedBy=sleep.target
 ```
 
 
-<a id="orgca5f7e5"></a>
+<a id="org7d137b5"></a>
 
 # ACPI
 
 
-<a id="org9a0913b"></a>
+<a id="org17cd36d"></a>
 
 ## power status
 
 
-<a id="org82e56fc"></a>
+<a id="orgf62c0ad"></a>
 
 ### acpid events
 
@@ -2022,7 +2022,7 @@ You must copy these into [*etc/acpi/events*](file:///etc/acpi/events/) if you ha
     ```
 
 
-<a id="org98e206b"></a>
+<a id="orgc9e1312"></a>
 
 ### acpid actions
 
@@ -2060,12 +2060,12 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
     ```
 
 
-<a id="org1a14790"></a>
+<a id="org27db631"></a>
 
 # Misc utils
 
 
-<a id="org57e7c91"></a>
+<a id="orga010262"></a>
 
 ## ~/bin/acpi-
 
@@ -2076,7 +2076,7 @@ emacs-same-frame "$@"
 ```
 
 
-<a id="orgfafb5ae"></a>
+<a id="orgdb45827"></a>
 
 ## ~/bin/edit
 
@@ -2087,7 +2087,7 @@ emacs-same-frame "$@"
 ```
 
 
-<a id="orgdec4332"></a>
+<a id="org5fb21e6"></a>
 
 ## ~/bin/eman
 
@@ -2101,7 +2101,7 @@ pgrep -x emacs > /dev/null && ( (emacsclient -c -e "(manual-entry \"-a ${mp}\"))
 ```
 
 
-<a id="org0072f0d"></a>
+<a id="org838f24b"></a>
 
 ## ~/bin/expert-advice
 
@@ -2112,7 +2112,7 @@ command -v fortune >/dev/null && fortune || echo "I don't need to study a subjec
 ```
 
 
-<a id="org917688d"></a>
+<a id="org8a4bf0b"></a>
 
 ## ~/bin/extract-debug-info
 
@@ -2167,7 +2167,7 @@ chmod -x "${debugdir}/${debugfile}"
 ```
 
 
-<a id="org0adede3"></a>
+<a id="org6889507"></a>
 
 ## ~/bin/make-compile\_commands
 
@@ -2182,7 +2182,7 @@ make --always-make --dry-run \
 ```
 
 
-<a id="orgd5cba3d"></a>
+<a id="org77c6c86"></a>
 
 ## ~/bin/onehtop
 
@@ -2200,7 +2200,7 @@ fi
 ```
 
 
-<a id="orgfda104d"></a>
+<a id="org7cd7c3d"></a>
 
 ## ~/bin/oneterminal
 
@@ -2217,7 +2217,7 @@ fi
 ```
 
 
-<a id="org78d8e26"></a>
+<a id="orgc79bb9a"></a>
 
 ## ~/bin/pop-window
 
@@ -2228,7 +2228,7 @@ xdotool windowactivate `xdotool search --name "$1"`
 ```
 
 
-<a id="orge85c8da"></a>
+<a id="org31a6932"></a>
 
 ## ~/bin/random-man-page
 
@@ -2239,7 +2239,7 @@ man $(find /usr/share/man/man1 -type f | sort -R | head -n1)
 ```
 
 
-<a id="org7b7b1ad"></a>
+<a id="orgbf20e1f"></a>
 
 ## ~/bin/remove-broken-symlinks
 
@@ -2250,7 +2250,7 @@ find -L . -name . -o -type d -prune -o -type l -exec rm {} +
 ```
 
 
-<a id="org55cd3d6"></a>
+<a id="org2c417e8"></a>
 
 ## ~/bin/remove-conflicted-copies
 
@@ -2269,7 +2269,7 @@ fi
 ```
 
 
-<a id="org17864ba"></a>
+<a id="org7c4cfd3"></a>
 
 ## ~/bin/resgithub
 
@@ -2295,7 +2295,7 @@ fi
 ```
 
 
-<a id="orgfbbb55d"></a>
+<a id="orgd076bb9"></a>
 
 ## ~/bin/sharemouse
 
@@ -2306,7 +2306,7 @@ exec ssh -X ${1-192.168.2.100} x2x -east -to :0
 ```
 
 
-<a id="orgd337b31"></a>
+<a id="orgd51a2da"></a>
 
 ## ~/bin/sys-logger
 
@@ -2319,12 +2319,12 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 ```
 
 
-<a id="org695bd13"></a>
+<a id="org1c99416"></a>
 
 ## XMG Neo 15 Specifics
 
 
-<a id="org7767c74"></a>
+<a id="org0d35e2e"></a>
 
 ### ~/bin/xmg-neo-rgb-kbd-lights
 
@@ -2417,7 +2417,7 @@ exit 0
 ```
 
 
-<a id="org8655b89"></a>
+<a id="org19d0378"></a>
 
 ### test
 
@@ -2438,12 +2438,12 @@ xmg-neo-rgb-kbd-lights set-color red
 ```
 
 
-<a id="org17838af"></a>
+<a id="orgb40b33e"></a>
 
 ## Google Translate Helpers
 
 
-<a id="orge824182"></a>
+<a id="orgc19a491"></a>
 
 ### ~/bin/google-trans
 
@@ -2457,7 +2457,7 @@ trans -e google -s ${src} -t ${dst} -show-original y -show-original-phonetics y 
 ```
 
 
-<a id="org4546934"></a>
+<a id="org20c0952"></a>
 
 ### ~/bin/google-trans-de-en
 
@@ -2468,7 +2468,7 @@ trans -e google -s de -t en -show-original y -show-original-phonetics y -show-tr
 ```
 
 
-<a id="org7421177"></a>
+<a id="orgd2b1d53"></a>
 
 ### ~/bin/google-trans-en-de
 
@@ -2479,12 +2479,12 @@ trans -e google -s en -t de -show-original y -show-original-phonetics y -show-tr
 ```
 
 
-<a id="org42b9cb6"></a>
+<a id="org2ef2e65"></a>
 
 ## Security/Locking/GPG
 
 
-<a id="org42c530d"></a>
+<a id="org35aea53"></a>
 
 ### ~/bin/cache-gpg
 
@@ -2509,7 +2509,7 @@ fi
 \#+end\_src
 
 
-<a id="orgb65065c"></a>
+<a id="org48fbcbe"></a>
 
 ### ~/bin/pre-lock
 
@@ -2527,7 +2527,7 @@ fi
     ```
 
 
-<a id="org1ebe84d"></a>
+<a id="orgb611b95"></a>
 
 ### ~/bin/post-lock
 
@@ -2545,7 +2545,7 @@ fi
     ```
 
 
-<a id="org5e79ea6"></a>
+<a id="orgd1085f1"></a>
 
 ### ~/bin/pre-blank
 
@@ -2556,7 +2556,7 @@ fi
 ```
 
 
-<a id="orgac7d348"></a>
+<a id="orgc5d3629"></a>
 
 ### ~/bin/post-blank
 
@@ -2568,12 +2568,12 @@ x-backlight-persist restore
 ```
 
 
-<a id="org4742e8f"></a>
+<a id="org6829b4a"></a>
 
 # tailends
 
 
-<a id="org6748756"></a>
+<a id="org503b860"></a>
 
 ## ~/.bash\_profile
 
@@ -2586,7 +2586,7 @@ x-backlight-persist restore
 ```
 
 
-<a id="orgeb54f5d"></a>
+<a id="org6775f8d"></a>
 
 ## Late addition to ~/.profile
 

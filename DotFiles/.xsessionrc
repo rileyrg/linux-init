@@ -27,5 +27,6 @@ esac
 # export XIDLEHOOK_SUSPEND=3600
 
 x-idlehook &
+(sleep 2 && gpg-cache)&
 
 post-lock &

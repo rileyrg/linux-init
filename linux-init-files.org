@@ -137,6 +137,7 @@
       # export XIDLEHOOK_SUSPEND=3600
 
       x-idlehook &
+      (sleep 2 && gpg-cache)&
 
       post-lock &
 
@@ -1173,7 +1174,6 @@
       exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
       # xss lock is told when we suspend or screen saver or dpms kicks in
       exec --no-startup-id xss-lock -- x-lock-utils lock
-      exec --no-startup-id gpg-cache
 
 
      #rofi instead of dmenu
