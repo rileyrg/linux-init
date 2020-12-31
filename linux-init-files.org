@@ -55,20 +55,6 @@
    Keep all config and scripts in a single org file for documentation. Use org tangling for exporting them.
 ** GIT
    .gitignore isn't stored in here as its prone to being edited a lot.
-* TODO PAM Environment
-  Ended up giving up on this. PAM is a configuration nightmare.
-  :LOGBOOK:
-  - Note taken on [2020-12-07 Mo 07:04] \\
-    doesnt work with zsh
-  - State "TODO"       from              [2020-12-07 Mo 07:03]
-  :END:
-  This IS working with startx but not with gdm3 i3
-** ~/.pam_environment
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.pam_environment
-     # Maintained in linux-init-files.org
-     # PATH           DEFAULT=@{HOME}/bin:@{HOME}/.local/bin:@{HOME}/.cargo/bin:/usr/local/bin:/bin:/usr/bin:/usr/games:/usr/local/bin/X11:/usr/bin/X11
-   #+end_src
-
 * X Related
   Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
 ** DONE ~/.xinitrc
@@ -114,9 +100,10 @@
      exec dbus-launch --sh-syntax --exit-with-session i3
    #+end_src
 ** ~/.xsessionrc
-*** TODO check that picom is started for all but x270
-    SCHEDULED: <2020-12-31 Do>
+*** DONE check that picom is started for all but x270
+    CLOSED: [2020-12-31 Do 19:47] SCHEDULED: <2020-12-31 Do>
     :LOGBOOK:
+    - State "DONE"       from "TODO"       [2020-12-31 Do 19:47]
     - State "TODO"       from              [2020-12-30 Mi 23:48]
     :END:
 *** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
@@ -128,19 +115,6 @@
 
       xset s off
       xset -dpms
-
-      # xss lock is told when we suspend or screen saver or dpms kicks in
-      xss-lock -- x-lock-utils lock &
-
-      x-backlight-persist restore &
-
-      nm-applet &
-      i3-battery-popup.sh -N &
-
-      feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current &
-
-      command -v steam &> /dev/null && steam -silent &> /dev/null &
-      command -v dropbox &> /dev/null &&  dropbox start &> /dev/null &
 
       export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
@@ -165,8 +139,6 @@
       x-idlehook &
 
       post-lock &
-      (sleep 2 && gpg-cache &) &
-
 
     #+end_src
 ** ~/.xsessionrc.local
@@ -551,6 +523,20 @@
      #!/usr/bin/bash
      picom --backend glx --vsync &
    #+end_src
+* TODO PAM Environment
+  Ended up giving up on this. PAM is a configuration nightmare.
+  :LOGBOOK:
+  - Note taken on [2020-12-07 Mo 07:04] \\
+    doesnt work with zsh
+  - State "TODO"       from              [2020-12-07 Mo 07:03]
+  :END:
+  This IS working with startx but not with gdm3 i3
+** ~/.pam_environment
+   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.pam_environment
+     # Maintained in linux-init-files.org
+     # PATH           DEFAULT=@{HOME}/bin:@{HOME}/.local/bin:@{HOME}/.cargo/bin:/usr/local/bin:/bin:/usr/bin:/usr/games:/usr/local/bin/X11:/usr/bin/X11
+   #+end_src
+
 * User system services
 *** gpg-agent
     If using startx on debian this is taken care of by the system XSession loading everyhing in /etc/X11/Xsession.d.
@@ -650,22 +636,6 @@
          fi
      fi
 
-     function parse_git_branch_and_add_brackets {
-         git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
-     }
-
-     # export IP=`myip`
-     # export PS1='($IP) [\!]\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\]:\[\033[00;35m\]\w\[\033[00m\]\[\033[01;33m\]`git branch 2>/dev/null|cut -f2 -d\* -s`\[\033[00m\]\$ '
-     # export PS1='\[\e[0;33m\]\u\[\e[m\] \[\e[0;31m\]($IP)\[\e[m\]@\[\e[0;34m\][\W]\[\e[m\]`git branch 2>/dev/null|cut -f2 -d\* -s`$ '
-     export PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
-
-     unset color_prompt force_color_prompt
-
-     # some more ls aliases
-     alias ll='ls -l'
-     alias la='ls -A'
-     alias l='ls -CF'
-
      if [ -f /etc/bash_completion ]; then
          . /etc/bash_completion
      fi
@@ -674,11 +644,6 @@
 
      GPG_TTY=$(tty)
      export GPG_TTY
-
-     if [ -f "$HOME/bin/thirdpaty/bash-git-prompt/gitprompt.sh" ]; then
-         GIT_PROMPT_ONLY_IN_REPO=1
-         source $HOME/bin/thirdparty/bash-git-prompt/gitprompt.sh
-     fi
 
      [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -1199,6 +1164,16 @@
      bindsym $mod+Shift+s sticky toggle
      bindsym Print exec gnome-screenshot
      bindsym Shift+Print exec gnome-screenshot -a
+
+      exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
+      exec --no-startup-id x-backlight-persist restore
+      exec --no-startup-id nm-applet
+      exec --no-startup-id i3-battery-popup.sh -N
+      exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
+      exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
+      # xss lock is told when we suspend or screen saver or dpms kicks in
+      exec --no-startup-id xss-lock -- x-lock-utils lock
+      exec --no-startup-id gpg-cache
 
 
      #rofi instead of dmenu

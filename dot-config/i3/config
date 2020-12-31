@@ -209,6 +209,16 @@ bindsym $mod+Shift+s sticky toggle
 bindsym Print exec gnome-screenshot
 bindsym Shift+Print exec gnome-screenshot -a
 
+ exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
+ exec --no-startup-id x-backlight-persist restore
+ exec --no-startup-id nm-applet
+ exec --no-startup-id i3-battery-popup.sh -N
+ exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
+ exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
+ # xss lock is told when we suspend or screen saver or dpms kicks in
+ exec --no-startup-id xss-lock -- x-lock-utils lock
+ exec --no-startup-id gpg-cache
+
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"

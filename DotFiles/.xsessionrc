@@ -6,19 +6,6 @@ xhost +
 xset s off
 xset -dpms
 
-# xss lock is told when we suspend or screen saver or dpms kicks in
-xss-lock -- x-lock-utils lock &
-
-x-backlight-persist restore &
-
-nm-applet &
-i3-battery-popup.sh -N &
-
-feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current &
-
-command -v steam &> /dev/null && steam -silent &> /dev/null &
-command -v dropbox &> /dev/null &&  dropbox start &> /dev/null &
-
 export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
 case "$(hostname)" in
@@ -42,4 +29,3 @@ esac
 x-idlehook &
 
 post-lock &
-(sleep 2 && gpg-cache &) &

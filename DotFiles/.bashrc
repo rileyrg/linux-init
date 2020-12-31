@@ -35,22 +35,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-function parse_git_branch_and_add_brackets {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\[\1\]/'
-}
-
-# export IP=`myip`
-# export PS1='($IP) [\!]\[\033[00;32m\]\u\[\033[01m\]@\[\033[00;36m\]\h\[\033[01m\]:\[\033[00;35m\]\w\[\033[00m\]\[\033[01;33m\]`git branch 2>/dev/null|cut -f2 -d\* -s`\[\033[00m\]\$ '
-# export PS1='\[\e[0;33m\]\u\[\e[m\] \[\e[0;31m\]($IP)\[\e[m\]@\[\e[0;34m\][\W]\[\e[m\]`git branch 2>/dev/null|cut -f2 -d\* -s`$ '
-export PS1="\\w:\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)\$ "
-
-unset color_prompt force_color_prompt
-
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
@@ -59,10 +43,5 @@ stty -ixon
 
 GPG_TTY=$(tty)
 export GPG_TTY
-
-if [ -f "$HOME/bin/thirdpaty/bash-git-prompt/gitprompt.sh" ]; then
-    GIT_PROMPT_ONLY_IN_REPO=1
-    source $HOME/bin/thirdparty/bash-git-prompt/gitprompt.sh
-fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
