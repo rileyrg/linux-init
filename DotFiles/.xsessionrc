@@ -17,7 +17,7 @@ case "$(hostname)" in
         ;;
 esac
 
-[[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
+F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
 
 # sugestions for .xsessionrc.local
 # export XIDLEHOOK_KBD=60

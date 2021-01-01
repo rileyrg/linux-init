@@ -82,7 +82,7 @@ case "$(hostname)" in
         ;;
 esac
 
-[[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
+F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
 
 # sugestions for .xsessionrc.local
 # export XIDLEHOOK_KBD=60
@@ -115,6 +115,12 @@ Add machine specifics. The xmg neo 15 [keyboard backlight repo](https://github.c
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 logger -t "startup-initfile"  XSESSIONRC-LOCAL
+# sugestions for .xsessionrc.local
+# export XIDLEHOOK_KBD=60
+# export XIDLEHOOK_DIM=120
+# export XIDLEHOOK_BLANK=120
+# export XIDLEHOOK_LOCK=300
+# export XIDLEHOOK_SUSPEND=3600
 
 ```
 
@@ -206,7 +212,6 @@ See [xidlehook](https://github.com/jD91mZM2/xidlehook). Better handling of idle 
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 systemctl --user start  pulseaudio &> /dev/null || true
-
 xidlehook \
     `# Don't lock when there's a fullscreen application` \
     --not-when-fullscreen \

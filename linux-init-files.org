@@ -130,7 +130,7 @@
               ;;
       esac
 
-      [[ -f ~/.xsessionrc.local ]] && . ~/.xsessionrc.local
+      F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
 
       # sugestions for .xsessionrc.local
       # export XIDLEHOOK_KBD=60
@@ -157,10 +157,16 @@
      - State "TODO"       from              [2020-12-24 Thu 13:14]
      :END:
 *** code
-    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc.local
+    #+begin_src bash
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       logger -t "startup-initfile"  XSESSIONRC-LOCAL
+      # sugestions for .xsessionrc.local
+      # export XIDLEHOOK_KBD=60
+      # export XIDLEHOOK_DIM=120
+      # export XIDLEHOOK_BLANK=120
+      # export XIDLEHOOK_LOCK=300
+      # export XIDLEHOOK_SUSPEND=3600
 
     #+end_src
 ** ~/.Xresources
