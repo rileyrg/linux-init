@@ -6,6 +6,7 @@
 #+STARTUP: overview
 
 #+EXPORT_FILE_NAME: README.md
+#+OPTIONS: toc:nil
 
 #+OPTIONS: ^:nil
 #+EXCLUDE_TAGS: tasklist noexport
