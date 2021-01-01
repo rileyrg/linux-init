@@ -9,6 +9,8 @@
 
 #+OPTIONS: ^:nil
 #+EXCLUDE_TAGS: tasklist noexport
+# do not export any sections marked as tasks unless TODO or DONE
+#+OPTIONS: tasks:("TODO" "DONE")
 
 #+PROPERTY: header-args:bash :tangle-mode (identity #o555)
 #+PROPERTY: header-args:conf :tangle-mode (identity #o444)
@@ -2089,3 +2091,8 @@
    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.profile
      [[ -f  ~/.profile.local ]] && . ~/.profile.local
    #+end_src
+* OPEN git testing
+  :LOGBOOK:
+  - State "OPEN"       from              [2021-01-01 Fri 09:03] \\
+    git playgrounf not exported
+  :END:
