@@ -21,5 +21,4 @@ xidlehook \
     'post-blank' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
-    '' &
-exit 0
+    ''

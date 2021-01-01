@@ -82,16 +82,18 @@ case "$(hostname)" in
         ;;
 esac
 
-F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
+#      F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
+[ -f ~/.xsessionrc.local ] && .  ~/.xsessionrc.local
 
 # sugestions for .xsessionrc.local
-# export XIDLEHOOK_KBD=60
-# export XIDLEHOOK_DIM=120
-# export XIDLEHOOK_BLANK=120
-# export XIDLEHOOK_LOCK=300
-# export XIDLEHOOK_SUSPEND=3600
+export XIDLEHOOK_KBD
+export XIDLEHOOK_DIM
+export XIDLEHOOK_BLANK
+export XIDLEHOOK_LOCK
+export XIDLEHOOK_SUSPEND
 
 x-idlehook &
+
 (sleep 2 && gpg-cache)&
 
 post-lock &
@@ -212,6 +214,7 @@ See [xidlehook](https://github.com/jD91mZM2/xidlehook). Better handling of idle 
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 systemctl --user start  pulseaudio &> /dev/null || true
+
 xidlehook \
     `# Don't lock when there's a fullscreen application` \
     --not-when-fullscreen \
@@ -231,8 +234,7 @@ xidlehook \
     'post-blank' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
-    '' &
-exit 0
+    ''
 ```
 
 
@@ -2254,7 +2256,7 @@ fi
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 x-backlight-persist restore
-[[ -f ${HOME}/.post-blank ]]  && . ${HOME}/.post-blank
+[ -f ${HOME}/.post-blank ]  && . ${HOME}/.post-blank
 ```
 
 
