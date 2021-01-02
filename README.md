@@ -76,14 +76,14 @@ export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadx270")
-        ;;
+    ;;
     "xmgneo")
-        # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
-        # picom --backend glx --vsync &
-        ;;
+    # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
+    # picom --backend glx --vsync &
+    ;;
     *)
-        # picom --backend glx --vsync &
-        ;;
+    # picom --backend glx --vsync &
+    ;;
 esac
 
 [ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
@@ -95,9 +95,17 @@ export XIDLEHOOK_BLANK
 export XIDLEHOOK_LOCK
 export XIDLEHOOK_SUSPEND
 
-x-idlehook &
+
+command -v dropbox &> /dev/null  && dropbox start &> /dev/null &
+command -v steam &> /dev/null && steam -silent &> /dev/null &
 
 (sleep 2 && gpg-cache)&
+
+xss-lock -- x-lock-utils lock &
+x-idle-hook &
+
+
+x-backlight-persist restore
 
 post-lock &
 
@@ -1229,13 +1237,12 @@ bindsym Print exec gnome-screenshot
 bindsym Shift+Print exec gnome-screenshot -a
 
  exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
- exec --no-startup-id x-backlight-persist restore
  exec --no-startup-id nm-applet
  exec --no-startup-id i3-battery-popup.sh -N
- exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
- exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
- # xss lock is told when we suspend or screen saver or dpms kicks in
- exec --no-startup-id xss-lock -- x-lock-utils lock
+ exec --no-startup-id sleep 10 && cbatticon
+
+ # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
+ # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
 
 
 #rofi instead of dmenu
@@ -2243,6 +2250,7 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
+x-backlight-persist restore
 [ -f "${HOME}/.post-lock"  ]  && . "${HOME}/.post-lock"
 ```
 

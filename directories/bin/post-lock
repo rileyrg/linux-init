@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
+x-backlight-persist restore
 [ -f "${HOME}/.post-lock"  ]  && . "${HOME}/.post-lock"
