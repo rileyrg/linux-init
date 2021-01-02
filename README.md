@@ -86,18 +86,7 @@ case "$(hostname)" in
         ;;
 esac
 
-# F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
-# [ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
-[[ -f ${HOME}/.xsessionrc.local ]] && (. ${HOME}/.xsessionrc.local)
-
-# if [[ -e "${HOME}/.xsessionrc.local" ]]; then
-#     echo "found xsessionrc.local" > ${HOME}/LOG
-#     .  ${HOME}/.xsessionrc.local
-# fi
-# if [ -f "${HOME}/.xsessionrc.local" ]; then
-#    echo "found xsessionrc.local" > ${HOME}/LOG
-#     .  ${HOME}/.xsessionrc.local
-# fi
+[ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
 
 # sugestions for .xsessionrc.local
 export XIDLEHOOK_KBD
@@ -160,7 +149,7 @@ Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
 #ifdef SRVR_xmgneo
-Xft.dpi:       128
+Xft.dpi:       132
 #endif
 ! }}}
 
@@ -2254,7 +2243,7 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-[[ -f ${HOME}/.post-lock  ]]  && . ${HOME}/.post-lock
+[ -f "${HOME}/.post-lock"  ]  && . "${HOME}/.post-lock"
 ```
 
 1.  Sample .post-lock
@@ -2270,7 +2259,7 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-[[ -f ${HOME}/.pre-blank ]]  && . ${HOME}/.pre-blank
+[ -f "${HOME}/.pre-blank" ]  && . "${HOME}/.pre-blank"
 ```
 
 

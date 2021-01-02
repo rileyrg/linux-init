@@ -21,18 +21,7 @@ case "$(hostname)" in
         ;;
 esac
 
-# F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
-# [ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
-[[ -f ${HOME}/.xsessionrc.local ]] && (. ${HOME}/.xsessionrc.local)
-
-# if [[ -e "${HOME}/.xsessionrc.local" ]]; then
-#     echo "found xsessionrc.local" > ${HOME}/LOG
-#     .  ${HOME}/.xsessionrc.local
-# fi
-# if [ -f "${HOME}/.xsessionrc.local" ]; then
-#    echo "found xsessionrc.local" > ${HOME}/LOG
-#     .  ${HOME}/.xsessionrc.local
-# fi
+[ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
 
 # sugestions for .xsessionrc.local
 export XIDLEHOOK_KBD
