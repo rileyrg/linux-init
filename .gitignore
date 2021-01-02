@@ -32,6 +32,7 @@
 !/DotFiles/.profile
 !/DotFiles/.xinitrc
 !/DotFiles/.xsessionrc
+!/DotFiles/.Xresources
 
 !/directories
 !/directories/bin
