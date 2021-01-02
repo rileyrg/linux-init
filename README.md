@@ -96,8 +96,8 @@ export XIDLEHOOK_LOCK
 export XIDLEHOOK_SUSPEND
 
 
-command -v dropbox &> /dev/null  && dropbox start &> /dev/null &
-command -v steam &> /dev/null && steam -silent &> /dev/null &
+command -v dropbox &> /dev/null  && sleep 5 && dropbox start &> /dev/null &
+command -v steam &> /dev/null && sleep 30 && steam -silent &> /dev/null &
 
 (sleep 2 && gpg-cache)&
 
@@ -1241,7 +1241,7 @@ bindsym $mod+Tab workspace back_and_forth
  exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
  exec --no-startup-id nm-applet
  exec --no-startup-id i3-battery-popup.sh -N
- exec --no-startup-id sleep 10 && cbatticon
+ exec --no-startup-id cbatticon
 
  # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
  # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
