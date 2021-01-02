@@ -73,17 +73,31 @@ xset -dpms
 
 export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
+# .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadx270")
-        true
+        ;;
+    "xmgneo")
+        # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
+        # picom --backend glx --vsync &
         ;;
     *)
-        picom --backend glx --vsync &
+        # picom --backend glx --vsync &
         ;;
 esac
 
-#      F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
-[ -f ~/.xsessionrc.local ] && .  ~/.xsessionrc.local
+# F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
+# [ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
+[[ -f ${HOME}/.xsessionrc.local ]] && (. ${HOME}/.xsessionrc.local)
+
+# if [[ -e "${HOME}/.xsessionrc.local" ]]; then
+#     echo "found xsessionrc.local" > ${HOME}/LOG
+#     .  ${HOME}/.xsessionrc.local
+# fi
+# if [ -f "${HOME}/.xsessionrc.local" ]; then
+#    echo "found xsessionrc.local" > ${HOME}/LOG
+#     .  ${HOME}/.xsessionrc.local
+# fi
 
 # sugestions for .xsessionrc.local
 export XIDLEHOOK_KBD
@@ -130,8 +144,7 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 ## ~/.Xresources
 
 ```conf
-# Maintained in linux-init-files.org
-urxvt.font: xft:Monospace:pixelsize=10
+urxvt.font: xft:Monospace:pixelsize=14
 #ifdef SRVR_thinkpadx270
 urxvt.font: xft:Monospace:pixelsize=20
 *i3font: pango:Monospace 20
@@ -140,6 +153,17 @@ urxvt.font: xft:Monospace:pixelsize=20
 urxvt.font: xft:Monospace:pixelsize=12
 *i3font: pango:Monospace 12
 #endif
+! Fonts {{{
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.hintstyle: hintfull
+Xft.dpi:       96
+#ifdef SRVR_xmgneo
+Xft.dpi:       128
+#endif
+! }}}
+
 ```
 
 

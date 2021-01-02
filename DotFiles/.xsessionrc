@@ -8,17 +8,31 @@ xset -dpms
 
 export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
+# .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadx270")
-        true
+        ;;
+    "xmgneo")
+        # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
+        # picom --backend glx --vsync &
         ;;
     *)
-        picom --backend glx --vsync &
+        # picom --backend glx --vsync &
         ;;
 esac
 
-#      F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
-[ -f ~/.xsessionrc.local ] && .  ~/.xsessionrc.local
+# F=${HOME}/.xsessionrc.local;[ -f $F ] && . $F
+# [ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
+[[ -f ${HOME}/.xsessionrc.local ]] && (. ${HOME}/.xsessionrc.local)
+
+# if [[ -e "${HOME}/.xsessionrc.local" ]]; then
+#     echo "found xsessionrc.local" > ${HOME}/LOG
+#     .  ${HOME}/.xsessionrc.local
+# fi
+# if [ -f "${HOME}/.xsessionrc.local" ]; then
+#    echo "found xsessionrc.local" > ${HOME}/LOG
+#     .  ${HOME}/.xsessionrc.local
+# fi
 
 # sugestions for .xsessionrc.local
 export XIDLEHOOK_KBD
