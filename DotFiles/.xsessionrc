@@ -31,8 +31,8 @@ export XIDLEHOOK_LOCK
 export XIDLEHOOK_SUSPEND
 
 
-command -v dropbox &> /dev/null  && sleep 5 && dropbox start &> /dev/null &
-command -v steam &> /dev/null && sleep 30 && steam -silent &> /dev/null &
+command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
+command -v steam &> /dev/null && steam -silent &> /dev/null &
 
 (sleep 2 && gpg-cache)&
 
