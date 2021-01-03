@@ -86,13 +86,13 @@
 
    #+end_src
 ** TODO ~/.xsession
-    :LOGBOOK:
-    - State "TODO"       from "DONE"       [2020-12-31 Thu 10:56]
-    - State "DONE"       from              [2020-12-31 Thu 10:56]
-    - Note taken on [2020-12-31 Thu 10:54] \\
-      find out why use dbus-luanch and why XSession doesnt do it
-    - State "TODO"       from              [2020-12-31 Thu 10:54]
-    :END:
+   :LOGBOOK:
+   - State "TODO"       from "DONE"       [2020-12-31 Thu 10:56]
+   - State "DONE"       from              [2020-12-31 Thu 10:56]
+   - Note taken on [2020-12-31 Thu 10:54] \\
+     find out why use dbus-luanch and why XSession doesnt do it
+   - State "TODO"       from              [2020-12-31 Thu 10:54]
+   :END:
    [[file:/etc/X11][/etc/X11/Xsession.d]] does the most work. It's processed by [[file:/usr/bin/startx::!/bin/sh][startx]]->[[file:/etc/X11/xinit/xinitrc::!/bin/sh][xinitrc]] which in turn calls [[file:/etc/X11/Xsession::!/bin/sh][/etc/X11/Xsession]]
    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsession
      #!/usr/bin/env bash
@@ -184,25 +184,25 @@
     #+end_src
 ** ~/.Xresources
    #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.Xresources
-         urxvt.font: xft:Monospace:pixelsize=14
-         #ifdef SRVR_thinkpadx270
-         urxvt.font: xft:Monospace:pixelsize=20
-         ,*i3font: pango:Monospace 20
-         #endif
-         #ifdef SRVR_thinkpadt460
-         urxvt.font: xft:Monospace:pixelsize=12
-         ,*i3font: pango:Monospace 12
-         #endif
-         ! Fonts {{{
-         Xft.antialias: true
-         Xft.hinting:   true
-         Xft.rgba:      rgb
-         Xft.hintstyle: hintfull
-         Xft.dpi:       96
-         #ifdef SRVR_xmgneo
-         Xft.dpi:       144
-         #endif
-         ! }}}
+     urxvt.font: xft:Monospace:pixelsize=14
+     #ifdef SRVR_thinkpadx270
+     urxvt.font: xft:Monospace:pixelsize=20
+     ,*i3font: pango:Monospace 20
+     #endif
+     #ifdef SRVR_thinkpadt460
+     urxvt.font: xft:Monospace:pixelsize=12
+     ,*i3font: pango:Monospace 12
+     #endif
+     ! Fonts {{{
+     Xft.antialias: true
+     Xft.hinting:   true
+     Xft.rgba:      rgb
+     Xft.hintstyle: hintfull
+     Xft.dpi:       96
+     #ifdef SRVR_xmgneo
+     Xft.dpi:       144
+     #endif
+     ! }}}
 
    #+end_src
 ** ~/bin/x-lock-utils
@@ -1199,13 +1199,13 @@
 
      bindsym $mod+Tab workspace back_and_forth
 
-      exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
-      exec --no-startup-id nm-applet
-      # exec --no-startup-id i3-battery-popup.sh -N
-      exec --no-startup-id sleep 30 && cbatticon -u 30 -c "confirm-suspend" -l 80 -r 75
+     exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
+     exec --no-startup-id nm-applet
+     exec --no-startup-id sleep 30 && cbatticon -u 30 -c "confirm-suspend" -l 20 -r 5
 
-      # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
-      # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
+     # non desktop specific so start in xsessionrc
+     # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
+     # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
 
 
      #rofi instead of dmenu
