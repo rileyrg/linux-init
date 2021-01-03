@@ -17,8 +17,8 @@ xidlehook \
     'xbacklight -set 0' \
     'post-blank' \
     --timer ${XIDLEHOOK_LOCK:-300}\
-    'xset dpms force standby' \
-    'post-blank' \
+    'pre-lock && xset dpms force standby' \
+    'post-blank && post-lock' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
     ''

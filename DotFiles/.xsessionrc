@@ -25,7 +25,7 @@ esac
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
-post-lock &
+(post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
 
