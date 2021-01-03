@@ -4,13 +4,18 @@
 save() {
     l=$(xbacklight -get);
     echo  $l > ~/.x-backlight-persist
+    echo $l
+}
+
+get() {
+    echo $(xbacklight -get);
 }
 
 restore() {
     b=100
     [[ -f ~/.x-backlight-persist ]] && read b < ~/.x-backlight-persist
     xbacklight -set $b
-    unset b
+    echo $b
 }
 
 case "$1" in
@@ -20,6 +25,9 @@ case "$1" in
         ;;
     restore)
         restore
+        ;;
+    get)
+        get
         ;;
     *)
         save

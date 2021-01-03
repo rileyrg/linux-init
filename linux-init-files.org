@@ -304,13 +304,18 @@
      save() {
          l=$(xbacklight -get);
          echo  $l > ~/.x-backlight-persist
+         echo $l
+     }
+
+     get() {
+         echo $(xbacklight -get);
      }
 
      restore() {
          b=100
          [[ -f ~/.x-backlight-persist ]] && read b < ~/.x-backlight-persist
          xbacklight -set $b
-         unset b
+         echo $b
      }
 
      case "$1" in
@@ -320,6 +325,9 @@
              ;;
          restore)
              restore
+             ;;
+         get)
+             get
              ;;
          ,*)
              save
@@ -1175,7 +1183,7 @@
      bindsym $mod+Shift+f exec google-chrome
      bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
      bindsym $mod+Control+l exec (sleep 1 && xset dpms force standby) #triggers xss-lock
-     bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle
+     bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
      bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
      bindsym $mod+Control+f exec thunar
      bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
