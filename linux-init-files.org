@@ -207,7 +207,7 @@
    #+end_src
 ** ~/bin/x-lock-utils
    Just a gathering place of locky/suspendy type things...
-   #+begin_src bash :tangle ./directories/bin/x-lock-utils
+   #+begin_src bash :tangle ~/bin/x-lock-utils
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
 
@@ -267,7 +267,7 @@
     - State "TODO"       from              [2020-12-22 Tue 20:19]
     :END:
 *** ~/bin/x-idlehook
-    #+begin_src bash :tangle ./directories/bin/x-idlehook
+    #+begin_src bash :tangle ~/bin/x-idlehook
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       systemctl --user start  pulseaudio &> /dev/null || true
@@ -295,21 +295,21 @@
     #+end_src
 ** ~/bin/rnv
    enable force of nvidia driver - run with nvidia
-   #+begin_src bash :tangle ./directories/bin/rnv
+   #+begin_src bash :tangle ~/bin/rnv
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia ${@}
    #+end_src
 ** ~/bin/display-id
    get id of primary display
-   #+begin_src bash :tangle ./directories/bin/display-id
+   #+begin_src bash :tangle ~/bin/display-id
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      xrandr -q | grep " connected " | cut -d' ' -f1 | head -n 1
    #+end_src
 ** ~/bin/x-backlight-persist
    Save and restore backlight values
-   #+begin_src bash :tangle ./directories/bin/x-backlight-persist
+   #+begin_src bash :tangle ~/bin/x-backlight-persist
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
 
@@ -346,7 +346,7 @@
     It's worth looking into using [[https://christian.amsuess.com/tools/arandr/][arandr]] for using the somewhat complex xrandr command.
     This link  is very helpful: [[https://superuser.com/questions/861530/what-does-sink-output-source-output-sink-offload-source-offload-mean-for-gp][What does “sink output, source output, sink offload, source offload” mean for GPUs?]]
 *** code
-    #+begin_src bash :tangle ./directories/bin/xmg-dual-screens
+    #+begin_src bash :tangle ~/bin/xmg-dual-screens
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       on=$([[ $1 == "on" ]] && echo "on" || echo "off")
@@ -883,7 +883,7 @@
      #+end_src
 * Path
 **  ~/bin/add-user-paths
-   #+begin_src bash  :tangle ./directories/bin/add-user-paths
+   #+begin_src bash  :tangle ~/bin/add-user-paths
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  ADD_USER_PATHS
      #export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
@@ -1431,16 +1431,17 @@
 
 **** ~/bin/battery-warning-low
      #+begin_src bash :tangle "~/bin/battery-warning-low"
-       notify-send "LOW battery level warning"
+       notify-send "LOW battery level warning."
      #+end_src
 **** ~/bin/battery-warning-critical
      #+begin_src bash :tangle "~/bin/battery-warning-critical"
-       notify-send "CRITICALLY LOW battery level warning"
+       notify-send "CRITICALLY LOW battery level warning. Suspending."
+       sleep 5 && systemctl suspend
      #+end_src
 
 
 ** ~/bin/i3pulse
-   #+begin_src bash :tangle ./directories/bin/i3pulse
+   #+begin_src bash :tangle ~/bin/i3pulse
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      if pgrep -x "pulseaudio" >/dev/null
@@ -1755,13 +1756,13 @@
 
 * Misc utils
 ** ~/bin/acpi-
-   #+begin_src bash :tangle ./directories/bin/edit
+   #+begin_src bash :tangle ~/bin/edit
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      emacs-same-frame "$@"
    #+end_src
 ** ~/bin/edit
-   #+begin_src bash :tangle ./directories/bin/edit
+   #+begin_src bash :tangle ~/bin/edit
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      emacs-same-frame "$@"
@@ -1769,21 +1770,21 @@
 ** ~/bin/eman
    Use emacs for manpages if it's running
    might be an idea set an alias such as 'alias man=eman'
-   #+begin_src bash :tangle ./directories/bin/eman
+   #+begin_src bash :tangle ~/bin/eman
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      mp=${1:-"man"}
      pgrep -x emacs > /dev/null && ( (emacsclient -c -e "(manual-entry \"-a ${mp}\"))" &> /dev/null) & ) || /usr/bin/man "$@"
    #+end_src
 ** ~/bin/expert-advice
-   #+begin_src bash :tangle ./directories/bin/expert-advice
+   #+begin_src bash :tangle ~/bin/expert-advice
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      command -v fortune >/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020."
    #+end_src
 ** ~/bin/extract-debug-info
    strip debug info and store elsewhere
-   #+begin_src bash :tangle ./directories/bin/extract-debug-info
+   #+begin_src bash :tangle ~/bin/extract-debug-info
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      scriptdir=`dirname ${0}`
@@ -1831,7 +1832,7 @@
 
    #+end_src
 ** ~/bin/make-compile_commands
-   #+begin_src bash :tangle ./directories/bin/make-compile_commands
+   #+begin_src bash :tangle ~/bin/make-compile_commands
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      make --always-make --dry-run \
@@ -1842,7 +1843,7 @@
    #+end_src
 ** ~/bin/onehtop
    process viewer
-   #+begin_src bash :tangle ./directories/bin/onehtop
+   #+begin_src bash :tangle ~/bin/onehtop
      #!/bin/bash
      #Maintained in linux-init-files.org
      WID=`xdotool search --class "htop"`
@@ -1853,7 +1854,7 @@
      fi
    #+end_src
 ** ~/bin/oneterminal
-   #+begin_src bash :tangle ./directories/bin/oneterminal
+   #+begin_src bash :tangle ~/bin/oneterminal
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      WID=`xdotool search "One Terminal"|head -1`
@@ -1865,25 +1866,25 @@
      fi
    #+end_src
 ** ~/bin/pop-window
-   #+begin_src bash :tangle ./directories/bin/pop-window
+   #+begin_src bash :tangle ~/bin/pop-window
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      xdotool windowactivate `xdotool search --name "$1"`
    #+end_src
 ** ~/bin/random-man-page
-   #+begin_src bash :tangle ./directories/bin/random-man-page
+   #+begin_src bash :tangle ~/bin/random-man-page
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      man $(find /usr/share/man/man1 -type f | sort -R | head -n1)
    #+end_src
 ** ~/bin/remove-broken-symlinks
-   #+begin_src bash :tangle ./directories/bin/remove-broken-symlinks
+   #+begin_src bash :tangle ~/bin/remove-broken-symlinks
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      find -L . -name . -o -type d -prune -o -type l -exec rm {} +
    #+end_src
 ** ~/bin/remove-conflicted-copies
-   #+begin_src bash :tangle ./directories/bin/remove-conflicted-copies
+   #+begin_src bash :tangle ~/bin/remove-conflicted-copies
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      if [ "$1" == "--f" ]; then
@@ -1898,7 +1899,7 @@
    #+end_src
 ** ~/bin/resgithub
    reset github as if it's newly born. ALL history will be lost.
-   #+begin_src bash :tangle ./directories/bin/resgithub
+   #+begin_src bash :tangle ~/bin/resgithub
      #!/bin/bash
      #Maintained in linux-init-files.org
      tfile=$(mktemp /tmp/config.XXXXXXXXX)
@@ -1917,23 +1918,33 @@
      fi
    #+end_src
 ** ~/bin/sharemouse
-   #+begin_src bash :tangle ./directories/bin/sharemouse
+   #+begin_src bash :tangle ~/bin/sharemouse
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      exec ssh -X ${1-192.168.2.100} x2x -east -to :0
    #+end_src
 ** ~/bin/sys-logger
    Only log to syslog if MY_LOGGER -T "STARTUP-INITFILE" _ON is set
-   #+begin_src bash :tangle ./directories/bin/sys-logger
+   #+begin_src bash :tangle ~/bin/sys-logger
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      [[ -z "$MY_LOGGER -T "STARTUP-INITFILE" _ON" ]] || /usr/bin/logger -t "startup-initfile"  "$@"
+   #+end_src
+** ~/bin/confirm-suspend
+   #+begin_src bash :tangle ~/bin/confirm-suspend
+     #!/usr/bin/bash
+     zenity --question --text="${1:-"Critically Low Battery... "}Proceed to suspend?"
+     if [ $? = 0 ]; then
+         systemctl suspend
+     else
+         exit
+     fi
    #+end_src
 ** XMG Neo 15 Specifics
 *** ~/bin/xmg-neo-rgb-kbd-lights
 
     See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight controller]] for the controller code.
-    #+begin_src bash :tangle ./directories/bin/xmg-neo-rgb-kbd-lights
+    #+begin_src bash :tangle ~/bin/xmg-neo-rgb-kbd-lights
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
 
@@ -2045,7 +2056,7 @@
 
 ** Google Translate Helpers
 *** ~/bin/google-trans
-    #+begin_src bash :tangle ./directories/bin/google-trans
+    #+begin_src bash :tangle ~/bin/google-trans
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       src=$1;shift;
@@ -2054,20 +2065,20 @@
       trans -e google -s ${src} -t ${dst} -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$txt"
     #+end_src
 *** ~/bin/google-trans-de-en
-    #+begin_src bash :tangle ./directories/bin/google-trans-de-en
+    #+begin_src bash :tangle ~/bin/google-trans-de-en
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       trans -e google -s de -t en -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
     #+end_src
 *** ~/bin/google-trans-en-de
-    #+begin_src bash :tangle ./directories/bin/google-trans-en-de
+    #+begin_src bash :tangle ~/bin/google-trans-en-de
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       trans -e google -s en -t de -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
     #+end_src
 ** Security/Locking/GPG
 *** ~/bin/cache-gpg
-    #+begin_src bash :tangle ./directories/bin/gpg-cache
+    #+begin_src bash :tangle ~/bin/gpg-cache
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       SERVICE="gpg-agent"
@@ -2086,7 +2097,7 @@
     #+end_src
     #+end_src
 *** ~/bin/pre-lock
-    #+begin_src bash :tangle ./directories/bin/pre-lock
+    #+begin_src bash :tangle ~/bin/pre-lock
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       [[ -f ${HOME}/.pre-lock  ]]  && . ${HOME}/.pre-lock
@@ -2097,7 +2108,7 @@
        xmg-neo-rgb-kbd-lights sleep
      #+end_src
 *** ~/bin/post-lock
-    #+begin_src bash :tangle ./directories/bin/post-lock
+    #+begin_src bash :tangle ~/bin/post-lock
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       x-backlight-persist restore
@@ -2109,13 +2120,13 @@
        xmg-neo-rgb-kbd-lights wake
      #+end_src
 *** ~/bin/pre-blank
-    #+begin_src bash :tangle ./directories/bin/pre-blank
+    #+begin_src bash :tangle ~/bin/pre-blank
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       [ -f "${HOME}/.pre-blank" ]  && . "${HOME}/.pre-blank"
     #+end_src
 *** ~/bin/post-blank
-    #+begin_src bash :tangle ./directories/bin/post-blank
+    #+begin_src bash :tangle ~/bin/post-blank
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       x-backlight-persist restore

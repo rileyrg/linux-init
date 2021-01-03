@@ -41,6 +41,7 @@
 !/directories/bin
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
+!/directories/bin/confirm-suspend
 !/directories/bin/display-id
 !/directories/bin/edit
 !/directories/bin/eman

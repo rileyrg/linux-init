@@ -1475,13 +1475,14 @@ format = "%Y-%m-%d %H:%M:%S"
 1.  ~/bin/battery-warning-low
 
     ```bash
-    notify-send "LOW battery level warning"
+    notify-send "LOW battery level warning."
     ```
 
 2.  ~/bin/battery-warning-critical
 
     ```bash
-    notify-send "CRITICALLY LOW battery level warning"
+    notify-send "CRITICALLY LOW battery level warning. Suspending."
+    sleep 5 && systemctl suspend
     ```
 
 
@@ -2071,6 +2072,19 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 [[ -z "$MY_LOGGER -T "STARTUP-INITFILE" _ON" ]] || /usr/bin/logger -t "startup-initfile"  "$@"
+```
+
+
+## ~/bin/confirm-suspend
+
+```bash
+#!/usr/bin/bash
+zenity --question --text="${1:-"Critically Low Battery... "}Proceed to suspend?"
+if [ $? = 0 ]; then
+    systemctl suspend
+else
+    exit
+fi
 ```
 
 

@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+zenity --question --text="${1:-"Critically Low Battery... "}Proceed to suspend?"
+if [ $? = 0 ]; then
+    systemctl suspend
+else
+    exit
+fi
