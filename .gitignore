@@ -40,6 +40,7 @@
 !/directories
 !/directories/bin
 !/directories/bin/add-user-paths
+!/directories/bin/battery-warning*
 !/directories/bin/display-id
 !/directories/bin/edit
 !/directories/bin/eman

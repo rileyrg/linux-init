@@ -1427,6 +1427,18 @@
      }
    #+end_src
 
+*** cbatticon helpers
+
+**** ~/bin/battery-warning-low
+     #+begin_src bash :tangle "~/bin/battery-warning-low"
+       notify-send "LOW battery level warning"
+     #+end_src
+**** ~/bin/battery-warning-critical
+     #+begin_src bash :tangle "~/bin/battery-warning-critical"
+       notify-send "CRITICALLY LOW battery level warning"
+     #+end_src
+
+
 ** ~/bin/i3pulse
    #+begin_src bash :tangle ./directories/bin/i3pulse
      #!/usr/bin/bash

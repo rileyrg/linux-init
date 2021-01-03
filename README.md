@@ -1470,6 +1470,21 @@ format = "%Y-%m-%d %H:%M:%S"
 ```
 
 
+### cbatticon helpers
+
+1.  ~/bin/battery-warning-low
+
+    ```bash
+    notify-send "LOW battery level warning"
+    ```
+
+2.  ~/bin/battery-warning-critical
+
+    ```bash
+    notify-send "CRITICALLY LOW battery level warning"
+    ```
+
+
 ## ~/bin/i3pulse
 
 ```bash
