@@ -21,25 +21,13 @@ case "$(hostname)" in
     ;;
 esac
 
-[ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
+[ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-# sugestions for .xsessionrc.local
-export XIDLEHOOK_KBD
-export XIDLEHOOK_DIM
-export XIDLEHOOK_BLANK
-export XIDLEHOOK_LOCK
-export XIDLEHOOK_SUSPEND
+xss-lock -- x-lock-utils lock &
+x-idlehook &
+post-lock &
+(sleep 2 && gpg-cache)&
 
 
 command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
 command -v steam &> /dev/null && steam -silent &> /dev/null &
-
-(sleep 2 && gpg-cache)&
-
-xss-lock -- x-lock-utils lock &
-x-idle-hook &
-
-
-x-backlight-persist restore
-
-post-lock &

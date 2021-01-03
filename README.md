@@ -86,28 +86,16 @@ case "$(hostname)" in
     ;;
 esac
 
-[ -f ~/.xsessionrc.local ] && .  ${HOME}/.xsessionrc.local
+[ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-# sugestions for .xsessionrc.local
-export XIDLEHOOK_KBD
-export XIDLEHOOK_DIM
-export XIDLEHOOK_BLANK
-export XIDLEHOOK_LOCK
-export XIDLEHOOK_SUSPEND
+xss-lock -- x-lock-utils lock &
+x-idlehook &
+post-lock &
+(sleep 2 && gpg-cache)&
 
 
 command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
 command -v steam &> /dev/null && steam -silent &> /dev/null &
-
-(sleep 2 && gpg-cache)&
-
-xss-lock -- x-lock-utils lock &
-x-idle-hook &
-
-
-x-backlight-persist restore
-
-post-lock &
 
 ```
 
@@ -241,11 +229,11 @@ xidlehook \
     --not-when-fullscreen \
     `# Don't lock when there's audio playing` \
     --not-when-audio \
-    --timer ${XIDLEHOOK_KBD:-60}\
+    --timer ${XIDLEHOOK_KBD:-15}\
     'pre-blank' \
     'post-blank' \
     --timer ${XIDLEHOOK_DIM:-120}\
-    'xbacklight -set 5' \
+    'xbacklight -set 5' \x
     'post-blank' \
     --timer ${XIDLEHOOK_BLANK:-120}\
     'xbacklight -set 0' \
@@ -2276,7 +2264,7 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-[[ -f ${HOME}/.pre-lock  ]]  && . ${HOME}/.pre-lock
+[ -f "${HOME}"/.pre-lock ]  && . "${HOME}"/.pre-lock
 ```
 
 1.  Sample .pre-lock
@@ -2293,7 +2281,7 @@ fi
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 x-backlight-persist restore
-[ -f "${HOME}/.post-lock"  ]  && . "${HOME}/.post-lock"
+[ -f "${HOME}"/.post-lock  ]  && . "${HOME}"/.post-lock
 ```
 
 1.  Sample .post-lock
@@ -2309,7 +2297,7 @@ x-backlight-persist restore
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-[ -f "${HOME}/.pre-blank" ]  && . "${HOME}/.pre-blank"
+[ -f "${HOME}"/.pre-blank ]  && . "${HOME}"/.pre-blank
 ```
 
 
@@ -2319,7 +2307,7 @@ x-backlight-persist restore
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 x-backlight-persist restore
-[ -f ${HOME}/.post-blank ]  && . ${HOME}/.post-blank
+[ -f "${HOME}"/.post-blank ]  && . "${HOME}"/.post-blank
 ```
 
 
