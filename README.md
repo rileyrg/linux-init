@@ -157,7 +157,7 @@ Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
 #ifdef SRVR_xmgneo
-Xft.dpi:       132
+Xft.dpi:       144
 #endif
 ! }}}
 
