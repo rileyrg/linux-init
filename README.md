@@ -1240,8 +1240,8 @@ bindsym $mod+Tab workspace back_and_forth
 
  exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
  exec --no-startup-id nm-applet
- exec --no-startup-id i3-battery-popup.sh -N
- exec --no-startup-id sleep 30 && cbatticon
+ # exec --no-startup-id i3-battery-popup.sh -N
+ exec --no-startup-id sleep 30 && cbatticon -u 30 -c "confirm-suspend" -l 80 -r 75
 
  # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
  # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
@@ -2079,9 +2079,20 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 
 ```bash
 #!/usr/bin/bash
-zenity --question --text="${1:-"Critically Low Battery... "}Proceed to suspend?"
+delay=10;
+message="Almost out of juice."
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        -d|--delay) delay="${2}";shift;;
+        -m|--message) message="${2} ";shift;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
+
+zenity --question --text="${message}Proceed to suspend in ${delay}s?"
 if [ $? = 0 ]; then
-    systemctl suspend
+    sleep "$delay" && systemctl suspend
 else
     exit
 fi
