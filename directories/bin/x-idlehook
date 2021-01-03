@@ -7,7 +7,7 @@ xidlehook \
     --not-when-fullscreen \
     `# Don't lock when there's audio playing` \
     --not-when-audio \
-    --timer ${XIDLEHOOK_KBD:-60}\
+    --timer ${XIDLEHOOK_KBD:-15}\
     'pre-blank' \
     'post-blank' \
     --timer ${XIDLEHOOK_DIM:-120}\
