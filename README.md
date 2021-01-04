@@ -233,7 +233,7 @@ xidlehook \
     'pre-blank' \
     'post-blank' \
     --timer ${XIDLEHOOK_DIM:-120}\
-    'xbacklight -set 5' \x
+    'xbacklight -set 5' \
     'post-blank' \
     --timer ${XIDLEHOOK_BLANK:-120}\
     'xbacklight -set 0' \
