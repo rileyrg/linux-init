@@ -93,9 +93,7 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
-
 command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
-command -v steam &> /dev/null && steam -silent &> /dev/null &
 
 ```
 
