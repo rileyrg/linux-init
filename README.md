@@ -2035,15 +2035,14 @@ reset github as if it's newly born. ALL history will be lost.
 #!/bin/bash
 #Maintained in linux-init-files.org
 tfile=$(mktemp /tmp/config.XXXXXXXXX)
-GITCONF=".git/config"
-commitmsg=${1:-git repository initialised}
-if [ -f $GITCONF ]; then
-    mv .git/config tfile
+commitmsg=${1:-"git repository initialised"}
+if [ -f .git/config ]; then
+    mv .git/config "$tfile"
     rm -rf .git
     git init .
-    mv tfile .git/config
+    mv "$tfile" .git/config
     git add .
-    git commit -a -m "${commitmsg}"
+    git commit -a -m "$commitmsg"
     git push -f
 else
     echo "Warning: No git config file found. Aborting.";exit;
