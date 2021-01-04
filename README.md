@@ -122,7 +122,7 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 # export XIDLEHOOK_BLANK=120
 # export XIDLEHOOK_LOCK=300
 # export XIDLEHOOK_SUSPEND=3600
-
+xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
 ```
 
 
@@ -144,6 +144,9 @@ Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
+#ifdef SRVR_thinpadx270
+Xft.dpi:       174
+#endif
 #ifdef SRVR_xmgneo
 Xft.dpi:       144
 #endif

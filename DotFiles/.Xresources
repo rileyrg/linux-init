@@ -13,6 +13,9 @@ Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
+#ifdef SRVR_thinpadx270
+Xft.dpi:       174
+#endif
 #ifdef SRVR_xmgneo
 Xft.dpi:       144
 #endif

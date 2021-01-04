@@ -158,7 +158,7 @@
      - State "TODO"       from              [2020-12-24 Thu 13:14]
      :END:
 *** code
-    #+begin_src bash
+    #+begin_src bash :tangle no
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       logger -t "startup-initfile"  XSESSIONRC-LOCAL
@@ -168,7 +168,7 @@
       # export XIDLEHOOK_BLANK=120
       # export XIDLEHOOK_LOCK=300
       # export XIDLEHOOK_SUSPEND=3600
-
+      xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
     #+end_src
 ** ~/.Xresources
    #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.Xresources
@@ -187,6 +187,9 @@
      Xft.rgba:      rgb
      Xft.hintstyle: hintfull
      Xft.dpi:       96
+     #ifdef SRVR_thinpadx270
+     Xft.dpi:       174
+     #endif
      #ifdef SRVR_xmgneo
      Xft.dpi:       144
      #endif
