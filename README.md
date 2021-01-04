@@ -1219,7 +1219,7 @@ modifier $mod
 
 #general user launch bindings
 bindsym $mod+Shift+e exec emacs-same-frame
-bindsym $mod+Shift+f exec google-chrome
+bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force standby) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2035,15 +2035,14 @@ reset github as if it's newly born. ALL history will be lost.
 #!/bin/bash
 #Maintained in linux-init-files.org
 tfile=$(mktemp /tmp/config.XXXXXXXXX)
-GITCONF=".git/config"
-commitmsg=${1:-git repository initialised}
-if [ -f $GITCONF ]; then
-    mv .git/config tfile
+commitmsg=${1:-"git repository initialised"}
+if [ -f .git/config ]; then
+    mv .git/config "$tfile"
     rm -rf .git
     git init .
-    mv tfile .git/config
+    mv "$tfile" .git/config
     git add .
-    git commit -a -m "${commitmsg}"
+    git commit -a -m "$commitmsg"
     git push -f
 else
     echo "Warning: No git config file found. Aborting.";exit;
