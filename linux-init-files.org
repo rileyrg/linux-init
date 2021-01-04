@@ -2157,3 +2157,8 @@
   - State "OPEN"       from              [2021-01-01 Fri 09:03] \\
     git playgrounf not exported
   :END:
+
+* Local Variables
+  # Local Variables:
+  # eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+  # End:

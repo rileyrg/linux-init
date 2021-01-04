@@ -2338,3 +2338,6 @@ x-backlight-persist restore
 ```bash
 [[ -f  ~/.profile.local ]] && . ~/.profile.local
 ```
+
+
+# Local Variables
