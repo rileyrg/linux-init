@@ -167,7 +167,7 @@ lock() {
     #         i3lock -c 000000 -n
     xset dpms 5
     xbacklight -set 5
-    i3lock-fancy
+    i3lock -c 000000
     xset -dpms
     x-backlight-persist restore
     post-lock
