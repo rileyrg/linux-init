@@ -1978,6 +1978,7 @@
 ** ~/bin/confirm-suspend
    #+begin_src bash :tangle ~/bin/confirm-suspend
      #!/usr/bin/bash
+     #Maintained in linux-init-files.org
      delay=10;
      message="Almost out of juice."
      while [[ "$#" -gt 0 ]]; do
@@ -1996,6 +1997,41 @@
          exit
      fi
    #+end_src
+** Network Info Utilities for such as i3blocks
+*** ~/bin/my-iface-active-query
+    #+begin_src bash :tangle ~/bin/my-iface-active-query
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
+    #+end_src
+*** ~/bin/my-iface-active
+    #+begin_src bash :tangle ~/bin/my-iface-active
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+      export IFACE_ACTIVE
+      echo $IFACE_ACTIVE
+    #+end_src
+*** ~/bin/my-iface-active-ssid
+    #+begin_src bash :tangle ~/bin/my-iface-active-ssid
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      my-iface-active-query "GENERAL.CONNECTION"
+    #+end_src
+*** ~/bin/my-iface-active-ipaddr
+    #+begin_src bash :tangle ~/bin/my-iface-active-ipaddr
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      my-iface-active-query "IP4.ADDRESS"
+    #+end_src
+*** ~/bin/my-iface-active-quality
+    #+begin_src bash :tangle ~/bin/my-iface-active-quality
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      my-iface-active-query "GENERAL.STATE"
+    #+end_src
+
+
 ** XMG Neo 15 Specifics
 *** ~/bin/xmg-neo-rgb-kbd-lights
 

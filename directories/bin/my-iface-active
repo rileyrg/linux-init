@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+export IFACE_ACTIVE
+echo $IFACE_ACTIVE

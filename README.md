@@ -2045,6 +2045,7 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 
 ```bash
 #!/usr/bin/bash
+#Maintained in linux-init-files.org
 delay=10;
 message="Almost out of juice."
 while [[ "$#" -gt 0 ]]; do
@@ -2062,6 +2063,56 @@ if [ $? = 0 ]; then
 else
     exit
 fi
+```
+
+
+## Network Info Utilities for such as i3blocks
+
+
+### ~/bin/my-iface-active-query
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
+```
+
+
+### ~/bin/my-iface-active
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+export IFACE_ACTIVE
+echo $IFACE_ACTIVE
+```
+
+
+### ~/bin/my-iface-active-ssid
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "GENERAL.CONNECTION"
+```
+
+
+### ~/bin/my-iface-active-ipaddr
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "IP4.ADDRESS"
+```
+
+
+### ~/bin/my-iface-active-quality
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "GENERAL.STATE"
 ```
 
 
