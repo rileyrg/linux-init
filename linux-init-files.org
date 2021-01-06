@@ -141,6 +141,8 @@
       (post-lock && post-blank) &
       (sleep 2 && gpg-cache)&
 
+      dropbox-start-once
+
     #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
@@ -621,8 +623,7 @@
 
      post-lock
 
-     command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
-
+     dropbox-start-once
 
      [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
@@ -1811,6 +1812,19 @@
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      emacs-same-frame "$@"
+   #+end_src
+** ~/bin/dropbox-start-once
+   #+begin_src bash :tangle ~/bin/dropbox-start-once
+     #!/usr/bin/bash
+     # Maintained in linux-init-files.org
+     if pidof dropbox > /dev/null ; then
+         echo "Dropbox is already running"
+     else
+         if command -v dropbox > /dev/null; then
+             echo "Starting Dropbox.."
+             dropbox start &> /dev/null
+         fi
+     fi
    #+end_src
 ** ~/bin/edit
    #+begin_src bash :tangle ~/bin/edit

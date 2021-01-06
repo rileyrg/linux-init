@@ -93,6 +93,8 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
+dropbox-start-once
+
 ```
 
 
@@ -617,8 +619,7 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
-command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
-
+dropbox-start-once
 
 [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
@@ -1829,6 +1830,22 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 emacs-same-frame "$@"
+```
+
+
+## ~/bin/dropbox-start-once
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+if pidof dropbox > /dev/null ; then
+    echo "Dropbox is already running"
+else
+    if command -v dropbox > /dev/null; then
+        echo "Starting Dropbox.."
+        dropbox start &> /dev/null
+    fi
+fi
 ```
 
 

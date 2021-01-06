@@ -6,8 +6,7 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
-command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
-
+dropbox-start-once
 
 [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
