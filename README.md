@@ -1843,7 +1843,11 @@ if pidof dropbox > /dev/null ; then
 else
     if command -v dropbox > /dev/null; then
         echo "Starting Dropbox.."
-        dropbox start &> /dev/null
+        if [ "$1" = "async" ]; then
+            dropbox start &> /dev/null &
+        else
+            dropbox start &> /dev/null
+        fi
     fi
 fi
 ```
