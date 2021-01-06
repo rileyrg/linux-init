@@ -1420,22 +1420,22 @@ color=#A4C2F4
 [battery]
 command=echo "$(my-battery-status)"
 interval=60
-color=#802010
+color=#b01010
 
-[disk]
-command=echo "D:$(/usr/share/i3blocks/disk)"
-interval=600
-color=#003000
+# [disk]
+# command=echo "D:$(/usr/share/i3blocks/disk)"
+# interval=600
+# color=#003000
 
-[memory]
-command=echo "M:$(/usr/share/i3blocks/memory)"
-interval=30
-color=#003000
+# [memory]
+# command=echo "M:$(/usr/share/i3blocks/memory)"
+# interval=30
+# color=#003000
 
 [uptime]
 command=uptime -p
 interval=300
-color=#002000
+color=#009000
 
 [dropbox]
 interval=15
@@ -1450,7 +1450,7 @@ color=#004000
 [time]
 command=date +"%d/%m/%Y %H:%M"
 interval=60
-color=#606060
+color=#e2b007
 
 [volume]
 command=echo "V:$(/usr/share/i3blocks/volume)"
