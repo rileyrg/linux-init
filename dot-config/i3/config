@@ -185,8 +185,7 @@ bindsym $mod+r mode "resize"
 
 # i3bar
 bar {
-status_command py3status
-#status_command i3status
+status_command i3blocks
 font pango:JetBrains Mono 12
 position top
 #mode hide
