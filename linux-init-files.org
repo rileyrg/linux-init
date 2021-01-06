@@ -1374,9 +1374,10 @@
      interval=900
      color=#A4C2F4
 
-     #[battery]
-     #command=echo "Bat:$(/usr/share/i3blocks/battery)"
-     #interval=300
+     [battery]
+     command=echo "$(my-battery-status)"
+     interval=60
+     color=#802010
 
      [disk]
      command=echo "D:$(/usr/share/i3blocks/disk)"
@@ -2002,7 +2003,14 @@
          exit
      fi
    #+end_src
-** Network Info Utilities for such as i3blocks
+** Info Utilities for such as i3blocks
+*** ~/bin/my-battery-status
+    #+begin_src bash :tangle ~/bin/my-battery-status
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
+      echo $([[ -z "$b" ]] && echo "charged" || echo $b)
+    #+end_src
 *** ~/bin/my-iface-active-query
     #+begin_src bash :tangle ~/bin/my-iface-active-query
       #!/usr/bin/bash
