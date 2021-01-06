@@ -1412,8 +1412,14 @@ bindsym Escape mode "default"
 
 ```conf
 # Guess the weather hourly
+[dropbox]
+interval=15
+command=echo  "$(dropbox status | sed -n 1p)"
+color=#1010E0
+
 [weather]
 command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+
 interval=900
 color=#A4C2F4
 
@@ -1435,17 +1441,22 @@ color=#b01010
 [uptime]
 command=uptime -p
 interval=300
-color=#009000
+color=#505050
 
-[dropbox]
-interval=15
-command=echo  "$(dropbox status | sed -n 1p)"
-color=#1010E0
-
-[wifi]
-command=echo "$(my-iface-active-ssid)@$(my-iface-active-ipaddr):$(my-iface-active-quality)%"
+[ssid]
+command=echo "SSID:$(my-iface-active-ssid)"
 interval=30
-color=#007000
+color=#00a000
+
+[ssidQ]
+command=echo "($(my-iface-active-quality)%)"
+interval=30
+color=#008000
+
+[ipaddr]
+command=echo "@$(my-iface-active-ipaddr)"
+interval=30
+color=#009000
 
 [time]
 command=date +"%d/%m/%Y %H:%M"
