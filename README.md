@@ -167,7 +167,7 @@ lock() {
     #         i3lock -c 000000 -n
     xset dpms 5
     xbacklight -set 5
-    i3lock-fancy
+    i3lock -c 000000
     xset -dpms
     x-backlight-persist restore
     post-lock
@@ -1209,8 +1209,7 @@ bindsym $mod+r mode "resize"
 
 # i3bar
 bar {
-status_command py3status
-#status_command i3status
+status_command i3blocks
 font pango:JetBrains Mono 12
 position top
 #mode hide
@@ -1407,80 +1406,51 @@ bindsym Escape mode "default"
 ```
 
 
-## ~/.config/i3status/config
+## ~/.config/i3blocks/config
 
 ```conf
-# Maintained in linux-init-files.org
-# i3status configuration file.
-# see "man i3status" for documentation.
+[dropbox]
+interval=15
+command=echo  "DB: $(dropbox status | sed -n 1p)"
+color=#F79494
 
-# It is important that this file is edited as UTF-8.
-# The following line should contain a sharp s:
-# ß
-# If the above line is not correctly displayed, fix your editor first!
+# [wlp3s0]
+# command=echo "WiFi:$(/usr/share/i3blocks/wifi)"
+# interval=10
 
-general {
-colors = true
-interval = 5
-}
+#[battery]
+#command=echo "Bat:$(/usr/share/i3blocks/battery)"
+#interval=300
 
-order += "wireless _first_"
-#       order += "ipv6"
-#       order += "ethernet _first_"
-order += "battery all"
-order += "disk /"
-order += "load"
-order += "memory"
-order += "tztime local"
+[disk]
+command=echo "Disk:$(/usr/share/i3blocks/disk)"
+interval=600
 
-wireless _first_ {
-format_up = "WiFi:(%essid)%ip"
-format_down = "WiFi: down"
-}
+[memory]
+command=echo "Mem:$(/usr/share/i3blocks/memory)"
+interval=10
 
-ethernet _first_ {
-format_up = "E: %ip (%speed)"
-format_down = "E: down"
-}
+[volume]
+command=echo "Vol:$(/usr/share/i3blocks/volume)"
+interval=5
 
-battery all {
-format = "%status %percentage %remaining"
-}
+# Guess the weather hourly
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=3600
+color=#A4C2F4
 
-disk "/" {
-format = "%avail"
-}
+# Query my default IP address only on startup
+[ip]
+command=hostname -i | awk '{ print "IP:" $1 }'
+interval=once
+color=#91E78B
 
-load {
-format = "%1min"
-}
-
-memory {
-format = "%used | %available"
-threshold_degraded = "1G"
-format_degraded = "MEMORY < %available"
-}
-
-tztime local {
-format = "%Y-%m-%d %H:%M:%S"
-}
+[time]
+# command=date +%T
+command=date
+interval=1
 ```
-
-
-### cbatticon helpers
-
-1.  ~/bin/battery-warning-low
-
-    ```bash
-    notify-send "LOW battery level warning."
-    ```
-
-2.  ~/bin/battery-warning-critical
-
-    ```bash
-    notify-send "CRITICALLY LOW battery level warning. Suspending."
-    sleep 5 && systemctl suspend
-    ```
 
 
 ## ~/bin/i3pulse

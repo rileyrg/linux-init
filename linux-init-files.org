@@ -206,7 +206,7 @@
          #         i3lock -c 000000 -n
          xset dpms 5
          xbacklight -set 5
-         i3lock-fancy
+         i3lock -c 000000
          xset -dpms
          x-backlight-persist restore
          post-lock
@@ -1170,8 +1170,7 @@
 
      # i3bar
      bar {
-     status_command py3status
-     #status_command i3status
+     status_command i3blocks
      font pango:JetBrains Mono 12
      position top
      #mode hide
@@ -1366,7 +1365,57 @@
      bindsym Escape mode "default"
      }
    #+end_src
-** ~/.config/i3status/config
+** ~/.config/i3blocks/config
+   #+begin_src conf :tangle ~/.config/i3blocks/config
+     [dropbox]
+     interval=15
+     command=echo  "DB: $(dropbox status | sed -n 1p)"
+     color=#F79494
+
+     # [wlp3s0]
+     # command=echo "WiFi:$(/usr/share/i3blocks/wifi)"
+     # interval=10
+
+     #[battery]
+     #command=echo "Bat:$(/usr/share/i3blocks/battery)"
+     #interval=300
+
+     [disk]
+     command=echo "Disk:$(/usr/share/i3blocks/disk)"
+     interval=600
+
+     [memory]
+     command=echo "Mem:$(/usr/share/i3blocks/memory)"
+     interval=10
+
+     [volume]
+     command=echo "Vol:$(/usr/share/i3blocks/volume)"
+     interval=5
+
+     # Guess the weather hourly
+     [weather]
+     command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+     interval=3600
+     color=#A4C2F4
+
+     # Query my default IP address only on startup
+     [ip]
+     command=hostname -i | awk '{ print "IP:" $1 }'
+     interval=once
+     color=#91E78B
+
+     [time]
+     # command=date +%T
+     command=date
+     interval=1
+   #+end_src
+
+** CANCELLED ~/.config/i3status/config                            :CANCELLED:
+   CLOSED: [2021-01-06 Mi 03:05]
+   :LOGBOOK:
+   - State "CANCELLED"  from              [2021-01-06 Mi 03:05] \\
+     i3blocks
+   :END:
    #+begin_src conf :tangle ~/.config/i3status/config
      # Maintained in linux-init-files.org
      # i3status configuration file.
