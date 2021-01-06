@@ -53,6 +53,7 @@
 !/directories/bin/gpg-cache
 !/directories/bin/i3pulse
 !/directories/bin/make-compile_commands
+!/directories/bin/my-iface*
 !/directories/bin/onehtop
 !/directories/bin/oneterminal
 !/directories/bin/pop-window

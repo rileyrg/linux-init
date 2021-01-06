@@ -6,6 +6,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
+dropbox-start-once
+
 [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""

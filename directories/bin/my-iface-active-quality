@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "GENERAL.STATE"

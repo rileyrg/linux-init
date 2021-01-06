@@ -93,7 +93,7 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
-command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
+dropbox-start-once
 
 ```
 
@@ -618,6 +618,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 post-lock
+
+dropbox-start-once
 
 [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
@@ -1409,47 +1411,51 @@ bindsym Escape mode "default"
 ## ~/.config/i3blocks/config
 
 ```conf
-[dropbox]
-interval=15
-command=echo  "DB: $(dropbox status | sed -n 1p)"
-color=#F79494
-
-# [wlp3s0]
-# command=echo "WiFi:$(/usr/share/i3blocks/wifi)"
-# interval=10
+# Guess the weather hourly
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=900
+color=#A4C2F4
 
 #[battery]
 #command=echo "Bat:$(/usr/share/i3blocks/battery)"
 #interval=300
 
 [disk]
-command=echo "Disk:$(/usr/share/i3blocks/disk)"
+command=echo "D:$(/usr/share/i3blocks/disk)"
 interval=600
+color=#003000
 
 [memory]
-command=echo "Mem:$(/usr/share/i3blocks/memory)"
-interval=10
+command=echo "M:$(/usr/share/i3blocks/memory)"
+interval=30
+color=#003000
 
-[volume]
-command=echo "Vol:$(/usr/share/i3blocks/volume)"
-interval=5
+[uptime]
+command=uptime -p
+interval=300
+color=#002000
 
-# Guess the weather hourly
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
+[dropbox]
+interval=15
+command=echo  "$(dropbox status | sed -n 1p)"
+color=#1010E0
 
-# Query my default IP address only on startup
-[ip]
-command=hostname -i | awk '{ print "IP:" $1 }'
-interval=once
-color=#91E78B
+[wifi]
+command=echo "$(my-iface-active-ssid)@$(my-iface-active-ipaddr):$(my-iface-active-quality)%"
+interval=30
+color=#004000
 
 [time]
-# command=date +%T
-command=date
-interval=1
+command=date +"%d/%m/%Y %H:%M"
+interval=60
+color=#606060
+
+[volume]
+command=echo "V:$(/usr/share/i3blocks/volume)"
+interval=5
+color=#303030
+
 ```
 
 
@@ -1827,6 +1833,26 @@ emacs-same-frame "$@"
 ```
 
 
+## ~/bin/dropbox-start-once
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+if pidof dropbox > /dev/null ; then
+    echo "Dropbox is already running"
+else
+    if command -v dropbox > /dev/null; then
+        echo "Starting Dropbox.."
+        if [ "$1" = "async" ]; then
+            dropbox start &> /dev/null &
+        else
+            dropbox start &> /dev/null
+        fi
+    fi
+fi
+```
+
+
 ## ~/bin/edit
 
 ```bash
@@ -2045,6 +2071,7 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 
 ```bash
 #!/usr/bin/bash
+#Maintained in linux-init-files.org
 delay=10;
 message="Almost out of juice."
 while [[ "$#" -gt 0 ]]; do
@@ -2062,6 +2089,56 @@ if [ $? = 0 ]; then
 else
     exit
 fi
+```
+
+
+## Network Info Utilities for such as i3blocks
+
+
+### ~/bin/my-iface-active-query
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
+```
+
+
+### ~/bin/my-iface-active
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+export IFACE_ACTIVE
+echo $IFACE_ACTIVE
+```
+
+
+### ~/bin/my-iface-active-ssid
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "GENERAL.CONNECTION"
+```
+
+
+### ~/bin/my-iface-active-ipaddr
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "IP4.ADDRESS"
+```
+
+
+### ~/bin/my-iface-active-quality
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+my-iface-active-query "GENERAL.STATE"
 ```
 
 
