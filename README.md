@@ -1445,7 +1445,7 @@ color=#1010E0
 [wifi]
 command=echo "$(my-iface-active-ssid)@$(my-iface-active-ipaddr):$(my-iface-active-quality)%"
 interval=30
-color=#004000
+color=#007000
 
 [time]
 command=date +"%d/%m/%Y %H:%M"
