@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
+echo $([[ -z "$b" ]] && echo "charged" || echo $b)
