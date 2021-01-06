@@ -1417,9 +1417,10 @@ command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
 interval=900
 color=#A4C2F4
 
-#[battery]
-#command=echo "Bat:$(/usr/share/i3blocks/battery)"
-#interval=300
+[battery]
+command=echo "$(my-battery-status)"
+interval=60
+color=#802010
 
 [disk]
 command=echo "D:$(/usr/share/i3blocks/disk)"
@@ -2092,7 +2093,17 @@ fi
 ```
 
 
-## Network Info Utilities for such as i3blocks
+## Info Utilities for such as i3blocks
+
+
+### ~/bin/my-battery-status
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
+echo $([[ -z "$b" ]] && echo "charged" || echo $b)
+```
 
 
 ### ~/bin/my-iface-active-query
