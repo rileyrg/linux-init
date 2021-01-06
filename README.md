@@ -93,8 +93,6 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
-command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
-
 ```
 
 
@@ -618,6 +616,9 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 post-lock
+
+command -v dropbox &> /dev/null  && sleep 15 && dropbox start &> /dev/null &
+
 
 [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
@@ -1409,47 +1410,51 @@ bindsym Escape mode "default"
 ## ~/.config/i3blocks/config
 
 ```conf
-[dropbox]
-interval=15
-command=echo  "DB: $(dropbox status | sed -n 1p)"
-color=#F79494
-
-# [wlp3s0]
-# command=echo "WiFi:$(/usr/share/i3blocks/wifi)"
-# interval=10
+# Guess the weather hourly
+[weather]
+command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+interval=900
+color=#A4C2F4
 
 #[battery]
 #command=echo "Bat:$(/usr/share/i3blocks/battery)"
 #interval=300
 
 [disk]
-command=echo "Disk:$(/usr/share/i3blocks/disk)"
+command=echo "D:$(/usr/share/i3blocks/disk)"
 interval=600
+color=#003000
 
 [memory]
-command=echo "Mem:$(/usr/share/i3blocks/memory)"
-interval=10
+command=echo "M:$(/usr/share/i3blocks/memory)"
+interval=30
+color=#003000
 
-[volume]
-command=echo "Vol:$(/usr/share/i3blocks/volume)"
-interval=5
+[uptime]
+command=uptime -p
+interval=300
+color=#002000
 
-# Guess the weather hourly
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
+[dropbox]
+interval=15
+command=echo  "$(dropbox status | sed -n 1p)"
+color=#1010E0
 
-# Query my default IP address only on startup
-[ip]
-command=hostname -i | awk '{ print "IP:" $1 }'
-interval=once
-color=#91E78B
+[wifi]
+command=echo "$(my-iface-active-ssid)@$(my-iface-active-ipaddr):$(my-iface-active-quality)%"
+interval=30
+color=#004000
 
 [time]
-# command=date +%T
-command=date
-interval=1
+command=date +"%d/%m/%Y %H:%M"
+interval=60
+color=#606060
+
+[volume]
+command=echo "V:$(/usr/share/i3blocks/volume)"
+interval=5
+color=#303030
+
 ```
 
 
