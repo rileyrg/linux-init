@@ -1904,9 +1904,11 @@
 
 *** sync and index
     #+begin_src bash
-      mkdir -p ~/Mail
-      mbsync -a
-      mu index --maildir=~/Mail --my-address="$USEREMAIL"
+      cd ~
+      mkdir -p ~/Maildir/gmail
+      mbsync personal
+      mu init --maildir=~/Mail/gmail --my-address="$USEREMAIL"
+      mu index
     #+end_src
     #+RESULTS:
 * Misc utils

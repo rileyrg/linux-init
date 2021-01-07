@@ -1928,9 +1928,11 @@ Channel gmail-drafts
 ### sync and index
 
 ```bash
-mkdir -p ~/Mail
-mbsync -a
-mu index --maildir=~/Mail --my-address="$USEREMAIL"
+cd ~
+mkdir -p ~/Maildir/gmail
+mbsync personal
+mu init --maildir=~/Mail/gmail --my-address="$USEREMAIL"
+mu index
 ```
 
 
