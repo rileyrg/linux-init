@@ -1939,39 +1939,39 @@ mu index
 
 ### mbsync services
 
-mbsync timer:
+1.  ~/.config/systemd/user/mbsync.timer
 
-```conf
-[Unit]
-Description=Mailbox synchronization timer
+    ```conf
+    [Unit]
+    Description=Mailbox synchronization timer
 
-[Timer]
-OnBootSec=2m
-OnUnitActiveSec=5m
-Unit=mbsync.service
+    [Timer]
+    OnBootSec=2m
+    OnUnitActiveSec=5m
+    Unit=mbsync.service
 
-[Install]
-WantedBy=timers.target
-```
+    [Install]
+    WantedBy=timers.target
+    ```
 
-service file:
+2.  ~/.config/systemd/user/mbsync.service
 
-```conf
-[Unit]
-Description=Mailbox synchronization service
+    ```conf
+    [Unit]
+    Description=Mailbox synchronization service
 
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/mbsync personal
-ExecStartPost=/usr/bin/mu index
-```
+    [Service]
+    Type=oneshot
+    ExecStart=/usr/bin/mbsync personal
+    ExecStartPost=/usr/bin/mu index
+    ```
 
-and activate them
+    and activate them
 
-```bash
-systemctl --user enable mbsync.timer
-systemctl --user start mbsync.timer
-```
+    ```bash
+    systemctl --user enable mbsync.timer
+    systemctl --user start mbsync.timer
+    ```
 
 
 # Misc utils
