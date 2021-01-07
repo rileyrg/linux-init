@@ -140,6 +140,7 @@
       (post-lock && post-blank) &
       (sleep 2 && gpg-cache)&
 
+      systemctl start --user mbsync.timer
       dropbox-start-once
 
     #+end_src
@@ -1738,6 +1739,7 @@
      export USER_STARTX_START=
      export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
      export USE_GPG_FOR_SSH="yes" # used in xsession
+     export XDG_RUNTIME_DIR="/run/user/$UID"
    #+end_src
 
 * systemd
@@ -1911,6 +1913,38 @@
       mu index
     #+end_src
     #+RESULTS:
+*** mbsync services
+**** ~/.config/systemd/user/mbsync.timer
+     #+begin_src conf :tangle ~/.config/systemd/user/mbsync.timer
+       [Unit]
+       Description=Mailbox synchronization timer
+
+       [Timer]
+       OnBootSec=2m
+       OnUnitActiveSec=5m
+       Unit=mbsync.service
+
+       [Install]
+       WantedBy=timers.target
+     #+end_src
+**** ~/.config/systemd/user/mbsync.service
+     #+begin_src conf :tangle ~/.config/systemd/user/mbsync.service
+       [Unit]
+       Description=Mailbox synchronization service
+
+       [Service]
+       Type=oneshot
+       ExecStart=/usr/bin/mbsync personal
+       ExecStartPost=/usr/bin/mu index
+     #+end_src
+     and activate them
+     #+begin_src bash
+       systemctl --user enable mbsync.timer
+       systemctl --user start mbsync.timer
+     #+end_src
+
+     #+RESULTS:
+
 * Misc utils
 ** ~/bin/acpi-
    #+begin_src bash :tangle ~/bin/edit
