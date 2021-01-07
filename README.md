@@ -1931,7 +1931,7 @@ Channel gmail-drafts
 cd ~
 mkdir -p ~/Maildir/gmail
 mbsync personal
-mu init --maildir=~/Mail/gmail --my-address="$USEREMAIL"
+mu init --maildir=~/Maildir/gmail --my-address="$USEREMAIL"
 mu index
 ```
 
