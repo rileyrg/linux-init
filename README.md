@@ -620,6 +620,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
+dropbox-start-once async
+
 ```
 
 

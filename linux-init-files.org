@@ -624,7 +624,7 @@
 
      post-lock
 
-     dropbox-start-once
+     dropbox-start-once async
 
    #+end_src
 ** ~/.bashrc
