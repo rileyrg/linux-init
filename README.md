@@ -606,6 +606,7 @@ alias man=eman
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
 [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
+[ -f ~/.config/user-dirs.dirs ] && . ~/.config/user-dirs.dirs
 
 ```
 
@@ -618,6 +619,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 [[ -f ~/.profile ]] && . ~/.profile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+
+. "$HOME"/.config/user-dirs.dir
 
 post-lock
 
