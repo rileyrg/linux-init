@@ -1818,51 +1818,50 @@
      #+RESULTS:
 
 * Email Related
+** Maildir sync [[https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org][mu mbsync]]
+   maildir sync using mbsync
+*** install isync and mu4e
 
-** [[https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org][mu mbsync mu4e]]
-*** mbsync
-    mu indexes and accesses maildir.
-**** install isync and mu4e
+    #+begin_src bash
+      sudo apt install isync mu4e
+    #+end_src
 
-     #+begin_src bash
-       sudo apt install isync mu4e
-     #+end_src
+*** mbsync config
+    #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
+      #Maintained in linux-init-files.org
+      IMAPAccount gmail
+      Host imap.gmail.com
+      User rileyrg@gmail.com
+      PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+      SSLType IMAPS
+      CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-**** msync config
-     #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
-       IMAPAccount gmail
-       Host imap.gmail.com
-       User rileyrg@gmail.com
-       PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
-       SSLType IMAPS
-       CertificateFile /etc/ssl/certs/ca-certificates.crt
+      IMAPStore gmail-remote
+      Account gmail
 
-       IMAPStore gmail-remote
-       Account gmail
+      MaildirStore gmail-local
+      Subfolders Verbatim
+      Path ~/Mail/
+      Inbox ~/Mail/Inbox
 
-       MaildirStore gmail-local
-       Subfolders Verbatim
-       Path ~/Mail/
-       Inbox ~/Mail/Inbox
+      MaxMessages 10000
 
-       Channel gmail
-       Master :gmail-remote:
-       Slave :gmail-local:
-       Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
-       Create Both
-       SyncState *
-     #+end_src
+      Channel gmail
+      Master :gmail-remote:
+      Slave :gmail-local:
+      Patterns * ![Google Mail]* "[Google Mail]/Sent Mail" "[Google Mail]/Starred" "[Google Mail]/All Mail" "[Google Mail]/Trash"
+      Create Both
+      SyncState *
+    #+end_src
 
-**** sync and index
-     #+begin_src bash
-       mkdir -p ~/Mail
-       mbsync -a
-       mu index --maildir=~/Mail --my-address="$USEREMAIL"
-     #+end_src
-
-     #+RESULTS:
-
-** Misc utils
+*** sync and index
+    #+begin_src bash
+      mkdir -p ~/Mail
+      mbsync -a
+      mu index --maildir=~/Mail --my-address="$USEREMAIL"
+    #+end_src
+    #+RESULTS:
+* Misc utils
 ** ~/bin/acpi-
    #+begin_src bash :tangle ~/bin/edit
      #!/usr/bin/bash
@@ -2116,7 +2115,6 @@
       #Maintained in linux-init-files.org
       my-iface-active-query "GENERAL.STATE"
     #+end_src
-
 
 ** XMG Neo 15 Specifics
 *** ~/bin/xmg-neo-rgb-kbd-lights
