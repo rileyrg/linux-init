@@ -1939,18 +1939,7 @@ mu index
 
 ### mbsync services
 
-service file:
-
-```conf
-[Unit]
-Description=Mailbox synchronization service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/mbsync personal
-```
-
-associated timer:
+mbsync timer:
 
 ```conf
 [Unit]
@@ -1963,6 +1952,25 @@ Unit=mbsync.service
 
 [Install]
 WantedBy=timers.target
+```
+
+service file:
+
+```conf
+[Unit]
+Description=Mailbox synchronization service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync personal
+ExecStartPost=/usr/bin/mu index
+```
+
+and activate them
+
+```bash
+systemctl --user enable mbsync.timer
+systemctl --user start mbsync.timer
 ```
 
 
