@@ -92,6 +92,7 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
+systemctl start --user mbsync.timer
 dropbox-start-once
 
 ```
