@@ -620,8 +620,6 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
-dropbox-start-once
-
 ```
 
 
@@ -1850,30 +1848,32 @@ sudo apt install isync mu4e
 ### mbsync config
 
 ```conf
-#Maintained in linux-init-files.org
-IMAPAccount gmail
-Host imap.gmail.com
-User rileyrg@gmail.com
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
+      #Maintained in linux-init-files.org
+      IMAPAccount gmail
+      Host imap.gmail.com
+      User rileyrg@gmail.com
+      PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+      SSLType IMAPS
+      CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore gmail-remote
-Account gmail
+      IMAPStore gmail-remote
+      Account gmail
 
-MaildirStore gmail-local
-Subfolders Verbatim
-Path ~/Mail/
-Inbox ~/Mail/Inbox
+      MaildirStore gmail-local
+      Subfolders Verbatim
+      Path ~/Mail/
+      Inbox ~/Mail/Inbox
 
-MaxMessages 10000
+      MaxMessages 10000
 
-Channel gmail
-Master :gmail-remote:
-Slave :gmail-local:
-Patterns * ![Google Mail]* "[Google Mail]/Sent Mail" "[Google Mail]/Starred" "[Google Mail]/All Mail" "[Google Mail]/Trash"
-Create Both
-SyncState *
+      Channel gmail
+      Master :gmail-remote:
+      Slave :gmail-local:
+#      Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+      Patterns *  "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+      Create Both
+      SyncState *
+
 ```
 
 

@@ -1849,9 +1849,11 @@
       Channel gmail
       Master :gmail-remote:
       Slave :gmail-local:
-      Patterns * ![Google Mail]* "[Google Mail]/Sent Mail" "[Google Mail]/Starred" "[Google Mail]/All Mail" "[Google Mail]/Trash"
+#      Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+      Patterns *  "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
       Create Both
       SyncState *
+
     #+end_src
 
 *** sync and index
