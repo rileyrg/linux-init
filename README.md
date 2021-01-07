@@ -85,6 +85,7 @@ case "$(hostname)" in
     ;;
 esac
 
+[ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 xss-lock -- x-lock-utils lock &
@@ -605,8 +606,11 @@ alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export USE_GPG_FOR_SSH="yes" # used in xsession
+#export XDG_RUNTIME_DIR="/run/user/$UID"
+
 [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
-[ -f ~/.config/user-dirs.dirs ] && . ~/.config/user-dirs.dirs
 
 ```
 
@@ -620,9 +624,7 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.profile ]] && . ~/.profile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-. "$HOME"/.config/user-dirs.dir
-
-post-lock
+ post-lock
 
 dropbox-start-once async
 
@@ -1740,9 +1742,6 @@ enable-ssh-support
 
 ```bash
 export USER_STARTX_START=
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-export USE_GPG_FOR_SSH="yes" # used in xsession
-export XDG_RUNTIME_DIR="/run/user/$UID"
 ```
 
 

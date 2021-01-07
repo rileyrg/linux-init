@@ -4,9 +4,7 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.profile ]] && . ~/.profile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-. "$HOME"/.config/user-dirs.dir
-
-post-lock
+ post-lock
 
 dropbox-start-once async
 

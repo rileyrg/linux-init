@@ -21,6 +21,7 @@ case "$(hostname)" in
     ;;
 esac
 
+[ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 xss-lock -- x-lock-utils lock &
