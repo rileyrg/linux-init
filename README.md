@@ -1865,7 +1865,7 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-MaxMessages 10000
+MaxMessages 50000
 
 # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
@@ -1949,7 +1949,7 @@ mu index
     Description=Mailbox synchronization timer
 
     [Timer]
-    OnBootSec=2m
+    OnBootSec=1m
     OnUnitActiveSec=5m
     Unit=mbsync.service
 
