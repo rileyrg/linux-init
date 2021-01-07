@@ -623,9 +623,9 @@
 
      post-lock
 
-     dropbox-start-once
-
      [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
+
+     dropbox-start-once
 
    #+end_src
 ** ~/.bashrc
@@ -1814,6 +1814,51 @@
      remembering to restart acpid :
      #+begin_src bash
        sudo systemctl restart acpid
+     #+end_src
+
+     #+RESULTS:
+
+* Email Related
+
+** [[https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org][mu/mu4e]] mbsync,emacs
+   mu indexes and accesses maildir.
+*** mbsync/isync
+**** install isync and mu4e
+
+     #+begin_src bash
+       sudo apt install isync mu4e
+     #+end_src
+
+**** msync config
+     #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
+       IMAPAccount gmail
+       Host imap.gmail.com
+       User rileyrg@gmail.com
+       PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+       SSLType IMAPS
+       CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+       IMAPStore gmail-remote
+       Account gmail
+
+       MaildirStore gmail-local
+       Subfolders Verbatim
+       Path ~/Mail/
+       Inbox ~/Mail/Inbox
+
+       Channel gmail
+       Master :gmail-remote:
+       Slave :gmail-local:
+       Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
+       Create Both
+       SyncState *
+     #+end_src
+
+**** sync and index
+     #+begin_src bash
+       mkdir -p ~/Mail
+       mbsync -a
+       mu index --maildir=~/Mail --my-address="$USEREMAIL"
      #+end_src
 
      #+RESULTS:
