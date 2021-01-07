@@ -32,6 +32,7 @@
 !/DotFiles
 !/DotFiles/.bashrc
 !/DotFiles/.bash_profile
+!/DotFiles/.mbsyncrc
 !/DotFiles/.profile
 !/DotFiles/.xinitrc
 !/DotFiles/.xsessionrc
