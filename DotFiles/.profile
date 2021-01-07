@@ -34,6 +34,8 @@ alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+[ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
+
 export USER_STARTX_START=
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession

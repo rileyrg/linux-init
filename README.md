@@ -49,7 +49,6 @@ Another placeholder doing nothing as xinit launches XSession which uses .xsessio
 # Maintained in linux-init-files.org
 
 logger -t "startup-initfile"  USER-XSESSION
-
 exec dbus-launch --sh-syntax --exit-with-session i3
 ```
 
@@ -605,6 +604,8 @@ alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+[ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
+
 ```
 
 
@@ -618,8 +619,6 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 post-lock
-
-[[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
 
 dropbox-start-once
 
@@ -1836,12 +1835,12 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
 # Email Related
 
 
-## [mu/mu4e](https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org) mbsync,emacs
+## [mu mbsync mu4e](https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org)
+
+
+### mbsync
 
 mu indexes and accesses maildir.
-
-
-### mbsync/isync
 
 1.  install isync and mu4e
 
@@ -1882,6 +1881,38 @@ mu indexes and accesses maildir.
     mbsync -a
     mu index --maildir=~/Mail --my-address="$USEREMAIL"
     ```
+
+
+### mu4e
+
+```emacs-lisp
+(use-package mu4e
+  :ensure nil
+  ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :defer 20 ; Wait until 20 seconds after startup
+  :config
+
+  (mu4e t)
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using isync every 10 minutes
+  (setq mu4e-update-interval (* 10 60))
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq mu4e-maildir "~/Mail")
+
+  (setq mu4e-drafts-folder "/[Gmail]/Drafts")
+  (setq mu4e-sent-folder   "/[Gmail]/Sent Mail")
+  (setq mu4e-refile-folder "/[Gmail]/All Mail")
+  (setq mu4e-trash-folder  "/[Gmail]/Trash")
+
+  (setq mu4e-maildir-shortcuts
+        '(("/Inbox"             . ?i)
+          ("/[Gmail]/Sent Mail" . ?s)
+          ("/[Gmail]/Trash"     . ?t)
+          ("/[Gmail]/Drafts"    . ?d)
+          ("/[Gmail]/All Mail"  . ?a))))
+```
 
 
 # Misc utils
