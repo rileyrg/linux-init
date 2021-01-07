@@ -1738,6 +1738,7 @@ enable-ssh-support
 export USER_STARTX_START=
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
+export XDG_RUNTIME_DIR="/run/user/$UID"
 ```
 
 
@@ -1933,6 +1934,35 @@ mkdir -p ~/Maildir/gmail
 mbsync personal
 mu init --maildir=~/Maildir/gmail --my-address="$USEREMAIL"
 mu index
+```
+
+
+### mbsync services
+
+service file:
+
+```conf
+[Unit]
+Description=Mailbox synchronization service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync personal
+```
+
+associated timer:
+
+```conf
+[Unit]
+Description=Mailbox synchronization timer
+
+[Timer]
+OnBootSec=2m
+OnUnitActiveSec=5m
+Unit=mbsync.service
+
+[Install]
+WantedBy=timers.target
 ```
 
 

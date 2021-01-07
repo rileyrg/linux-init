@@ -39,5 +39,6 @@ export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.car
 export USER_STARTX_START=
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
+export XDG_RUNTIME_DIR="/run/user/$UID"
 
 [[ -f  ~/.profile.local ]] && . ~/.profile.local
