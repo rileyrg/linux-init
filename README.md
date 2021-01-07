@@ -620,6 +620,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
+dropbox-start-once
+
 ```
 
 
@@ -1848,31 +1850,77 @@ sudo apt install isync mu4e
 ### mbsync config
 
 ```conf
-      #Maintained in linux-init-files.org
-      IMAPAccount gmail
-      Host imap.gmail.com
-      User rileyrg@gmail.com
-      PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
-      SSLType IMAPS
-      CertificateFile /etc/ssl/certs/ca-certificates.crt
+#Maintained in linux-init-files.org
+IMAPAccount gmail
+Host imap.gmail.com
+User rileyrg@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-      IMAPStore gmail-remote
-      Account gmail
+IMAPStore gmail-remote
+Account gmail
 
-      MaildirStore gmail-local
-      Subfolders Verbatim
-      Path ~/Mail/
-      Inbox ~/Mail/Inbox
+MaxMessages 5000
 
-      MaxMessages 10000
+# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
+MaildirStore gmail-local
+Path ~/Maildir/gmail/
+Inbox ~/Maildir/gmail/INBOX
+# REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
+# SubFolders Verbatim
 
-      Channel gmail
-      Master :gmail-remote:
-      Slave :gmail-local:
-#      Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-      Patterns *  "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-      Create Both
-      SyncState *
+# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+#
+# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+#
+# 1 "*" TO MATCH EVERYTHING
+# 2 "!DIR" TO EXCLUDE "DIR"
+# 3 "DIR" TO MATCH DIR
+
+Channel gmail-inbox
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-sent
+Master :gmail-remote:"[Google Mail]/Sent Mail"
+Slave :gmail-local:"Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-all
+Master :gmail-remote:"[Google Mail]/All Mail"
+Slave :gmail-local:"All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-starred
+Master :gmail-remote:"[Google Mail]/Starred"
+Slave :gmail-local:"Starred"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-drafts
+Master :gmail-remote:"[Google Mail]/Drafts"
+Slave :gmail-local:"Drafts"
+Create Both
+Expunge Both
+SyncState *
+
+Group personal
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-all
+Channel gmail-starred
+Channel gmail-drafts
 
 ```
 

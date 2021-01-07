@@ -6,6 +6,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
+dropbox-start-once
+
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""
 [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && [[ -f ~/.START_X ]] && {
     echo "Auto starting via startx with USER_STARTX_NO_LOGOUT_ON_QUIT:${USER_STARTX_NO_LOGOUT_ON_QUIT}"
