@@ -49,7 +49,6 @@ Another placeholder doing nothing as xinit launches XSession which uses .xsessio
 # Maintained in linux-init-files.org
 
 logger -t "startup-initfile"  USER-XSESSION
-
 exec dbus-launch --sh-syntax --exit-with-session i3
 ```
 
@@ -605,6 +604,8 @@ alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+[ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
+
 ```
 
 
@@ -619,9 +620,7 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 post-lock
 
-dropbox-start-once
-
-[[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
+dropbox-start-once async
 
 ```
 
@@ -1831,6 +1830,110 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
     ```bash
     sudo systemctl restart acpid
     ```
+
+
+# Email Related
+
+
+## Maildir sync [mu mbsync](https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org)
+
+maildir sync using mbsync
+
+
+### install isync and mu4e
+
+```bash
+sudo apt install isync mu4e
+```
+
+
+### mbsync config
+
+```conf
+#Maintained in linux-init-files.org
+IMAPAccount gmail
+Host imap.gmail.com
+User rileyrg@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaxMessages 5000
+
+# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
+MaildirStore gmail-local
+Path ~/Maildir/gmail/
+Inbox ~/Maildir/gmail/INBOX
+# REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
+# SubFolders Verbatim
+
+# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+#
+# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+#
+# 1 "*" TO MATCH EVERYTHING
+# 2 "!DIR" TO EXCLUDE "DIR"
+# 3 "DIR" TO MATCH DIR
+
+Channel gmail-inbox
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-sent
+Master :gmail-remote:"[Google Mail]/Sent Mail"
+Slave :gmail-local:"Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-all
+Master :gmail-remote:"[Google Mail]/All Mail"
+Slave :gmail-local:"All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-starred
+Master :gmail-remote:"[Google Mail]/Starred"
+Slave :gmail-local:"Starred"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmail-drafts
+Master :gmail-remote:"[Google Mail]/Drafts"
+Slave :gmail-local:"Drafts"
+Create Both
+Expunge Both
+SyncState *
+
+Group personal
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-all
+Channel gmail-starred
+Channel gmail-drafts
+
+```
+
+
+### sync and index
+
+```bash
+cd ~
+mkdir -p ~/Maildir/gmail
+mbsync personal
+mu init --maildir=~/Maildir/gmail --my-address="$USEREMAIL"
+mu index
+```
 
 
 # Misc utils
