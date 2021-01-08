@@ -116,8 +116,8 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 # sugestions for .xsessionrc.local
 # export XIDLEHOOK_KBD=60
 # export XIDLEHOOK_DIM=120
-# export XIDLEHOOK_BLANK=120
-# export XIDLEHOOK_LOCK=300
+# export XIDLEHOOK_BLANK=600
+# export XIDLEHOOK_LOCK=7200
 # export XIDLEHOOK_SUSPEND=3600
 xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
 ```
@@ -229,16 +229,16 @@ xidlehook \
     --not-when-fullscreen \
     `# Don't lock when there's audio playing` \
     --not-when-audio \
-    --timer ${XIDLEHOOK_KBD:-15}\
+    --timer ${XIDLEHOOK_KBD:-60}\
     'pre-blank' \
     'post-blank' \
-    --timer ${XIDLEHOOK_DIM:-120}\
+    --timer ${XIDLEHOOK_DIM:-180}\
     'xbacklight -set 5' \
     'post-blank' \
-    --timer ${XIDLEHOOK_BLANK:-120}\
+    --timer ${XIDLEHOOK_BLANK:-600}\
     'xbacklight -set 0' \
     'post-blank' \
-    --timer ${XIDLEHOOK_LOCK:-300}\
+    --timer ${XIDLEHOOK_LOCK:-7200}\
     'pre-lock && xset dpms force standby' \
     'post-blank && post-lock' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
