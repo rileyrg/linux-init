@@ -1,11 +1,11 @@
 # Maintained in linux-init-files.org
 logger -t "startup-initfile"  BASH_PROFILE
 
-[[ -f ~/.profile ]] && . ~/.profile
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+[ -f ~/.profile ] && . ~/.profile || true
+[ -f ~/.bashrc ] && . ~/.bashrc || true
 
 post-lock
-systemctl --user restart mbsync.timer
+[ -d "/home/.ecryptfs/$USER" ] && systemctl --user restart mbsync.timer || true
 dropbox-start-once async
 
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""
