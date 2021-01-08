@@ -94,7 +94,6 @@ x-idlehook &
 (sleep 2 && gpg-cache)&
 
 systemctl start --user mbsync.timer
-dropbox-start-once
 
 ```
 
