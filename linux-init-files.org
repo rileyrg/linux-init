@@ -133,6 +133,7 @@
           ;;
       esac
 
+      [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
       [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
       xss-lock -- x-lock-utils lock &
@@ -140,10 +141,8 @@
       (post-lock && post-blank) &
       (sleep 2 && gpg-cache)&
 
-      systemctl start --user mbsync.timer
-      dropbox-start-once
 
-    #+end_src
+      #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
 *** task
@@ -611,6 +610,10 @@
 
      export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+     export USE_GPG_FOR_SSH="yes" # used in xsession
+     #export XDG_RUNTIME_DIR="/run/user/$UID"
+
      [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
 
    #+end_src
@@ -620,11 +623,11 @@
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  BASH_PROFILE
 
-     [[ -f ~/.profile ]] && . ~/.profile
-     [[ -f ~/.bashrc ]] && . ~/.bashrc
+     [ -f ~/.profile ] && . ~/.profile || true
+     [ -f ~/.bashrc ] && . ~/.bashrc || true
 
      post-lock
-
+     [ -d "/home/.ecryptfs/$USER" ] && systemctl --user restart mbsync.timer || true
      dropbox-start-once async
 
    #+end_src
@@ -1737,9 +1740,6 @@
 ** ~/.profile
    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.profile
      export USER_STARTX_START=
-     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-     export USE_GPG_FOR_SSH="yes" # used in xsession
-     export XDG_RUNTIME_DIR="/run/user/$UID"
    #+end_src
 
 * systemd
@@ -1841,7 +1841,7 @@
       IMAPStore gmail-remote
       Account gmail
 
-      MaxMessages 5000
+      MaxMessages 50000
 
       # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
       MaildirStore gmail-local
@@ -1920,7 +1920,7 @@
        Description=Mailbox synchronization timer
 
        [Timer]
-       OnBootSec=2m
+       OnBootSec=1m
        OnUnitActiveSec=5m
        Unit=mbsync.service
 

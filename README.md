@@ -85,6 +85,7 @@ case "$(hostname)" in
     ;;
 esac
 
+[ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 xss-lock -- x-lock-utils lock &
@@ -92,8 +93,6 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
-systemctl start --user mbsync.timer
-dropbox-start-once
 
 ```
 
@@ -605,6 +604,10 @@ alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
 
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+export USE_GPG_FOR_SSH="yes" # used in xsession
+#export XDG_RUNTIME_DIR="/run/user/$UID"
+
 [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
 
 ```
@@ -616,11 +619,11 @@ export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.car
 # Maintained in linux-init-files.org
 logger -t "startup-initfile"  BASH_PROFILE
 
-[[ -f ~/.profile ]] && . ~/.profile
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+[ -f ~/.profile ] && . ~/.profile || true
+[ -f ~/.bashrc ] && . ~/.bashrc || true
 
 post-lock
-
+[ -d "/home/.ecryptfs/$USER" ] && systemctl --user restart mbsync.timer || true
 dropbox-start-once async
 
 ```
@@ -1737,9 +1740,6 @@ enable-ssh-support
 
 ```bash
 export USER_STARTX_START=
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-export USE_GPG_FOR_SSH="yes" # used in xsession
-export XDG_RUNTIME_DIR="/run/user/$UID"
 ```
 
 
@@ -1863,7 +1863,7 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-MaxMessages 5000
+MaxMessages 50000
 
 # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
@@ -1947,7 +1947,7 @@ mu index
     Description=Mailbox synchronization timer
 
     [Timer]
-    OnBootSec=2m
+    OnBootSec=1m
     OnUnitActiveSec=5m
     Unit=mbsync.service
 
