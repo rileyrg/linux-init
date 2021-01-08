@@ -141,9 +141,8 @@
       (post-lock && post-blank) &
       (sleep 2 && gpg-cache)&
 
-      systemctl start --user mbsync.timer
 
-    #+end_src
+      #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
 *** task
@@ -627,8 +626,8 @@
      [[ -f ~/.profile ]] && . ~/.profile
      [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-      post-lock
-
+     post-lock
+     systemctl --user restart mbsync.timer
      dropbox-start-once async
 
    #+end_src

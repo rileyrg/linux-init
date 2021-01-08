@@ -4,8 +4,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.profile ]] && . ~/.profile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
- post-lock
-
+post-lock
+systemctl --user restart mbsync.timer
 dropbox-start-once async
 
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""

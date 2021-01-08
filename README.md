@@ -93,7 +93,6 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
-systemctl start --user mbsync.timer
 
 ```
 
@@ -623,8 +622,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 [[ -f ~/.profile ]] && . ~/.profile
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
- post-lock
-
+post-lock
+systemctl --user restart mbsync.timer
 dropbox-start-once async
 
 ```
