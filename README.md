@@ -2129,7 +2129,7 @@ fi
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 WID=`xdotool search "One Terminal"|head -1`
-if [ -z "WID" ]]; then
+if [ -z "$WID" ]; then
     terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
 else
     notify-send "restoring OneTerminal instance..."
