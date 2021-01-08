@@ -1951,7 +1951,7 @@ mu index
     Description=Mailbox synchronization timer
 
     [Timer]
-    OnBootSec=1m
+    OnBootSec=5m
     OnUnitActiveSec=5m
     Unit=mbsync.service
 
