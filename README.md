@@ -1837,12 +1837,14 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
 # Email Related
 
 
-## Maildir sync [mu mbsync](https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org)
+## Maildir sync using [mbsync](https://wiki.archlinux.org/index.php/Isync) inspired by the [SystemCrafters](https://www.youtube.com/watch?v=yZRyEhi4y44&ab_channel=SystemCrafters&loop=0) video.
 
 maildir sync using mbsync
 
 
 ### install isync and mu4e
+
+mu4e includes [mu](https://www.djcbsoftware.nl/code/mu/mu4e/Indexing-your-messages.html) for indexing.
 
 ```bash
 sudo apt install isync mu4e
@@ -1850,6 +1852,8 @@ sudo apt install isync mu4e
 
 
 ### mbsync config
+
+Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg then that's the way to go.
 
 ```conf
 #Maintained in linux-init-files.org

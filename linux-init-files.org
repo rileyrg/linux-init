@@ -1820,15 +1820,19 @@
      #+RESULTS:
 
 * Email Related
-** Maildir sync [[https://github.com/daviwil/emacs-from-scratch/blob/629aec3dbdffe99e2c361ffd10bd6727555a3bd3/show-notes/Emacs-Mail-01.org][mu mbsync]]
+** Maildir sync using [[https://wiki.archlinux.org/index.php/Isync][mbsync]] inspired by the [[https://www.youtube.com/watch?v=yZRyEhi4y44&ab_channel=SystemCrafters&loop=0][SystemCrafters]] video.
+   :PROPERTIES:
+   :CUSTOM_ID: mbsync-mu4e-config
+   :END:
    maildir sync using mbsync
 *** install isync and mu4e
-
+    mu4e includes [[https://www.djcbsoftware.nl/code/mu/mu4e/Indexing-your-messages.html][mu]] for indexing.
     #+begin_src bash
       sudo apt install isync mu4e
     #+end_src
 
 *** mbsync config
+    Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
     #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
       #Maintained in linux-init-files.org
       IMAPAccount gmail
