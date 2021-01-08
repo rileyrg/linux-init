@@ -174,7 +174,7 @@ lock() {
 
 lock_gpg_clear() {
     logger -t "x-lock-utils"  lock_gpg_clear
-    [[ "$1" == gpg_clear ]] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
+    [ "$1" = gpg_clear ] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
     lock
 }
 
@@ -232,10 +232,10 @@ xidlehook \
     --timer ${XIDLEHOOK_KBD:-60}\
     'pre-blank' \
     'post-blank' \
-    --timer ${XIDLEHOOK_DIM:-180}\
+    --timer ${XIDLEHOOK_DIM:-120}\
     'xbacklight -set 5' \
     'post-blank' \
-    --timer ${XIDLEHOOK_BLANK:-600}\
+    --timer ${XIDLEHOOK_BLANK:-300}\
     'xbacklight -set 0' \
     'post-blank' \
     --timer ${XIDLEHOOK_LOCK:-7200}\
@@ -289,7 +289,7 @@ get() {
 
 restore() {
     b=100
-    [[ -f ~/.x-backlight-persist ]] && read b < ~/.x-backlight-persist
+    [ -f ~/.x-backlight-persist ] && read b < ~/.x-backlight-persist
     xbacklight -set $b
     echo $b
 }
@@ -297,7 +297,7 @@ restore() {
 case "$1" in
     save)
         save
-        [[ ! -z "$2" ]] && xbacklight -set "$2"
+        [ -n "$2" ] && xbacklight -set "$2"
         ;;
     restore)
         restore
@@ -328,16 +328,16 @@ It's worth looking into using [arandr](https://christian.amsuess.com/tools/arand
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-on=$([[ $1 == "on" ]] && echo "on" || echo "off")
-hires=$([[ $2 == "on" ]] && echo "on" || echo "off")
-hires_mode=$([[ $hires == "on" ]] && echo "--mode 3840x2160 --rate 30" || echo "--mode 1920x1080 --rate 60")
+on=$([ $1 = "on" ] && echo "on" || echo "off")
+hires=$([ $2 = "on" ] && echo "on" || echo "off")
+hires_mode=$([ $hires = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--mode 1920x1080 --rate 60")
 
 xrandr --setprovideroutputsource 1 0
 
-xrandr --output eDP-1 $( [[ ! $on == "on" ]] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-xrandr --output HDMI-1-0  $( [[ $on == "on" ]] && echo "--right-of eDP-1 --primary ${hires_mode}" || echo "--off" )
+xrandr --output eDP-1 $( [ ! $on = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+xrandr --output HDMI-1-0  $( [ $on = "on" ] && echo "--right-of eDP-1 --primary ${hires_mode}" || echo "--off" )
 
-echo "Dual Screens $([[ $on == "on" ]] && echo -n "on, hires:$hires" || echo "off")"
+echo "Dual Screens $([ $on = "on" ] && echo -n "on, hires:$hires" || echo "off")"
 ```
 
 
@@ -821,7 +821,7 @@ DEFAULT_USER=$USER
 ```bash
 # Maintained in linux-init-files.org
 logger -t "startup-initfile"  ZLOGIN
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 ```
 
 
@@ -1823,7 +1823,7 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
     . /usr/share/acpi-support/power-funcs
     . /usr/share/acpi-support/policy-funcs
     getState
-    echo $( [[ $STATE == "AC" ]] && echo 0 || echo 1 ) > /sys/class/leds/qc71_laptop::lightbar/brightness
+    echo $( [ $STATE ="AC" ] && echo 0 || echo 1 ) > /sys/class/leds/qc71_laptop::lightbar/brightness
 
     ```
 
@@ -2115,7 +2115,7 @@ process viewer
 #!/bin/bash
 #Maintained in linux-init-files.org
 WID=`xdotool search --class "htop"`
-if [[ -z ${WID} ]]; then
+if [ -z "$WID" ]; then
     exec terminator --profile=htop -e htop
 else
     xdotool windowactivate $WID
@@ -2129,7 +2129,7 @@ fi
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 WID=`xdotool search "One Terminal"|head -1`
-if [[ -z ${WID} ]]; then
+if [ -z "WID" ]]; then
     terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
 else
     notify-send "restoring OneTerminal instance..."
@@ -2221,7 +2221,7 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-[[ -z "$MY_LOGGER -T "STARTUP-INITFILE" _ON" ]] || /usr/bin/logger -t "startup-initfile"  "$@"
+[ -z "${MY_LOGGER} -T "STARTUP-INITFILE" _ON" ] || /usr/bin/logger -t "startup-initfile"  "$@"
 ```
 
 
@@ -2232,7 +2232,7 @@ Only log to syslog if MY\_LOGGER -T "STARTUP-INITFILE" \_ON is set
 #Maintained in linux-init-files.org
 delay=10;
 message="Almost out of juice."
-while [[ "$#" -gt 0 ]]; do
+while [ "$#" -gt 0 ]; do
     case $1 in
         -d|--delay) delay="${2}";shift;;
         -m|--message) message="${2} ";shift;;
@@ -2259,7 +2259,7 @@ fi
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
-echo $([[ -z "$b" ]] && echo "charged" || echo $b)
+echo $([ -z "$b" ] && echo "charged" || echo $b)
 ```
 
 
@@ -2334,16 +2334,16 @@ save() (
 
 restore(){
     lightstatus="on";brightness=20;rgb="";color="silver";
-    if [[ -f "$sf" ]]; then
+    if [ -f "$sf" ]; then
         _ifs="$IFS";IFS=':' read -r lightstatus brightness color rgb < "$sf";IFS="$_ifs";
     fi
 }
 
 update(){
-    if [[ "$lightstatus" == "off" ]]; then
+    if [ "$lightstatus" = "off" ]; then
         ite8291r3-ctl off
     else
-        ite8291r3-ctl monocolor $([[ -n "$color" ]] && echo "--name $color" || echo "--rgb $rgb") --brightness "$brightness" &> /dev/null
+        ite8291r3-ctl monocolor $([ -n "$color" ] && echo "--name $color" || echo "--rgb $rgb") --brightness "$brightness" &> /dev/null
     fi
     save
 }
@@ -2371,7 +2371,7 @@ case "${1:-on}" in
         ;;
     set-brightness)
         brightness=${2:-"$brightness"}
-        if [[ -z "${brightness##*[!0-9]*}" ]]; then
+        if [ -z "${brightness##*[!0-9]*}" ]; then
             brightness=50
         elif (( $brightness > 50 )); then
             brightness=50
@@ -2387,7 +2387,7 @@ case "${1:-on}" in
         update
         ;;
     toggle)
-        lightstatus=$( [[ $lightstatus == "off" ]] && echo "on" || echo "off")
+        lightstatus=$( [ $lightstatus = "off" ] && echo "on" || echo "off")
         update
         ;;
     inc)
@@ -2470,10 +2470,10 @@ then
     echo "agent already running"
 else
     p=$(zenity --password --title "Password for SSH")
-    if [[ ! -z $p ]]
+    if [ ! -z "$p" ]
     then
-        [[ ! -z "$GPG_KEY1" ]] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY1" &> /dev/null
-        [[ ! -z "$GPG_KEY2" ]] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY2" &> /dev/null
+        [ ! -z "$GPG_KEY1" ] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY1" &> /dev/null
+        [ ! -z "$GPG_KEY2" ] && echo "$p" | /usr/lib/gnupg2/gpg-preset-passphrase --preset "$GPG_KEY2" &> /dev/null
     fi
 fi
 
@@ -2529,8 +2529,8 @@ x-backlight-persist restore
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
+[ -f ~/.post-blank ]  && . ~/.post-blank
 x-backlight-persist restore
-[ -f "${HOME}"/.post-blank ]  && . "${HOME}"/.post-blank
 ```
 
 
@@ -2541,9 +2541,9 @@ x-backlight-persist restore
 
 ```bash
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""
-[[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && [[ -f ~/.START_X ]] && {
+[ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] && [ -f ~/.START_X ] && {
     echo "Auto starting via startx with USER_STARTX_NO_LOGOUT_ON_QUIT:${USER_STARTX_NO_LOGOUT_ON_QUIT}"
-    [[ -z "$USER_STARTX_NO_LOGOUT_ON_QUIT" ]] && exec startx || startx
+    [ -z "$USER_STARTX_NO_LOGOUT_ON_QUIT" ] && exec startx || startx
 }
 ```
 
@@ -2551,7 +2551,7 @@ x-backlight-persist restore
 ## Late addition to ~/.profile
 
 ```bash
-[[ -f  ~/.profile.local ]] && . ~/.profile.local
+[ -f  ~/.profile.local ] && . ~/.profile.local
 ```
 
 

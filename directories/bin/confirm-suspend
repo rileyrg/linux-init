@@ -2,7 +2,7 @@
 #Maintained in linux-init-files.org
 delay=10;
 message="Almost out of juice."
-while [[ "$#" -gt 0 ]]; do
+while [ "$#" -gt 0 ]; do
     case $1 in
         -d|--delay) delay="${2}";shift;;
         -m|--message) message="${2} ";shift;;

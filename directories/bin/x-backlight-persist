@@ -13,7 +13,7 @@ get() {
 
 restore() {
     b=100
-    [[ -f ~/.x-backlight-persist ]] && read b < ~/.x-backlight-persist
+    [ -f ~/.x-backlight-persist ] && read b < ~/.x-backlight-persist
     xbacklight -set $b
     echo $b
 }
@@ -21,7 +21,7 @@ restore() {
 case "$1" in
     save)
         save
-        [[ ! -z "$2" ]] && xbacklight -set "$2"
+        [ -n "$2" ] && xbacklight -set "$2"
         ;;
     restore)
         restore

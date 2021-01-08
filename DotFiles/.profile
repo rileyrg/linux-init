@@ -42,4 +42,4 @@ export USE_GPG_FOR_SSH="yes" # used in xsession
 
 export USER_STARTX_START=
 
-[[ -f  ~/.profile.local ]] && . ~/.profile.local
+[ -f  ~/.profile.local ] && . ~/.profile.local

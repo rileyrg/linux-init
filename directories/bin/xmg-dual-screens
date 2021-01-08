@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-on=$([[ $1 == "on" ]] && echo "on" || echo "off")
-hires=$([[ $2 == "on" ]] && echo "on" || echo "off")
-hires_mode=$([[ $hires == "on" ]] && echo "--mode 3840x2160 --rate 30" || echo "--mode 1920x1080 --rate 60")
+on=$([ $1 = "on" ] && echo "on" || echo "off")
+hires=$([ $2 = "on" ] && echo "on" || echo "off")
+hires_mode=$([ $hires = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--mode 1920x1080 --rate 60")
 
 xrandr --setprovideroutputsource 1 0
 
-xrandr --output eDP-1 $( [[ ! $on == "on" ]] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-xrandr --output HDMI-1-0  $( [[ $on == "on" ]] && echo "--right-of eDP-1 --primary ${hires_mode}" || echo "--off" )
+xrandr --output eDP-1 $( [ ! $on = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+xrandr --output HDMI-1-0  $( [ $on = "on" ] && echo "--right-of eDP-1 --primary ${hires_mode}" || echo "--off" )
 
-echo "Dual Screens $([[ $on == "on" ]] && echo -n "on, hires:$hires" || echo "off")"
+echo "Dual Screens $([ $on = "on" ] && echo -n "on, hires:$hires" || echo "off")"

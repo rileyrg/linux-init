@@ -9,7 +9,7 @@ post-lock
 dropbox-start-once async
 
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""
-[[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && [[ -f ~/.START_X ]] && {
+[ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] && [ -f ~/.START_X ] && {
     echo "Auto starting via startx with USER_STARTX_NO_LOGOUT_ON_QUIT:${USER_STARTX_NO_LOGOUT_ON_QUIT}"
-    [[ -z "$USER_STARTX_NO_LOGOUT_ON_QUIT" ]] && exec startx || startx
+    [ -z "$USER_STARTX_NO_LOGOUT_ON_QUIT" ] && exec startx || startx
 }
