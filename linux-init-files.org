@@ -142,7 +142,7 @@
       (sleep 2 && gpg-cache)&
 
 
-      #+end_src
+    #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
 *** task
@@ -1820,6 +1820,8 @@
      #+RESULTS:
 
 * Email Related
+** mu4e  - mu for Emacs
+   [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]], a Maildir based email client for Emacs, is configured in my [[https://github.com/rileyrg/Emacs-Customisations][emacs-config]]
 ** Maildir sync using [[https://wiki.archlinux.org/index.php/Isync][mbsync]] inspired by the [[https://www.youtube.com/watch?v=yZRyEhi4y44&ab_channel=SystemCrafters&loop=0][SystemCrafters]] video.
    :PROPERTIES:
    :CUSTOM_ID: mbsync-mu4e-config
@@ -1948,6 +1950,24 @@
      #+end_src
 
      #+RESULTS:
+** STARTED Mutt
+   :LOGBOOK:
+   - Note taken on [2021-01-08 Fri 22:38] \\
+     Maildir for mu4e not recognised
+   - State "STARTED"    from              [2021-01-08 Fri 22:38]
+   :END:
+    [[http://www.mutt.org/][Mutt]] is a  text based, terminal email program.
+    #+begin_src bash
+      sudo apt install mutt
+    #+end_src
+*** ~/.config/mutt/muttrc
+#+begin_src conf :tangle ~/.config/mutt/muttrc
+  set mbox_type=Maildir
+  set folder=~/Maildir/
+  set spoolfile=+/
+  set header_cache=~/.cache/mutt
+#+end_src
+    #+RESULTS:
 
 * Misc utils
 ** ~/bin/acpi-

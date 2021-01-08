@@ -1837,6 +1837,11 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
 # Email Related
 
 
+## mu4e  - mu for Emacs
+
+[mu4e](https://www.djcbsoftware.nl/code/mu/mu4e.html), a Maildir based email client for Emacs, is configured in my [emacs-config](https://github.com/rileyrg/Emacs-Customisations)
+
+
 ## Maildir sync using [mbsync](https://wiki.archlinux.org/index.php/Isync) inspired by the [SystemCrafters](https://www.youtube.com/watch?v=yZRyEhi4y44&ab_channel=SystemCrafters&loop=0) video.
 
 maildir sync using mbsync
