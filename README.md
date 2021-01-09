@@ -2525,7 +2525,7 @@ x-backlight-persist restore
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-[ -f "${HOME}"/.pre-blank ]  && . "${HOME}"/.pre-blank
+[ -f ~/.pre-blank ]  && . ~/.pre-blank
 ```
 
 
