@@ -11,6 +11,18 @@ Work in progress!! Keep all config and scripts in a single org file for document
 .gitignore isn't stored in here as its prone to being edited a lot.
 
 
+### ~/.gitconfig
+
+```bash
+# Maintained in linux-init-files.org
+[user]
+        name = Richard G. Riley
+        email = rileyrg@gmail.com
+[push]
+        default = current
+```
+
+
 # X Related
 
 Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting_x>

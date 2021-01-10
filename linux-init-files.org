@@ -58,6 +58,16 @@
    Keep all config and scripts in a single org file for documentation. Use org tangling for exporting them.
 ** GIT
    .gitignore isn't stored in here as its prone to being edited a lot.
+*** ~/.gitconfig
+    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.gitconfig
+      # Maintained in linux-init-files.org
+      [user]
+              name = Richard G. Riley
+              email = rileyrg@gmail.com
+      [push]
+              default = current
+    #+end_src
+
 ** Tasks                                                           :noexport:
 *** TODO purge all old branches
     SCHEDULED: <2021-01-10 Sun>
