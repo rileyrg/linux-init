@@ -1157,10 +1157,10 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:edit"
 set $ws2 "2:research"
-set $ws3 "3:browse"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
+set $ws3 "3:shell"
+set $ws4 "4:browse"
+set $ws5 "5:dired"
+set $ws6 "6:music"
 set $ws7 "7:video"
 set $ws8 "8:irc"
 set $ws9 "9:steam"
@@ -1242,6 +1242,7 @@ bindsym $mod+Control+l exec (sleep 1 && xset dpms force standby) #triggers xss-l
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
 bindsym $mod+Control+f exec thunar
+bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+c exec conky
