@@ -66,7 +66,7 @@
     :END:
 * X Related
   Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
-** DONE ~/.xinitrc
+** ~/.xinitrc
    CLOSED: [2020-12-20 Sun 13:35]
    :LOGBOOK:
    - Note taken on [2020-12-20 Sun 13:35] \\
@@ -91,7 +91,7 @@
      # all moved to .xsessionrc so /etc/X11/Xsession loads it
 
    #+end_src
-** TODO ~/.xsession
+** ~/.xsession
    :LOGBOOK:
    - State "TODO"       from "DONE"       [2020-12-31 Thu 10:56]
    - State "DONE"       from              [2020-12-31 Thu 10:56]

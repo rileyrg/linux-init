@@ -16,7 +16,7 @@ Work in progress!! Keep all config and scripts in a single org file for document
 Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting_x>
 
 
-## DONE ~/.xinitrc
+## ~/.xinitrc
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -40,7 +40,7 @@ Another placeholder doing nothing as xinit launches XSession which uses .xsessio
 ```
 
 
-## TODO ~/.xsession
+## ~/.xsession
 
 [/etc/X11/Xsession.d](file:///etc/X11) does the most work. It's processed by [startx](file:///usr/bin/startx)->[xinitrc](file:///etc/X11/xinit/xinitrc) which in turn calls [/etc/X11/Xsession](file:///etc/X11/Xsession)
 
