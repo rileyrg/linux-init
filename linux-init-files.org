@@ -58,6 +58,12 @@
    Keep all config and scripts in a single org file for documentation. Use org tangling for exporting them.
 ** GIT
    .gitignore isn't stored in here as its prone to being edited a lot.
+** Tasks                                                           :noexport:
+*** TODO purge all old branches
+    SCHEDULED: <2021-01-10 Sun>
+    :LOGBOOK:
+    - State "TODO"       from              [2021-01-10 Sun 09:32]
+    :END:
 * X Related
   Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
 ** DONE ~/.xinitrc
