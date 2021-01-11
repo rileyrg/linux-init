@@ -3,6 +3,8 @@
 !README.md
 !linux-init-files.org
 !linux-init-files.export
+!linux-config.org
+!linux-config.export
 
 !/etc
 !/etc/acpi
