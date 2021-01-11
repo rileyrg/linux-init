@@ -9,7 +9,7 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-MaxMessages 50000
+MaxMessages 0
 
 # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
