@@ -1878,7 +1878,7 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 IMAPAccount gmail
 Host imap.gmail.com
 User rileyrg@gmail.com
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.gnupg/auth/authmbsync.gpg | awk '/machine gmail.com login me/ {print $NF}'"
+PassCmd "pass Email/gmail"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
