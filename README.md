@@ -1227,7 +1227,7 @@ bindsym $mod+r mode "resize"
 # i3bar
 bar {
 status_command i3blocks
-font pango:JetBrains Mono 12
+font pango:JetBrains Mono 10
 position top
 #mode hide
 hidden_state hide
