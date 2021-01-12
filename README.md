@@ -1884,7 +1884,7 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-MaxMessages 50000
+ExpireUnread yes
 
 # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
@@ -1923,6 +1923,7 @@ Slave :gmail-local:"All Mail"
 Create Both
 Expunge Both
 SyncState *
+
 
 Channel gmail-starred
 Master :gmail-remote:"[Google Mail]/Starred"
