@@ -2218,8 +2218,8 @@
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       stat=$(dropbox status | sed -n 1p)
-      echo $stat; echo "";
-      if [ $(wc -w <<< $stat) = 1 ]; then
+      echo "DB:${stat}"; echo "";
+      if (( $(wc -w <<< $stat) == 1 )); then
           echo "#004000";
       else
           echo "#800000";
