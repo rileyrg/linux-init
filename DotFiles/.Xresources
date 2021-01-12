@@ -14,7 +14,7 @@ Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
 #ifdef SRVR_thinkpadx270
-Xft.dpi:       174
+Xft.dpi:       128
 #endif
 #ifdef SRVR_xmgneo
 Xft.dpi:       144
