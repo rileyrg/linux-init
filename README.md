@@ -2284,17 +2284,26 @@ fi
 ```
 
 
-### ~/bin/my-i3b-db-status
+### ~/bin/
+
+my-i3b-db-status
 
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-stat=$(dropbox status | sed -n 1p)
-echo "DB:${stat}"; echo "";
-if (( $(wc -w <<< $stat) == 1 )); then
-    echo "#004000";
+if pidof dropbox > /dev/null ; then
+    stat=$(dropbox status | sed -n 1p)
+    echo "DB:${stat}"; echo "";
+    if (( $(wc -w <<< $stat) == 1 )); then
+        echo "#004000";
+    else
+        echo "#800000";
+    fi
 else
-    echo "#800000";
+    if command -v dropbox > /dev/null; then
+        echo "Starting Dropbox.."
+        dropbox start &> /dev/null &
+    fi
 fi
 ```
 
