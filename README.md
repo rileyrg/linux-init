@@ -153,7 +153,7 @@ Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
-#ifdef SRVR_thinpadx270
+#ifdef SRVR_thinkpadx270
 Xft.dpi:       174
 #endif
 #ifdef SRVR_xmgneo
@@ -1923,7 +1923,6 @@ Slave :gmail-local:"All Mail"
 Create Both
 Expunge Both
 SyncState *
-
 
 Channel gmail-starred
 Master :gmail-remote:"[Google Mail]/Starred"

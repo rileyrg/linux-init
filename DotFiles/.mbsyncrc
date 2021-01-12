@@ -49,7 +49,6 @@ Create Both
 Expunge Both
 SyncState *
 
-
 Channel gmail-starred
 Master :gmail-remote:"[Google Mail]/Starred"
 Slave :gmail-local:"Starred"
