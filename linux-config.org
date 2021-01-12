@@ -58,16 +58,17 @@
    Keep all config and scripts in a single org file for documentation. Use org tangling for exporting them.
 ** GIT
    .gitignore isn't stored in here as its prone to being edited a lot.
-*** ~/.gitconfig
-    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.gitconfig
-      # Maintained in linux-init-files.org
-      [user]
-              name = Richard G. Riley
-              email = rileyrg@gmail.com
-      [push]
-              default = current
+*** master branch, no commit
+    :PROPERTIES:
+    :END:
+    #+begin_src bash :tangle .git/hooks/pre-commit
+      #!/bin/sh
+      branch="$(git rev-parse --abbrev-ref HEAD)"
+      if [ "$branch" = "master" ]; then
+        echo "You can't commit directly to master branch"
+        exit 1
+      fi
     #+end_src
-
 ** Tasks                                                           :noexport:
 *** DONE purge all old branches
     CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>

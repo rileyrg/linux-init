@@ -11,15 +11,15 @@ Work in progress!! Keep all config and scripts in a single org file for document
 .gitignore isn't stored in here as its prone to being edited a lot.
 
 
-### ~/.gitconfig
+### master branch, no commit
 
 ```bash
-# Maintained in linux-init-files.org
-[user]
-        name = Richard G. Riley
-        email = rileyrg@gmail.com
-[push]
-        default = current
+#!/bin/sh
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "master" ]; then
+  echo "You can't commit directly to master branch"
+  exit 1
+fi
 ```
 
 
