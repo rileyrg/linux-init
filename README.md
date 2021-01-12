@@ -1429,7 +1429,7 @@ bindsym Escape mode "default"
 # Guess the weather hourly
 [dropbox]
 interval=15
-command=echo  "$(dropbox status | sed -n 1p)"
+command=echo  "$(my-i3b-db-status)"
 color=#1010E0
 
 [weather]
@@ -1439,7 +1439,7 @@ interval=900
 color=#A4C2F4
 
 [battery]
-command=echo "$(my-battery-status)"
+command=echo "$(my-i3b-battery-status)"
 interval=60
 color=#b01010
 
@@ -2267,16 +2267,35 @@ fi
 ```
 
 
-## Info Utilities for such as i3blocks
+## i3blocks utilities
 
 
-### ~/bin/my-battery-status
+### ~/bin/my-i3b-battery-status
 
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
-echo $([ -z "$b" ] && echo "charged" || echo $b)
+if [ -z "$b" ]; then
+    echo "charged";echo ""; echo "#004400";
+else
+    echo $b;echo "";echo "#FF0000";
+fi
+```
+
+
+### ~/bin/my-i3b-db-status
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+stat=$(dropbox status | sed -n 1p)
+echo $stat; echo "";
+if [ $(wc -w <<< $stat) = 1 ]; then
+    echo "#004000";
+else
+    echo "#800000";
+fi
 ```
 
 
