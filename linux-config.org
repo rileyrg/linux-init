@@ -202,6 +202,9 @@
      Xft.rgba:      rgb
      Xft.hintstyle: hintfull
      Xft.dpi:       96
+     #ifdef SRVR_thinkpadt460
+     Xft.dpi:       84
+     #endif
      #ifdef SRVR_thinkpadx270
      Xft.dpi:       128
      #endif
@@ -2380,6 +2383,9 @@
     #+RESULTS:
 
 ** Google Translate Helpers
+   #+begin_src bash
+     sudo apt install translate-shell
+   #+end_src
 *** ~/bin/google-trans
     #+begin_src bash :tangle ~/bin/google-trans
       #!/usr/bin/bash
