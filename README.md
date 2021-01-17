@@ -86,6 +86,10 @@ export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
+    "thinkpadt460")
+    # disable trackpad
+    xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
+    ;;
     "thinkpadx270")
     ;;
     "xmgneo")
