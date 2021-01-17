@@ -86,6 +86,10 @@ export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
+    "thinkpadt460")
+    # disable trackpad
+    xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
+    ;;
     "thinkpadx270")
     ;;
     "xmgneo")
@@ -153,6 +157,9 @@ Xft.hinting:   true
 Xft.rgba:      rgb
 Xft.hintstyle: hintfull
 Xft.dpi:       96
+#ifdef SRVR_thinkpadt460
+Xft.dpi:       84
+#endif
 #ifdef SRVR_thinkpadx270
 Xft.dpi:       128
 #endif
@@ -2469,6 +2476,10 @@ xmg-neo-rgb-kbd-lights set-color red
 
 
 ## Google Translate Helpers
+
+```bash
+sudo apt install translate-shell
+```
 
 
 ### ~/bin/google-trans
