@@ -18,12 +18,6 @@
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
 
-#+begin_src conf :tangle linux-config.tangle
-#tangle me
-#+end_src
-#+begin_src conf :tangle linux-config.export
-#export me
-#+end_src
 * Introduction
 
 ** scratch :noexport:
