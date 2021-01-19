@@ -1,12 +1,3 @@
-```conf
-#tangle me
-```
-
-```conf
-#export me
-```
-
-
 # Introduction
 
 
