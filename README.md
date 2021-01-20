@@ -1891,23 +1891,9 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-ExpireUnread yes
-
-# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
 Path ~/Maildir/gmail/
 Inbox ~/Maildir/gmail/INBOX
-# REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
-# SubFolders Verbatim
-
-# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
-#
-# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
-# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
-#
-# 1 "*" TO MATCH EVERYTHING
-# 2 "!DIR" TO EXCLUDE "DIR"
-# 3 "DIR" TO MATCH DIR
 
 Channel gmail-inbox
 Master :gmail-remote:
@@ -1945,12 +1931,44 @@ Create Both
 Expunge Both
 SyncState *
 
+IMAPAccount gmx
+Host imap.gmx.com
+User rileyrg@gmx.de
+PassCmd "pass Email/gmx"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmx-remote
+Account gmx
+
+MaildirStore gmx-local
+Path ~/Maildir/gmx/
+Inbox ~/Maildir/gmx/INBOX
+
+Channel gmx-inbox
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmx-sent
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "Gesendet"
+Create Both
+Expunge Both
+SyncState *
+
 Group personal
 Channel gmail-inbox
 Channel gmail-sent
 Channel gmail-all
 Channel gmail-starred
 Channel gmail-drafts
+Channel gmx-inbox
+Channel gmx-sent
 
 ```
 
