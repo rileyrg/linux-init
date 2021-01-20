@@ -11,6 +11,20 @@ Work in progress!! Keep all config and scripts in a single org file for document
 .gitignore isn't stored in here as its prone to being edited a lot.
 
 
+### ~/.gitconfig
+
+global git settings
+
+```conf
+# Maintained in linux-init-files.org
+[user]
+        name = Richard G. Riley
+        email = rileyrg@gmx.de
+[push]
+        default = current
+```
+
+
 ### master branch, no commit
 
 ```bash
