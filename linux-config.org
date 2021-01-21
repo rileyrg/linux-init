@@ -1941,7 +1941,7 @@
 
       MaildirStore gmx-local
       Path ~/Maildir/gmx/
-      Inbox ~/Maildir/gmx/INBOX
+      Inbox ~/Maildir/gmx/Posteingang
 
       Channel gmx-inbox
       Master :gmx-remote:
