@@ -1917,23 +1917,16 @@ Create Slave
 Expunge Both
 SyncState *
 
-Channel gmx-outbox
-Master :gmx-remote:"OUTBOX"
-Slave :gmx-local:"OUTBOX"
-Create Slave
-Expunge Both
-SyncState *
-
-Channel gmx-archive
-Master :gmx-remote:"Archiv"
-Slave :gmx-local:"Archive"
-Create Slave
-Expunge Both
-SyncState *
-
 Channel gmx-sent
 Master :gmx-remote:"Gesendet"
 Slave :gmx-local:"Sent"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-drafts
+Master :gmx-remote:"Entw&APw-rfe"
+Slave :gmx-local:"Drafts"
 Create Slave
 Expunge Both
 SyncState *
@@ -1952,21 +1945,20 @@ Create Slave
 Expunge Both
 SyncState *
 
-Channel gmx-drafts
-Master :gmx-remote:"Entw&APw-rfe"
-Slave :gmx-local:"Drafts"
+Channel gmx-archive
+Master :gmx-remote:"Archiv"
+Slave :gmx-local:"Archive"
 Create Slave
 Expunge Both
 SyncState *
 
 Group gmx
 Channel gmx-inbox
-Channel gmx-outbox
-Channel gmx-archive
 Channel gmx-sent
+Channel gmx-drafts
 Channel gmx-bin
 Channel gmx-spam
-Channel gmx-drafts
+Channel gmx-archive
 
 IMAPAccount gmail
 Host imap.gmail.com
@@ -2004,9 +1996,9 @@ Create Slave
 Expunge Both
 SyncState *
 
-Channel gmail-archive
-Master :gmail-remote:"[Google Mail]/All Mail"
-Slave :gmail-local:"Archive"
+Channel gmail-bin
+Master :gmail-remote:"[Google Mail]/Bin"
+Slave :gmail-local:"Bin"
 Create Slave
 Expunge Both
 SyncState *
@@ -2018,9 +2010,9 @@ Create Slave
 Expunge Both
 SyncState *
 
-Channel gmail-bin
-Master :gmail-remote:"[Google Mail]/Bin"
-Slave :gmail-local:"Bin"
+Channel gmail-archive
+Master :gmail-remote:"[Google Mail]/All Mail"
+Slave :gmail-local:"Archive"
 Create Slave
 Expunge Both
 SyncState *
@@ -2029,9 +2021,9 @@ Group gmail
 Channel gmail-inbox
 Channel gmail-sent
 Channel gmail-drafts
-Channel gmail-archive
-Channel gmail-spam
 Channel gmail-bin
+Channel gmail-spam
+Channel gmail-archive
 
 ```
 
