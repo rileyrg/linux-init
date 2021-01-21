@@ -1913,35 +1913,35 @@ Channel gmail-inbox
 Master :gmail-remote:
 Slave :gmail-local:
 Patterns "INBOX"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
 Channel gmail-sent
 Master :gmail-remote:"[Google Mail]/Sent Mail"
 Slave :gmail-local:"Sent Mail"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
 Channel gmail-all
 Master :gmail-remote:"[Google Mail]/All Mail"
 Slave :gmail-local:"All Mail"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
 Channel gmail-starred
 Master :gmail-remote:"[Google Mail]/Starred"
 Slave :gmail-local:"Starred"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
 Channel gmail-drafts
 Master :gmail-remote:"[Google Mail]/Drafts"
 Slave :gmail-local:"Drafts"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -1970,7 +1970,7 @@ Channel gmx-inbox
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Posteingang"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -1978,7 +1978,7 @@ Channel gmx-outbox
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Postausgang"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -1986,7 +1986,7 @@ Channel gmx-sent
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Gesendet"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -1994,7 +1994,7 @@ Channel gmx-deleted
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Gelöscht"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -2002,7 +2002,7 @@ Channel gmx-spam
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Spamverdacht"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
@@ -2010,7 +2010,7 @@ Channel gmx-drafts
 Master :gmx-remote:
 Slave :gmx-local:
 Patterns "Entwürfe"
-Create Both
+Create Slave
 Expunge Both
 SyncState *
 
