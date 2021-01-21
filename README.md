@@ -1895,6 +1895,10 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 ```conf
 #Maintained in linux-init-files.org
+Create Slave
+Expunge Both
+SyncState *
+
 IMAPAccount gmx
 Host imap.gmx.com
 User rileyrg@gmx.de
@@ -1913,44 +1917,26 @@ SubFolders Legacy
 Channel gmx-inbox
 Master :gmx-remote:"INBOX"
 Slave :gmx-local:"INBOX"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmx-sent
 Master :gmx-remote:"Gesendet"
 Slave :gmx-local:"Sent"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmx-drafts
 Master :gmx-remote:"Entw&APw-rfe"
 Slave :gmx-local:"Drafts"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmx-bin
 Master :gmx-remote:"Gel&APY-scht"
 Slave :gmx-local:"Bin"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmx-spam
 Master :gmx-remote:"Spamverdacht"
 Slave :gmx-local:"Spam"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmx-archive
 Master :gmx-remote:"Archiv"
 Slave :gmx-local:"Archive"
-Create Slave
-Expunge Both
-SyncState *
 
 Group gmx
 Channel gmx-inbox
@@ -1978,44 +1964,26 @@ SubFolders Legacy
 Channel gmail-inbox
 Master :gmail-remote:"INBOX"
 Slave :gmail-local:"INBOX"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmail-sent
 Master :gmail-remote:"[Google Mail]/Sent Mail"
 Slave :gmail-local:"Sent"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmail-drafts
 Master :gmail-remote:"[Google Mail]/Drafts"
 Slave :gmail-local:"Drafts"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmail-bin
 Master :gmail-remote:"[Google Mail]/Bin"
 Slave :gmail-local:"Bin"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmail-spam
 Master :gmail-remote:"[Google Mail]/Spam"
 Slave :gmail-local:"Spam"
-Create Slave
-Expunge Both
-SyncState *
 
 Channel gmail-archive
 Master :gmail-remote:"[Google Mail]/All Mail"
 Slave :gmail-local:"Archive"
-Create Slave
-Expunge Both
-SyncState *
 
 Group gmail
 Channel gmail-inbox
