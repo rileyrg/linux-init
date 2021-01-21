@@ -11,6 +11,20 @@ Work in progress!! Keep all config and scripts in a single org file for document
 .gitignore isn't stored in here as its prone to being edited a lot.
 
 
+### ~/.gitconfig
+
+global git settings
+
+```conf
+# Maintained in linux-init-files.org
+[user]
+        name = Richard G. Riley
+        email = rileyrg@gmx.de
+[push]
+        default = current
+```
+
+
 ### master branch, no commit
 
 ```bash
@@ -1881,6 +1895,57 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 ```conf
 #Maintained in linux-init-files.org
+Create Slave
+Expunge Both
+SyncState *
+
+IMAPAccount gmx
+Host imap.gmx.com
+User rileyrg@gmx.de
+PassCmd "pass Email/gmx"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmx-remote
+Account gmx
+
+MaildirStore gmx-local
+Path ~/Maildir/gmx/
+Inbox ~/Maildir/gmx/INBOX
+SubFolders Legacy
+
+Channel gmx-inbox
+Master :gmx-remote:"INBOX"
+Slave :gmx-local:"INBOX"
+
+Channel gmx-sent
+Master :gmx-remote:"Gesendet"
+Slave :gmx-local:"Sent"
+
+Channel gmx-drafts
+Master :gmx-remote:"Entw&APw-rfe"
+Slave :gmx-local:"Drafts"
+
+Channel gmx-bin
+Master :gmx-remote:"Gel&APY-scht"
+Slave :gmx-local:"Bin"
+
+Channel gmx-spam
+Master :gmx-remote:"Spamverdacht"
+Slave :gmx-local:"Spam"
+
+Channel gmx-archive
+Master :gmx-remote:"Archiv"
+Slave :gmx-local:"Archive"
+
+Group gmx
+Channel gmx-inbox
+Channel gmx-sent
+Channel gmx-drafts
+Channel gmx-bin
+Channel gmx-spam
+Channel gmx-archive
+
 IMAPAccount gmail
 Host imap.gmail.com
 User rileyrg@gmail.com
@@ -1891,66 +1956,42 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 IMAPStore gmail-remote
 Account gmail
 
-ExpireUnread yes
-
-# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/Maildir/gmail)
 MaildirStore gmail-local
 Path ~/Maildir/gmail/
 Inbox ~/Maildir/gmail/INBOX
-# REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
-# SubFolders Verbatim
-
-# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
-#
-# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
-# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
-#
-# 1 "*" TO MATCH EVERYTHING
-# 2 "!DIR" TO EXCLUDE "DIR"
-# 3 "DIR" TO MATCH DIR
+SubFolders Legacy
 
 Channel gmail-inbox
-Master :gmail-remote:
-Slave :gmail-local:
-Patterns "INBOX"
-Create Both
-Expunge Both
-SyncState *
+Master :gmail-remote:"INBOX"
+Slave :gmail-local:"INBOX"
 
 Channel gmail-sent
 Master :gmail-remote:"[Google Mail]/Sent Mail"
-Slave :gmail-local:"Sent Mail"
-Create Both
-Expunge Both
-SyncState *
-
-Channel gmail-all
-Master :gmail-remote:"[Google Mail]/All Mail"
-Slave :gmail-local:"All Mail"
-Create Both
-Expunge Both
-SyncState *
-
-Channel gmail-starred
-Master :gmail-remote:"[Google Mail]/Starred"
-Slave :gmail-local:"Starred"
-Create Both
-Expunge Both
-SyncState *
+Slave :gmail-local:"Sent"
 
 Channel gmail-drafts
 Master :gmail-remote:"[Google Mail]/Drafts"
 Slave :gmail-local:"Drafts"
-Create Both
-Expunge Both
-SyncState *
 
-Group personal
+Channel gmail-bin
+Master :gmail-remote:"[Google Mail]/Bin"
+Slave :gmail-local:"Bin"
+
+Channel gmail-spam
+Master :gmail-remote:"[Google Mail]/Spam"
+Slave :gmail-local:"Spam"
+
+Channel gmail-archive
+Master :gmail-remote:"[Google Mail]/All Mail"
+Slave :gmail-local:"Archive"
+
+Group gmail
 Channel gmail-inbox
 Channel gmail-sent
-Channel gmail-all
-Channel gmail-starred
 Channel gmail-drafts
+Channel gmail-bin
+Channel gmail-spam
+Channel gmail-archive
 
 ```
 
@@ -1960,8 +2001,9 @@ Channel gmail-drafts
 ```bash
 cd ~
 mkdir -p ~/Maildir/gmail
-mbsync personal
-mu init --maildir=~/Maildir/gmail --my-address="$USEREMAIL"
+mkdir -p ~/Maildir/gmx
+mbsync gmail gmx
+mu init --maildir=~/Maildir --my-address="riley**@gmx.de" --my-address="riley**@gmail.com"
 mu index
 ```
 
@@ -1976,7 +2018,7 @@ mu index
 
     [Timer]
     OnBootSec=5m
-    OnUnitActiveSec=5m
+    OnUnitActiveSec=15m
     Unit=mbsync.service
 
     [Install]
@@ -1991,7 +2033,7 @@ mu index
 
     [Service]
     Type=oneshot
-    ExecStart=/usr/bin/mbsync personal
+    ExecStart=/usr/bin/mbsync gmail gmx
     ExecStartPost=/usr/bin/mu index
     ```
 
