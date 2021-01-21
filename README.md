@@ -2030,8 +2030,9 @@ Channel gmx-spam
 ```bash
 cd ~
 mkdir -p ~/Maildir/gmail
-mbsync personal
-mu init --maildir=~/Maildir/gmail --my-address="$USEREMAIL"
+mkdir -p ~/Maildir/gmx
+mbsync gmail gmx
+mu init --maildir=~/Maildir --my-address="riley**@gmx.de" --my-address="riley**@gmail.com"
 mu index
 ```
 
@@ -2061,7 +2062,7 @@ mu index
 
     [Service]
     Type=oneshot
-    ExecStart=/usr/bin/mbsync personal
+    ExecStart=/usr/bin/mbsync gmail gmx
     ExecStartPost=/usr/bin/mu index
     ```
 
