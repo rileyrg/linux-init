@@ -1895,6 +1895,82 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 ```conf
 #Maintained in linux-init-files.org
+MaildirStore root
+Path ~/Maildir/
+
+IMAPAccount gmx
+Host imap.gmx.com
+User rileyrg@gmx.de
+PassCmd "pass Email/gmx"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmx-remote
+Account gmx
+
+MaildirStore gmx-local
+Path ~/Maildir/gmx/
+Inbox ~/Maildir/gmx/INBOX
+SubFolders Legacy
+
+Channel gmx-inbox
+Master :gmx-remote:"INBOX"
+Slave :gmx-local:"INBOX"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-outbox
+Master :gmx-remote:"OUTBOX"
+Slave :gmx-local:"OUTBOX"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-archive
+Master :gmx-remote:"Archiv"
+Slave :gmx-local:"Archive"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-sent
+Master :gmx-remote:"Gesendet"
+Slave :gmx-local:"Sent"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-bin
+Master :gmx-remote:"Gel&APY-scht"
+Slave :gmx-local:"Bin"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-spam
+Master :gmx-remote:"Spamverdacht"
+Slave :root:"Spam"
+Create Slave
+Expunge Both
+SyncState *
+
+Channel gmx-drafts
+Master :gmx-remote:"Entw&APw-rfe"
+Slave :gmx-local:"Drafts"
+Create Slave
+Expunge Both
+SyncState *
+
+Group gmx
+Channel gmx-inbox
+Channel gmx-outbox
+Channel gmx-archive
+Channel gmx-sent
+Channel gmx-bin
+Channel gmx-spam
+Channel gmx-drafts
+
 IMAPAccount gmail
 Host imap.gmail.com
 User rileyrg@gmail.com
@@ -1907,12 +1983,12 @@ Account gmail
 
 MaildirStore gmail-local
 Path ~/Maildir/gmail/
+Inbox ~/Maildir/gmail/INBOX
 SubFolders Legacy
 
 Channel gmail-inbox
-Master :gmail-remote:
-Slave :gmail-local:"Inbox"
-Patterns "Inbox"
+Master :gmail-remote:"INBOX"
+Slave :gmail-local:"INBOX"
 Create Slave
 Expunge Both
 SyncState *
@@ -1931,16 +2007,16 @@ Create Slave
 Expunge Both
 SyncState *
 
-Channel gmail-all
+Channel gmail-archive
 Master :gmail-remote:"[Google Mail]/All Mail"
-Slave :gmail-local:"All Mail"
+Slave :gmail-local:"Archive"
 Create Slave
 Expunge Both
 SyncState *
 
 Channel gmail-spam
 Master :gmail-remote:"[Google Mail]/Spam"
-Slave :gmail-local:"Spam"
+Slave :root:"Spam"
 Create Slave
 Expunge Both
 SyncState *
@@ -1956,93 +2032,9 @@ Group gmail
 Channel gmail-inbox
 Channel gmail-sent
 Channel gmail-drafts
-Channel gmail-all
+Channel gmail-archive
 Channel gmail-spam
 Channel gmail-bin
-
-IMAPAccount gmx
-Host imap.gmx.com
-User rileyrg@gmx.de
-PassCmd "pass Email/gmx"
-SSLType IMAPS
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-IMAPStore gmx-remote
-Account gmx
-
-MaildirStore gmx-local
-Path ~/Maildir/gmx/
-SubFolders Legacy
-
-Channel gmx-all
-Master :gmx-remote:
-Slave :gmx-local:
-Patterns *
-Create Slave
-Expunge Both
-SyncState *
-
-Group gmx
-Channel gmx-all
-
-
-# Channel gmx-inbox
-# Master :gmx-remote:"INBOX"
-# Slave :gmx-local:"INBOX"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-outbox
-# Master :gmx-remote:"OUTBOX"
-# Slave :gmx-local:"OUTBOX"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-archive
-# Master :gmx-remote:"Archiv"
-# Slave :gmx-local:"Archiv"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-sent
-# Master :gmx-remote:"Gesendet"
-# Slave :gmx-local:"Gesendet"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-trash
-# Master :gmx-remote:"Trash"
-# Slave :gmx-local:"Gelöscht"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-spam
-# Master :gmx-remote:"Spamverdacht"
-# Slave :gmx-local:"Spamverdacht"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Channel gmx-drafts
-# Master :gmx-remote:"Drafts"
-# Slave :gmx-local:"Entwürfe"
-# Create Slave
-# Expunge Both
-# SyncState *
-
-# Group gmx
-# Channel gmx-inbox
-# Channel gmx-outbox
-# Channel gmx-archive
-# Channel gmx-sent
-# Channel gmx-trash
-# Channel gmx-spam
-# Channel gmx-drafts
 
 ```
 
