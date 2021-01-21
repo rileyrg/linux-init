@@ -2061,7 +2061,7 @@ mu index
 
     [Timer]
     OnBootSec=5m
-    OnUnitActiveSec=5m
+    OnUnitActiveSec=15m
     Unit=mbsync.service
 
     [Install]
