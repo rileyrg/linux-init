@@ -1872,9 +1872,6 @@
     Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
     #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
       #Maintained in linux-init-files.org
-      MaildirStore root
-      Path ~/Maildir/
-
       IMAPAccount gmx
       Host imap.gmx.com
       User rileyrg@gmx.de
@@ -1927,7 +1924,7 @@
 
       Channel gmx-spam
       Master :gmx-remote:"Spamverdacht"
-      Slave :root:"Spam"
+      Slave :gmx-local:"Spam"
       Create Slave
       Expunge Both
       SyncState *
@@ -1993,7 +1990,7 @@
 
       Channel gmail-spam
       Master :gmail-remote:"[Google Mail]/Spam"
-      Slave :root:"Spam"
+      Slave :gmail-local:"Spam"
       Create Slave
       Expunge Both
       SyncState *

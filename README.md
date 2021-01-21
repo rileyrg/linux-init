@@ -1895,9 +1895,6 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 ```conf
 #Maintained in linux-init-files.org
-MaildirStore root
-Path ~/Maildir/
-
 IMAPAccount gmx
 Host imap.gmx.com
 User rileyrg@gmx.de
@@ -1950,7 +1947,7 @@ SyncState *
 
 Channel gmx-spam
 Master :gmx-remote:"Spamverdacht"
-Slave :root:"Spam"
+Slave :gmx-local:"Spam"
 Create Slave
 Expunge Both
 SyncState *
@@ -2016,7 +2013,7 @@ SyncState *
 
 Channel gmail-spam
 Master :gmail-remote:"[Google Mail]/Spam"
-Slave :root:"Spam"
+Slave :gmail-local:"Spam"
 Create Slave
 Expunge Both
 SyncState *
