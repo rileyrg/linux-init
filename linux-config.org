@@ -1895,7 +1895,7 @@
       SyncState *
 
       Channel gmail-sent
-      Master :gmail-remote:"[Google Mail]/Sent Mail"
+      Master :gmail-remote:"[Gmail]/Sent Mail"
       Slave :gmail-local:"Sent Mail"
       Create Slave
       Expunge Both
@@ -1904,6 +1904,13 @@
       Channel gmail-all
       Master :gmail-remote:"[Google Mail]/All Mail"
       Slave :gmail-local:"All Mail"
+      Create Slave
+      Expunge Both
+      SyncState *
+
+      Channel gmail-spam
+      Master :gmail-remote:"[Google Mail]/Spam"
+      Slave :gmail-local:"Spam"
       Create Slave
       Expunge Both
       SyncState *
@@ -1922,11 +1929,20 @@
       Expunge Both
       SyncState *
 
+      Channel gmail-trash
+      Master :gmail-remote:"[Gmail]/Trash"
+      Slave :gmail-local:"Trash"
+      Create Slave
+      Expunge Both
+      SyncState *
+
       Group gmail
       Channel gmail-inbox
       Channel gmail-sent
       Channel gmail-all
+      Channel gmail-spam
       Channel gmail-starred
+      Channel gmail-trash
       Channel gmail-drafts
 
       IMAPAccount gmx
@@ -1944,60 +1960,62 @@
       Inbox ~/Maildir/gmx/Posteingang
 
       Channel gmx-inbox
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Posteingang"
+      Master :gmx-remote:"Posteingang"
+      Slave :gmx-local:"Posteingang"
       Create Slave
       Expunge Both
       SyncState *
 
       Channel gmx-outbox
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Postausgang"
+      Master :gmx-remote:"Postausgang"
+      Slave :gmx-local:"Postausgang"
+      Create Slave
+      Expunge Both
+      SyncState *
+
+      Channel gmx-archive
+      Master :gmx-remote:"Archiv"
+      Slave :gmx-local:"Archiv"
       Create Slave
       Expunge Both
       SyncState *
 
       Channel gmx-sent
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Gesendet"
+      Master :gmx-remote:"Gesendet"
+      Slave :gmx-local:"Gesendet"
       Create Slave
       Expunge Both
       SyncState *
 
       Channel gmx-deleted
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Gelöscht"
+      Master :gmx-remote:"Gelöscht"
+      Slave :gmx-local:"Gelöscht"
       Create Slave
       Expunge Both
       SyncState *
 
       Channel gmx-spam
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Spamverdacht"
+      Master :gmx-remote:"Spamverdacht"
+      Slave :gmx-local:"Spamverdacht"
       Create Slave
       Expunge Both
       SyncState *
 
       Channel gmx-drafts
-      Master :gmx-remote:
-      Slave :gmx-local:
-      Patterns "Entwürfe"
+      Master :gmx-remote:"Entwürfe"
+      Slave :gmx-local:"Entwürfe"
       Create Slave
       Expunge Both
       SyncState *
 
       Group gmx
       Channel gmx-inbox
-      Channel gmx-drafts
+      Channel gmx-outbox
+      Channel gmx-archive
       Channel gmx-sent
       Channel gmx-deleted
-      Channel gmx-outbox
       Channel gmx-spam
+      Channel gmx-drafts
 
     #+end_src
 
