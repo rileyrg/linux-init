@@ -1945,6 +1945,13 @@ Create Both
 Expunge Both
 SyncState *
 
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-all
+Channel gmail-starred
+Channel gmail-drafts
+
 IMAPAccount gmx
 Host imap.gmx.com
 User rileyrg@gmx.de
@@ -1962,7 +1969,15 @@ Inbox ~/Maildir/gmx/INBOX
 Channel gmx-inbox
 Master :gmx-remote:
 Slave :gmx-local:
-Patterns "INBOX"
+Patterns "Posteingang"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmx-outbox
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "Postausgang"
 Create Both
 Expunge Both
 SyncState *
@@ -1975,14 +1990,37 @@ Create Both
 Expunge Both
 SyncState *
 
-Group personal
-Channel gmail-inbox
-Channel gmail-sent
-Channel gmail-all
-Channel gmail-starred
-Channel gmail-drafts
+Channel gmx-deleted
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "Gelöscht"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmx-spam
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "Spamverdacht"
+Create Both
+Expunge Both
+SyncState *
+
+Channel gmx-drafts
+Master :gmx-remote:
+Slave :gmx-local:
+Patterns "Entwürfe"
+Create Both
+Expunge Both
+SyncState *
+
+Group gmx
 Channel gmx-inbox
+Channel gmx-drafts
 Channel gmx-sent
+Channel gmx-deleted
+Channel gmx-outbox
+Channel gmx-spam
 
 ```
 
