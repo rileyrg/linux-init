@@ -1895,7 +1895,7 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 ```conf
 #Maintained in linux-init-files.org
-Create Slave
+Create  Both
 Expunge Both
 SyncState *
 

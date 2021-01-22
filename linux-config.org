@@ -1872,7 +1872,7 @@
     Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
     #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
       #Maintained in linux-init-files.org
-      Create Slave
+      Create  Both
       Expunge Both
       SyncState *
 
