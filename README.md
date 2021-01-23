@@ -1902,7 +1902,7 @@ SyncState *
 IMAPAccount gmx
 Host imap.gmx.com
 User rileyrg@gmx.de
-PassCmd "pass Email/gmx"
+PassCmd "pass Email/gmx/apps/mbsync"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -1949,7 +1949,7 @@ Channel gmx-archive
 IMAPAccount gmail
 Host imap.gmail.com
 User rileyrg@gmail.com
-PassCmd "pass Email/gmail"
+PassCmd "pass Email/gmail/apps/mbsync"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
