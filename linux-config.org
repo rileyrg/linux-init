@@ -973,6 +973,7 @@
        # fi
      #+end_src
 **** ~/.config/zsh/.zshenv
+     Link this into $HOME
      #+begin_src bash :tangle "~/.config/zsh/.zshenv"
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ZSHENV

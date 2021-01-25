@@ -992,6 +992,8 @@ logger -t "startup-initfile"  ZLOGIN
 
 2.  ~/.config/zsh/.zshenv
 
+    Link this into $HOME
+
     ```bash
     # Maintained in linux-init-files.org
     logger -t "startup-initfile"  ZSHENV
