@@ -1,3 +1,4 @@
+#Maintained in linux-init-files.org
 *
 !.gitignore
 !README.md
@@ -11,7 +12,7 @@
 !/etc/acpi/actions/*
 
 !/etc/zsh
-!/etc/zsh/zshenv
+!/etc/zsh/zshenvb
 !/etc/zsh/zshprofile
 
 !/dot-config

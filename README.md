@@ -8,7 +8,89 @@ Work in progress!! Keep all config and scripts in a single org file for document
 
 ## GIT
 
-.gitignore isn't stored in here as its prone to being edited a lot.
+
+### HOMEFILES .gitignore
+
+```conf
+#Maintained in linux-init-files.org
+*
+!.gitignore
+!README.md
+!linux-config.org
+
+!/etc
+!/etc/acpi
+!/etc/acpi/events
+!/etc/acpi/events/*
+!/etc/acpi/actions
+!/etc/acpi/actions/*
+
+!/etc/zsh
+!/etc/zsh/zshenvb
+!/etc/zsh/zshprofile
+
+!/dot-config
+!/dot-config/zsh
+!/dot-config/zsh/.zshenv
+!/dot-config/zsh/.zlogin
+!/dot-config/zsh/.zshrc
+!/dot-config/zsh/.zprofile
+
+!/dot-config/
+!/dot-config/i3
+!/dot-config/i3/config
+!/dot-config/i3status
+!/dot-config/i3status/config
+
+
+!/DotFiles
+!/DotFiles/.bashrc
+!/DotFiles/.bash_profile
+!/DotFiles/.mbsyncrc
+!/DotFiles/.profile
+!/DotFiles/.xinitrc
+!/DotFiles/.xsessionrc
+!/DotFiles/.Xresources
+
+!/directories
+!/directories/bin
+!/directories/bin/add-user-paths
+!/directories/bin/battery-warning*
+!/directories/bin/confirm-suspend
+!/directories/bin/display-id
+!/directories/bin/edit
+!/directories/bin/eman
+!/directories/bin/extract-debug-info
+!/directories/bin/expert-advice
+!/directories/bin/google-trans
+!/directories/bin/google-trans-de-en
+!/directories/bin/google-trans-en-de
+!/directories/bin/gpg-cache
+!/directories/bin/i3pulse
+!/directories/bin/make-compile_commands
+!/directories/bin/my-battery-status
+!/directories/bin/my-iface*
+!/directories/bin/onehtop
+!/directories/bin/oneterminal
+!/directories/bin/pop-window
+!/directories/bin/post-blank
+!/directories/bin/post-lock
+!/directories/bin/pre-blank
+!/directories/bin/pre-lock
+!/directories/bin/random-man-page
+!/directories/bin/resgithub
+!/directories/bin/remove-broken-symlinks
+!/directories/bin/remove-conflicted-copies
+!/directories/bin/rnv
+!/directories/bin/securelock
+!/directories/bin/sharemouse
+!/directories/bin/sys-logger
+!/directories/bin/x-idlehook
+!/directories/bin/x-backlight-persist
+!/directories/bin/xmg-dual-screens
+!/directories/bin/xmg-neo-rgb-kbd-lights
+
+```
 
 
 ### ~/.gitconfig
@@ -639,7 +721,12 @@ export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.car
 
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
-#export XDG_RUNTIME_DIR="/run/user/$UID"
+
+if [ -z "$XDG_CONFIG_HOME" ]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
 
 [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
 

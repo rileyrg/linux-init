@@ -36,7 +36,12 @@ export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.car
 
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
-#export XDG_RUNTIME_DIR="/run/user/$UID"
+
+if [ -z "$XDG_CONFIG_HOME" ]
+then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
 
 [ -f ~/.bash_profile.local ] && . ~/.bash_profile.local
 
