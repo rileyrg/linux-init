@@ -140,7 +140,7 @@
     #+end_src
 *** ~/.gitconfig
     global git settings
-    #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.gitconfig
+    #+begin_src conf :tangle "DotFiles/.gitconfig"
       # Maintained in linux-init-files.org
       [user]
               name = Richard G. Riley
@@ -151,7 +151,7 @@
 *** master branch, no commit
     :PROPERTIES:
     :END:
-    #+begin_src bash :tangle .git/hooks/pre-commit
+    #+begin_src bash :tangle ".git/hooks/pre-commit"
       #!/bin/sh
       branch="$(git rev-parse --abbrev-ref HEAD)"
       if [ "$branch" = "master" ]; then
@@ -189,7 +189,7 @@
    #+end_src
 ** ~/.xprofile
    Another placeholder doing nothing as xinit launches XSession which uses .xsession and .xsessionrc on Debian
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xprofile
+   #+begin_src bash :tangle "DotFiles/.xprofile"
      # Maintained in linux-init-files.org
      # all moved to .xsessionrc so /etc/X11/Xsession loads it
 
@@ -203,7 +203,7 @@
    - State "TODO"       from              [2020-12-31 Thu 10:54]
    :END:
    [[file:/etc/X11][/etc/X11/Xsession.d]] does the most work. It's processed by [[file:/usr/bin/startx::!/bin/sh][startx]]->[[file:/etc/X11/xinit/xinitrc::!/bin/sh][xinitrc]] which in turn calls [[file:/etc/X11/Xsession::!/bin/sh][/etc/X11/Xsession]]
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsession
+   #+begin_src bash :tangle "DotFiles/.xsession"
      #!/usr/bin/env bash
      # Maintained in linux-init-files.org
 
@@ -218,7 +218,7 @@
     - State "TODO"       from              [2020-12-30 Mi 23:48]
     :END:
 *** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
-    #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.xsessionrc
+    #+begin_src bash :tangle "DotFiles/.xsessionrc"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       logger -t "startup-initfile"  XPROFILE
@@ -268,7 +268,7 @@
      - State "TODO"       from              [2020-12-24 Thu 13:14]
      :END:
 *** code
-    #+begin_src bash :tangle no
+    #+begin_src bash :tangle "no"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       logger -t "startup-initfile"  XSESSIONRC-LOCAL
@@ -281,7 +281,7 @@
       xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
     #+end_src
 ** ~/.Xresources
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.Xresources
+   #+begin_src conf :tangle "DotFiles/.Xresources"
      urxvt.font: xft:Monospace:pixelsize=14
      #ifdef SRVR_thinkpadx270
      urxvt.font: xft:Monospace:pixelsize=20
@@ -311,7 +311,7 @@
    #+end_src
 ** ~/bin/x-lock-utils
    Just a gathering place of locky/suspendy type things...
-   #+begin_src bash :tangle ~/bin/x-lock-utils
+   #+begin_src bash :tangle "~/bin/x-lock-utils"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
 
@@ -371,7 +371,7 @@
     - State "TODO"       from              [2020-12-22 Tue 20:19]
     :END:
 *** ~/bin/x-idlehook
-    #+begin_src bash :tangle ~/bin/x-idlehook
+    #+begin_src bash :tangle "~/bin/x-idlehook"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       systemctl --user start  pulseaudio &> /dev/null || true
@@ -399,21 +399,21 @@
     #+end_src
 ** ~/bin/rnv
    enable force of nvidia driver - run with nvidia
-   #+begin_src bash :tangle ~/bin/rnv
+   #+begin_src bash :tangle "~/bin/rnv"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia ${@}
    #+end_src
 ** ~/bin/display-id
    get id of primary display
-   #+begin_src bash :tangle ~/bin/display-id
+   #+begin_src bash :tangle "~/bin/display-id"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      xrandr -q | grep " connected " | cut -d' ' -f1 | head -n 1
    #+end_src
 ** ~/bin/x-backlight-persist
    Save and restore backlight values
-   #+begin_src bash :tangle ~/bin/x-backlight-persist
+   #+begin_src bash :tangle "~/bin/x-backlight-persist"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
 
@@ -458,7 +458,7 @@
     It's worth looking into using [[https://christian.amsuess.com/tools/arandr/][arandr]] for using the somewhat complex xrandr command.
     This link  is very helpful: [[https://superuser.com/questions/861530/what-does-sink-output-source-output-sink-offload-source-offload-mean-for-gp][What does “sink output, source output, sink offload, source offload” mean for GPUs?]]
 *** code
-    #+begin_src bash :tangle ~/bin/xmg-dual-screens
+    #+begin_src bash :tangle "~/bin/xmg-dual-screens"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
       on=$([ "$1" = "on" ] && echo "on" || echo "off")
@@ -502,13 +502,13 @@
 *** XMG Neo 15
     Using an Itel iGPU and an NVIDIA 2070 super dGPU , boot using hybrid mode.
 **** install nvidia driver.
-     #+begin_src bash :tangle no
+     #+begin_src bash :tangle "no"
        sudo -S apt install nvidia-driver nvidia-settings
      #+end_src
 **** Running Games/Apps using the dGPU
      Use the prefix method on Debian Bullseye after installing the Nividia driver.
 ***** command line
-      #+begin_src bash :tangle no
+      #+begin_src bash :tangle "no"
         __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia my_gfx-game
       #+end_src
 ***** Steam
@@ -585,7 +585,7 @@
     :END:
     [[https://github.com/chjj/compton][Compton]] is a compositor for X, and a fork of xcompmgr-dana
 *** ~/.config/compton/compton.conf
-    #+begin_src conf :tangle no
+    #+begin_src conf :tangle "no"
       backend = "xrender";
       vsync = true;
 
@@ -663,7 +663,7 @@
     #+end_src
 ** Picom compositor
    [[https://github.com/yshui/picom][Picom]] is the successor to compton. Start this in your xsessionrc for example:-
-   #+begin_src bash :tangle no
+   #+begin_src bash :tangle "no"
      #!/usr/bin/bash
      picom --backend glx --vsync &
    #+end_src
@@ -676,7 +676,7 @@
   :END:
   This IS working with startx but not with gdm3 i3
 ** ~/.pam_environment
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.pam_environment
+   #+begin_src conf :tangle "DotFiles/.pam_environment"
      # Maintained in linux-init-files.org
      # PATH           DEFAULT=@{HOME}/bin:@{HOME}/.local/bin:@{HOME}/.cargo/bin:/usr/local/bin:/bin:/usr/bin:/usr/games:/usr/local/bin/X11:/usr/bin/X11
    #+end_src
@@ -689,7 +689,7 @@
 * Bash related
 **  ~/.profile
 
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.profile
+   #+begin_src bash :tangle "DotFiles/.profile"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  PROFILE
 
@@ -740,7 +740,7 @@
    #+end_src
 
 ** ~/.bash_profile
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.bash_profile
+   #+begin_src bash :tangle "DotFiles/.bash_profile"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  BASH_PROFILE
 
@@ -753,7 +753,7 @@
 
    #+end_src
 ** ~/.bashrc
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.bashrc
+   #+begin_src bash :tangle "DotFiles/.bashrc"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  BASHRC
      # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -806,7 +806,7 @@
 
 * ZSH Related
 ** ~/.config/zsh/.zshrc
-   #+begin_src bash :tangle ~/.config/zsh/.zshrc
+   #+begin_src bash :tangle "~/.config/zsh/.zshrc"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  ZSHRC
      [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
@@ -933,14 +933,14 @@
 
    #+end_src
 ** ~/.config/zsh/.zlogin
-   #+begin_src bash :tangle ~/.config/zsh/.zlogin
+   #+begin_src bash :tangle "~/.config/zsh/.zlogin"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  ZLOGIN
      # [ -s "$HOME/.rvm/scripts/rvm" ] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
    #+end_src
 ** zprofile
 **** ~/.config/zsh/.zprofile
-     #+begin_src bash :tangle ~/.config/zsh/.zprofile
+     #+begin_src bash :tangle "~/.config/zsh/.zprofile"
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ZPROFILE
        # if [ -f ~/.profile ]; then
@@ -973,7 +973,7 @@
        # fi
      #+end_src
 **** ~/.config/zsh/.zshenv
-     #+begin_src bash :tangle ~/.config/zsh/.zshenv
+     #+begin_src bash :tangle "~/.config/zsh/.zshenv"
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ZSHENV
        if [ -z "$XDG_CONFIG_HOME" ] && [ -d "$HOME/.config" ]
@@ -1006,14 +1006,14 @@
      #+end_src
 * Path
 **  ~/bin/add-user-paths
-   #+begin_src bash  :tangle ~/bin/add-user-paths
+   #+begin_src bash  :tangle "~/bin/add-user-paths"
      # Maintained in linux-init-files.org
      logger -t "startup-initfile"  ADD_USER_PATHS
      #export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
    #+end_src
 * Tmux Related
 ** ~/.tmux.conf
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.tmux.conf
+   #+begin_src conf :tangle "DotFiles/.tmux.conf"
      # Maintained in linux-init-files.org
      # Example .tmux.conf
      #
@@ -1108,7 +1108,7 @@
    #+end_src
 * I3 window manager
 ** ~/.config/i3/config
-   #+begin_src conf :tangle ~/.config/i3/config
+   #+begin_src conf :tangle "~/.config/i3/config"
      # Maintained in linux-init-files.org
      # This file has been auto-generated by i3-config-wizard(1).
      # It will not be overwritten, so edit it as you like.
@@ -1492,7 +1492,7 @@
      }
    #+end_src
 ** ~/.config/i3blocks/config
-   #+begin_src conf :tangle ~/.config/i3blocks/config
+   #+begin_src conf :tangle "~/.config/i3blocks/config"
      # Guess the weather hourly
      [dropbox]
      interval=15
@@ -1558,7 +1558,7 @@
    - State "CANCELLED"  from              [2021-01-06 Mi 03:05] \\
      i3blocks
    :END:
-   #+begin_src conf :tangle ~/.config/i3status/config
+   #+begin_src conf :tangle "~/.config/i3status/config"
      # Maintained in linux-init-files.org
      # i3status configuration file.
      # see "man i3status" for documentation.
@@ -1629,7 +1629,7 @@
 
 
 ** ~/bin/i3pulse
-   #+begin_src bash :tangle ~/bin/i3pulse
+   #+begin_src bash :tangle "~/bin/i3pulse"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      if pgrep -x "pulseaudio" >/dev/null
@@ -1643,7 +1643,7 @@
 
 * Vim
 ** ~/.vimrc
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.vimrc
+   #+begin_src conf :tangle "DotFiles/.vimrc"
      " Maintained in linux-init-files.org
      set nocompatible              " be iMproved, required
      filetype off                  " required
@@ -1696,7 +1696,7 @@
    #+end_src
 * ripgrep
 ** ~/.ripgreprc
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.ripgreprc
+   #+begin_src conf :tangle "DotFiles/.ripgreprc"
 
      # Maintained in linux-init-files.org
      # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
@@ -1728,7 +1728,7 @@
 
 * Conky
 ** ~/.config/conky/conky.conf
-   #+begin_src conky :tangle ~/.config/conky/conky.conf
+   #+begin_src conky :tangle "~/.config/conky/conky.conf"
  --[[
  Conky, a system monitor, based on torsmo
 
@@ -1818,14 +1818,14 @@
 * Radare
   Reverse engineering packges [[https://radare.gitbooks.io/radare2book/content/first_steps/intro.html][radare2]].
 ** ~/.config/radare2/radare2rc
-   #+begin_src conf :tangle ~/.config/radare2/radare2rc
+   #+begin_src conf :tangle "~/.config/radare2/radare2rc"
      e scr.utf8=true
      e scr.utf8.curvy=true
      e dbg.bep=main
    #+end_src
 * GDB
 ** ~/.gdbinit
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.gdbinit
+   #+begin_src conf :tangle "DotFiles/.gdbinit"
      # Maintained in linux-init-files.org
      alias gef = source ~/bin/thirdparty/gef/gef.py
 
@@ -1840,13 +1840,13 @@
 
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
-   #+begin_src gpg :tangle ~/.gnupg/gpg.conf
+   #+begin_src gpg :tangle "~/.gnupg/gpg.conf"
        # Maintained in linux-init-files.org
        use-agent
    #+end_src
 
 ** ~/.gnupg/gpg-agent.conf
-   #+begin_src conf :tangle ~/.gnupg/gpg-agent.conf
+   #+begin_src conf :tangle "~/.gnupg/gpg-agent.conf"
      # Maintained in linux-init-files.org
      #gpg-preset-passphrase
      allow-preset-passphrase
@@ -1859,7 +1859,7 @@
    #+end_src
 
 ** ~/.profile
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.profile
+   #+begin_src bash :tangle "DotFiles/.profile"
      export USER_STARTX_START=
    #+end_src
 
@@ -1875,7 +1875,7 @@
    - State "TODO"       from              [2020-12-05 Sa 09:36]
    :END:
 *** ~/.config/systemd/user/lidlock.service
-    #+begin_src conf :tangle ~/.config/systemd/user/lidlock.service
+    #+begin_src conf :tangle "~/.config/systemd/user/lidlock.service"
       # Maintained in linux-init-files.org
       [Unit]
       Description=i3lock on suspend
@@ -1956,7 +1956,7 @@
 
 *** mbsync config
     Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
-    #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.mbsyncrc
+    #+begin_src conf :tangle "DotFiles/.mbsyncrc"
       #Maintained in linux-init-files.org
       Create  Both
       Expunge Both
@@ -2070,7 +2070,7 @@
     #+RESULTS:
 *** mbsync services
 **** ~/.config/systemd/user/mbsync.timer
-     #+begin_src conf :tangle ~/.config/systemd/user/mbsync.timer
+     #+begin_src conf :tangle "~/.config/systemd/user/mbsync.timer"
        [Unit]
        Description=Mailbox synchronization timer
 
@@ -2083,7 +2083,7 @@
        WantedBy=timers.target
      #+end_src
 **** ~/.config/systemd/user/mbsync.service
-     #+begin_src conf :tangle ~/.config/systemd/user/mbsync.service
+     #+begin_src conf :tangle "~/.config/systemd/user/mbsync.service"
        [Unit]
        Description=Mailbox synchronization service
 
@@ -2110,7 +2110,7 @@
       sudo apt install mutt
     #+end_src
 *** ~/.config/mutt/muttrc
-#+begin_src conf :tangle ~/.config/mutt/muttrc
+#+begin_src conf :tangle "~/.config/mutt/muttrc"
   set mbox_type=Maildir
   set folder=~/Maildir/
   set spoolfile=+/
@@ -2120,13 +2120,13 @@
 
 * Misc utils
 ** ~/bin/acpi-
-   #+begin_src bash :tangle ~/bin/edit
+   #+begin_src bash :tangle "~/bin/edit"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      emacs-same-frame "$@"
    #+end_src
 ** ~/bin/dropbox-start-once
-   #+begin_src bash :tangle ~/bin/dropbox-start-once
+   #+begin_src bash :tangle "~/bin/dropbox-start-once"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      if pidof dropbox > /dev/null ; then
@@ -2143,7 +2143,7 @@
      fi
    #+end_src
 ** ~/bin/edit
-   #+begin_src bash :tangle ~/bin/edit
+   #+begin_src bash :tangle "~/bin/edit"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      emacs-same-frame "$@"
@@ -2151,21 +2151,21 @@
 ** ~/bin/eman
    Use emacs for manpages if it's running
    might be an idea set an alias such as 'alias man=eman'
-   #+begin_src bash :tangle ~/bin/eman
+   #+begin_src bash :tangle "~/bin/eman"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      mp=${1:-"man"}
      pgrep -x emacs > /dev/null && ( (emacsclient -c -e "(manual-entry \"-a ${mp}\"))" &> /dev/null) & ) || /usr/bin/man "$@"
    #+end_src
 ** ~/bin/expert-advice
-   #+begin_src bash :tangle ~/bin/expert-advice
+   #+begin_src bash :tangle "~/bin/expert-advice"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      command -v fortune >/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020."
    #+end_src
 ** ~/bin/extract-debug-info
    strip debug info and store elsewhere
-   #+begin_src bash :tangle ~/bin/extract-debug-info
+   #+begin_src bash :tangle "~/bin/extract-debug-info"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      scriptdir=`dirname ${0}`
@@ -2213,7 +2213,7 @@
 
    #+end_src
 ** ~/bin/make-compile_commands
-   #+begin_src bash :tangle ~/bin/make-compile_commands
+   #+begin_src bash :tangle "~/bin/make-compile_commands"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      make --always-make --dry-run \
@@ -2224,7 +2224,7 @@
    #+end_src
 ** ~/bin/onehtop
    process viewer
-   #+begin_src bash :tangle ~/bin/onehtop
+   #+begin_src bash :tangle "~/bin/onehtop"
      #!/bin/bash
      #Maintained in linux-init-files.org
      WID=`xdotool search --class "htop"`
@@ -2235,7 +2235,7 @@
      fi
    #+end_src
 ** ~/bin/oneterminal
-   #+begin_src bash :tangle ~/bin/oneterminal
+   #+begin_src bash :tangle "~/bin/oneterminal"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      WID=`xdotool search "One Terminal"|head -1`
@@ -2247,25 +2247,25 @@
      fi
    #+end_src
 ** ~/bin/pop-window
-   #+begin_src bash :tangle ~/bin/pop-window
+   #+begin_src bash :tangle "~/bin/pop-window"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      xdotool windowactivate `xdotool search --name "$1"`
    #+end_src
 ** ~/bin/random-man-page
-   #+begin_src bash :tangle ~/bin/random-man-page
+   #+begin_src bash :tangle "~/bin/random-man-page"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      man $(find /usr/share/man/man1 -type f | sort -R | head -n1)
    #+end_src
 ** ~/bin/remove-broken-symlinks
-   #+begin_src bash :tangle ~/bin/remove-broken-symlinks
+   #+begin_src bash :tangle "~/bin/remove-broken-symlinks"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      find -L . -name . -o -type d -prune -o -type l -exec rm {} +
    #+end_src
 ** ~/bin/remove-conflicted-copies
-   #+begin_src bash :tangle ~/bin/remove-conflicted-copies
+   #+begin_src bash :tangle "~/bin/remove-conflicted-copies"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      if [ "$1" == "--f" ]; then
@@ -2280,7 +2280,7 @@
    #+end_src
 ** ~/bin/resgithub
    reset github as if it's newly born. ALL history will be lost.
-   #+begin_src bash :tangle ~/bin/resgithub
+   #+begin_src bash :tangle "~/bin/resgithub"
      #!/bin/bash
      #Maintained in linux-init-files.org
      tfile=$(mktemp /tmp/config.XXXXXXXXX)
@@ -2298,20 +2298,20 @@
      fi
    #+end_src
 ** ~/bin/sharemouse
-   #+begin_src bash :tangle ~/bin/sharemouse
+   #+begin_src bash :tangle "~/bin/sharemouse"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      exec ssh -X ${1-192.168.2.100} x2x -east -to :0
    #+end_src
 ** ~/bin/sys-logger
    Only log to syslog if MY_LOGGER -T "STARTUP-INITFILE" _ON is set
-   #+begin_src bash :tangle ~/bin/sys-logger
+   #+begin_src bash :tangle "~/bin/sys-logger"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      [ -z "${MY_LOGGER} -T "STARTUP-INITFILE" _ON" ] || /usr/bin/logger -t "startup-initfile"  "$@"
    #+end_src
 ** ~/bin/confirm-suspend
-   #+begin_src bash :tangle ~/bin/confirm-suspend
+   #+begin_src bash :tangle "~/bin/confirm-suspend"
      #!/usr/bin/bash
      #Maintained in linux-init-files.org
      delay=10;
@@ -2334,7 +2334,7 @@
    #+end_src
 ** i3blocks utilities
 *** ~/bin/my-i3b-battery-status
-    #+begin_src bash :tangle ~/bin/my-i3b-battery-status
+    #+begin_src bash :tangle "~/bin/my-i3b-battery-status"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
@@ -2345,7 +2345,7 @@
       fi
     #+end_src
 *** ~/bin/my-i3b-db-status
-    #+begin_src bash :tangle ~/bin/my-i3b-db-status
+    #+begin_src bash :tangle "~/bin/my-i3b-db-status"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       if pidof dropbox > /dev/null ; then
@@ -2364,13 +2364,13 @@
       fi
     #+end_src
 *** ~/bin/my-iface-active-query
-    #+begin_src bash :tangle ~/bin/my-iface-active-query
+    #+begin_src bash :tangle "~/bin/my-iface-active-query"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
     #+end_src
 *** ~/bin/my-iface-active
-    #+begin_src bash :tangle ~/bin/my-iface-active
+    #+begin_src bash :tangle "~/bin/my-iface-active"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
@@ -2378,19 +2378,19 @@
       echo $IFACE_ACTIVE
     #+end_src
 *** ~/bin/my-iface-active-ssid
-    #+begin_src bash :tangle ~/bin/my-iface-active-ssid
+    #+begin_src bash :tangle "~/bin/my-iface-active-ssid"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       my-iface-active-query "GENERAL.CONNECTION"
     #+end_src
 *** ~/bin/my-iface-active-ipaddr
-    #+begin_src bash :tangle ~/bin/my-iface-active-ipaddr
+    #+begin_src bash :tangle "~/bin/my-iface-active-ipaddr"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       my-iface-active-query "IP4.ADDRESS"
     #+end_src
 *** ~/bin/my-iface-active-quality
-    #+begin_src bash :tangle ~/bin/my-iface-active-quality
+    #+begin_src bash :tangle "~/bin/my-iface-active-quality"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       my-iface-active-query "GENERAL.STATE"
@@ -2400,7 +2400,7 @@
 *** ~/bin/xmg-neo-rgb-kbd-lights
 
     See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight controller]] for the controller code.
-    #+begin_src bash :tangle ~/bin/xmg-neo-rgb-kbd-lights
+    #+begin_src bash :tangle "~/bin/xmg-neo-rgb-kbd-lights"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
 
@@ -2515,7 +2515,7 @@
      sudo apt install translate-shell
    #+end_src
 *** ~/bin/google-trans
-    #+begin_src bash :tangle ~/bin/google-trans
+    #+begin_src bash :tangle "~/bin/google-trans"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       src=$1;shift;
@@ -2524,20 +2524,20 @@
       trans -e google -s ${src} -t ${dst} -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$txt"
     #+end_src
 *** ~/bin/google-trans-de-en
-    #+begin_src bash :tangle ~/bin/google-trans-de-en
+    #+begin_src bash :tangle "~/bin/google-trans-de-en"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       trans -e google -s de -t en -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
     #+end_src
 *** ~/bin/google-trans-en-de
-    #+begin_src bash :tangle ~/bin/google-trans-en-de
+    #+begin_src bash :tangle "~/bin/google-trans-en-de"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       trans -e google -s en -t de -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
     #+end_src
 ** Security/Locking/GPG
 *** ~/bin/cache-gpg
-    #+begin_src bash :tangle ~/bin/gpg-cache
+    #+begin_src bash :tangle "~/bin/gpg-cache"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       SERVICE="gpg-agent"
@@ -2556,36 +2556,36 @@
     #+end_src
     #+end_src
 *** ~/bin/pre-lock
-    #+begin_src bash :tangle ~/bin/pre-lock
+    #+begin_src bash :tangle "~/bin/pre-lock"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       [ -f "${HOME}"/.pre-lock ]  && . "${HOME}"/.pre-lock
     #+end_src
 **** Sample .pre-lock
-     #+begin_src bash :tangle no
+     #+begin_src bash :tangle "no"
        #!/usr/bin/bash
        xmg-neo-rgb-kbd-lights sleep
      #+end_src
 *** ~/bin/post-lock
-    #+begin_src bash :tangle ~/bin/post-lock
+    #+begin_src bash :tangle "~/bin/post-lock"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       x-backlight-persist restore
       [ -f "${HOME}"/.post-lock  ]  && . "${HOME}"/.post-lock
     #+end_src
 **** Sample .post-lock
-     #+begin_src bash :tangle no
+     #+begin_src bash :tangle "no"
        #!/usr/bin/bash
        xmg-neo-rgb-kbd-lights wake
      #+end_src
 *** ~/bin/pre-blank
-    #+begin_src bash :tangle ~/bin/pre-blank
+    #+begin_src bash :tangle "~/bin/pre-blank"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       [ -f ~/.pre-blank ]  && . ~/.pre-blank
     #+end_src
 *** ~/bin/post-blank
-    #+begin_src bash :tangle ~/bin/post-blank
+    #+begin_src bash :tangle "~/bin/post-blank"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       [ -f ~/.post-blank ]  && . ~/.post-blank
@@ -2593,7 +2593,7 @@
     #+end_src
 * tailends
 ** ~/.bash_profile
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.bash_profile
+   #+begin_src bash :tangle "DotFiles/.bash_profile"
      # export USER_STARTX_NO_LOGOUT_ON_QUIT=""
      [ -z "$DISPLAY" ] && [ $(tty) = /dev/tty1 ] && [ -f ~/.START_X ] && {
          echo "Auto starting via startx with USER_STARTX_NO_LOGOUT_ON_QUIT:${USER_STARTX_NO_LOGOUT_ON_QUIT}"
@@ -2601,7 +2601,7 @@
      }
    #+end_src
 ** Late addition to ~/.profile
-   #+begin_src bash :tangle ~/Dropbox/homefiles/DotFiles/.profile
+   #+begin_src bash :tangle "DotFiles/.profile"
      [ -f  ~/.profile.local ] && . ~/.profile.local
    #+end_src
 * OPEN git testing
