@@ -454,7 +454,7 @@
 ****** xmgneo xorg.conf
        Having an xorg.conf seems to help. It solved tearing issues for me. BUT the the I had all sorts of focus issues.
        You don't need an xorg.conf. You do need a compositor with vsync. Left here for posterity.
-       #+begin_src  conf :tangle ~/Dropbox/etc/X11/xorg.conf.d/xorg.conf.neo
+       #+begin_src  conf :tangle "etc/X11/xorg.conf.d/xorg.conf.neo"
          # Maintained in linux-init-files.org
          Section "ServerLayout"
          Identifier "layout"
@@ -862,7 +862,7 @@
        fi
      #+end_src
 **** etc/zsh/zprofile
-     #+begin_src bash :tangle ~/Dropbox/etc/zsh/zshprofile
+     #+begin_src bash :tangle "etc/zsh/zshprofile"
        # Maintained in linux-init-files.org
        # /etc/zsh/zprofile: system-wide .zprofile file for zsh(1).
        #
@@ -875,7 +875,7 @@
      #+end_src
 ** zshenv
 **** etc/zsh/zshenv
-     #+begin_src bash :tangle ~/Dropbox/etc/zsh/zshenv
+     #+begin_src bash :tangle "etc/zsh/zshenv"
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ETC-ZSHENV
        if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
