@@ -124,7 +124,9 @@ fi
 Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting_x>
 
 
-## ~/.xinitrc
+## ~/
+
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -717,7 +719,7 @@ export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
 alias man=eman
 
-export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
+export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
 
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -952,9 +954,9 @@ logger -t "startup-initfile"  ZLOGIN
     ```bash
     # Maintained in linux-init-files.org
     logger -t "startup-initfile"  ZPROFILE
-    if [ -f ~/.profile ]; then
-        emulate sh -c '. ~/.profile'
-    fi
+    # if [ -f ~/.profile ]; then
+    #     emulate sh -c '. ~/.profile'
+    # fi
     ```
 
 2.  etc/zsh/zprofile
@@ -979,13 +981,20 @@ logger -t "startup-initfile"  ZLOGIN
     ```bash
     # Maintained in linux-init-files.org
     logger -t "startup-initfile"  ETC-ZSHENV
-    if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-    then
-        export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-        if [ -f /etc/profile ]; then
-            emulate sh -c '. /etc/profile'
-        fi
-    fi
+    # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+    # then
+    #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+    #     if [ -f /etc/profile ]; then
+    #         emulate sh -c '. /etc/profile'
+    #     fi
+    # fi
+    ```
+
+2.  ~/.config/zsh/.zshenv
+
+    ```bash
+    # Maintained in linux-init-files.org
+    logger -t "startup-initfile"  ZSHENV
     if [ -z "$XDG_CONFIG_HOME" ] && [ -d "$HOME/.config" ]
     then
         export XDG_CONFIG_HOME="$HOME/.config"
@@ -995,13 +1004,6 @@ logger -t "startup-initfile"  ZLOGIN
     then
         export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
     fi
-    ```
-
-2.  ~/.config/zsh/.zshenv
-
-    ```bash
-    # Maintained in linux-init-files.org
-    logger -t "startup-initfile"  ZSHENV
 
 
     ```

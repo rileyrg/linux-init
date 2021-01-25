@@ -168,7 +168,8 @@
     :END:
 * X Related
   Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
-** ~/.xinitrc
+** ~/
+   .xinitrc
    CLOSED: [2020-12-20 Sun 13:35]
    :LOGBOOK:
    - Note taken on [2020-12-20 Sun 13:35] \\
@@ -179,7 +180,7 @@
    - State "TODO"       from              [2020-12-12 Sa 14:11]
    :END:
    I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
-   #+begin_src conf :tangle ~/Dropbox/homefiles/DotFiles/.xinitrc
+   #+begin_src conf :tangle "DotFiles/.xinitrc"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
      # Dont need that as startx will use xinitc anyway if this doesnt exist.
@@ -723,7 +724,7 @@
 
      alias man=eman
 
-     export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:/snap/bin:$PATH"
+     export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
 
      export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
      export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -942,9 +943,9 @@
      #+begin_src bash :tangle ~/.config/zsh/.zprofile
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ZPROFILE
-       if [ -f ~/.profile ]; then
-           emulate sh -c '. ~/.profile'
-       fi
+       # if [ -f ~/.profile ]; then
+       #     emulate sh -c '. ~/.profile'
+       # fi
      #+end_src
 **** etc/zsh/zprofile
      #+begin_src bash :tangle "etc/zsh/zshprofile"
@@ -963,13 +964,18 @@
      #+begin_src bash :tangle "etc/zsh/zshenv"
        # Maintained in linux-init-files.org
        logger -t "startup-initfile"  ETC-ZSHENV
-       if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-       then
-           export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-           if [ -f /etc/profile ]; then
-               emulate sh -c '. /etc/profile'
-           fi
-       fi
+       # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+       # then
+       #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+       #     if [ -f /etc/profile ]; then
+       #         emulate sh -c '. /etc/profile'
+       #     fi
+       # fi
+     #+end_src
+**** ~/.config/zsh/.zshenv
+     #+begin_src bash :tangle ~/.config/zsh/.zshenv
+       # Maintained in linux-init-files.org
+       logger -t "startup-initfile"  ZSHENV
        if [ -z "$XDG_CONFIG_HOME" ] && [ -d "$HOME/.config" ]
        then
            export XDG_CONFIG_HOME="$HOME/.config"
@@ -979,11 +985,6 @@
        then
            export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
        fi
-     #+end_src
-**** ~/.config/zsh/.zshenv
-     #+begin_src bash :tangle ~/.config/zsh/.zshenv
-       # Maintained in linux-init-files.org
-       logger -t "startup-initfile"  ZSHENV
 
 
      #+end_src
