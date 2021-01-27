@@ -126,7 +126,7 @@ Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting
 
 ## ~/
 
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 So 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -2108,8 +2108,8 @@ mu index
     Description=Mailbox synchronization timer
 
     [Timer]
-    OnBootSec=5m
-    OnUnitActiveSec=15m
+    OnBootSec=15m
+    OnUnitActiveSec=60m
     Unit=mbsync.service
 
     [Install]
