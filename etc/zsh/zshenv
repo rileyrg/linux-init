@@ -1,9 +1,9 @@
 # Maintained in linux-init-files.org
 logger -t "startup-initfile"  ETC-ZSHENV
-# if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-# then
-#     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-#     if [ -f /etc/profile ]; then
-#         emulate sh -c '. /etc/profile'
-#     fi
-# fi
+if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+then
+    export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+    if [ -f /etc/profile ]; then
+        emulate sh -c '. /etc/profile'
+    fi
+fi

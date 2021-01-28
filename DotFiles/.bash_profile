@@ -5,7 +5,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.bashrc ] && . ~/.bashrc || true
 
 post-lock
-[ -d "/home/.ecryptfs/$USER" ] && systemctl --user restart mbsync.timer || true
+## this bit sucks. start mbsync,time manually if enrypted homedir else it doesnt work
+systemctl is-active --user mbsync.timer || systemctl --user start mbsync.timer
 dropbox-start-once async
 
 # export USER_STARTX_NO_LOGOUT_ON_QUIT=""

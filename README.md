@@ -745,7 +745,8 @@ logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.bashrc ] && . ~/.bashrc || true
 
 post-lock
-[ -d "/home/.ecryptfs/$USER" ] && systemctl --user restart mbsync.timer || true
+## this bit sucks. start mbsync,time manually if enrypted homedir else it doesnt work
+systemctl is-active --user mbsync.timer || systemctl --user start mbsync.timer
 dropbox-start-once async
 
 ```
@@ -954,9 +955,9 @@ logger -t "startup-initfile"  ZLOGIN
     ```bash
     # Maintained in linux-init-files.org
     logger -t "startup-initfile"  ZPROFILE
-    # if [ -f ~/.profile ]; then
-    #     emulate sh -c '. ~/.profile'
-    # fi
+    if [ -f ~/.profile ]; then
+        emulate sh -c '. ~/.profile'
+    fi
     ```
 
 2.  etc/zsh/zprofile
@@ -981,13 +982,13 @@ logger -t "startup-initfile"  ZLOGIN
     ```bash
     # Maintained in linux-init-files.org
     logger -t "startup-initfile"  ETC-ZSHENV
-    # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-    # then
-    #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-    #     if [ -f /etc/profile ]; then
-    #         emulate sh -c '. /etc/profile'
-    #     fi
-    # fi
+    if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+    then
+        export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+        if [ -f /etc/profile ]; then
+            emulate sh -c '. /etc/profile'
+        fi
+    fi
     ```
 
 2.  ~/.config/zsh/.zshenv
@@ -1006,8 +1007,6 @@ logger -t "startup-initfile"  ZLOGIN
     then
         export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
     fi
-
-
     ```
 
 
@@ -2124,8 +2123,7 @@ mu index
 
     [Service]
     Type=oneshot
-    ExecStart=/usr/bin/mbsync gmail gmx
-    ExecStartPost=/usr/bin/mu index
+    ExecStart=/home/rgr/bin/getmails
     ```
 
     and activate them
@@ -2134,6 +2132,16 @@ mu index
     systemctl --user enable mbsync.timer
     systemctl --user start mbsync.timer
     ```
+
+
+## getmails
+
+```bash
+#!/usr/bin/bash
+mbsync gmx gmail
+mu index
+exit 0
+```
 
 
 # Misc utils
@@ -2590,7 +2598,7 @@ exit 0
 ### test
 
 ```bash
-xmg-neo-rgb-kbd-lights on
+xmg-neo-rgb-kbd-lights -rgb-kbd-lights on
 ```
 
 ```bash
