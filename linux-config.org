@@ -1968,6 +1968,7 @@
       PassCmd "pass Email/gmx/apps/mbsync"
       SSLType IMAPS
       CertificateFile /etc/ssl/certs/ca-certificates.crt
+      PipelineDepth 1
 
       IMAPStore gmx-remote
       Account gmx
@@ -2022,6 +2023,7 @@
       PassCmd "pass Email/gmail/apps/mbsync"
       SSLType IMAPS
       CertificateFile /etc/ssl/certs/ca-certificates.crt
+      PipelineDepth 32
 
       IMAPStore gmail-remote
       Account gmail

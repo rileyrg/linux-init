@@ -1995,6 +1995,7 @@ User rileyrg@gmx.de
 PassCmd "pass Email/gmx/apps/mbsync"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 1
 
 IMAPStore gmx-remote
 Account gmx
@@ -2049,6 +2050,7 @@ User rileyrg@gmail.com
 PassCmd "pass Email/gmail/apps/mbsync"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 32
 
 IMAPStore gmail-remote
 Account gmail
