@@ -748,7 +748,7 @@ post-lock
 ## this bit sucks. start mbsync,time manually if enrypted homedir else it doesnt work
 systemctl is-active --user mbsync.timer || systemctl --user start mbsync.timer
 dropbox-start-once async
-
+fortune | cowsay
 ```
 
 
@@ -935,7 +935,7 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 DEFAULT_USER=$USER
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+fortune | cowsay
 ```
 
 
@@ -2012,6 +2012,10 @@ Channel gmx-sent
 Master :gmx-remote:"Gesendet"
 Slave :gmx-local:"Sent"
 
+Channel gmx-learning
+Master :gmx-remote:"Learning"
+Slave :gmx-local:"Learning"
+
 Channel gmx-drafts
 Master :gmx-remote:"Entw&APw-rfe"
 Slave :gmx-local:"Drafts"
@@ -2035,6 +2039,9 @@ Channel gmx-drafts
 Channel gmx-bin
 Channel gmx-spam
 Channel gmx-archive
+
+Group gmx-special-interest
+Channel gmx-learning
 
 IMAPAccount gmail
 Host imap.gmail.com
@@ -2075,6 +2082,10 @@ Channel gmail-archive
 Master :gmail-remote:"[Google Mail]/All Mail"
 Slave :gmail-local:"Archive"
 
+Channel gmail-gmx-archive
+Master :gmail-remote:"[Google Mail]/All Mail"
+Slave :gmx-local:"gmail/Archive"
+
 Group gmail
 Channel gmail-inbox
 Channel gmail-sent
@@ -2082,6 +2093,9 @@ Channel gmail-drafts
 Channel gmail-bin
 Channel gmail-spam
 Channel gmail-archive
+
+Group gmail-gmx
+Channel gmail-gmx-archive
 
 ```
 
@@ -2138,7 +2152,7 @@ mu index
 
 ```bash
 #!/usr/bin/bash
-mbsync gmx gmail
+mbsync gmx gmx-special-interest gmail gmail-gmx-archive || true
 mu index
 exit 0
 ```
@@ -2202,7 +2216,12 @@ pgrep -x emacs > /dev/null && ( (emacsclient -c -e "(manual-entry \"-a ${mp}\"))
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-command -v fortune >/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020."
+f=$(command -v fortune >/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020.")
+if [ "$1" = "t" ]
+then
+    echo $f | xclip -i -selection clipboard
+fi
+echo $f
 ```
 
 
@@ -2598,7 +2617,7 @@ exit 0
 ### test
 
 ```bash
-xmg-neo-rgb-kbd-lights -rgb-kbd-lights on
+xmg-neo-rgb-kbd-lights on
 ```
 
 ```bash

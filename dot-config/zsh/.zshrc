@@ -121,3 +121,4 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 DEFAULT_USER=$USER
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fortune | cowsay
