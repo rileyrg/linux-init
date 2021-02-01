@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+. /usr/share/acpi-support/power-funcs
+. /usr/share/acpi-support/policy-funcs
+getState
+echo "export POWERSTATE=${STATE}"  > "$HOME"/.acpi-powerstate
+export POWERSTATE=$STATE

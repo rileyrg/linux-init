@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+
+lock() {
+    logger -t "x-lock-utils"  lock
+    pre-lock
+    #         i3lock -c 000000 -n
+    xset dpms 5
+    xbacklight -set 5
+    i3lock -c 000000
+    xset -dpms
+    x-backlight-persist restore
+    post-lock
+}
+
+lock_gpg_clear() {
+    logger -t "x-lock-utils"  lock_gpg_clear
+    [ "$1" = gpg_clear ] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
+    lock
+}
+
+case "$1" in
+    lock)
+        lock
+        ;;
+    lock_gpg_clear)
+        lock_gpg_clear
+        ;;
+    logout)
+        i3-msg exit
+        ;;
+    suspend)
+        systemctl suspend
+        ;;
+    hibernate)
+        systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        lock
+        ;;
+esac
+
+exit 0

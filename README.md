@@ -53,11 +53,14 @@ Work in progress!! Keep all config and scripts in a single org file for document
 !/DotFiles/.Xresources
 
 !/directories
-!/directories/bin/*
+!/directories/bin
+# !/directories/bin/*
+!/directories/bin/acpi-powerstate
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
 !/directories/bin/confirm-suspend
 !/directories/bin/display-id
+!/directories/bin/dropbox-start-once
 !/directories/bin/edit
 !/directories/bin/eman
 !/directories/bin/extract-debug-info
@@ -71,6 +74,7 @@ Work in progress!! Keep all config and scripts in a single org file for document
 !/directories/bin/make-compile_commands
 !/directories/bin/my-battery-status
 !/directories/bin/my-iface*
+!/directories/bin/my-i3b-*
 !/directories/bin/onehtop
 !/directories/bin/oneterminal
 !/directories/bin/pop-window
@@ -88,6 +92,7 @@ Work in progress!! Keep all config and scripts in a single org file for document
 !/directories/bin/sys-logger
 !/directories/bin/x-idlehook
 !/directories/bin/x-backlight-persist
+!/directories/bin/x-lock-utils
 !/directories/bin/xmg-dual-screens
 !/directories/bin/xmg-neo-rgb-kbd-lights
 
@@ -2169,12 +2174,16 @@ mu index
 # Misc utils
 
 
-## ~/bin/acpi-
+## ~/bin/acpi-powerstate
 
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-emacs-same-frame "$@"
+. /usr/share/acpi-support/power-funcs
+. /usr/share/acpi-support/policy-funcs
+getState
+echo "export POWERSTATE=${STATE}"  > "$HOME"/.acpi-powerstate
+export POWERSTATE=$STATE
 ```
 
 

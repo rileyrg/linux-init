@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+exec ssh -X ${1-192.168.2.100} x2x -east -to :0

@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+syncgroups=${1:-"gmx gmx-special-interest gmail gmail-gmx-archive"}
+logger -t  "getmails-mbsync" "$syncgroups"
+mbsync "$syncgroups" || true
+mu index
