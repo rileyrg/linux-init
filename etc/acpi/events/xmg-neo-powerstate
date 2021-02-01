@@ -1,3 +1,4 @@
+# Maintained in linux-init-files.org
 # /etc/acpi/events/xmg-neo-powerstate
 # Called when the user connects ac power to us
 #

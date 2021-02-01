@@ -1,4 +1,5 @@
-#! /usr/bin/bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
 # /etc/acpi/actions/xmg-neo-powerstate
 . /usr/share/acpi-support/power-funcs
 . /usr/share/acpi-support/policy-funcs

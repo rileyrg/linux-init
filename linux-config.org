@@ -100,7 +100,7 @@
       !/DotFiles/.Xresources
 
       !/directories
-      !/directories/bin
+      !/directories/bin/*
       !/directories/bin/add-user-paths
       !/directories/bin/battery-warning*
       !/directories/bin/confirm-suspend
@@ -109,6 +109,7 @@
       !/directories/bin/eman
       !/directories/bin/extract-debug-info
       !/directories/bin/expert-advice
+      !/directories/bin/getmails
       !/directories/bin/google-trans
       !/directories/bin/google-trans-de-en
       !/directories/bin/google-trans-en-de
@@ -1896,6 +1897,7 @@
 **** /etc/acpi/events/user-powerstate
 
      #+begin_src conf :tangle "etc/acpi/events/user-powerstate"
+       # Maintained in linux-init-files.org
        # /etc/acpi/events/user-powerstate
        # Called when the user connects ac power to us
        #
@@ -1904,6 +1906,7 @@
      #+end_src
 **** /etc/acpi/events/xmg-neo-powerstate
      #+begin_src conf :tangle "etc/acpi/events/xmg-neo-powerstate"
+       # Maintained in linux-init-files.org
        # /etc/acpi/events/xmg-neo-powerstate
        # Called when the user connects ac power to us
        #
@@ -1914,18 +1917,19 @@
     You must copy these into [[/etc/acpi/actions][/etc/acpi/actions]] if you have an encrypted home directory else symlink.
 **** /etc/acpi/actions/user-powerstate.sh
      #+begin_src bash :tangle "etc/acpi/actions/user-powerstate.sh"
-       #! /usr/bin/bash
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
        # /etc/acpi/actions/user-powerstate
        . /usr/share/acpi-support/power-funcs
        . /usr/share/acpi-support/policy-funcs
        getState
        echo "export POWERSTATE=${STATE}"  > /tmp/user-acpi-powerstate
        export POWERSTATE=$STATE
-
      #+end_src
 **** /etc/acpi/actions/xmg-neo-powerstate.sh
      #+begin_src bash :tangle "etc/acpi/actions/xmg-neo-powerstate.sh"
-       #! /usr/bin/bash
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
        # /etc/acpi/actions/xmg-neo-powerstate
        . /usr/share/acpi-support/power-funcs
        . /usr/share/acpi-support/policy-funcs
@@ -1957,7 +1961,7 @@
 *** mbsync config
     Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
     #+begin_src conf :tangle "DotFiles/.mbsyncrc"
-      #Maintained in linux-init-files.org
+      # Maintained in linux-init-files.org
       Create  Both
       Expunge Both
       SyncState *
@@ -2117,6 +2121,7 @@
 ** getmails
    #+begin_src bash :tangle "~/bin/getmails"
      #!/usr/bin/bash
+     # Maintained in linux-init-files.org
      syncgroups=${1:-"gmx gmx-special-interest gmail gmail-gmx-archive"}
      logger -t  "getmails-mbsync" "$syncgroups"
      mbsync "$syncgroups" || true

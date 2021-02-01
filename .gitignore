@@ -39,7 +39,7 @@
 !/DotFiles/.Xresources
 
 !/directories
-!/directories/bin
+!/directories/bin/*
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
 !/directories/bin/confirm-suspend
@@ -48,6 +48,7 @@
 !/directories/bin/eman
 !/directories/bin/extract-debug-info
 !/directories/bin/expert-advice
+!/directories/bin/getmails
 !/directories/bin/google-trans
 !/directories/bin/google-trans-de-en
 !/directories/bin/google-trans-en-de

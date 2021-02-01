@@ -53,7 +53,7 @@ Work in progress!! Keep all config and scripts in a single org file for document
 !/DotFiles/.Xresources
 
 !/directories
-!/directories/bin
+!/directories/bin/*
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
 !/directories/bin/confirm-suspend
@@ -62,6 +62,7 @@ Work in progress!! Keep all config and scripts in a single org file for document
 !/directories/bin/eman
 !/directories/bin/extract-debug-info
 !/directories/bin/expert-advice
+!/directories/bin/getmails
 !/directories/bin/google-trans
 !/directories/bin/google-trans-de-en
 !/directories/bin/google-trans-en-de
@@ -1903,6 +1904,7 @@ You must copy these into [*etc/acpi/events*](file:///etc/acpi/events/) if you ha
 1.  /etc/acpi/events/user-powerstate
 
     ```conf
+    # Maintained in linux-init-files.org
     # /etc/acpi/events/user-powerstate
     # Called when the user connects ac power to us
     #
@@ -1913,6 +1915,7 @@ You must copy these into [*etc/acpi/events*](file:///etc/acpi/events/) if you ha
 2.  /etc/acpi/events/xmg-neo-powerstate
 
     ```conf
+    # Maintained in linux-init-files.org
     # /etc/acpi/events/xmg-neo-powerstate
     # Called when the user connects ac power to us
     #
@@ -1928,20 +1931,21 @@ You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you ha
 1.  /etc/acpi/actions/user-powerstate.sh
 
     ```bash
-    #! /usr/bin/bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
     # /etc/acpi/actions/user-powerstate
     . /usr/share/acpi-support/power-funcs
     . /usr/share/acpi-support/policy-funcs
     getState
     echo "export POWERSTATE=${STATE}"  > /tmp/user-acpi-powerstate
     export POWERSTATE=$STATE
-
     ```
 
 2.  /etc/acpi/actions/xmg-neo-powerstate.sh
 
     ```bash
-    #! /usr/bin/bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
     # /etc/acpi/actions/xmg-neo-powerstate
     . /usr/share/acpi-support/power-funcs
     . /usr/share/acpi-support/policy-funcs
@@ -1984,7 +1988,7 @@ sudo apt install isync mu4e
 Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg then that's the way to go.
 
 ```conf
-#Maintained in linux-init-files.org
+# Maintained in linux-init-files.org
 Create  Both
 Expunge Both
 SyncState *
@@ -2154,6 +2158,7 @@ mu index
 
 ```bash
 #!/usr/bin/bash
+# Maintained in linux-init-files.org
 syncgroups=${1:-"gmx gmx-special-interest gmail gmail-gmx-archive"}
 logger -t  "getmails-mbsync" "$syncgroups"
 mbsync "$syncgroups" || true
