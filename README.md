@@ -2154,9 +2154,10 @@ mu index
 
 ```bash
 #!/usr/bin/bash
-mbsync gmx gmx-special-interest gmail gmail-gmx-archive || true
+syncgroups=${1:-"gmx gmx-special-interest gmail gmail-gmx-archive"}
+logger -t  "getmails-mbsync" "$syncgroups"
+mbsync "$syncgroups" || true
 mu index
-exit 0
 ```
 
 
