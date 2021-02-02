@@ -2159,15 +2159,18 @@ mu index
     ```
 
 
-## getmails
+## ~/bin/getmails
 
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-syncgroups=${1:-"gmx gmx-special-interest gmail gmail-gmx-archive"}
-logger -t  "getmails-mbsync" "$syncgroups"
-mbsync "$syncgroups" || true
-mu index
+if [ $# -eq 0 ]
+then
+    mbsync -a
+else
+    mbsync "$@"
+fi
+pidof mu > /dev/null || mu index
 ```
 
 
