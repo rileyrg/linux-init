@@ -42,7 +42,7 @@ Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting
 
 ## ~/
 
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 So 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -197,9 +197,9 @@ lock() {
     logger -t "x-lock-utils"  lock
     pre-lock
     #         i3lock -c 000000 -n
-    xset dpms 5
     xbacklight -set 5
-    i3lock -c 000000
+    xset dpms 5 0 0
+    i3lock -n -c 000000
     xset -dpms
     x-backlight-persist restore
     post-lock
@@ -268,11 +268,11 @@ xidlehook \
     --timer ${XIDLEHOOK_DIM:-120}\
     'xbacklight -set 5' \
     'post-blank' \
-    --timer ${XIDLEHOOK_BLANK:-300}\
+    --timer ${XIDLEHOOK_BLANK:-240}\
     'xbacklight -set 0' \
     'post-blank' \
-    --timer ${XIDLEHOOK_LOCK:-7200}\
-    'pre-lock && xset dpms force standby' \
+    --timer ${XIDLEHOOK_LOCK:-300}\
+    '(pre-lock && x-lock-utils lock)' \
     'post-blank && post-lock' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
@@ -1265,7 +1265,7 @@ modifier $mod
 bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-bindsym $mod+Control+l exec (sleep 1 && xset dpms force standby) #triggers xss-lock
+bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
 bindsym $mod+Control+f exec thunar
