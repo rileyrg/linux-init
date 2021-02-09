@@ -62,6 +62,7 @@
 !/directories/bin/my-iface*
 !/directories/bin/my-i3b-*
 !/directories/bin/onehtop
+!/directories/bin/nvidia-power-usage
 !/directories/bin/oneterminal
 !/directories/bin/pop-window
 !/directories/bin/post-blank
