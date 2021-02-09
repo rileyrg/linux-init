@@ -42,7 +42,7 @@ Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting
 
 ## ~/
 
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 So 13:35]</span></span>
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -2088,19 +2088,6 @@ pidof mu > /dev/null || mu index
 # Misc utils
 
 
-## ~/bin/acpi-powerstate
-
-```bash
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-. /usr/share/acpi-support/power-funcs
-. /usr/share/acpi-support/policy-funcs
-getState
-echo "export POWERSTATE=${STATE}"  > "$HOME"/.acpi-powerstate
-export POWERSTATE=$STATE
-```
-
-
 ## ~/bin/dropbox-start-once
 
 ```bash
@@ -2562,6 +2549,37 @@ xmg-neo-rgb-kbd-lights set-brightness 50
 ```bash
 xmg-neo-rgb-kbd-lights set-color red
 ```
+
+
+## Power Monitoring
+
+
+### ~/bin/acpi-powerstate
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+. /usr/share/acpi-support/power-funcs
+. /usr/share/acpi-support/policy-funcs
+getState
+echo "export POWERSTATE=${STATE}"  > "$HOME"/.acpi-powerstate
+export POWERSTATE=$STATE
+```
+
+
+### NVIDIA
+
+1.  ~/bin/nvidia-power-usage
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    for i in $(seq 1 ${1:-5})
+    do
+        sleep ${2:-1} && echo "$(date +"%Y-%m-%d %H:%M:%S"):$(nvidia-smi -q -d POWER | grep Draw | sed 's/  */ /g')"
+    done
+
+    ```
 
 
 ## Google Translate Helpers

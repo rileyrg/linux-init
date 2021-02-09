@@ -1,1 +1,6 @@
-nvidia-smi -q -d POWER | grep Draw
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+for i in $(seq 1 ${1:-5})
+do
+    sleep ${2:-1} && echo "$(date +"%Y-%m-%d %H:%M:%S"):$(nvidia-smi -q -d POWER | grep Draw | sed 's/  */ /g')"
+done
