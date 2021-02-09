@@ -18,7 +18,7 @@ xidlehook \
     'post-blank' \
     --timer ${XIDLEHOOK_LOCK:-300}\
     '(pre-lock && x-lock-utils lock)' \
-    'post-blank && post-lock' \
+    '(post-blank && post-lock)' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
     'systemctl suspend' \
     ''
