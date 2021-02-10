@@ -1268,6 +1268,7 @@ bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instanc
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
+bindsym $mod+Control+a exec pavucontrol
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+s exec signal-desktop
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
