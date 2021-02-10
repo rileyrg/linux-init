@@ -42,7 +42,7 @@ Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting
 
 ## ~/
 
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 So 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -173,6 +173,9 @@ Xft.hintstyle: hintfull
 Xft.dpi:       96
 #ifdef SRVR_thinkpadt460
 Xft.dpi:       84
+#endif
+#ifdef SRVR_intelnuc
+Xft.dpi:       108
 #endif
 #ifdef SRVR_thinkpadx270
 Xft.dpi:       128
@@ -363,12 +366,12 @@ It's worth looking into using [arandr](https://christian.amsuess.com/tools/arand
 # Maintained in linux-init-files.org
 on=$([ "$1" = "on" ] && echo "on" || echo "off")
 hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--mode 1920x1080 --rate 60")
+hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
 
 xrandr --setprovideroutputsource 1 0
 
 xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 --primary "$hires_mode"" || echo "--off" )
+xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
 
 echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
 ```
@@ -1278,6 +1281,8 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Shift+s sticky toggle
 bindsym Print exec gnome-screenshot
 bindsym Shift+Print exec gnome-screenshot -a
+
+bindsym $mod+m move workspace to output left
 
 bindsym $mod+Tab workspace back_and_forth
 
