@@ -1196,6 +1196,9 @@ set $ws8 "8:irc"
 set $ws9 "9:steam"
 set $ws10 "10"
 
+assign [class="Signal"] $ws8
+assign [class="Hexchat"] $ws8
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -1273,7 +1276,9 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
 bindsym $mod+Control+a exec pavucontrol
 bindsym $mod+Control+f exec thunar
+
 bindsym $mod+Control+s exec signal-desktop
+
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Control+p exec onehtop
@@ -1288,7 +1293,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
-exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
+exec --no-startup-id 'workspace 8:irc;  command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null'
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
