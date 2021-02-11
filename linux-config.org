@@ -138,7 +138,7 @@
       xset s off
       xset -dpms
 
-      export PRIMARY_DISPLAY="$(xrandr-primary-display)')"
+      export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
       # .xsessionrc.local for this type of thing
       case "$(hostname)" in
@@ -357,6 +357,61 @@
      exit 0
 
    #+end_src
+** xrandr monitor related
+**** ~/bin/xrandr-primary-display
+     #+begin_src bash :tangle ~/bin/xrandr-primary-display
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       xrandr | awk '/ connected/{print $1}'
+     #+end_src
+**** ~/bin/xrandr-default
+      #+begin_src bash :tangle ~/bin/xrandr-default
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        xrandr --output eDP1 --auto
+        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+            echo "second monitor detected and set on left of thinkpad"
+        else
+            echo "no second monitor detected"
+        fi
+      #+end_src
+
+**** TODO ~/bin/xrandr-xmgneo
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-11 Do 22:36]
+     :END:
+      check out setprovideroutputsource again
+      #+begin_src bash :tangle ~/bin/xrandr-xmgneo
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        on=$([ "$1" = "on" ] && echo "on" || echo "off")
+        hires=$([ "$2" = "on" ] && echo "on" || echo "off")
+        hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+
+        xrandr --setprovideroutputsource 1 0
+
+        xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+        xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+
+        echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+      #+end_src
+
+**** ~/bin/xrandr-x270
+      #+begin_src bash :tangle ~/bin/xrandr-x270
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        xrandr --output eDP1 --auto
+        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+            echo "second monitor detected and set on left of thinkpad"
+        else
+            echo "no second monitor detected"
+        fi
+      #+end_src
+
+
+
 ** ~/bin/xmg-dual-screens
 *** background
     It's worth looking into using [[https://christian.amsuess.com/tools/arandr/][arandr]] for using the somewhat complex xrandr command.
@@ -402,62 +457,8 @@
      #+RESULTS:
      | Dual Screens on | hires:on |
 
+
 ** Xorg
-
-*** Device specific monitor settings
-
-**** ~/bin/xrandr-primary-display
-     #+begin_src bash :tangle ~/bin/xrandr-primary-display
-       #!/usr/bin/bash
-       # Maintained in linux-init-files.org
-       xrandr | awk '/ connected/{print $1}'
-     #+end_src
-**** Default
-      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-default
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr --output eDP1 --auto
-        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-            echo "second monitor detected and set on left of thinkpad"
-        else
-            echo "no second monitor detected"
-        fi
-      #+end_src
-
-**** TODO xmneo
-     :LOGBOOK:
-     - State "TODO"       from              [2021-02-11 Do 22:36]
-     :END:
-      check out setprovideroutputsource again
-      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-xmgneo
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        on=$([ "$1" = "on" ] && echo "on" || echo "off")
-        hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-        hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
-
-        xrandr --setprovideroutputsource 1 0
-
-        xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-        xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
-
-        echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
-      #+end_src
-
-**** x270
-      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-x270
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr --output eDP1 --auto
-        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-            echo "second monitor detected and set on left of thinkpad"
-        else
-            echo "no second monitor detected"
-        fi
-      #+end_src
-
 
 *** XMG Neo 15
     Using an Itel iGPU and an NVIDIA 2070 super dGPU , boot using hybrid mode.

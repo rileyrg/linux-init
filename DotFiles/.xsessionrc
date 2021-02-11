@@ -6,7 +6,7 @@ xhost +
 xset s off
 xset -dpms
 
-export PRIMARY_DISPLAY="$(xrandr-primary-display)')"
+export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in

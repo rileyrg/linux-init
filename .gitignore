@@ -30,9 +30,6 @@
 
 !/DotFiles
 
-!/DotFiles/HostSpecific
-!/DotFiles/HostSpecific/*
-homefiles/DotFiles/HostSpecifics
 !/DotFiles/.bashrc
 !/DotFiles/.bash_profile
 !/DotFiles/.mbsyncrc
@@ -86,4 +83,4 @@ homefiles/DotFiles/HostSpecifics
 !/directories/bin/x-lock-utils
 !/directories/bin/xmg-dual-screens
 !/directories/bin/xmg-neo-rgb-kbd-lights
-!/directories/bin/xrandr-primary-display
+!/directories/bin/xrandr-*
