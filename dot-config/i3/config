@@ -127,6 +127,7 @@ set $ws10 "10"
 
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
+assign [class="Steam"] $ws9
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -222,7 +223,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
-exec --no-startup-id 'workspace 8:irc;  command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null'
+exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null

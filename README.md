@@ -40,9 +40,7 @@ fi
 Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting_x>
 
 
-## ~/
-
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
+## ~/.xinitrc
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -81,12 +79,6 @@ exec dbus-launch --sh-syntax --exit-with-session i3
 
 ## ~/.xsessionrc
 
-
-### DONE check that picom is started for all but x270
-
-
-### processed by [XSession](file:///etc/X11/Xsession)
-
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
@@ -96,7 +88,7 @@ xhost +
 xset s off
 xset -dpms
 
-export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
+export PRIMARY_DISPLAY="$(xrandr-primary-display)')"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
@@ -116,6 +108,7 @@ case "$(hostname)" in
 esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
+[ -f "${HOME}"/.xrandr-init ] && . "${HOME}"/.xrandr-init || true
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 xss-lock -- x-lock-utils lock &
@@ -131,14 +124,6 @@ x-idlehook &
 
 Add machine specifics. The xmg neo 15 [keyboard backlight repo](https://github.com/pobrn/ite8291r3-ctl) for example.
 
-
-### task
-
-1.  DONE do I really need a local if we $HOSTNAME things? Think not. Keep it in the org master file.
-
-
-### code
-
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
@@ -149,7 +134,6 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 # export XIDLEHOOK_BLANK=600
 # export XIDLEHOOK_LOCK=7200
 # export XIDLEHOOK_SUSPEND=3600
-xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
 ```
 
 
@@ -399,6 +383,64 @@ echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "o
 
 
 ## Xorg
+
+
+### Device specific monitor settings
+
+1.  ~/bin/xrandr-primary-display
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr | awk '/ connected/{print $1}'
+    ```
+
+2.  Default
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr --output eDP1 --auto
+    if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+        xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+        echo "second monitor detected and set on left of thinkpad"
+    else
+        echo "no second monitor detected"
+    fi
+    ```
+
+3.  TODO xmneo
+
+    check out setprovideroutputsource again
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    on=$([ "$1" = "on" ] && echo "on" || echo "off")
+    hires=$([ "$2" = "on" ] && echo "on" || echo "off")
+    hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+
+    xrandr --setprovideroutputsource 1 0
+
+    xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+    xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+
+    echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+    ```
+
+4.  x270
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr --output eDP1 --auto
+    if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+        xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+        echo "second monitor detected and set on left of thinkpad"
+    else
+        echo "no second monitor detected"
+    fi
+    ```
 
 
 ### XMG Neo 15
@@ -1198,6 +1240,7 @@ set $ws10 "10"
 
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
+assign [class="Steam"] $ws9
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -1293,7 +1336,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
-exec --no-startup-id 'workspace 8:irc;  command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null'
+exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null

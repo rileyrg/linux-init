@@ -87,8 +87,7 @@
     :END:
 * X Related
   Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
-** ~/
-   .xinitrc
+** ~/.xinitrc
    CLOSED: [2020-12-20 Sun 13:35]
    :LOGBOOK:
    - Note taken on [2020-12-20 Sun 13:35] \\
@@ -130,13 +129,6 @@
      exec dbus-launch --sh-syntax --exit-with-session i3
    #+end_src
 ** ~/.xsessionrc
-*** DONE check that picom is started for all but x270
-    CLOSED: [2020-12-31 Do 19:47] SCHEDULED: <2020-12-31 Do>
-    :LOGBOOK:
-    - State "DONE"       from "TODO"       [2020-12-31 Do 19:47]
-    - State "TODO"       from              [2020-12-30 Mi 23:48]
-    :END:
-*** processed by [[file:/etc/X11/Xsession::USERXSESSIONRC=$HOME/.xsessionrc][XSession]]
     #+begin_src bash :tangle "DotFiles/.xsessionrc"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
@@ -146,7 +138,7 @@
       xset s off
       xset -dpms
 
-      export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
+      export PRIMARY_DISPLAY="$(xrandr-primary-display)')"
 
       # .xsessionrc.local for this type of thing
       case "$(hostname)" in
@@ -166,6 +158,7 @@
       esac
 
       [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
+      [ -f "${HOME}"/.xrandr-init ] && . "${HOME}"/.xrandr-init || true
       [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
       xss-lock -- x-lock-utils lock &
@@ -177,16 +170,6 @@
     #+end_src
 ** ~/.xsessionrc.local
    Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
-*** task
-**** DONE do I really need a local if we $HOSTNAME things? Think not. Keep it in the org master file.
-     CLOSED: [2020-12-28 Mo 07:17] SCHEDULED: <2020-12-27 Sun>
-     :LOGBOOK:
-     - State "DONE"       from "CANCELLED"  [2020-12-28 Mo 07:17]
-     - State "CANCELLED"  from "TODO"       [2020-12-28 Mo 07:17] \\
-       source a local regardless
-     - State "TODO"       from              [2020-12-24 Thu 13:14]
-     :END:
-*** code
     #+begin_src bash :tangle "no"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
@@ -197,8 +180,7 @@
       # export XIDLEHOOK_BLANK=600
       # export XIDLEHOOK_LOCK=7200
       # export XIDLEHOOK_SUSPEND=3600
-      xrandr --output "$PRIMARY_DISPLAY" --mode 1920x1080 --dpi 175
-    #+end_src
+     #+end_src
 ** ~/.Xresources
    #+begin_src conf :tangle "DotFiles/.Xresources"
      urxvt.font: xft:Monospace:pixelsize=14
@@ -421,6 +403,62 @@
      | Dual Screens on | hires:on |
 
 ** Xorg
+
+*** Device specific monitor settings
+
+**** ~/bin/xrandr-primary-display
+     #+begin_src bash :tangle ~/bin/xrandr-primary-display
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       xrandr | awk '/ connected/{print $1}'
+     #+end_src
+**** Default
+      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-default
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        xrandr --output eDP1 --auto
+        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+            echo "second monitor detected and set on left of thinkpad"
+        else
+            echo "no second monitor detected"
+        fi
+      #+end_src
+
+**** TODO xmneo
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-11 Do 22:36]
+     :END:
+      check out setprovideroutputsource again
+      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-xmgneo
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        on=$([ "$1" = "on" ] && echo "on" || echo "off")
+        hires=$([ "$2" = "on" ] && echo "on" || echo "off")
+        hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+
+        xrandr --setprovideroutputsource 1 0
+
+        xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+        xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+
+        echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+      #+end_src
+
+**** x270
+      #+begin_src bash :tangle DotFiles/HostSpecific/xrandr-x270
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        xrandr --output eDP1 --auto
+        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+            echo "second monitor detected and set on left of thinkpad"
+        else
+            echo "no second monitor detected"
+        fi
+      #+end_src
+
+
 *** XMG Neo 15
     Using an Itel iGPU and an NVIDIA 2070 super dGPU , boot using hybrid mode.
 **** install nvidia driver.
@@ -493,6 +531,7 @@
          EndSection
 
        #+end_src
+
 
 ** Compton Compositor
 *** DONE Important - replaced by PICOM
@@ -1160,6 +1199,7 @@
 
      assign [class="Signal"] $ws8
      assign [class="Hexchat"] $ws8
+     assign [class="Steam"] $ws9
 
      # switch to workspace
      bindsym $mod+1 workspace number $ws1
@@ -1255,7 +1295,7 @@
 
      exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
      exec --no-startup-id nm-applet
-     exec --no-startup-id 'workspace 8:irc;  command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null'
+     exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
 
      # non desktop specific so start in xsessionrc
      # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
