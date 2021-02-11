@@ -42,7 +42,7 @@ Manual setup files for startx. See <http://bhepple.com/doku/doku.php?id=starting
 
 ## ~/
 
-.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 So 13:35]</span></span>
+.xinitrc CLOSED: <span class="timestamp-wrapper"><span class="timestamp">[2020-12-20 Sun 13:35]</span></span>
 
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
 
@@ -1288,6 +1288,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
+exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
