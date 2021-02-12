@@ -140,28 +140,11 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 ## ~/.Xresources
 
 ```conf
-urxvt.font: xft:Monospace:pixelsize=14
-#ifdef SRVR_thinkpadx270
-urxvt.font: xft:Monospace:pixelsize=20
-*i3font: pango:Monospace 20
-#endif
-#ifdef SRVR_thinkpadt460
-urxvt.font: xft:Monospace:pixelsize=12
-*i3font: pango:Monospace 12
-#endif
 ! Fonts {{{
-Xft.antialias: true
-Xft.hinting:   true
-Xft.rgba:      rgb
-Xft.hintstyle: hintfull
-Xft.dpi:       96
 #ifdef SRVR_thinkpadt460
 Xft.dpi:       84
 #endif
 #ifdef SRVR_intelnuc
-Xft.dpi:       108
-#endif
-#ifdef SRVR_thinkpadx270
 Xft.dpi:       108
 #endif
 #ifdef SRVR_xmgneo
@@ -400,13 +383,12 @@ The X270 has a 60cm/23.62" screen @1920x1080
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
-    logger -t "xrandr: detected two monitors"  XRANDR_INIT
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1 --dpi 108
-    xrandr --output eDP1  --noprimary --mode 1920x1080 --scale 0.7x0.7
+connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
+if  [ -z $connected ] ;then
+    xrandr --output eDP1 --primary --mode 1920x1080 --dpi 177
 else
-    xrandr --output eDP1 --mode 1920x1080 --primary
-    logger -t "xrandr: detected one monitor"  XRANDR_INIT
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --dpi 108
+    xrandr --output eDP1  --auto --dpi 177 --right-of HDMI2
 fi
 ```
 
@@ -696,7 +678,7 @@ export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
-alias man=eman
+#alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
 
@@ -1145,14 +1127,12 @@ set $mod Mod4
 
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-#font pango:monospace 12
-# font pango:JetBrains Mono 16
+# font pango:monospace 8
+font pango:JetBrains Mono 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 16
-set_from_resource $i3font i3wm.i3font pango:Monospace 10font $i3font
-font $i3font
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
@@ -1321,7 +1301,7 @@ bindsym $mod+r mode "resize"
 # i3bar
 bar {
 status_command i3blocks
-font pango:JetBrains Mono 10
+font pango:JetBrains Sans Mono 8
 position top
 #mode hide
 hidden_state hide

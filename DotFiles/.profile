@@ -30,7 +30,7 @@ export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 export RIPGREP_CONFIG_PATH="${HOME}/.ripgreprc"
 
-alias man=eman
+#alias man=eman
 
 export PATH="${HOME}/bin:$HOME/.local/bin:${HOME}/.config/emacs/bin:${HOME}/.cargo/bin:./node_modules/.bin:$PATH"
 

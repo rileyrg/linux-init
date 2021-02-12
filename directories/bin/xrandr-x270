@@ -1,10 +1,9 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
-    logger -t "xrandr: detected two monitors"  XRANDR_INIT
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1 --dpi 108
-    xrandr --output eDP1  --noprimary --mode 1920x1080 --scale 0.7x0.7
+connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
+if  [ -z $connected ] ;then
+    xrandr --output eDP1 --primary --mode 1920x1080 --dpi 177
 else
-    xrandr --output eDP1 --mode 1920x1080 --primary
-    logger -t "xrandr: detected one monitor"  XRANDR_INIT
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --dpi 108
+    xrandr --output eDP1  --auto --dpi 177 --right-of HDMI2
 fi
