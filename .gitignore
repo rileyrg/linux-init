@@ -42,6 +42,9 @@
 
 !/directories/bin
 # !/directories/bin/*
+
+!/directories/bin/one*
+
 !/directories/bin/acpi-powerstate
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
@@ -62,9 +65,7 @@
 !/directories/bin/my-battery-status
 !/directories/bin/my-iface*
 !/directories/bin/my-i3b-*
-!/directories/bin/onehtop
 !/directories/bin/nvidia-power-usage
-!/directories/bin/oneterminal
 !/directories/bin/pop-window
 !/directories/bin/post-blank
 !/directories/bin/post-lock

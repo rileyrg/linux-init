@@ -1,9 +1,10 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-xrandr --output eDP1 --auto
-if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
+    logger -t "xrandr: detected two monitors"  XRANDR_INIT
+    xrandr --output eDP1 --mode 1920x1080 --noprimary
     xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-    echo "second monitor detected and set on left of thinkpad"
 else
-    echo "no second monitor detected"
+    xrandr --output eDP1 --mode 1920x1080 --primary
+    logger -t "xrandr: detected one monitor"  XRANDR_INIT
 fi

@@ -358,57 +358,75 @@
 
    #+end_src
 ** xrandr monitor related
-**** ~/bin/xrandr-primary-display
-     #+begin_src bash :tangle ~/bin/xrandr-primary-display
+   Differnt monitors have different resolutions and hence DPI
+
+   #+begin_src bash
+     # connected= xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}'
+     connected=$(xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}')
+     screen1=$(head -n 1 <<< "$connected")
+     screen2=[[ 1 = $(wc -l <<< "$connected") ]] && {tail -n 1 <<< "$connected" } || $(echo "no screen 2")
+     echo "screen1: ${screen1}"
+     echo "screen2: ${screen2}"
+    #+end_src
+
+    #+RESULTS:
+    | screen1: | eDP1 | 1920x1080 | 0 |
+    | screen2: |      |           |   |
+
+*** ~/bin/xrandr-primary-display
+    #+begin_src bash :tangle ~/bin/xrandr-primary-display
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      xrandr | awk '/ connected/{print $1}'
+    #+end_src
+*** ~/bin/xrandr-default
+     #+begin_src bash :tangle ~/bin/xrandr-default
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
-       xrandr | awk '/ connected/{print $1}'
+       xrandr --output eDP1 --auto
+       if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+           xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+           echo "second monitor detected and set on left of thinkpad"
+       else
+           echo "no second monitor detected"
+       fi
      #+end_src
-**** ~/bin/xrandr-default
-      #+begin_src bash :tangle ~/bin/xrandr-default
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr --output eDP1 --auto
-        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-            echo "second monitor detected and set on left of thinkpad"
-        else
-            echo "no second monitor detected"
-        fi
-      #+end_src
 
-**** TODO ~/bin/xrandr-xmgneo
-     :LOGBOOK:
-     - State "TODO"       from              [2021-02-11 Do 22:36]
-     :END:
-      check out setprovideroutputsource again
-      #+begin_src bash :tangle ~/bin/xrandr-xmgneo
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        on=$([ "$1" = "on" ] && echo "on" || echo "off")
-        hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-        hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+*** TODO ~/bin/xrandr-xmgneo
+    :LOGBOOK:
+    - State "TODO"       from              [2021-02-11 Do 22:36]
+    :END:
+     check out setprovideroutputsource again
+     #+begin_src bash :tangle ~/bin/xrandr-xmgneo
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       on=$([ "$1" = "on" ] && echo "on" || echo "off")
+       hires=$([ "$2" = "on" ] && echo "on" || echo "off")
+       hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
 
-        xrandr --setprovideroutputsource 1 0
+       xrandr --setprovideroutputsource 1 0
 
-        xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-        xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+       xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+       xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
 
-        echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
-      #+end_src
+       echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+     #+end_src
 
-**** ~/bin/xrandr-x270
-      #+begin_src bash :tangle ~/bin/xrandr-x270
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr --output eDP1 --auto
-        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-            xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-            echo "second monitor detected and set on left of thinkpad"
-        else
-            echo "no second monitor detected"
-        fi
-      #+end_src
+*** ~/bin/xrandr-x270
+    The X270 has a 60cm/23.62" screen @1920x1080
+
+    #+begin_src bash :tangle ~/bin/xrandr-x270
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
+          logger -t "xrandr: detected two monitors"  XRANDR_INIT
+          xrandr --output eDP1 --mode 1920x1080 --noprimary
+          xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+      else
+          xrandr --output eDP1 --mode 1920x1080 --primary
+          logger -t "xrandr: detected one monitor"  XRANDR_INIT
+      fi
+    #+end_src
 
 
 
@@ -1277,10 +1295,11 @@
      bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
      bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
      bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
-     bindsym $mod+Control+a exec pavucontrol
      bindsym $mod+Control+f exec thunar
 
-     bindsym $mod+Control+s exec signal-desktop
+     bindsym $mod+Control+a exec pidof pavucontrol ||pavucontrol
+     bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
+     bindsym $mod+Control+h exec pidof hexchat || hexchat
 
      bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
      bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
@@ -1296,12 +1315,11 @@
 
      exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
      exec --no-startup-id nm-applet
-     exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
+     exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
 
      # non desktop specific so start in xsessionrc
      # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
      # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
-
 
      #rofi instead of dmenu
      bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -2224,36 +2242,50 @@
          | jq -nR '[inputs|{directory:".", command:., file: match(" [^ ]+$").string[1:]}]' \
               > compile_commands.json
    #+end_src
-** ~/bin/onehtop
-   process viewer
-   #+begin_src bash :tangle "~/bin/onehtop"
-     #!/bin/bash
-     #Maintained in linux-init-files.org
-     WID=`xdotool search --class "htop"`
-     if [ -z "$WID" ]; then
-         exec terminator --profile=htop -e htop
-     else
-         xdotool windowactivate $WID
-     fi
-   #+end_src
-** ~/bin/oneterminal
-   #+begin_src bash :tangle "~/bin/oneterminal"
-     #!/usr/bin/bash
-     #Maintained in linux-init-files.org
-     WID=`xdotool search "One Terminal"|head -1`
-     if [ -z "$WID" ]; then
-         terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
-     else
-         notify-send "restoring OneTerminal instance..."
-         xdotool windowactivate $WID
-     fi
-   #+end_src
-** ~/bin/pop-window
-   #+begin_src bash :tangle "~/bin/pop-window"
-     #!/usr/bin/bash
-     #Maintained in linux-init-files.org
-     xdotool windowactivate `xdotool search --name "$1"`
-   #+end_src
+** one commands
+ if it exists jump to it else start it
+*** ~/bin/oneinstance
+    #+begin_src bash :tangle "~/bin/oneinstance"
+      #!/bin/bash
+      #Maintained in linux-init-files.org
+      # oneinstance exename pname  winclass
+      exename=$1;pname=${2:-"$exename"};winclass={$3:-${pname}};
+      if ! pidof "$pname"; then
+          ${exename}
+      else
+          xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
+      fi
+    #+end_src
+*** ~/bin/onehtop
+    process viewer
+    #+begin_src bash :tangle "~/bin/onehtop"
+      #!/bin/bash
+      #Maintained in linux-init-files.org
+      WID=`xdotool search --class "htop"`
+      if [ -z "$WID" ]; then
+          exec terminator --profile=htop -e htop
+      else
+          xdotool windowactivate $WID
+      fi
+    #+end_src
+*** ~/bin/oneterminal
+    #+begin_src bash :tangle "~/bin/oneterminal"
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      WID=`xdotool search "One Terminal"|head -1`
+      if [ -z "$WID" ]; then
+          terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
+      else
+          notify-send "restoring OneTerminal instance..."
+          xdotool windowactivate $WID
+      fi
+    #+end_src
+*** ~/bin/pop-window
+    #+begin_src bash :tangle "~/bin/pop-window"
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      xdotool windowactivate `xdotool search --name "$1"`
+    #+end_src
 ** ~/bin/random-man-page
    #+begin_src bash :tangle "~/bin/random-man-page"
      #!/usr/bin/bash

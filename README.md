@@ -337,60 +337,78 @@ exit 0
 
 ## xrandr monitor related
 
-1.  ~/bin/xrandr-primary-display
+Differnt monitors have different resolutions and hence DPI
 
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    xrandr | awk '/ connected/{print $1}'
-    ```
+```bash
+# connected= xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}'
+connected=$(xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}')
+screen1=$(head -n 1 <<< "$connected")
+screen2=[[ 1 = $(wc -l <<< "$connected") ]] && {tail -n 1 <<< "$connected" } || $(echo "no screen 2")
+echo "screen1: ${screen1}"
+echo "screen2: ${screen2}"
+```
 
-2.  ~/bin/xrandr-default
 
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    xrandr --output eDP1 --auto
-    if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-        xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-        echo "second monitor detected and set on left of thinkpad"
-    else
-        echo "no second monitor detected"
-    fi
-    ```
+### ~/bin/xrandr-primary-display
 
-3.  TODO ~/bin/xrandr-xmgneo
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+xrandr | awk '/ connected/{print $1}'
+```
 
-    check out setprovideroutputsource again
 
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    on=$([ "$1" = "on" ] && echo "on" || echo "off")
-    hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-    hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+### ~/bin/xrandr-default
 
-    xrandr --setprovideroutputsource 1 0
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+xrandr --output eDP1 --auto
+if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+    echo "second monitor detected and set on left of thinkpad"
+else
+    echo "no second monitor detected"
+fi
+```
 
-    xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-    xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
 
-    echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
-    ```
+### TODO ~/bin/xrandr-xmgneo
 
-4.  ~/bin/xrandr-x270
+check out setprovideroutputsource again
 
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    xrandr --output eDP1 --auto
-    if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-        xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
-        echo "second monitor detected and set on left of thinkpad"
-    else
-        echo "no second monitor detected"
-    fi
-    ```
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+on=$([ "$1" = "on" ] && echo "on" || echo "off")
+hires=$([ "$2" = "on" ] && echo "on" || echo "off")
+hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+
+xrandr --setprovideroutputsource 1 0
+
+xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
+xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+
+echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+```
+
+
+### ~/bin/xrandr-x270
+
+The X270 has a 60cm/23.62" screen @1920x1080
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
+    logger -t "xrandr: detected two monitors"  XRANDR_INIT
+    xrandr --output eDP1 --mode 1920x1080 --noprimary
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+else
+    xrandr --output eDP1 --mode 1920x1080 --primary
+    logger -t "xrandr: detected one monitor"  XRANDR_INIT
+fi
+```
 
 
 ## ~/bin/xmg-dual-screens

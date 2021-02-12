@@ -1,0 +1,9 @@
+#!/bin/bash
+#Maintained in linux-init-files.org
+# oneinstance exename pname  winclass
+exename=$1;pname=${2:-"$exename"};winclass={$3:-${pname}};
+if ! pidof "$pname"; then
+    ${exename}
+else
+    xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
+fi
