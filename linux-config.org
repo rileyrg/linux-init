@@ -205,7 +205,7 @@
      Xft.dpi:       108
      #endif
      #ifdef SRVR_thinkpadx270
-     Xft.dpi:       128
+     Xft.dpi:       108
      #endif
      #ifdef SRVR_xmgneo
      Xft.dpi:       144
@@ -420,8 +420,8 @@
       # Maintained in linux-init-files.org
       if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
           logger -t "xrandr: detected two monitors"  XRANDR_INIT
-          xrandr --output eDP1 --mode 1920x1080 --noprimary
-          xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+          xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1 --dpi 108
+          xrandr --output eDP1  --noprimary --mode 1920x1080 --scale 0.7x0.7
       else
           xrandr --output eDP1 --mode 1920x1080 --primary
           logger -t "xrandr: detected one monitor"  XRANDR_INIT
@@ -2249,7 +2249,7 @@
       #!/bin/bash
       #Maintained in linux-init-files.org
       # oneinstance exename pname  winclass
-      exename=$1;pname=${2:-"$exename"};winclass={$3:-${pname}};
+      exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
       if ! pidof "$pname"; then
           ${exename}
       else

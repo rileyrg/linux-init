@@ -2,8 +2,8 @@
 # Maintained in linux-init-files.org
 if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
     logger -t "xrandr: detected two monitors"  XRANDR_INIT
-    xrandr --output eDP1 --mode 1920x1080 --noprimary
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1 --dpi 108
+    xrandr --output eDP1  --noprimary --mode 1920x1080 --scale 0.7x0.7
 else
     xrandr --output eDP1 --mode 1920x1080 --primary
     logger -t "xrandr: detected one monitor"  XRANDR_INIT

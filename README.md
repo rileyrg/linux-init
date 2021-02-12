@@ -162,7 +162,7 @@ Xft.dpi:       84
 Xft.dpi:       108
 #endif
 #ifdef SRVR_thinkpadx270
-Xft.dpi:       128
+Xft.dpi:       108
 #endif
 #ifdef SRVR_xmgneo
 Xft.dpi:       144
@@ -402,8 +402,8 @@ The X270 has a 60cm/23.62" screen @1920x1080
 # Maintained in linux-init-files.org
 if  (xrandr | grep " connected " |  \grep -io "hdmi2" );then
     logger -t "xrandr: detected two monitors"  XRANDR_INIT
-    xrandr --output eDP1 --mode 1920x1080 --noprimary
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1
+    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --left-of eDP1 --dpi 108
+    xrandr --output eDP1  --noprimary --mode 1920x1080 --scale 0.7x0.7
 else
     xrandr --output eDP1 --mode 1920x1080 --primary
     logger -t "xrandr: detected one monitor"  XRANDR_INIT
@@ -1335,10 +1335,11 @@ bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instanc
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
-bindsym $mod+Control+a exec pavucontrol
 bindsym $mod+Control+f exec thunar
 
-bindsym $mod+Control+s exec signal-desktop
+bindsym $mod+Control+a exec pidof pavucontrol ||pavucontrol
+bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
+bindsym $mod+Control+h exec pidof hexchat || hexchat
 
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
@@ -1354,12 +1355,11 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
-exec --no-startup-id command -v signal-desktop &> /dev/null &&  signal-desktop &> /dev/null
+exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
 # exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
-
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -2282,7 +2282,27 @@ make --always-make --dry-run \
 ```
 
 
-## ~/bin/onehtop
+## one commands
+
+if it exists jump to it else start it
+
+
+### ~/bin/oneinstance
+
+```bash
+#!/bin/bash
+#Maintained in linux-init-files.org
+# oneinstance exename pname  winclass
+exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
+if ! pidof "$pname"; then
+    ${exename}
+else
+    xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
+fi
+```
+
+
+### ~/bin/onehtop
 
 process viewer
 
@@ -2298,7 +2318,7 @@ fi
 ```
 
 
-## ~/bin/oneterminal
+### ~/bin/oneterminal
 
 ```bash
 #!/usr/bin/bash
@@ -2313,7 +2333,7 @@ fi
 ```
 
 
-## ~/bin/pop-window
+### ~/bin/pop-window
 
 ```bash
 #!/usr/bin/bash
