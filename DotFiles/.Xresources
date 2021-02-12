@@ -1,25 +1,8 @@
-urxvt.font: xft:Monospace:pixelsize=14
-#ifdef SRVR_thinkpadx270
-urxvt.font: xft:Monospace:pixelsize=20
-*i3font: pango:Monospace 20
-#endif
-#ifdef SRVR_thinkpadt460
-urxvt.font: xft:Monospace:pixelsize=12
-*i3font: pango:Monospace 12
-#endif
 ! Fonts {{{
-Xft.antialias: true
-Xft.hinting:   true
-Xft.rgba:      rgb
-Xft.hintstyle: hintfull
-Xft.dpi:       96
 #ifdef SRVR_thinkpadt460
 Xft.dpi:       84
 #endif
 #ifdef SRVR_intelnuc
-Xft.dpi:       108
-#endif
-#ifdef SRVR_thinkpadx270
 Xft.dpi:       108
 #endif
 #ifdef SRVR_xmgneo
