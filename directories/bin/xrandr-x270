@@ -1,9 +1,0 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
-if  [ -z $connected ] ;then
-    xrandr --output eDP1 --primary --mode 1920x1080 --dpi 177
-else
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --dpi 108
-    xrandr --output eDP1  --auto --dpi 177 --right-of HDMI2
-fi

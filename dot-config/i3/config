@@ -248,7 +248,6 @@ bindsym Escape mode "default"
 bindsym $mod+Control+q mode "$mode_system"
 
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
-
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
 
 #set wallpaper

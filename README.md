@@ -376,7 +376,7 @@ echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "o
 ```
 
 
-### ~/bin/xrandr-x270
+### ~/bin/xrandr-x270-mancave
 
 The X270 has a 60cm/23.62" screen @1920x1080
 
@@ -385,235 +385,10 @@ The X270 has a 60cm/23.62" screen @1920x1080
 # Maintained in linux-init-files.org
 connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
 if  [ -z $connected ] ;then
-    xrandr --output eDP1 --primary --mode 1920x1080 --dpi 177
+    xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
 else
-    xrandr --output HDMI2 --primary --mode 2560x1440 --rate 74.60  --dpi 108
-    xrandr --output eDP1  --auto --dpi 177 --right-of HDMI2
+    xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
 fi
-```
-
-
-## ~/bin/xmg-dual-screens
-
-
-### background
-
-It's worth looking into using [arandr](https://christian.amsuess.com/tools/arandr/) for using the somewhat complex xrandr command. This link is very helpful: [What does “sink output, source output, sink offload, source offload” mean for GPUs?](https://superuser.com/questions/861530/what-does-sink-output-source-output-sink-offload-source-offload-mean-for-gp)
-
-
-### code
-
-```bash
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-on=$([ "$1" = "on" ] && echo "on" || echo "off")
-hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
-
-xrandr --setprovideroutputsource 1 0
-
-xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
-
-echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
-```
-
-
-### testing
-
-1.  dual screens off
-
-    ```bash
-    xmg-dual-screens off
-    ```
-
-2.  dual screens on low res
-
-    ```bash
-    xmg-dual-screens on
-    ```
-
-3.  dual screens on hi res
-
-    ```bash
-    xmg-dual-screens on on
-    ```
-
-
-## Xorg
-
-
-### XMG Neo 15
-
-Using an Itel iGPU and an NVIDIA 2070 super dGPU , boot using hybrid mode.
-
-1.  install nvidia driver.
-
-    ```bash
-    sudo -S apt install nvidia-driver nvidia-settings
-    ```
-
-2.  Running Games/Apps using the dGPU
-
-    Use the prefix method on Debian Bullseye after installing the Nividia driver.
-
-    1.  command line
-
-        ```bash
-        __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia my_gfx-game
-        ```
-
-    2.  Steam
-
-        In short, effectively do what we did above but using the "launch options" for the game in Question. For all games where you want the dGPU used, make the following the "launch options" entry
-
-        ```bash
-        __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia %command%
-        ```
-
-    3.  xorg.conf
-
-        1.  tasks
-
-            1.  DONE creatging an/etc/X11/xorg.conf
-
-        2.  xmgneo xorg.conf
-
-            Having an xorg.conf seems to help. It solved tearing issues for me. BUT the the I had all sorts of focus issues. You don't need an xorg.conf. You do need a compositor with vsync. Left here for posterity.
-
-            ```conf
-            # Maintained in linux-init-files.org
-            Section "ServerLayout"
-            Identifier "layout"
-            Screen 0 "intel"
-            Screen 1 "nvidia"
-            EndSection
-
-            Section "Device"
-            Identifier "intel"
-            Driver "intel"
-            BusID "PCI:0@00:02:0"
-            #Option "AccelMethod" "SNA"
-            EndSection
-
-            Section "Screen"
-            Identifier "intel"
-            Device "intel"
-            EndSection
-
-            Section "Device"
-            Identifier "nvidia"
-            Driver "nvidia"
-            BusID "PCI:0@01:00:0"
-            Option "ConstrainCursor" "off"
-            Option  "ForceFullCompositionPipeline" "on"
-            EndSection
-
-            Section "Screen"
-            Identifier "nvidia"
-            Device "nvidia"
-            Option "AllowEmptyInitialConfiguration" "on"
-            Option "IgnoreDisplayDevices" "CRT"
-            EndSection
-
-            ```
-
-
-## Compton Compositor
-
-
-### DONE Important - replaced by PICOM
-
-[Compton](https://github.com/chjj/compton) is a compositor for X, and a fork of xcompmgr-dana
-
-
-### ~/.config/compton/compton.conf
-
-```conf
-backend = "xrender";
-vsync = true;
-
-shadow = true;
-shadow-radius = 10;
-shadow-offset-x = -5;
-shadow-offset-y = 0;
-shadow-opacity = 0.8;
-shadow-red = 0.11;
-shadow-green = 0.12;
-shadow-blue = 0.13;
-shadow-exclude = [
-"name = 'Notification'",
-"_GTK_FRAME_EXTENTS@:c",
-"class_g = 'i3-frame'",
-"_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'",
-"_NET_WM_STATE@:32a *= '_NET_WM_STATE_STICKY'",
-"!I3_FLOATING_WINDOW@:c"
-];
-shadow-ignore-shaped = true;
-
-blur-background = false;
-blur-background-fixed = true;
-blur-kern = "7x7box";
-blur-background-exclude = [
-"class_g = 'i3-frame'",
-"window_type = 'dock'",
-"window_type = 'desktop'",
-"_GTK_FRAME_EXTENTS@:c"
-];
-
-# Duplicating the _NET_WM_STATE entries because compton cannot deal with atom arrays :-/
-opacity-rule = [
-"97:class_g = 'Termite' && !_NET_WM_STATE@:32a",
-
-"0:_NET_WM_STATE@[0]:32a = '_NET_WM_STATE_HIDDEN'",
-"0:_NET_WM_STATE@[1]:32a = '_NET_WM_STATE_HIDDEN'",
-"0:_NET_WM_STATE@[2]:32a = '_NET_WM_STATE_HIDDEN'",
-"0:_NET_WM_STATE@[3]:32a = '_NET_WM_STATE_HIDDEN'",
-"0:_NET_WM_STATE@[4]:32a = '_NET_WM_STATE_HIDDEN'",
-
-"90:_NET_WM_STATE@[0]:32a = '_NET_WM_STATE_STICKY'",
-"90:_NET_WM_STATE@[1]:32a = '_NET_WM_STATE_STICKY'",
-"90:_NET_WM_STATE@[2]:32a = '_NET_WM_STATE_STICKY'",
-"90:_NET_WM_STATE@[3]:32a = '_NET_WM_STATE_STICKY'",
-"90:_NET_WM_STATE@[4]:32a = '_NET_WM_STATE_STICKY'"
-];
-
-fading = false;
-fade-delta = 7;
-fade-in-step = 0.05;
-fade-out-step = 0.05;
-fade-exclude = [];
-
-mark-wmwin-focused = true;
-mark-ovredir-focused = true;
-use-ewmh-active-win = true;
-detect-rounded-corners = true;
-detect-client-opacity = true;
-refresh-rate = 0;
-dbe = false;
-glx-no-stencil = true;
-glx-copy-from-front = false;
-unredir-if-possible = false;
-focus-exclude = [];
-detect-transient = true;
-detect-client-leader = true;
-invert-color-include = [];
-
-wintypes: {
-tooltip = { fade = true; shadow = false; opacity = 1.00; focus = true; };
-dock = { shadow = false };
-dnd = { shadow = false };
-};
-```
-
-
-## Picom compositor
-
-[Picom](https://github.com/yshui/picom) is the successor to compton. Start this in your xsessionrc for example:-
-
-```bash
-#!/usr/bin/bash
-picom --backend glx --vsync &
 ```
 
 
@@ -1361,7 +1136,6 @@ bindsym Escape mode "default"
 bindsym $mod+Control+q mode "$mode_system"
 
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
-
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
 
 #set wallpaper
