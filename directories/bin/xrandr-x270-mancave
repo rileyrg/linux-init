@@ -5,4 +5,18 @@ if  [ -z $connected ] ;then
     xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
 else
     xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
+
+    ***
+
+
+
+fi
+
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
+if  [ -z $connected ] ;then
+    xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+else
+    xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
 fi

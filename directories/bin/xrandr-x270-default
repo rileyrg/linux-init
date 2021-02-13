@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+xrandr --output eDP1 --mode 1920x1080 --dpi 177 --primary
+if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
+    xrandr --output HDMI2 --primary --auto  --right-of eDP1
+else
+    xrandr --output HDMI2 --off
+fi
