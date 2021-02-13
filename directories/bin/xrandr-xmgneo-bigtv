@@ -1,0 +1,5 @@
+hires='off'
+secondary='on'
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+xrandr-bigtv ${1:-$hires} ${2:-$secondary} "HDMI-1-0" "eDP-1" "144" "1x1" "0.5x0.5"

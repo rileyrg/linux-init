@@ -1,0 +1,27 @@
+hires='off'
+secondary='on'
+secondaryID='HDMI2'
+primaryID='eDP-1'
+dpi='177'
+scaleLo='1x1'
+scaleHi='0.5x0.5'
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+hires=${1:-$hires}
+secondary=${2:-$secondary}
+secondaryID=${3:-$secondaryID}
+primaryID=${4:-$primaryID}
+dpi=${5:-$dpi}
+scaleHi=${6:-$scaleHi}
+scaleLo=${7:-$scaleLo}
+scale=[ $hires = "on" ] && $scaleHi || $scaleLow
+connected="$(xrandr | \grep -iw "connected" |  \grep -io $secondaryID)"
+xrandr --output $primaryID --auto --primary --dpi $dpi
+if [ $secondary != "on" ]; then
+    secondary="off"
+    xrandr --output $secondaryID --off
+else
+    [ -z $connected ] && xrandr --output $secondaryID  --off ||
+            xrandr --output $primaryID --auto --primary --output $secondaryID --mode $([ $hires = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale $scale
+fi
+echo "secondary display $secondaryID is $([ $secondary = "on" ] &&  echo "on, hires is $hires")"

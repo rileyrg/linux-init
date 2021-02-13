@@ -337,46 +337,59 @@ Differnt monitors have different resolutions and hence DPI
               inWidth xRes dpi))
     ```
 
-2.  x270
-
-    This is slowy but surely turning into a generic scipt
+2.  ~/bin/xrandr-bigtv
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     hires=${1:-$hires}
-    hires=[ $hires = "on" ] && "on" || "off"
     secondary=${2:-$secondary}
-    secondary=[ $secondary = "on" ] && "on" || "off"
-    secondaryID=${3:-$([ -z $secondaryID ] && echo "HDMI2" || echo $secondaryID) }
-    connected="$(xrandr | \grep -iw "connected" |  \grep -io "${secondaryID}" )"
-    xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
-    if [ "$secondary" != "on" ]; then
-        xrandr --output ${secondaryID} --off
+    secondaryID=${3:-$secondaryID}
+    primaryID=${4:-$primaryID}
+    dpi=${5:-$dpi}
+    scaleHi=${6:-$scaleHi}
+    scaleLo=${7:-$scaleLo}
+    scale=[ $hires = "on" ] && $scaleHi || $scaleLow
+    connected="$(xrandr | \grep -iw "connected" |  \grep -io $secondaryID)"
+    xrandr --output $primaryID --auto --primary --dpi $dpi
+    if [ $secondary != "on" ]; then
+        secondary="off"
+        xrandr --output $secondaryID --off
     else
-        [ -z $connected ] && xrandr --output ${secondaryID}  --off ||
-                xrandr --output eDP1 --mode 1920x1080 --primary --output ${secondaryID} --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of eDP1 --scale $([ "$hires" = "on" ] && echo "0.5x0.5" || echo "1x1")
+        [ -z $connected ] && xrandr --output $secondaryID  --off ||
+                xrandr --output $primaryID --auto --primary --output $secondaryID --mode $([ $hires = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale $scale
     fi
-    echo "secondary display ${secondaryID} is ${secondary} $([ ${secondary} = "on" ] &&  echo ", hires is ${hires}")"
+    echo "secondary display $secondaryID is $([ $secondary = "on" ] &&  echo "on, hires is $hires")"
     ```
 
-    1.  1920
+
+### x270
+
+1.  ~/bin/xrandr-x270-bigtv
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr-bigtv ${1:-$hires} ${2:-$secondary} "hdmi2" "eDP1"
+    ```
+
+    1.  test
 
             DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
 
-            secondary display HDMI2  is off
+            DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
 
-            secondary display HDMI2  is off
+        |                              |             |
+        |----------------------------- |------------ |
+        | secondary display hdmi2 is on | hires is off |
 
-            secondary display HDMI2  is off
+        |                              |            |
+        |----------------------------- |----------- |
+        | secondary display hdmi2 is on | hires is on |
 
-        1.  3840
+            secondary display hdmi2 is
 
-                DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
-
-                secondary display HDMI2  is off
-
-3.  ~/bin/xrandr-x270-mancave
+2.  ~/bin/xrandr-x270-mancave
 
     Mancave [monitor](https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) has a DPI of 108 : 2560x1440 over 60cm/23.62". [User Manual.](https://bedienungsanleitung-deutsch.de/asus-pb278qv)
 
@@ -396,23 +409,29 @@ Differnt monitors have different resolutions and hence DPI
 
 ### XMG Neo 15
 
-1.  TODO ~/bin/xrandr-xmgneo
-
-    check out setprovideroutputsource again
+1.  ~/bin/xrandr-xmgneo-bigtv
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    on=$([ "$1" = "on" ] && echo "on" || echo "off")
-    hires=$([ "$2" = "on" ] && echo "on" || echo "off")
-    hires_mode=$([ "$hires" = "on" ] && echo "--mode 3840x2160 --rate 30" || echo "--auto")
+    xrandr-bigtv ${1:-$hires} ${2:-$secondary} "HDMI-1-0" "eDP-1" "144" "1x1" "0.5x0.5"
+    ```
 
-    xrandr --setprovideroutputsource 1 0
+2.  ~/bin/xrandr-x270-mancave
 
-    xrandr --output eDP-1 $( [ ! "$on" = "on" ] && echo "--primary") --pos 0x0 --rotate normal  --mode 2560x1440 --rate 165
-    xrandr --output HDMI-1-0  $( [ "$on" = "on" ] && echo "--right-of eDP-1 "$hires_mode"" || echo "--off" )
+    Mancave [monitor](https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) has a DPI of 108 : 2560x1440 over 60cm/23.62". [User Manual.](https://bedienungsanleitung-deutsch.de/asus-pb278qv)
 
-    echo "Dual Screens $([ "$on" = "on" ] && echo -n "on, hires:"$hires"" || echo "off")"
+        DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
+    if  [ -z $connected ] ;then
+        xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+    else
+        xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
+    fi
     ```
 
 
