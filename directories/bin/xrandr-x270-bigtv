@@ -1,0 +1,19 @@
+hires='on'
+secondary='off'
+secondaryID='HDMI2'
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+hires=${1:-$hires}
+hires=[ $hires = "on" ] && "on" || "off"
+secondary=${2:-$secondary}
+secondary=[ $secondary = "on" ] && "on" || "off"
+secondaryID=${3:-$([ -z $secondaryID ] && echo "HDMI2" || echo $secondaryID) }
+connected="$(xrandr | \grep -iw "connected" |  \grep -io "${secondaryID}" )"
+xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+if [ "$secondary" != "on" ]; then
+    xrandr --output ${secondaryID} --off
+else
+    [ -z $connected ] && xrandr --output ${secondaryID}  --off ||
+            xrandr --output eDP1 --mode 1920x1080 --primary --output ${secondaryID} --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of eDP1 --scale $([ "$hires" = "on" ] && echo "0.5x0.5" || echo "1x1")
+fi
+echo "secondary display ${secondaryID} is ${secondary} $([ ${secondary} = "on" ] &&  echo ", hires is ${hires}")"

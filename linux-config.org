@@ -358,140 +358,84 @@
                  inWidth xRes dpi))
      #+end_src
 
-     #+RESULTS: xrandr-dpi-calc
-     : DPI of 11.0 inch width screen with a horizontal pixel count of 1920 is: 174
 
+**** x270
 
-***** examples:
-****** x270
-       #+CALL: xrandr-dpi-calc(cmWidth=27.5,xRes=1920)
-
-       #+RESULTS:
-       : DPI of 10.8 inch width screen with a horizontal pixel count of 1920 is: 177
-
-****** xmg neo 15
-       #+CALL: xrandr-dpi-calc(inWidth=13.6,xRes=2560)
-
-       #+RESULTS:
-       : DPI of 13.6 inch width screen with a horizontal pixel count of 2560 is: 188
-
-****** Asus-pb278qv
-       #+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
-
-       #+RESULTS:
-       : DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
-
-**** ~/bin/xrandr-primary-display
-     #+begin_src bash :tangle ~/bin/xrandr-primary-display
+     This is slowy but surely turning into a generic scipt
+     #+name: xrandr-x270-bigtv
+     #+begin_src bash :tangle ~/bin/xrandr-x270-bigtv :var hires="on" secondary="off" secondaryID="HDMI2"
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
-       xrandr | awk '/ connected primary/{print $1} '
+       hires=${1:-$hires}
+       hires=[ $hires = "on" ] && "on" || "off"
+       secondary=${2:-$secondary}
+       secondary=[ $secondary = "on" ] && "on" || "off"
+       secondaryID=${3:-$([ -z $secondaryID ] && echo "HDMI2" || echo $secondaryID) }
+       connected="$(xrandr | \grep -iw "connected" |  \grep -io "${secondaryID}" )"
+       xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+       if [ "$secondary" != "on" ]; then
+           xrandr --output ${secondaryID} --off
+       else
+           [ -z $connected ] && xrandr --output ${secondaryID}  --off ||
+                   xrandr --output eDP1 --mode 1920x1080 --primary --output ${secondaryID} --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of eDP1 --scale $([ "$hires" = "on" ] && echo "0.5x0.5" || echo "1x1")
+       fi
+       echo "secondary display ${secondaryID} is ${secondary} $([ ${secondary} = "on" ] &&  echo ", hires is ${hires}")"
      #+end_src
 
-     #+RESULTS:
-     : eDP1
+     #+RESULTS: xrandr-x270-bigtv
+     : secondary display HDMI2  is off
 
-**** TODO hack
-     SCHEDULED: <2021-02-15 Mo>
-     this isnt working. got distracted. single line test error. need to gen up on bash substitution.
-     :LOGBOOK:
-     - State "TODO"       from              [2021-02-13 Sa 09:50]
-     :END:
-     #+begin_src bash
-       # connected= xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}'
-       connected=$(xrandr | grep -w connected | awk -F'[ +]' '{print $1,$3,$4}')
-       screen1=$(head -n 1 <<< "$connected")
-       screen2=[[ 1 = $(wc -l <<< "$connected") ]] && {tail -n 1 <<< "$connected" } || $(echo "no screen 2")
-       echo "screen1: ${screen1}"
-       echo "screen2: ${screen2}"
-      #+end_src
+***** 1920
+      #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920)
 
       #+RESULTS:
-      | screen1: | eDP1 | primary | 1920x1080 |
-      | screen2: |      |         |           |
+      : DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
 
-
-
-*** x270
-    The X270 has a 177 dpi 60cm/23.62" screen @1920x1080.
-    #+CALL: xrandr-dpi-calc(cmWidth=27.5,xRes=1920)
-
-     #+RESULTS:
-     : DPI of 10.8 inch width screen with a horizontal pixel count of 1920 is: 177
-
-**** ~/bin/xrandr-x270-default
-      generic left of external monitor xrandr setup
-      #+begin_src bash :tangle ~/bin/xrandr-x270-default
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr --output eDP1 --mode 1920x1080 --dpi 177 --primary
-        if  (xrandr | grep " connected " | grep -i "hdmi2" &>/dev/null);then
-            xrandr --output HDMI2 --primary --auto  --right-of eDP1
-        else
-            xrandr --output HDMI2 --off
-        fi
-      #+end_src
+      #+CALL: xrandr-x270-bigtv(hires="off")
 
       #+RESULTS:
+      : second display on
 
-**** ~/bin/xrandr-x270-bigtv
-***** details
-      Philips 55PUS8303/12
-      ,----
-      | HDMI2 connected (normal left inverted right x axis y axis)
-      |    1920x1080     60.00 +  50.00    59.94    30.00    25.00    24.00    29.97    23.98
-      |    3840x2160     30.00    25.00    24.00    29.97    23.98
-      |    1920x1080i    60.00    50.00    59.94
-      `----
-****** dpi
-******* 1920
-        #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920)
+      #+CALL: xrandr-x270-bigtv(hires="on")
 
-        #+RESULTS:
-        : DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
+      #+RESULTS:
+      : second display on
 
-******* 3840
-        #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=3840)
+      #+CALL: xrandr-x270-bigtv(secondary="off")
 
-        #+RESULTS:
-        : DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
+      #+RESULTS:
+      : second display off
 
-***** xrandr
-      #+begin_src bash :tangle ~/bin/xrandr-x270-mancave
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
-        if  [ -z $connected ] ;then
-            xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
-        else
-            xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
+****** 3840
+       #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=3840)
 
-            ,***
+       #+RESULTS:
+       : DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
 
+       #+CALL: xrandr-x270-bigtv(hires="on")
 
+       #+RESULTS:
+       : Hires: on
 
-        fi
-      #+end_src
 **** ~/bin/xrandr-x270-mancave
-***** details
-      Mancave [[https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1][monitor]] has a DPI of 108 : 2560x1440 over 60cm/23.62". [[https://bedienungsanleitung-deutsch.de/asus-pb278qv][User Manual.]]
+     Mancave [[https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1][monitor]] has a DPI of 108 : 2560x1440 over 60cm/23.62". [[https://bedienungsanleitung-deutsch.de/asus-pb278qv][User Manual.]]
 
-      #+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
+     #+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
 
-      #+RESULTS:
-      : DPI of 23.6 inch width screen with a horozontal pixel count of 2560 is: 108
+     #+RESULTS:
+     : DPI of 23.6 inch width screen with a horozontal pixel count of 2560 is: 108
 
-***** xrandr
-      #+begin_src bash :tangle ~/bin/xrandr-x270-mancave
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
-        if  [ -z $connected ] ;then
-            xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
-        else
-            xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
-        fi
-      #+end_src
+     #+begin_src bash :tangle ~/bin/xrandr-x270-mancave
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
+       if  [ -z $connected ] ;then
+           xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+       else
+           xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
+       fi
+     #+end_src
+
 
 *** XMG Neo 15
 **** TODO ~/bin/xrandr-xmgneo
