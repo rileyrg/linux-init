@@ -6,6 +6,7 @@ xhost +
 xset s off
 xset -dpms
 
+xrandr --setprovideroutputsource 1 0
 export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
 # .xsessionrc.local for this type of thing

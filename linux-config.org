@@ -138,6 +138,7 @@
       xset s off
       xset -dpms
 
+      xrandr --setprovideroutputsource 1 0
       export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
       # .xsessionrc.local for this type of thing
@@ -360,47 +361,7 @@
 
 
 **** ~/bin/xrandr-bigtv
-      #+name: xrandr-bigtv
-      #+begin_src bash :tangle ~/bin/xrandr-bigtv :var hires="off" secondary="on" secondaryID="HDMI2" primaryID="eDP-1" dpi="177" scaleLo="1x1" scaleHi="0.5x0.5"
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        hires=${1:-$hires}
-        secondary=${2:-$secondary}
-        secondaryID=${3:-$secondaryID}
-        primaryID=${4:-$primaryID}
-        dpi=${5:-$dpi}
-        scaleHi=${6:-$scaleHi}
-        scaleLo=${7:-$scaleLo}
-        scale=[ $hires = "on" ] && $scaleHi || $scaleLow
-        connected="$(xrandr | \grep -iw "connected" |  \grep -io $secondaryID)"
-        xrandr --output $primaryID --auto --primary --dpi $dpi
-        if [ $secondary != "on" ]; then
-            secondary="off"
-            xrandr --output $secondaryID --off
-        else
-            [ -z $connected ] && xrandr --output $secondaryID  --off ||
-                    xrandr --output $primaryID --auto --primary --output $secondaryID --mode $([ $hires = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale $scale
-        fi
-        echo "secondary display $secondaryID is $([ $secondary = "on" ] &&  echo "on, hires is $hires")"
-      #+end_src
 
-      #+RESULTS: xrandr-bigtv
-      | secondary display HDMI2 is on | hires is off |
-
-
-*** x270
-***** ~/bin/xrandr-x270-bigtv
-      #+name: xrandr-x270-bigtv
-      #+begin_src bash :tangle ~/bin/xrandr-x270-bigtv :var hires="off" secondary="on"
-        #!/usr/bin/bash
-        # Maintained in linux-init-files.org
-        xrandr-bigtv ${1:-$hires} ${2:-$secondary} "hdmi2" "eDP1"
-      #+end_src
-
-      #+RESULTS: xrandr-x270-bigtv
-      | secondary display hdmi2 is on | hires is off |
-
-****** test
        #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920)
 
        #+RESULTS:
@@ -411,20 +372,80 @@
        #+RESULTS:
        : DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
 
-       #+CALL: xrandr-x270-bigtv()
+      #+name: xrandr-bigtv
+      #+begin_src bash :tangle ~/bin/xrandr-bigtv
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        hires=${1:-$hires}
+        [ -z $hires ] && hires="off"
 
-       #+RESULTS:
-       | secondary display HDMI2 is on | hires is off |
+        secondary=${2:-$secondary}
+        [ -z $secondary ] && secondary="on"
 
-       #+CALL: xrandr-x270-bigtv(hires="on")
+        secondaryID=${3:-$secondaryID}
+        [ -z $secondaryID ] && secondaryID="HDMI-1-0"
 
-       #+RESULTS:
-       | secondary display HDMI2 is on | hires is on |
+        primaryID=${4:-$primaryID}
+        [ -z $primaryID ] && primaryID="eDP-1"
 
-       #+CALL: xrandr-x270-bigtv(secondary="off")
+        dpi=${5:-$dpi}
+        [ -z $dpi ] && dpi="188"
+       #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920
 
-       #+RESULTS:
-       : secondary display HDMI2 is off
+        scale=${6:-$scale}
+        [ -z $scale ] && scale="1x1"
+
+        [ -z "$(xrandr | \grep -iw "connected" |  \grep -io "$secondaryID")" ] && connected="off" || connected="on"
+
+        echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
+
+        xrandr --output $primaryID --auto --primary --dpi $dpi
+        if [ $secondary != "on" ]; then
+            secondary="off"
+            xrandr --output $secondaryID --off
+        else
+            [ $connected != "on" ] && xrandr --output $secondaryID  --off ||
+                    xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
+        fi
+      #+end_src
+
+      #+RESULTS: xrandr-bigtv
+      | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
+
+      #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920)
+
+      #+RESULTS:
+      : DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
+
+      #+call: xrandr-bigtv(hires="off",secondary="off")
+
+      #+RESULTS:
+      | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
+
+      #+call: xrandr-bigtv(scale="1x1")
+
+      #+RESULTS:
+      | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
+
+*** x270
+
+    #+CALL: xrandr-dpi-calc(cmWidth=28,xRes=1920)
+
+    #+RESULTS:
+    : DPI of 11.0 inch width screen with a horizontal pixel count of 1920 is: 174
+
+***** ~/bin/xrandr-x270-bigtv
+      #+name: xrandr-x270-bigtv
+      #+begin_src bash :tangle ~/bin/xrandr-x270-bigtv
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        primaryID="eDP1" secondaryID="HDMI2" xrandr-bigtv $@
+      #+end_src
+
+      #+RESULTS: xrandr-x270-bigtv
+      | connected:off | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
+
+      #+call: xrandr-bigtv(primaryID="eDP1",secondaryID="HDMI2")
 
 ***** ~/bin/xrandr-x270-mancave
       Mancave [[https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1][monitor]] has a DPI of 108 : 2560x1440 over 60cm/23.62". [[https://bedienungsanleitung-deutsch.de/asus-pb278qv][User Manual.]]
@@ -447,12 +468,18 @@
 
 
 *** XMG Neo 15
+
+    #+CALL: xrandr-dpi-calc(cmWidth=34.5,xRes=2560)
+
+    #+RESULTS:
+    : DPI of 13.6 inch width screen with a horizontal pixel count of 2560 is: 188
+
 ***** ~/bin/xrandr-xmgneo-bigtv
       #+name: xrandr-xmgneo-bigtv
-      #+begin_src bash :tangle ~/bin/xrandr-xmgneo-bigtv :var hires="off" secondary="on"
+      #+begin_src bash :tangle ~/bin/xrandr-xmgneo-bigtv
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        xrandr-bigtv ${1:-$hires} ${2:-$secondary} "HDMI-1-0" "eDP-1" "144" "1x1" "0.5x0.5"
+        xrandr-bigtv $@
       #+end_src
 
       #+RESULTS: xrandr-xmgneo-bigtv
