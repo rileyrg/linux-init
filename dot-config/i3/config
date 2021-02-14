@@ -127,6 +127,8 @@ assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
 assign [class="Steam"] $ws9
 
+# for_window [class="steam_app.*"] fullscreen enable
+
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2

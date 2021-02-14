@@ -88,7 +88,6 @@ xhost +
 xset s off
 xset -dpms
 
-xrandr --setprovideroutputsource 1 0
 export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
 # .xsessionrc.local for this type of thing
@@ -357,7 +356,7 @@ Differnt monitors have different resolutions and hence DPI
     [ -z $secondaryID ] && secondaryID="HDMI-1-0"
 
     primaryID=${4:-$primaryID}
-    [ -z $primaryID ] && primaryID="eDP-1"
+    [ -z $primaryID ] && primaryID="$PRIMARY_DISPLAY"
 
     dpi=${5:-$dpi}
     [ -z $dpi ] && dpi="188"
@@ -367,16 +366,16 @@ Differnt monitors have different resolutions and hence DPI
 
     [ -z "$(xrandr | \grep -iw "connected" |  \grep -io "$secondaryID")" ] && connected="off" || connected="on"
 
-    echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
-
     xrandr --output $primaryID --auto --primary --dpi $dpi
     if [ $secondary != "on" ]; then
         secondary="off"
         xrandr --output $secondaryID --off
     else
-        [ $connected != "on" ] && xrandr --output $secondaryID  --off ||
+        [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." ||
                 xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
     fi
+    echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
+
     ```
 
 
@@ -1064,6 +1063,8 @@ set $ws10 "10"
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
 assign [class="Steam"] $ws9
+
+# for_window [class="steam_app.*"] fullscreen enable
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
