@@ -17,7 +17,6 @@
 #+PROPERTY: header-args:conf :tangle-mode (identity #o444)
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
-#+PROPERTY: header-args :eval never-export
 
 * Introduction
 
@@ -413,24 +412,6 @@
         fi
       #+end_src
 
-      #+RESULTS: xrandr-bigtv
-      | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
-      #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920)
-
-      #+RESULTS:
-      : DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
-
-      #+call: xrandr-bigtv(hires="off",secondary="off")
-
-      #+RESULTS:
-      | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
-      #+call: xrandr-bigtv(scale="1x1")
-
-      #+RESULTS:
-      | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
 
 *** x270
 
@@ -447,13 +428,7 @@
         primaryID="eDP1" secondaryID="HDMI2" xrandr-bigtv $@
       #+end_src
 
-      #+RESULTS: xrandr-x270-bigtv
-      | connected:off | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
-      #+call: xrandr-bigtv(primaryID="eDP1",secondaryID="HDMI2")
-
 ***** ~/bin/xrandr-x270-mancave
-      Mancave [[https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1][monitor]] has a DPI of 108 : 2560x1440 over 60cm/23.62". [[https://bedienungsanleitung-deutsch.de/asus-pb278qv][User Manual.]]
 
       #+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
 

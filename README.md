@@ -380,16 +380,6 @@ Differnt monitors have different resolutions and hence DPI
      fi
     ```
 
-        DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
-
-    |             |          |              |                     |                 |        |          |
-    |------------ |--------- |------------- |-------------------- |---------------- |------- |--------- |
-    | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
-    |             |          |             |                     |                 |        |          |
-    |------------ |--------- |------------ |-------------------- |---------------- |------- |--------- |
-    | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
-
 
 ### x270
 
@@ -404,8 +394,6 @@ Differnt monitors have different resolutions and hence DPI
     ```
 
 2.  ~/bin/xrandr-x270-mancave
-
-    Mancave [monitor](https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) has a DPI of 108 : 2560x1440 over 60cm/23.62". [User Manual.](https://bedienungsanleitung-deutsch.de/asus-pb278qv)
 
         DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
 
