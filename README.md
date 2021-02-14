@@ -434,23 +434,19 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr-bigtv $@
+    hires="$hires" secondary="$secondary" xrandr-bigtv "$@"
     ```
 
-2.  ~/bin/xrandr-x270-mancave
-
-    Mancave [monitor](https://www.amazon.de/gp/product/B07YM7X9R8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) has a DPI of 108 : 2560x1440 over 60cm/23.62". [User Manual.](https://bedienungsanleitung-deutsch.de/asus-pb278qv)
-
-        DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
+2.  ~/bin/xrandr-xmgneo-mancave
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
     if  [ -z $connected ] ;then
-        xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
+        xrandr --output eDP-1 --mode 1920x1080 --primary --dpi 177
     else
-        xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
+        xrandr  --output HDMI-1-0 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
     fi
     ```
 
