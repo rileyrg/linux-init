@@ -345,39 +345,38 @@ Differnt monitors have different resolutions and hence DPI
         DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
 
     ```bash
-     #!/usr/bin/bash
-     # Maintained in linux-init-files.org
-     hires=${1:-$hires}
-     [ -z $hires ] && hires="off"
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    secondary=${1:-$secondary}
+    [ -z $secondary ] && secondary="on"
 
-     secondary=${2:-$secondary}
-     [ -z $secondary ] && secondary="on"
+    hires=${2:-$hires}
+    [ -z $hires ] && hires="off"
 
-     secondaryID=${3:-$secondaryID}
-     [ -z $secondaryID ] && secondaryID="HDMI-1-0"
+    secondaryID=${3:-$secondaryID}
+    [ -z $secondaryID ] && secondaryID="HDMI-1-0"
 
-     primaryID=${4:-$primaryID}
-     [ -z $primaryID ] && primaryID="eDP-1"
+    primaryID=${4:-$primaryID}
+    [ -z $primaryID ] && primaryID="eDP-1"
 
-     dpi=${5:-$dpi}
-     [ -z $dpi ] && dpi="188"
-    #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920
+    dpi=${5:-$dpi}
+    [ -z $dpi ] && dpi="188"
 
-     scale=${6:-$scale}
-     [ -z $scale ] && scale="1x1"
+    scale=${6:-$scale}
+    [ -z $scale ] && scale="1x1"
 
-     [ -z "$(xrandr | \grep -iw "connected" |  \grep -io "$secondaryID")" ] && connected="off" || connected="on"
+    [ -z "$(xrandr | \grep -iw "connected" |  \grep -io "$secondaryID")" ] && connected="off" || connected="on"
 
-     echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
+    echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
 
-     xrandr --output $primaryID --auto --primary --dpi $dpi
-     if [ $secondary != "on" ]; then
-         secondary="off"
-         xrandr --output $secondaryID --off
-     else
-         [ $connected != "on" ] && xrandr --output $secondaryID  --off ||
-                 xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
-     fi
+    xrandr --output $primaryID --auto --primary --dpi $dpi
+    if [ $secondary != "on" ]; then
+        secondary="off"
+        xrandr --output $secondaryID --off
+    else
+        [ $connected != "on" ] && xrandr --output $secondaryID  --off ||
+                xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
+    fi
     ```
 
 
@@ -419,6 +418,10 @@ Differnt monitors have different resolutions and hence DPI
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     hires="$hires" secondary="$secondary" xrandr-bigtv "$@"
+    ```
+
+    ```bash
+    xrandr-xmgneo-bigtv off
     ```
 
 2.  ~/bin/xrandr-xmgneo-mancave

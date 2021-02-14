@@ -379,11 +379,11 @@
       #+begin_src bash :tangle ~/bin/xrandr-bigtv
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        hires=${1:-$hires}
-        [ -z $hires ] && hires="off"
-
-        secondary=${2:-$secondary}
+        secondary=${1:-$secondary}
         [ -z $secondary ] && secondary="on"
+
+        hires=${2:-$hires}
+        [ -z $hires ] && hires="off"
 
         secondaryID=${3:-$secondaryID}
         [ -z $secondaryID ] && secondaryID="HDMI-1-0"
@@ -393,7 +393,6 @@
 
         dpi=${5:-$dpi}
         [ -z $dpi ] && dpi="188"
-       #+CALL: xrandr-dpi-calc(cmWidth=120,xRes=1920
 
         scale=${6:-$scale}
         [ -z $scale ] && scale="1x1"
@@ -428,6 +427,9 @@
         primaryID="eDP1" secondaryID="HDMI2" xrandr-bigtv $@
       #+end_src
 
+      #+RESULTS: xrandr-x270-bigtv
+      | connected:off | hires:off | secondary:on | secondaryID:HDMI2 | primaryID:eDP1 | dpi:188 | scale:1x1 |
+
 ***** ~/bin/xrandr-x270-mancave
 
       #+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
@@ -460,6 +462,16 @@
         # Maintained in linux-init-files.org
         hires="$hires" secondary="$secondary" xrandr-bigtv "$@"
       #+end_src
+
+      #+RESULTS: xrandr-xmgneo-bigtv
+      | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primaryID:eDP-1 | dpi:188 | scale:1x1 |
+
+      #+begin_src bash
+        xrandr-xmgneo-bigtv off
+      #+end_src
+
+      #+RESULTS:
+      | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primaryID:eDP-1 | dpi:188 | scale:1x1 |
 
 ***** ~/bin/xrandr-xmgneo-mancave
 
