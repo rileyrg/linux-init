@@ -239,10 +239,10 @@ xidlehook \
     --timer ${XIDLEHOOK_DIM:-120}\
     'xbacklight -set 5' \
     'post-blank' \
-    --timer ${XIDLEHOOK_BLANK:-240}\
+    --timer ${XIDLEHOOK_BLANK:-1200}\
     'xbacklight -set 0' \
     'post-blank' \
-    --timer ${XIDLEHOOK_LOCK:-300}\
+    --timer ${XIDLEHOOK_LOCK:-2400}\
     '(pre-lock && x-lock-utils lock)' \
     '(post-blank && post-lock)' \
     --timer ${XIDLEHOOK_SUSPEND:-3600}\
@@ -422,6 +422,10 @@ Differnt monitors have different resolutions and hence DPI
 
     ```bash
     xrandr-xmgneo-bigtv off
+    ```
+
+    ```bash
+    xrandr-xmgneo-bigtv on
     ```
 
 2.  ~/bin/xrandr-xmgneo-mancave
