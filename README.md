@@ -382,13 +382,13 @@ Differnt monitors have different resolutions and hence DPI
 
         DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
 
-    |             |          |              |                     |                |        |          |
-    |------------ |--------- |------------- |-------------------- |--------------- |------- |--------- |
-    | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primaryID:eDP-1 | dpi:188 | scale:1x1 |
+    |             |          |              |                     |                 |        |          |
+    |------------ |--------- |------------- |-------------------- |---------------- |------- |--------- |
+    | connected:on | hires:off | secondary:off | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
 
-    |             |          |             |                     |                |        |          |
-    |------------ |--------- |------------ |-------------------- |--------------- |------- |--------- |
-    | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primaryID:eDP-1 | dpi:188 | scale:1x1 |
+    |             |          |             |                     |                 |        |          |
+    |------------ |--------- |------------ |-------------------- |---------------- |------- |--------- |
+    | connected:on | hires:off | secondary:on | secondaryID:HDMI-1-0 | primmaryID:eDP-1 | dpi:144 | scale:1x1 |
 
 
 ### x270
@@ -402,10 +402,6 @@ Differnt monitors have different resolutions and hence DPI
     # Maintained in linux-init-files.org
     primaryID="eDP1" secondaryID="HDMI2" xrandr-bigtv $@
     ```
-
-    |              |          |             |                  |               |        |          |
-    |------------- |--------- |------------ |----------------- |-------------- |------- |--------- |
-    | connected:off | hires:off | secondary:on | secondaryID:HDMI2 | primaryID:eDP1 | dpi:188 | scale:1x1 |
 
 2.  ~/bin/xrandr-x270-mancave
 

@@ -17,6 +17,7 @@
 #+PROPERTY: header-args:conf :tangle-mode (identity #o444)
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
+#+PROPERTY: header-args :eval never-export
 
 * Introduction
 
