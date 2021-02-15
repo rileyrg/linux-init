@@ -108,8 +108,9 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-export PRIMARY_DISPLAY="$(xrandr-primary-display)"
-xrandr --output $PRIMARY_DISPLAY --primary
+// set primary if not already
+export PRIMARY_DISPLAY="$(xrandr-connected-primary)"
+
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 
@@ -150,8 +151,11 @@ Xft.dpi:       84
 #ifdef SRVR_intelnuc
 Xft.dpi:       108
 #endif
+#ifdef SRVR_thinkpadx270
+Xft.dpi:       177
+#endif
 #ifdef SRVR_xmgneo
-Xft.dpi:       144
+Xft.dpi:       188
 #endif
 ! }}}
 
@@ -317,17 +321,7 @@ Differnt monitors have different resolutions and hence DPI
 
 ### utility functions
 
-1.  ~/bin/xrandr-primary-display
-
-    get id of primary display
-
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    xrandr -q | \grep " connected " | awk '{print $1}' | head -n 1
-    ```
-
-2.  xrandr-dpi-calc
+1.  xrandr-dpi-calc
 
     org code block to calculate the DPI - pass inWidth as width in inches, else cmWidth as&#x2026;. yay!
 
@@ -339,7 +333,43 @@ Differnt monitors have different resolutions and hence DPI
               inWidth xRes dpi))
     ```
 
-3.  ~/bin/xrandr-bigtv
+2.  ~/bin/xrandr-connected
+
+    list connected
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr -q | \grep " connected " | awk '{print $1}'
+    ```
+
+3.  ~/bin/xrandr-connected-hdmi
+
+    hdmi connected
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr-connected | grep -i "hdmi" | awk '{print $1}'
+    ```
+
+4.  ~/bin/xrandr-connected-primary
+
+    get id of primary display - if none are primary then set first first connected as primary
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    p="$(xrandr -q | \grep -i "connected primary" | awk '{print $1}')"
+    if [ -z $p ]; then
+        p="$(xrandr -q | \grep -i "connected" | awk '{print $1}' | head -n 1)"
+        xrandr --output $p --primary
+    fi
+
+    echo $p
+    ```
+
+5.  ~/bin/xrandr-bigtv
 
         DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
 
@@ -355,10 +385,10 @@ Differnt monitors have different resolutions and hence DPI
     [ -z $hires ] && hires="off"
 
     secondaryID=${3:-$secondaryID}
-    [ -z $secondaryID ] && secondaryID="HDMI-1-0"
+    [ -z $secondaryID ] && secondaryID=$(xrandr-connected-hdmi|head -n 1)
 
     primaryID=${4:-$primaryID}
-    [ -z $primaryID ] && primaryID="$PRIMARY_DISPLAY"
+    [ -z $primaryID ] && primaryID=$(xrandr-connected-primary)
 
     dpi=${5:-$dpi}
     [ -z $dpi ] && dpi="188"
@@ -373,8 +403,7 @@ Differnt monitors have different resolutions and hence DPI
         secondary="off"
         xrandr --output $secondaryID --off
     else
-        [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." ||
-                xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
+        [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." || xrandr --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
     fi
     echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
 

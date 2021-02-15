@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+p="$(xrandr -q | \grep -i "connected primary" | awk '{print $1}')"
+if [ -z $p ]; then
+    p="$(xrandr -q | \grep -i "connected" | awk '{print $1}' | head -n 1)"
+    xrandr --output $p --primary
+fi
+
+echo $p

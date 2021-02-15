@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-xrandr -q | \grep " connected " | awk '{print $1}' | head -n 1

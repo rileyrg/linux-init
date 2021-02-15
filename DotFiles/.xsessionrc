@@ -26,8 +26,9 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-export PRIMARY_DISPLAY="$(xrandr-primary-display)"
-xrandr --output $PRIMARY_DISPLAY --primary
+// set primary if not already
+export PRIMARY_DISPLAY="$(xrandr-connected-primary)"
+
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 

@@ -5,7 +5,10 @@ Xft.dpi:       84
 #ifdef SRVR_intelnuc
 Xft.dpi:       108
 #endif
+#ifdef SRVR_thinkpadx270
+Xft.dpi:       177
+#endif
 #ifdef SRVR_xmgneo
-Xft.dpi:       144
+Xft.dpi:       188
 #endif
 ! }}}

@@ -7,10 +7,10 @@ hires=${2:-$hires}
 [ -z $hires ] && hires="off"
 
 secondaryID=${3:-$secondaryID}
-[ -z $secondaryID ] && secondaryID="HDMI-1-0"
+[ -z $secondaryID ] && secondaryID=$(xrandr-connected-hdmi|head -n 1)
 
 primaryID=${4:-$primaryID}
-[ -z $primaryID ] && primaryID="$PRIMARY_DISPLAY"
+[ -z $primaryID ] && primaryID=$(xrandr-connected-primary)
 
 dpi=${5:-$dpi}
 [ -z $dpi ] && dpi="188"
@@ -25,7 +25,6 @@ if [ $secondary != "on" ]; then
     secondary="off"
     xrandr --output $secondaryID --off
 else
-    [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." ||
-            xrandr --output $primaryID --auto --primary --dpi $dpi --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
+    [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." || xrandr --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
 fi
 echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
