@@ -88,7 +88,6 @@ xhost +
 xset s off
 xset -dpms
 
-export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
@@ -108,8 +107,12 @@ case "$(hostname)" in
 esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
-[ -f "${HOME}"/.xrandr-init ] && . "${HOME}"/.xrandr-init || true
+
+export PRIMARY_DISPLAY="$(xrandr-primary-display)"
+xrandr --output $PRIMARY_DISPLAY --primary
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
+
+
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -261,17 +264,6 @@ __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia ${@}
 ```
 
 
-## ~/bin/display-id
-
-get id of primary display
-
-```bash
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-xrandr -q | grep " connected " | cut -d' ' -f1 | head -n 1
-```
-
-
 ## ~/bin/x-backlight-persist
 
 Save and restore backlight values
@@ -325,7 +317,17 @@ Differnt monitors have different resolutions and hence DPI
 
 ### utility functions
 
-1.  xrandr-dpi-calc
+1.  ~/bin/xrandr-primary-display
+
+    get id of primary display
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr -q | \grep " connected " | awk '{print $1}' | head -n 1
+    ```
+
+2.  xrandr-dpi-calc
 
     org code block to calculate the DPI - pass inWidth as width in inches, else cmWidth as&#x2026;. yay!
 
@@ -337,7 +339,7 @@ Differnt monitors have different resolutions and hence DPI
               inWidth xRes dpi))
     ```
 
-2.  ~/bin/xrandr-bigtv
+3.  ~/bin/xrandr-bigtv
 
         DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
 

@@ -6,7 +6,6 @@ xhost +
 xset s off
 xset -dpms
 
-export PRIMARY_DISPLAY="$(xrandr-primary-display)"
 
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
@@ -26,8 +25,12 @@ case "$(hostname)" in
 esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
-[ -f "${HOME}"/.xrandr-init ] && . "${HOME}"/.xrandr-init || true
+
+export PRIMARY_DISPLAY="$(xrandr-primary-display)"
+xrandr --output $PRIMARY_DISPLAY --primary
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
+
+
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
