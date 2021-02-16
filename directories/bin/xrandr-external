@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+on=${1:-"on"}
+connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
+laptop=$(xrandr-connected | head -n 1)
+if [ ! -z "$connected" ]; then
+    if [ "$on" = "on" ]; then
+        xrandr --output $connected --auto --right-of $laptop &> /dev/null;
+    else
+        xrandr --output $connected --off --output $laptop --auto --primary  &> /dev/null;
+    fi
+fi

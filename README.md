@@ -340,7 +340,7 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr -q | \grep " connected " | awk '{print $1}'
+    xrandr -q | \grep -w "connected" | awk '{print $1}'
     ```
 
 3.  ~/bin/xrandr-connected-hdmi
@@ -362,51 +362,48 @@ Differnt monitors have different resolutions and hence DPI
     # Maintained in linux-init-files.org
     p="$(xrandr -q | \grep -i "connected primary" | awk '{print $1}')"
     if [ -z $p ]; then
-        p="$(xrandr -q | \grep -i "connected" | awk '{print $1}' | head -n 1)"
+        p="$(xrandr -q | \grep -w "connected" | awk '{print $1}' | head -n 1)"
         xrandr --output $p --primary
     fi
 
     echo $p
     ```
 
-5.  ~/bin/xrandr-bigtv
-
-        DPI of 47.2 inch width screen with a horizontal pixel count of 1920 is: 40
-
-        DPI of 47.2 inch width screen with a horizontal pixel count of 3840 is: 81
+5.  ~/bin/xrandr-external
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    secondary=${1:-$secondary}
-    [ -z $secondary ] && secondary="on"
-
-    hires=${2:-$hires}
-    [ -z $hires ] && hires="off"
-
-    secondaryID=${3:-$secondaryID}
-    [ -z $secondaryID ] && secondaryID=$(xrandr-connected-hdmi|head -n 1)
-
-    primaryID=${4:-$primaryID}
-    [ -z $primaryID ] && primaryID=$(xrandr-connected-primary)
-
-    dpi=${5:-$dpi}
-    [ -z $dpi ] && dpi="188"
-
-    scale=${6:-$scale}
-    [ -z $scale ] && scale="1x1"
-
-    [ -z "$(xrandr | \grep -iw "connected" |  \grep -io "$secondaryID")" ] && connected="off" || connected="on"
-
-    xrandr --output $primaryID --auto --primary --dpi $dpi
-    if [ $secondary != "on" ]; then
-        secondary="off"
-        xrandr --output $secondaryID --off
-    else
-        [ $connected != "on" ] && xrandr --output $secondaryID  --off && { secondary="off"; } && echo "Display $secondaryID is not connected. Staying off." || xrandr --output $secondaryID --mode $([ "$hires" = "on" ] && echo "3840x2160" || echo "1920x1080")  --right-of $primaryID  --scale "$scale"
+    on=${1:-"on"}
+    connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
+    laptop=$(xrandr-connected | head -n 1)
+    if [ ! -z "$connected" ]; then
+        if [ "$on" = "on" ]; then
+            xrandr --output $connected --auto --right-of $laptop &> /dev/null;
+        else
+            xrandr --output $connected --off --output $laptop --auto --primary  &> /dev/null;
+        fi
     fi
-    echo "connected:$connected,hires:$hires,secondary:$secondary,secondaryID:$secondaryID,primaryID:$primaryID,dpi:$dpi,scale:$scale"
 
+    ```
+
+6.  ~/bin/xrandr-mancave
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    on=${1:-"on"}
+    connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
+    laptop=$(xrandr-connected | head -n 1)
+    if  [ -z "$connected" ] ;then
+        xrandr --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+    else
+        if [ "$on" = "on" ]; then
+            xrandr  --output $connected --auto  --primary --dpi 108 --pos 0x0 --output $laptop  --pos 2560x0 --auto --scale ${scale:-"0.75x0.75"}
+        else
+            xrandr --output $connected --off --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+        fi
+    fi
     ```
 
 
@@ -419,7 +416,7 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    primaryID="eDP1" secondaryID="HDMI2" xrandr-bigtv $@
+    xrandr-external "$@"
     ```
 
 2.  ~/bin/xrandr-x270-mancave
@@ -429,46 +426,28 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
-    if  [ -z $connected ] ;then
-        xrandr --output eDP1 --mode 1920x1080 --primary --dpi 177
-    else
-        xrandr  --output HDMI2 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
-    fi
+    xrandr-mancave "$@"
     ```
 
 
 ### XMG Neo 15
-
-    DPI of 13.6 inch width screen with a horizontal pixel count of 2560 is: 188
 
 1.  ~/bin/xrandr-xmgneo-bigtv
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    hires="$hires" secondary="$secondary" xrandr-bigtv "$@"
-    ```
-
-    ```bash
-    xrandr-xmgneo-bigtv off
-    ```
-
-    ```bash
-    xrandr-xmgneo-bigtv on
+    xrandr-external-on "$@"
     ```
 
 2.  ~/bin/xrandr-xmgneo-mancave
 
+        DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
+
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    connected="$(xrandr | \grep -iw "connected" |  \grep -io "hdmi2" )"
-    if  [ -z $connected ] ;then
-        xrandr --output eDP-1 --mode 1920x1080 --primary --dpi 177
-    else
-        xrandr  --output HDMI-1-0 --mode 2560x1440  --primary --dpi 108 --output eDP1  --pos 2560x0 --mode 1920x1080 --scale 0.75x0.75
-    fi
+    dpi=188 xrandr-mancave "$@"
     ```
 
 
