@@ -1499,6 +1499,21 @@ set splitright
 # ripgrep
 
 
+## ~/.ignore
+
+```conf
+# Maintained in linux-init-files.org
+!*
+\.git
+cache
+\.cache
+auto-save
+history
+undohist
+\.*history*
+```
+
+
 ## ~/.ripgreprc
 
 ```conf

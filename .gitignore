@@ -34,6 +34,8 @@
 !/DotFiles/.bash_profile
 !/DotFiles/.mbsyncrc
 !/DotFiles/.profile
+!/DotFiles/.ignore
+!/DotFiles/.ripgreprc
 !/DotFiles/.xinitrc
 !/DotFiles/.xsessionrc
 !/DotFiles/.Xresources

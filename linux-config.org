@@ -1557,6 +1557,18 @@
 
    #+end_src
 * ripgrep
+** ~/.ignore
+   #+begin_src conf :tangle "DotFiles/.ignore"
+     # Maintained in linux-init-files.org
+     !*
+     \.git
+     cache
+     \.cache
+     auto-save
+     history
+     undohist
+     \.*history*
+   #+end_src
 ** ~/.ripgreprc
    #+begin_src conf :tangle "DotFiles/.ripgreprc"
 
