@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+connectedstrings="$(xrandr -q | \grep -w "connected" -A 1 | \grep -i "hdmi" -A 1)"
+xrandr-connected-primary
+if [ ! -z "$connectedstrings" ]; then
+    case "$(tail -n 1 <<< $connectedstrings)" in
+        *2560*)
+            xrandr-mancave on
+            ;;
+        *)
+            xrandr-external on
+            ;;
+    esac
+else
+    xrandr-external off
+fi

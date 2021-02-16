@@ -4,11 +4,13 @@ on=${1:-"on"}
 connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
 laptop=$(xrandr-connected | head -n 1)
 if  [ -z "$connected" ] ;then
-    xrandr --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+    xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
 else
     if [ "$on" = "on" ]; then
-        xrandr  --output $connected --auto  --primary --dpi 108 --pos 0x0 --output $laptop  --pos 2560x0 --auto --scale ${scale:-"0.75x0.75"}
+        xrandr --output "$laptop" --off
+        xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
+        xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
     else
-        xrandr --output $connected --off --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+        xrandr --output "$connected" --off --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" # --scale "1x1"
     fi
 fi

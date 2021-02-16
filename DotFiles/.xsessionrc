@@ -26,12 +26,11 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-// set primary if not already
-export PRIMARY_DISPLAY="$(xrandr-connected-primary)"
+# xrandr --auto
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-
+(sleep 1 && xrandr-smart-connect)&
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &

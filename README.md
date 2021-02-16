@@ -108,12 +108,11 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-// set primary if not already
-export PRIMARY_DISPLAY="$(xrandr-connected-primary)"
+# xrandr --auto
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-
+(sleep 1 && xrandr-smart-connect)&
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -377,11 +376,12 @@ Differnt monitors have different resolutions and hence DPI
     on=${1:-"on"}
     connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
     laptop=$(xrandr-connected | head -n 1)
+    xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
     if [ ! -z "$connected" ]; then
         if [ "$on" = "on" ]; then
             xrandr --output $connected --auto --right-of $laptop &> /dev/null;
         else
-            xrandr --output $connected --off --output $laptop --auto --primary  &> /dev/null;
+            xrandr --output $connected --off  &> /dev/null;
         fi
     fi
 
@@ -396,14 +396,40 @@ Differnt monitors have different resolutions and hence DPI
     connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
     laptop=$(xrandr-connected | head -n 1)
     if  [ -z "$connected" ] ;then
-        xrandr --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+        xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
     else
         if [ "$on" = "on" ]; then
-            xrandr  --output $connected --auto  --primary --dpi 108 --pos 0x0 --output $laptop  --pos 2560x0 --auto --scale ${scale:-"0.75x0.75"}
+            xrandr --output "$laptop" --off
+            xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
+            xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
         else
-            xrandr --output $connected --off --output $laptop --auto --scale 1x1 --pos 0x0 --primary --dpi ${dpi:-"174"}
+            xrandr --output "$connected" --off --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" # --scale "1x1"
         fi
     fi
+    ```
+
+7.  ~/bin/xrandr-smart-connect
+
+    connect to richie's monitors by default if we can
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    connectedstrings="$(xrandr -q | \grep -w "connected" -A 1 | \grep -i "hdmi" -A 1)"
+    xrandr-connected-primary
+    if [ ! -z "$connectedstrings" ]; then
+        case "$(tail -n 1 <<< $connectedstrings)" in
+            *2560*)
+                xrandr-mancave on
+                ;;
+            *)
+                xrandr-external on
+                ;;
+        esac
+    else
+        xrandr-external off
+    fi
+
     ```
 
 

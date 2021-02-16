@@ -3,10 +3,11 @@
 on=${1:-"on"}
 connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
 laptop=$(xrandr-connected | head -n 1)
+xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
 if [ ! -z "$connected" ]; then
     if [ "$on" = "on" ]; then
         xrandr --output $connected --auto --right-of $laptop &> /dev/null;
     else
-        xrandr --output $connected --off --output $laptop --auto --primary  &> /dev/null;
+        xrandr --output $connected --off  &> /dev/null;
     fi
 fi
