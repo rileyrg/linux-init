@@ -1,13 +1,17 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 on=${1:-"on"}
-connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
-laptop=$(xrandr-connected | head -n 1)
+connected=$(xrandr-connected-hdmi)
+laptop=$(xrandr-laptop)
+echo "Turning on $laptop"
 xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
 if [ ! -z "$connected" ]; then
+    echo "Detected $connected"
     if [ "$on" = "on" ]; then
+        echo "Turning on $connected"
         xrandr --output $connected --auto --right-of $laptop &> /dev/null;
     else
+        echo "Turning off  $connected"
         xrandr --output $connected --off  &> /dev/null;
     fi
 fi

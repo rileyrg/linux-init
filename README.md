@@ -109,7 +109,7 @@ esac
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-xrandr-smart-connect-daemon-run
+command -v srandrd && srandrd xrandr-smart-connect
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -140,6 +140,8 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 ## ~/.Xresources
 
 ```conf
+! Use a truetype font and size.
+*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
 ! Fonts {{{
 #ifdef SRVR_thinkpadt460
 Xft.dpi:       84
@@ -336,10 +338,22 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr -q | \grep -w "connected" | awk '{print $1}'
+    export XRANDR_CONNECTED=$(xrandr -q | \grep -w "connected" | awk '{print $1}')
+    [ -z "$XRANDR_CONNECTED" ] || echo "$XRANDR_CONNECTED"
     ```
 
-3.  ~/bin/xrandr-disconnected
+3.  ~/bin/xrandr-laptop
+
+    list connected
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    export XRANDR_LAPTOP=$(xrandr-connected | \grep -ie "^e" | head -n 1 | awk '{print $1}')
+    [ -z $"XRANDR_LAPTOP" ] || echo "$XRANDR_LAPTOP"
+    ```
+
+4.  ~/bin/xrandr-disconnected
 
     list disconnected
 
@@ -349,7 +363,7 @@ Differnt monitors have different resolutions and hence DPI
     xrandr -q | \grep -w "disconnected" | awk '{print $1}'
     ```
 
-4.  ~/bin/xrandr-disconnected-off
+5.  ~/bin/xrandr-disconnected-off
 
     turn off all disconnected
 
@@ -359,17 +373,18 @@ Differnt monitors have different resolutions and hence DPI
     xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     ```
 
-5.  ~/bin/xrandr-connected-hdmi
+6.  ~/bin/xrandr-connected-hdmi
 
     hdmi connected
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr-connected | grep -i "hdmi" | awk '{print $1}'
+    export XRANDR_HDMI=$(xrandr-connected | \grep -ie "^h" | head -n 1 | awk '{print $1}')
+    [ -z "$XRANDR_HDMI" ] || echo "$XRANDR_HDMI"
     ```
 
-6.  ~/bin/xrandr-connected-primary
+7.  ~/bin/xrandr-connected-primary
 
     get id of primary display - if none are primary then set first first connected as primary
 
@@ -385,34 +400,60 @@ Differnt monitors have different resolutions and hence DPI
     echo $p
     ```
 
-7.  ~/bin/xrandr-external
+8.  ~/bin/xrandr-external
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    on=${1:-"on"}
+    connected=$(xrandr-connected-hdmi)
+    laptop=$(xrandr-laptop)
+    echo "Turning on $laptop"
+    xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
+    if [ ! -z "$connected" ]; then
+        echo "Detected $connected"
+        if [ "$on" = "on" ]; then
+            echo "Turning on $connected"
+            xrandr --output $connected --auto --right-of $laptop &> /dev/null;
+        else
+            echo "Turning off  $connected"
+            xrandr --output $connected --off  &> /dev/null;
+        fi
+    fi
+    ```
+
+9.  ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     on=${1:-"on"}
     connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
-    laptop=$(xrandr-connected | head -n 1)
-    xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
-    if [ ! -z "$connected" ]; then
+    laptop=$(xrandr-connected | grep -e "^e" | head -n 1)
+    if  [ -z "$connected" ] ;then
+        xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
+    else
         if [ "$on" = "on" ]; then
-            xrandr --output $connected --auto --right-of $laptop &> /dev/null;
+            # xrandr --output "$laptop" --off
+            xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
+            xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
         else
-            xrandr --output $connected --off  &> /dev/null;
+            xrandr-external off
         fi
     fi
-
     ```
 
-8.  ~/bin/xrandr-smart-connect
+10. ~/bin/xrandr-smart-connect
 
     connect to richie's monitors by default if we can
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
+    # turn off call disconnected displays
     xrandr-disconnected-off
+    # try and ID the display connected and act accordingly
+    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
     if [ ! -z "$connectedmodestring" ]; then
         case "$connectedmodestring" in
             *2560*)
@@ -427,53 +468,34 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-    1.  monitor connection daemon
+11. connect/disconnect daemon
 
-        1.  ~/bin/xrandr-smart-connect-daemon
+    Note these are not used now in favour of the [srandr](https://github.com/jceb/srandrd) daemon
 
-            ```bash
-            #!/usr/bin/bash
-            # Maintained in linux-init-files.org
-            while true; do
-                sleep 5
-                xrandr-smart-connect &> /dev/null
-            done
+    1.  ~/bin/xrandr-smart-connect-daemon
+
+        ```bash
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        while true; do
+            sleep 5
+            [ -z "$(pidof "steam")" ] && xrandr-smart-connect &> /dev/null
+        done
 
 
-            ```
+        ```
 
-        2.  ~/bin/xrandr-smart-connect-daemon-run
+    2.  ~/bin/xrandr-smart-connect-daemon-run
 
-            ```bash
-            #!/usr/bin/bash
-            # Maintained in linux-init-files.org
-            if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
-                echo "$0 already running."
-                exit 1;
-            fi
-            xrandr-smart-connect-daemon &
-            ```
-
-9.  ~/bin/xrandr-mancave
-
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    on=${1:-"on"}
-    connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
-    laptop=$(xrandr-connected | head -n 1)
-    if  [ -z "$connected" ] ;then
-        xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
-    else
-        if [ "$on" = "on" ]; then
-            # xrandr --output "$laptop" --off
-            xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
-            xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
-        else
-            xrandr --output "$connected" --off --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" # --scale "1x1"
+        ```bash
+        #!/usr/bin/bash
+        # Maintained in linux-init-files.org
+        if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
+            echo "$0 already running."
+            exit 1;
         fi
-    fi
-    ```
+        xrandr-smart-connect-daemon &
+        ```
 
 
 ### x270
@@ -1031,8 +1053,7 @@ set $mod Mod4
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:monospace 8
-font pango:JetBrains Mono 8
-
+font pango:JetBrains Mono 6
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 
@@ -1206,7 +1227,7 @@ bindsym $mod+r mode "resize"
 # i3bar
 bar {
 status_command i3blocks
-font pango:JetBrains Sans Mono 8
+font pango:JetBrains Sans Mono 6
 position top
 #mode hide
 hidden_state hide
@@ -1240,7 +1261,7 @@ bindsym $mod+Tab workspace back_and_forth
 
 exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
 exec --no-startup-id nm-applet
-exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
+# exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
 
 # non desktop specific so start in xsessionrc
 # exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
