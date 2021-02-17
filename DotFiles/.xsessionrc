@@ -6,7 +6,6 @@ xhost +
 xset s off
 xset -dpms
 
-
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadt460")
@@ -26,11 +25,9 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-# xrandr --auto
-
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-(sleep 1 && xrandr-smart-connect)&
+xrandr-smart-connect
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &

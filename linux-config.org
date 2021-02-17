@@ -138,7 +138,6 @@
       xset s off
       xset -dpms
 
-
       # .xsessionrc.local for this type of thing
       case "$(hostname)" in
           "thinkpadt460")
@@ -158,11 +157,9 @@
 
       [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-      # xrandr --auto
-
       [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-      (sleep 1 && xrandr-smart-connect)&
+      xrandr-smart-connect
 
       xss-lock -- x-lock-utils lock &
       x-idlehook &
@@ -341,9 +338,7 @@
    #+end_src
 
 ** xrandr monitor related
-
    Differnt monitors have different resolutions and hence DPI
-
 *** utility functions
 
 **** xrandr-dpi-calc
@@ -368,7 +363,14 @@
       # Maintained in linux-init-files.org
       xrandr -q | \grep -w "connected" | awk '{print $1}'
     #+end_src
-
+**** ~/bin/xrandr-disconnected-off
+    turn off all disconnected
+    #+begin_src bash :tangle "~/bin/xrandr-disconnected-off"
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      disconnected="$(xrandr -q | \grep -w "disconnected" | awk '{print $1}')"
+      xargs -I {} xrandr --output {} --off <<< $(xrandr -q | \grep -w "disconnected" | awk '{print $1}')
+    #+end_src
 **** ~/bin/xrandr-connected-hdmi
     hdmi connected
     #+begin_src bash :tangle "~/bin/xrandr-connected-hdmi"
@@ -410,6 +412,26 @@
 
      #+end_src
 
+**** ~/bin/xrandr-smart-connect
+     connect to richie's monitors by default if we can
+     #+begin_src bash :tangle ~/bin/xrandr-smart-connect
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
+       echo $connectedmodestring
+       if [ ! -z "$connectedmodestring" ]; then
+           case "$connectedmodestring" in
+               ,*2560*)
+                   xrandr-mancave on
+                   ;;
+               ,*)
+                   xrandr-external on
+                   ;;
+           esac
+       else
+           xrandr-external off
+       fi
+     #+end_src
 **** ~/bin/xrandr-mancave
      #+begin_src bash :tangle ~/bin/xrandr-mancave
        #!/usr/bin/bash
@@ -430,28 +452,6 @@
        fi
      #+end_src
 
-
-**** ~/bin/xrandr-smart-connect
-     connect to richie's monitors by default if we can
-     #+begin_src bash :tangle ~/bin/xrandr-smart-connect
-       #!/usr/bin/bash
-       # Maintained in linux-init-files.org
-       connectedstrings="$(xrandr -q | \grep -w "connected" -A 1 | \grep -i "hdmi" -A 1)"
-       xrandr-connected-primary
-       if [ ! -z "$connectedstrings" ]; then
-           case "$(tail -n 1 <<< $connectedstrings)" in
-               ,*2560*)
-                   xrandr-mancave on
-                   ;;
-               ,*)
-                   xrandr-external on
-                   ;;
-           esac
-       else
-           xrandr-external off
-       fi
-
-     #+end_src
 
 *** x270
 
@@ -1549,13 +1549,12 @@
    #+begin_src conf :tangle "DotFiles/.ignore"
      # Maintained in linux-init-files.org
      !*
-     \.git
+     .git
      cache
-     \.cache
+     .cache
      auto-save
      history
      undohist
-     \.*history*
    #+end_src
 ** ~/.ripgreprc
    #+begin_src conf :tangle "DotFiles/.ripgreprc"

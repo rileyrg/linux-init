@@ -88,7 +88,6 @@ xhost +
 xset s off
 xset -dpms
 
-
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadt460")
@@ -108,11 +107,9 @@ esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
 
-# xrandr --auto
-
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-(sleep 1 && xrandr-smart-connect)&
+xrandr-smart-connect
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -342,7 +339,18 @@ Differnt monitors have different resolutions and hence DPI
     xrandr -q | \grep -w "connected" | awk '{print $1}'
     ```
 
-3.  ~/bin/xrandr-connected-hdmi
+3.  ~/bin/xrandr-disconnected-off
+
+    turn off all disconnected
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    disconnected="$(xrandr -q | \grep -w "disconnected" | awk '{print $1}')"
+    xargs -I {} xrandr --output {} --off <<< $(xrandr -q | \grep -w "disconnected" | awk '{print $1}')
+    ```
+
+4.  ~/bin/xrandr-connected-hdmi
 
     hdmi connected
 
@@ -352,7 +360,7 @@ Differnt monitors have different resolutions and hence DPI
     xrandr-connected | grep -i "hdmi" | awk '{print $1}'
     ```
 
-4.  ~/bin/xrandr-connected-primary
+5.  ~/bin/xrandr-connected-primary
 
     get id of primary display - if none are primary then set first first connected as primary
 
@@ -368,7 +376,7 @@ Differnt monitors have different resolutions and hence DPI
     echo $p
     ```
 
-5.  ~/bin/xrandr-external
+6.  ~/bin/xrandr-external
 
     ```bash
     #!/usr/bin/bash
@@ -387,7 +395,30 @@ Differnt monitors have different resolutions and hence DPI
 
     ```
 
-6.  ~/bin/xrandr-mancave
+7.  ~/bin/xrandr-smart-connect
+
+    connect to richie's monitors by default if we can
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
+    echo $connectedmodestring
+    if [ ! -z "$connectedmodestring" ]; then
+        case "$connectedmodestring" in
+            *2560*)
+                xrandr-mancave on
+                ;;
+            *)
+                xrandr-external on
+                ;;
+        esac
+    else
+        xrandr-external off
+    fi
+    ```
+
+8.  ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
@@ -406,30 +437,6 @@ Differnt monitors have different resolutions and hence DPI
             xrandr --output "$connected" --off --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" # --scale "1x1"
         fi
     fi
-    ```
-
-7.  ~/bin/xrandr-smart-connect
-
-    connect to richie's monitors by default if we can
-
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    connectedstrings="$(xrandr -q | \grep -w "connected" -A 1 | \grep -i "hdmi" -A 1)"
-    xrandr-connected-primary
-    if [ ! -z "$connectedstrings" ]; then
-        case "$(tail -n 1 <<< $connectedstrings)" in
-            *2560*)
-                xrandr-mancave on
-                ;;
-            *)
-                xrandr-external on
-                ;;
-        esac
-    else
-        xrandr-external off
-    fi
-
     ```
 
 
@@ -1509,13 +1516,12 @@ set splitright
 ```conf
 # Maintained in linux-init-files.org
 !*
-\.git
+.git
 cache
-\.cache
+.cache
 auto-save
 history
 undohist
-\.*history*
 ```
 
 

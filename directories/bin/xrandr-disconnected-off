@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+disconnected="$(xrandr -q | \grep -w "disconnected" | awk '{print $1}')"
+xargs -I {} xrandr --output {} --off <<< $(xrandr -q | \grep -w "disconnected" | awk '{print $1}')

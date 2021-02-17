@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-connectedstrings="$(xrandr -q | \grep -w "connected" -A 1 | \grep -i "hdmi" -A 1)"
-xrandr-connected-primary
-if [ ! -z "$connectedstrings" ]; then
-    case "$(tail -n 1 <<< $connectedstrings)" in
+connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
+echo $connectedmodestring
+if [ ! -z "$connectedmodestring" ]; then
+    case "$connectedmodestring" in
         *2560*)
             xrandr-mancave on
             ;;
