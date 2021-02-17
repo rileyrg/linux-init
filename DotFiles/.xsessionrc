@@ -27,7 +27,7 @@ esac
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-xrandr-smart-connect
+xrandr-smart-connect-daemon-run
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &

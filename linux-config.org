@@ -159,7 +159,7 @@
 
       [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-      xrandr-smart-connect
+      xrandr-smart-connect-daemon-run
 
       xss-lock -- x-lock-utils lock &
       x-idlehook &
@@ -438,6 +438,32 @@
            xrandr-external off
        fi
      #+end_src
+
+***** monitor connection daemon
+
+****** ~/bin/xrandr-smart-connect-daemon
+       #+begin_src bash :tangle ~/bin/xrandr-smart-connect-daemon
+         #!/usr/bin/bash
+         # Maintained in linux-init-files.org
+         while true; do
+             sleep 5
+             xrandr-smart-connect &> /dev/null
+         done
+
+
+       #+end_src
+
+****** ~/bin/xrandr-smart-connect-daemon-run
+       #+begin_src bash :tangle ~/bin/xrandr-smart-connect-daemon-run
+         #!/usr/bin/bash
+         # Maintained in linux-init-files.org
+         if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
+             echo "$0 already running."
+             exit 1;
+         fi
+         xrandr-smart-connect-daemon &
+       #+end_src
+
 **** ~/bin/xrandr-mancave
      #+begin_src bash :tangle ~/bin/xrandr-mancave
        #!/usr/bin/bash

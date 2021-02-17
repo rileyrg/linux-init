@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+while true; do
+    sleep 5
+    xrandr-smart-connect &> /dev/null
+done

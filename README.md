@@ -109,7 +109,7 @@ esac
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-xrandr-smart-connect
+xrandr-smart-connect-daemon-run
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -426,6 +426,33 @@ Differnt monitors have different resolutions and hence DPI
         xrandr-external off
     fi
     ```
+
+    1.  monitor connection daemon
+
+        1.  ~/bin/xrandr-smart-connect-daemon
+
+            ```bash
+            #!/usr/bin/bash
+            # Maintained in linux-init-files.org
+            while true; do
+                sleep 5
+                xrandr-smart-connect &> /dev/null
+            done
+
+
+            ```
+
+        2.  ~/bin/xrandr-smart-connect-daemon-run
+
+            ```bash
+            #!/usr/bin/bash
+            # Maintained in linux-init-files.org
+            if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
+                echo "$0 already running."
+                exit 1;
+            fi
+            xrandr-smart-connect-daemon &
+            ```
 
 9.  ~/bin/xrandr-mancave
 

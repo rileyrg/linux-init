@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
+    echo "$0 already running."
+    exit 1;
+fi
+xrandr-smart-connect-daemon &
