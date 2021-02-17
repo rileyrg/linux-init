@@ -339,18 +339,27 @@ Differnt monitors have different resolutions and hence DPI
     xrandr -q | \grep -w "connected" | awk '{print $1}'
     ```
 
-3.  ~/bin/xrandr-disconnected-off
+3.  ~/bin/xrandr-disconnected
+
+    list disconnected
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    xrandr -q | \grep -w "disconnected" | awk '{print $1}'
+    ```
+
+4.  ~/bin/xrandr-disconnected-off
 
     turn off all disconnected
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    disconnected="$(xrandr -q | \grep -w "disconnected" | awk '{print $1}')"
-    xargs -I {} xrandr --output {} --off <<< $(xrandr -q | \grep -w "disconnected" | awk '{print $1}')
+    xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     ```
 
-4.  ~/bin/xrandr-connected-hdmi
+5.  ~/bin/xrandr-connected-hdmi
 
     hdmi connected
 
@@ -360,7 +369,7 @@ Differnt monitors have different resolutions and hence DPI
     xrandr-connected | grep -i "hdmi" | awk '{print $1}'
     ```
 
-5.  ~/bin/xrandr-connected-primary
+6.  ~/bin/xrandr-connected-primary
 
     get id of primary display - if none are primary then set first first connected as primary
 
@@ -376,7 +385,7 @@ Differnt monitors have different resolutions and hence DPI
     echo $p
     ```
 
-6.  ~/bin/xrandr-external
+7.  ~/bin/xrandr-external
 
     ```bash
     #!/usr/bin/bash
@@ -395,7 +404,7 @@ Differnt monitors have different resolutions and hence DPI
 
     ```
 
-7.  ~/bin/xrandr-smart-connect
+8.  ~/bin/xrandr-smart-connect
 
     connect to richie's monitors by default if we can
 
@@ -403,7 +412,7 @@ Differnt monitors have different resolutions and hence DPI
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
-    echo $connectedmodestring
+    xrandr-disconnected-off
     if [ ! -z "$connectedmodestring" ]; then
         case "$connectedmodestring" in
             *2560*)
@@ -418,7 +427,7 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-8.  ~/bin/xrandr-mancave
+9.  ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
@@ -430,7 +439,7 @@ Differnt monitors have different resolutions and hence DPI
         xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
     else
         if [ "$on" = "on" ]; then
-            xrandr --output "$laptop" --off
+            # xrandr --output "$laptop" --off
             xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
             xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
         else

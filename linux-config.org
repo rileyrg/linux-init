@@ -363,13 +363,19 @@
       # Maintained in linux-init-files.org
       xrandr -q | \grep -w "connected" | awk '{print $1}'
     #+end_src
+**** ~/bin/xrandr-disconnected
+    list disconnected
+    #+begin_src bash :tangle "~/bin/xrandr-disconnected"
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      xrandr -q | \grep -w "disconnected" | awk '{print $1}'
+    #+end_src
 **** ~/bin/xrandr-disconnected-off
     turn off all disconnected
     #+begin_src bash :tangle "~/bin/xrandr-disconnected-off"
       #!/usr/bin/bash
       # Maintained in linux-init-files.org
-      disconnected="$(xrandr -q | \grep -w "disconnected" | awk '{print $1}')"
-      xargs -I {} xrandr --output {} --off <<< $(xrandr -q | \grep -w "disconnected" | awk '{print $1}')
+      xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     #+end_src
 **** ~/bin/xrandr-connected-hdmi
     hdmi connected
@@ -418,7 +424,7 @@
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
        connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
-       echo $connectedmodestring
+       xrandr-disconnected-off
        if [ ! -z "$connectedmodestring" ]; then
            case "$connectedmodestring" in
                ,*2560*)
@@ -443,7 +449,7 @@
            xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
        else
            if [ "$on" = "on" ]; then
-               xrandr --output "$laptop" --off
+               # xrandr --output "$laptop" --off
                xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
                xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
            else

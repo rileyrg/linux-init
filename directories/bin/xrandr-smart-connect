@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
-echo $connectedmodestring
+xrandr-disconnected-off
 if [ ! -z "$connectedmodestring" ]; then
     case "$connectedmodestring" in
         *2560*)
