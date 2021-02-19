@@ -28,6 +28,8 @@ esac
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 # command -v srandrd && srandrd xrandr-smart-connect
+pulseaudio -D && start-pulseaudio-x11
+
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &

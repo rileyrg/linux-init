@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-killall -9 pavucontrol
-[ -z "$(pidof pulseaudio)" ] ||  pulseaudio -k
-start-pulseaudio-x11
-sleep 1 && pavucontrol &
+killall -9 pulseaudio
+pulseaudio -D && start-pulseaudio-x11
+(sleep 1 && pavucontrol) &

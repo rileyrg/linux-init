@@ -110,6 +110,8 @@ esac
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 # command -v srandrd && srandrd xrandr-smart-connect
+pulseaudio -D && start-pulseaudio-x11
+
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
@@ -1490,7 +1492,7 @@ color=#e2b007
 [volume]
 command=echo "V:$(/usr/share/i3blocks/volume)"
 interval=5
-color=#303030
+color=#FF8300
 
 ```
 
@@ -1500,10 +1502,9 @@ color=#303030
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-killall -9 pavucontrol
-[ -z "$(pidof pulseaudio)" ] ||  pulseaudio -k
-start-pulseaudio-x11
-sleep 1 && pavucontrol &
+killall -9 pulseaudio
+pulseaudio -D && start-pulseaudio-x11
+(sleep 1 && pavucontrol) &
 ```
 
 
