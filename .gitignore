@@ -62,7 +62,8 @@
 !/directories/bin/google-trans-de-en
 !/directories/bin/google-trans-en-de
 !/directories/bin/gpg-cache
-!/directories/bin/i3pulse
+!/directories/bin/i3-pulse
+!/directories/bin/i3-display-swap
 !/directories/bin/make-compile_commands
 !/directories/bin/my-battery-status
 !/directories/bin/my-iface*

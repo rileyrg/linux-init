@@ -109,13 +109,12 @@ esac
 
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
-command -v srandrd && srandrd xrandr-smart-connect
+# command -v srandrd && srandrd xrandr-smart-connect
 
 xss-lock -- x-lock-utils lock &
 x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
-
 
 ```
 
@@ -230,7 +229,6 @@ See [xidlehook](https://github.com/jD91mZM2/xidlehook). Better handling of idle 
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-systemctl --user start  pulseaudio &> /dev/null || true
 
 xidlehook \
     `# Don't lock when there's a fullscreen application` \
@@ -1050,10 +1048,14 @@ run -b '~/.tmux/plugins/tpm/tpm'
 
 set $mod Mod4
 
+focus_follows_mouse yes
+mouse_warping none
+
+
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# font pango:monospace 8
-font pango:JetBrains Mono 6
+font pango:monospace 8
+# font pango:JetBrains Mono 6
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 
@@ -1243,7 +1245,7 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
 bindsym $mod+Control+f exec thunar
 
-bindsym $mod+Control+a exec pidof pavucontrol ||pavucontrol
+bindsym $mod+Control+a exec i3-pulse
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 
@@ -1256,6 +1258,7 @@ bindsym Print exec gnome-screenshot
 bindsym Shift+Print exec gnome-screenshot -a
 
 bindsym $mod+m move workspace to output left
+bindsym $mod+Control+m exec i3-display-swap
 
 bindsym $mod+Tab workspace back_and_forth
 
@@ -1492,18 +1495,48 @@ color=#303030
 ```
 
 
-## ~/bin/i3pulse
+## ~/bin/i3-pulse
 
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-if pgrep -x "pulseaudio" >/dev/null
-then
-    echo "pulseaudio started so kill"
-    pulseaudio -k && sleep 2
-fi
-echo "starting pulseaudio daemon"
-(pulseaudio -D && sleep 5) || true
+killall -9 pavucontrol
+[ -z "$(pidof pulseaudio)" ] ||  pulseaudio -k
+start-pulseaudio-x11
+sleep 1 && pavucontrol &
+```
+
+
+## ~/bin/i3-display-swap
+
+<https://i3wm.org/docs/user-contributed/swapping-workspaces.html>
+
+
+### Need to install jq
+
+```bash
+sudo apt install jq
+```
+
+
+### script
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+
+DISPLAY_CONFIG=($(i3-msg -t get_outputs | jq -r '.[]|"\(.name):\(.current_workspace)"'))
+
+for ROW in "${DISPLAY_CONFIG[@]}"
+do
+    IFS=':'
+    read -ra CONFIG <<< "${ROW}"
+    if [ "${CONFIG[0]}" != "null" ] && [ "${CONFIG[1]}" != "null" ]; then
+        echo "moving ${CONFIG[1]} right..."
+        i3-msg -- workspace --no-auto-back-and-forth "${CONFIG[1]}"
+        i3-msg -- move workspace to output right
+    fi
+done
 ```
 
 

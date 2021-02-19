@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-systemctl --user start  pulseaudio &> /dev/null || true
 
 xidlehook \
     `# Don't lock when there's a fullscreen application` \
