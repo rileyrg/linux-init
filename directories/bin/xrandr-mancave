@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 on=${1:-"on"}
-connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
+connected=${2:-$(xrandr-connected-external | head -n 1)}
 laptop=$(xrandr-connected | grep -e "^e" | head -n 1)
 if  [ -z "$connected" ] ;then
     xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
@@ -11,6 +11,6 @@ else
         xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
         xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
     else
-        xrandr-external off
+        xrandr-multi off
     fi
 fi

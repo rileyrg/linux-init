@@ -110,6 +110,7 @@ esac
 [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
 
 # command -v srandrd && srandrd xrandr-smart-connect
+xrandr-smart-connect
 pulseaudio -D && start-pulseaudio-x11
 
 
@@ -338,22 +339,43 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_CONNECTED=$(xrandr -q | \grep -w "connected" | awk '{print $1}')
-    [ -z "$XRANDR_CONNECTED" ] || echo "$XRANDR_CONNECTED"
+    export XRANDR_CONNECTED=$(xrandr -q | \grep -iw "connected" | awk '{print $1}')
+    echo "$XRANDR_CONNECTED"
     ```
 
-3.  ~/bin/xrandr-laptop
+    ```bash
+    xrandr-connected
+    ```
 
-    list connected
+3.  ~/bin/xrandr-display-count
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_LAPTOP=$(xrandr-connected | \grep -ie "^e" | head -n 1 | awk '{print $1}')
-    [ -z $"XRANDR_LAPTOP" ] || echo "$XRANDR_LAPTOP"
+    echo $(xrandr -q | \grep -iwc "connected")
     ```
 
-4.  ~/bin/xrandr-disconnected
+    ```bash
+    xrandr-display-count
+    ```
+
+4.  ~/bin/xrandr-first
+
+    first display
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    # if a laptop then this will be it.
+    export XRANDR_FIRST=$(xrandr-connected | head -n 1 | awk '{print $1}')
+    echo "$XRANDR_FIRST"
+    ```
+
+    ```bash
+    xrandr-first
+    ```
+
+5.  ~/bin/xrandr-disconnected
 
     list disconnected
 
@@ -363,7 +385,11 @@ Differnt monitors have different resolutions and hence DPI
     xrandr -q | \grep -w "disconnected" | awk '{print $1}'
     ```
 
-5.  ~/bin/xrandr-disconnected-off
+    ```bash
+    xrandr-disconnected
+    ```
+
+6.  ~/bin/xrandr-disconnected-off
 
     turn off all disconnected
 
@@ -373,62 +399,83 @@ Differnt monitors have different resolutions and hence DPI
     xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     ```
 
-6.  ~/bin/xrandr-connected-hdmi
+    ```bash
+    xrandr-disconnected-off
+    ```
 
-    hdmi connected
+7.  ~/bin/xrandr-connected-external
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_HDMI=$(xrandr-connected | \grep -ie "^h" | head -n 1 | awk '{print $1}')
-    [ -z "$XRANDR_HDMI" ] || echo "$XRANDR_HDMI"
+    export XRANDR_EXTERNAL=$(xrandr-connected | \grep -i "^[hdmi|d]" | head -n 1 | awk '{print $1}')
+    echo "$XRANDR_EXTERNAL"
     ```
 
-7.  ~/bin/xrandr-connected-primary
+    ```bash
+    xrandr-connected-external
+    ```
+
+8.  ~/bin/xrandr-connected-primary
 
     get id of primary display - if none are primary then set first first connected as primary
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    p="$(xrandr -q | \grep -i "connected primary" | awk '{print $1}')"
+    p="$(xrandr -q | \grep -w "connected" | \grep -w "primary" | awk '{print $1}')"
     if [ -z $p ]; then
-        p="$(xrandr -q | \grep -w "connected" | awk '{print $1}' | head -n 1)"
-        xrandr --output $p --primary
+        p="$(xrandr-connected | awk '{print $1}' | head -n 1)"
     fi
-
+    xrandr --output $p --primary --dpi "${LCD_DPI:-"174"}"
     echo $p
     ```
 
-8.  ~/bin/xrandr-external
+    ```bash
+    xrandr-connected-primary
+    xrandr -q | \grep -w "connected" | \grep -w "primary"
+    ```
+
+9.  ~/bin/xrandr-multi
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     on=${1:-"on"}
-    connected=$(xrandr-connected-hdmi)
-    laptop=$(xrandr-laptop)
-    echo "Turning on $laptop"
-    xrandr --output $laptop --auto --primary --dpi "${LCD_DPI:-"174"}"
-    if [ ! -z "$connected" ]; then
-        echo "Detected $connected"
+    connected=$(xrandr-connected-external)
+    first=$(xrandr-first)
+    echo "Turning on first display $first"
+    xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"
+    if [ ! -z "$connected" ] && [ "$connected" != "$first" ]; then
+        echo "Detected 2nd monitor $connected"
         if [ "$on" = "on" ]; then
             echo "Turning on $connected"
-            xrandr --output $connected --auto --right-of $laptop &> /dev/null;
+            xrandr --output "$connected" --auto --right-of "$first" &> /dev/null;
         else
             echo "Turning off  $connected"
-            xrandr --output $connected --off  &> /dev/null;
+            xrandr --output "$connected" --off  &> /dev/null;
         fi
+    else
+        echo "no addtional external monitors detected so turning off all disconnected anyway..."
+        xrandr-disconnected-off
     fi
     ```
 
-9.  ~/bin/xrandr-mancave
+    ```bash
+    xrandr-multi
+    ```
+
+    ```bash
+    xrandr-multi off
+    ```
+
+10. TODO ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     on=${1:-"on"}
-    connected=${2:-$(xrandr-connected-hdmi | head -n 1)}
+    connected=${2:-$(xrandr-connected-external | head -n 1)}
     laptop=$(xrandr-connected | grep -e "^e" | head -n 1)
     if  [ -z "$connected" ] ;then
         xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
@@ -438,12 +485,12 @@ Differnt monitors have different resolutions and hence DPI
             xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
             xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
         else
-            xrandr-external off
+            xrandr-multi off
         fi
     fi
     ```
 
-10. ~/bin/xrandr-smart-connect
+11. ~/bin/xrandr-smart-connect
 
     connect to richie's monitors by default if we can
 
@@ -453,22 +500,22 @@ Differnt monitors have different resolutions and hence DPI
     # turn off call disconnected displays
     xrandr-disconnected-off
     # try and ID the display connected and act accordingly
-    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "hdmi" | tail -n 1 | awk '{print $1}')"
+    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
     if [ ! -z "$connectedmodestring" ]; then
         case "$connectedmodestring" in
             *2560*)
                 xrandr-mancave on
                 ;;
             *)
-                xrandr-external on
+                xrandr-multi on
                 ;;
         esac
     else
-        xrandr-external off
+        xrandr-multi off
     fi
     ```
 
-11. connect/disconnect daemon
+12. connect/disconnect daemon
 
     Note these are not used now in favour of the [srandr](https://github.com/jceb/srandrd) daemon
 
@@ -507,7 +554,7 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr-external "$@"
+    xrandr-multi "$@"
     ```
 
 2.  ~/bin/xrandr-x270-mancave
@@ -528,7 +575,7 @@ Differnt monitors have different resolutions and hence DPI
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr-external-on "$@"
+    xrandr-multi on "$@"
     ```
 
 2.  ~/bin/xrandr-xmgneo-mancave
@@ -1491,7 +1538,7 @@ color=#e2b007
 
 [volume]
 command=echo "V:$(/usr/share/i3blocks/volume)"
-interval=5
+interval=1
 color=#FF8300
 
 ```
@@ -1695,7 +1742,7 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
     extra_newline = false,
-    font = 'DejaVu Sans Mono:size=12',
+    font = 'DejaVu Sans Mono:size=8',
     gap_x = 60,
     gap_y = 60,
     minimum_height = 5,

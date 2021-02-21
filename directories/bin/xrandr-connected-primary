@@ -1,9 +1,8 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-p="$(xrandr -q | \grep -i "connected primary" | awk '{print $1}')"
+p="$(xrandr -q | \grep -w "connected" | \grep -w "primary" | awk '{print $1}')"
 if [ -z $p ]; then
-    p="$(xrandr -q | \grep -w "connected" | awk '{print $1}' | head -n 1)"
-    xrandr --output $p --primary
+    p="$(xrandr-connected | awk '{print $1}' | head -n 1)"
 fi
-
+xrandr --output $p --primary --dpi "${LCD_DPI:-"174"}"
 echo $p

@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+# if a laptop then this will be it.
+export XRANDR_FIRST=$(xrandr-connected | head -n 1 | awk '{print $1}')
+echo "$XRANDR_FIRST"

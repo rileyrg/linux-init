@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+on=${1:-"on"}
+connected=$(xrandr-connected-external)
+first=$(xrandr-first)
+echo "Turning on first display $first"
+xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"
+if [ ! -z "$connected" ] && [ "$connected" != "$first" ]; then
+    echo "Detected 2nd monitor $connected"
+    if [ "$on" = "on" ]; then
+        echo "Turning on $connected"
+        xrandr --output "$connected" --auto --right-of "$first" &> /dev/null;
+    else
+        echo "Turning off  $connected"
+        xrandr --output "$connected" --off  &> /dev/null;
+    fi
+else
+    echo "no addtional external monitors detected so turning off all disconnected anyway..."
+    xrandr-disconnected-off
+fi
