@@ -1203,9 +1203,6 @@
 
       bindsym $mod+Shift+s sticky toggle
 
-      bindsym Print exec gnome-screenshot
-      bindsym Shift+Print exec gnome-screenshot -a
-
       bindsym $mod+m move workspace to output left
       bindsym $mod+Control+m exec i3-display-swap
       bindsym $mod+Tab workspace back_and_forth
@@ -1285,7 +1282,6 @@
 
       bindsym $mod+r mode "resize"
 
-
     #+end_src
 *** i3 volume
     #+begin_src conf
@@ -1305,12 +1301,16 @@
     #+end_src
 *** i3 apps
     #+begin_src conf
-      #general user launch bindings
       bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+
+      bindsym Print exec gnome-screenshot
+      bindsym Shift+Print exec gnome-screenshot -a
+
 
       bindsym $mod+Shift+e exec emacs-same-frame
       bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
-      bindsym $mod+Control+a exec pulse-restart
+      bindsym $mod+Control+a exec pavucontrol
+      bindsym $mod+Control+Shift+a exec pulse-restart
       bindsym $mod+Control+c exec conky
       bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
       bindsym $mod+Control+f exec thunar
@@ -1325,7 +1325,6 @@
 
       #rofi instead of dmenu
       bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
-
 
     #+end_src
 *** i3 exit
@@ -2312,9 +2311,9 @@
    #+begin_src bash :tangle "~/bin/pulse-restart"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
-     killall -9 pulseaudio
-     pulseaudio -D && start-pulseaudio-x11
-     (sleep 1 && pavucontrol) &
+     pulseaudio -k &> /dev/null
+     pulseaudio -D &> /dev/null
+     start-pulseaudio-x11
    #+end_src
 ** ~/bin/random-man-page
    #+begin_src bash :tangle "~/bin/random-man-page"

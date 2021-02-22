@@ -1207,9 +1207,6 @@ bindsym $mod+a focus parent
 
 bindsym $mod+Shift+s sticky toggle
 
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
-
 bindsym $mod+m move workspace to output left
 bindsym $mod+Control+m exec i3-display-swap
 bindsym $mod+Tab workspace back_and_forth
@@ -1289,7 +1286,6 @@ bindsym $mod+r mode "default"
 
 bindsym $mod+r mode "resize"
 
-
 ```
 
 
@@ -1318,12 +1314,16 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backl
 ### i3 apps
 
 ```conf
-#general user launch bindings
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+
+bindsym Print exec gnome-screenshot
+bindsym Shift+Print exec gnome-screenshot -a
+
 
 bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
-bindsym $mod+Control+a exec pulse-restart
+bindsym $mod+Control+a exec pavucontrol
+bindsym $mod+Control+Shift+a exec pulse-restart
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
@@ -1338,7 +1338,6 @@ bindsym --release $mod+Return exec "oneterminal"
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
-
 
 ```
 
@@ -2452,9 +2451,9 @@ restart pulseaudio
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-killall -9 pulseaudio
-pulseaudio -D && start-pulseaudio-x11
-(sleep 1 && pavucontrol) &
+pulseaudio -k &> /dev/null
+pulseaudio -D &> /dev/null
+start-pulseaudio-x11
 ```
 
 
