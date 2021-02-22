@@ -62,18 +62,16 @@
 !/directories/bin/google-trans-de-en
 !/directories/bin/google-trans-en-de
 !/directories/bin/gpg-cache
-!/directories/bin/i3-pulse
 !/directories/bin/i3-display-swap
 !/directories/bin/make-compile_commands
-!/directories/bin/my-battery-status
-!/directories/bin/my-iface*
-!/directories/bin/my-i3b-*
+!/directories/bin/my-*
 !/directories/bin/nvidia-power-usage
 !/directories/bin/pop-window
 !/directories/bin/post-blank
 !/directories/bin/post-lock
 !/directories/bin/pre-blank
 !/directories/bin/pre-lock
+!/directories/bin/pulse-restart
 !/directories/bin/random-man-page
 !/directories/bin/resgithub
 !/directories/bin/remove-broken-symlinks
@@ -85,6 +83,5 @@
 !/directories/bin/x-idlehook
 !/directories/bin/x-backlight-persist
 !/directories/bin/x-lock-utils
-!/directories/bin/xmg-dual-screens
 !/directories/bin/xmg-neo-rgb-kbd-lights
 !/directories/bin/xrandr-*

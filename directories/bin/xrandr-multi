@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 on=${1:-"on"}
-connected=$(xrandr-connected-external)
+connected=$(xrandr-connected-external | head -n 1)
 first=$(xrandr-first)
 echo "Turning on first display $first"
 xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"

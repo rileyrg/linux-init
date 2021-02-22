@@ -9,18 +9,18 @@ xset -dpms
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadt460")
-    # disable trackpad
-    xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
-    ;;
+        # disable trackpad
+        xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
+        ;;
     "thinkpadx270")
-    ;;
+        ;;
     "xmgneo")
-    # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
-    # picom --backend glx --vsync &
-    ;;
+        # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
+        # picom --backend glx --vsync &
+        ;;
     *)
-    # picom --backend glx --vsync &
-    ;;
+        # picom --backend glx --vsync &
+        ;;
 esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
@@ -29,7 +29,8 @@ esac
 
 # command -v srandrd && srandrd xrandr-smart-connect
 xrandr-smart-connect
-pulseaudio -D && start-pulseaudio-x11
+[ -z "$(pidof "pulseaudio")" ] &> /dev/null  && pulseaudio -D
+start-pulseaudio-x11
 
 
 xss-lock -- x-lock-utils lock &

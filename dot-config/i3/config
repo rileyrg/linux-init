@@ -15,6 +15,11 @@ set $mod Mod4
 focus_follows_mouse yes
 mouse_warping none
 
+# start a terminal
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# kill focused window
+bindsym $mod+q kill
 
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -35,26 +40,8 @@ font pango:monospace 8
 # ***moved to xprofile
 # exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-#       set $refresh_i3status killall -SIGUSR1 i3status
-set $refresh_i3status killall -SIGUSR1 py3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
 # workspace_layout <default|stacking|tabbed>
 workspace_layout default
-
-# start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym --release $mod+Return exec "oneterminal"
-
-# kill focused window
-bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -62,6 +49,14 @@ bindsym $mod+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
+exec --no-startup-id nm-applet
 
 # change focus
 bindsym $mod+j focus left
@@ -110,6 +105,17 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+bindsym $mod+Shift+s sticky toggle
+
+bindsym Print exec gnome-screenshot
+bindsym Shift+Print exec gnome-screenshot -a
+
+bindsym $mod+m move workspace to output left
+bindsym $mod+Control+m exec i3-display-swap
+bindsym $mod+Tab workspace back_and_forth
+
+
+
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -156,13 +162,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Control+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -190,49 +189,34 @@ bindsym $mod+r mode "default"
 
 bindsym $mod+r mode "resize"
 
-# i3bar
-bar {
-status_command i3blocks
-font pango:JetBrains Sans Mono 6
-position top
-#mode hide
-hidden_state hide
-modifier $mod
-}
+# Use pactl to adjust volume in PulseAudio.
+#       set $refresh_i3status killall -SIGUSR1 i3status
+set $refresh_i3status killall -SIGUSR1 py3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
 
 #general user launch bindings
+bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+
 bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
-bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
+bindsym $mod+Control+a exec pulse-restart
+bindsym $mod+Control+c exec conky
+bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
+bindsym $mod+Control+f exec thunar
+bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
+bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
-bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
-bindsym $mod+Control+f exec thunar
-
-bindsym $mod+Control+a exec i3-pulse
-bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
-bindsym $mod+Control+h exec pidof hexchat || hexchat
-
-bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
-bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Control+p exec onehtop
-bindsym $mod+Control+c exec conky
-bindsym $mod+Shift+s sticky toggle
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
-
-bindsym $mod+m move workspace to output left
-bindsym $mod+Control+m exec i3-display-swap
-
-bindsym $mod+Tab workspace back_and_forth
-
-exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
-exec --no-startup-id nm-applet
-# exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
-
-# non desktop specific so start in xsessionrc
-# exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
-# exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
+bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
+bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
+bindsym --release $mod+Return exec "oneterminal"
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -240,7 +224,6 @@ bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-s
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
 bindsym l exec --no-startup-id x-lock-utils lock, mode "default"
-
 bindsym e exec --no-startup-id x-lock-utils logout, mode "default"
 bindsym s exec --no-startup-id x-lock-utils suspend, mode "default"
 bindsym h exec --no-startup-id x-lock-utils hibernate, mode "default"
@@ -250,14 +233,17 @@ bindsym Shift+s exec --no-startup-id x-lock-utils shutdown, mode "default"
 bindsym Return mode "default"
 bindsym Escape mode "default"
 }
-
 bindsym $mod+Control+q mode "$mode_system"
 
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
-
-#set wallpaper
-### i3-gaps stuff ###
+# i3bar
+bar {
+status_command i3blocks
+font pango:JetBrains Sans Mono 6
+position top
+#mode hide
+hidden_state hide
+modifier $mod
+}
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 3

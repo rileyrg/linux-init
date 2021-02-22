@@ -16,10 +16,10 @@ global git settings
 ```conf
 # Maintained in linux-init-files.org
 [user]
-        name = Richard G. Riley
-        email = rileyrg@gmx.de
+name = Richard G. Riley
+email = rileyrg@gmx.de
 [push]
-        default = current
+default = current
 ```
 
 
@@ -29,8 +29,8 @@ global git settings
 #!/bin/sh
 branch="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$branch" = "master" ]; then
-  echo "You can't commit directly to master branch"
-  exit 1
+    echo "You can't commit directly to master branch"
+    exit 1
 fi
 ```
 
@@ -91,18 +91,18 @@ xset -dpms
 # .xsessionrc.local for this type of thing
 case "$(hostname)" in
     "thinkpadt460")
-    # disable trackpad
-    xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
-    ;;
+        # disable trackpad
+        xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
+        ;;
     "thinkpadx270")
-    ;;
+        ;;
     "xmgneo")
-    # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
-    # picom --backend glx --vsync &
-    ;;
+        # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
+        # picom --backend glx --vsync &
+        ;;
     *)
-    # picom --backend glx --vsync &
-    ;;
+        # picom --backend glx --vsync &
+        ;;
 esac
 
 [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
@@ -111,7 +111,8 @@ esac
 
 # command -v srandrd && srandrd xrandr-smart-connect
 xrandr-smart-connect
-pulseaudio -D && start-pulseaudio-x11
+[ -z "$(pidof "pulseaudio")" ] &> /dev/null  && pulseaudio -D
+start-pulseaudio-x11
 
 
 xss-lock -- x-lock-utils lock &
@@ -442,7 +443,7 @@ Differnt monitors have different resolutions and hence DPI
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     on=${1:-"on"}
-    connected=$(xrandr-connected-external)
+    connected=$(xrandr-connected-external | head -n 1)
     first=$(xrandr-first)
     echo "Turning on first display $first"
     xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"
@@ -1080,7 +1081,10 @@ run -b '~/.tmux/plugins/tpm/tpm'
 # I3 window manager
 
 
-## ~/.config/i3/config
+## i3wm
+
+
+### general
 
 ```conf
 # Maintained in linux-init-files.org
@@ -1100,6 +1104,11 @@ set $mod Mod4
 focus_follows_mouse yes
 mouse_warping none
 
+# start a terminal
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# kill focused window
+bindsym $mod+q kill
 
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -1120,26 +1129,8 @@ font pango:monospace 8
 # ***moved to xprofile
 # exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-#       set $refresh_i3status killall -SIGUSR1 i3status
-set $refresh_i3status killall -SIGUSR1 py3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
 # workspace_layout <default|stacking|tabbed>
 workspace_layout default
-
-# start a terminal
-#bindsym $mod+Return exec i3-sensible-terminal
-bindsym --release $mod+Return exec "oneterminal"
-
-# kill focused window
-bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -1148,6 +1139,25 @@ bindsym $mod+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+```
+
+
+### i3 autostart
+
+```conf
+exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
+exec --no-startup-id nm-applet
+```
+
+
+### i3 workspace
+
+```conf
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -1195,6 +1205,17 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+bindsym $mod+Shift+s sticky toggle
+
+bindsym Print exec gnome-screenshot
+bindsym Shift+Print exec gnome-screenshot -a
+
+bindsym $mod+m move workspace to output left
+bindsym $mod+Control+m exec i3-display-swap
+bindsym $mod+Tab workspace back_and_forth
+
+
+
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -1241,13 +1262,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Control+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -1275,6 +1289,82 @@ bindsym $mod+r mode "default"
 
 bindsym $mod+r mode "resize"
 
+
+```
+
+
+### i3 volume
+
+```conf
+
+# Use pactl to adjust volume in PulseAudio.
+#       set $refresh_i3status killall -SIGUSR1 i3status
+set $refresh_i3status killall -SIGUSR1 py3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+```
+
+
+### i3 screen
+
+```conf
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
+```
+
+
+### i3 apps
+
+```conf
+#general user launch bindings
+bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+
+bindsym $mod+Shift+e exec emacs-same-frame
+bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
+bindsym $mod+Control+a exec pulse-restart
+bindsym $mod+Control+c exec conky
+bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
+bindsym $mod+Control+f exec thunar
+bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
+bindsym $mod+Control+h exec pidof hexchat || hexchat
+bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
+bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
+bindsym $mod+Control+p exec onehtop
+bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
+bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
+bindsym --release $mod+Return exec "oneterminal"
+
+#rofi instead of dmenu
+bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+
+
+```
+
+
+### i3 exit
+
+```conf
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+bindsym l exec --no-startup-id x-lock-utils lock, mode "default"
+bindsym e exec --no-startup-id x-lock-utils logout, mode "default"
+bindsym s exec --no-startup-id x-lock-utils suspend, mode "default"
+bindsym h exec --no-startup-id x-lock-utils hibernate, mode "default"
+bindsym r exec --no-startup-id x-lock-utils reboot, mode "default"
+bindsym Shift+s exec --no-startup-id x-lock-utils shutdown, mode "default"
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+bindsym $mod+Control+q mode "$mode_system"
+```
+
+
+### i3 bar
+
+```conf
 # i3bar
 bar {
 status_command i3blocks
@@ -1285,65 +1375,12 @@ hidden_state hide
 modifier $mod
 }
 
-#general user launch bindings
-bindsym $mod+Shift+e exec emacs-same-frame
-bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
-bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
-bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
-bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
-bindsym $mod+Control+f exec thunar
+```
 
-bindsym $mod+Control+a exec i3-pulse
-bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
-bindsym $mod+Control+h exec pidof hexchat || hexchat
 
-bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
-bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
-bindsym $mod+Control+p exec onehtop
-bindsym $mod+Control+c exec conky
-bindsym $mod+Shift+s sticky toggle
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
+### i3 gaps
 
-bindsym $mod+m move workspace to output left
-bindsym $mod+Control+m exec i3-display-swap
-
-bindsym $mod+Tab workspace back_and_forth
-
-exec --no-startup-id feh --image-bg black  --bg-fill ~/Pictures/Wallpapers/current
-exec --no-startup-id nm-applet
-# exec --no-startup-id command -v signal-desktop &> /dev/null &&  (sleep 2 && signal-desktop) &> /dev/null
-
-# non desktop specific so start in xsessionrc
-# exec --no-startup-id command -v dropbox &> /dev/null &&  dropbox start &> /dev/null
-# exec --no-startup-id command -v steam &> /dev/null && steam -silent &> /dev/null
-
-#rofi instead of dmenu
-bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
-
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-bindsym l exec --no-startup-id x-lock-utils lock, mode "default"
-
-bindsym e exec --no-startup-id x-lock-utils logout, mode "default"
-bindsym s exec --no-startup-id x-lock-utils suspend, mode "default"
-bindsym h exec --no-startup-id x-lock-utils hibernate, mode "default"
-bindsym r exec --no-startup-id x-lock-utils reboot, mode "default"
-bindsym Shift+s exec --no-startup-id x-lock-utils shutdown, mode "default"
-# back to normal: Enter or Escape
-bindsym Return mode "default"
-bindsym Escape mode "default"
-}
-
-bindsym $mod+Control+q mode "$mode_system"
-
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10 && x-backlight-persist save && post-blank
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backlight-persist save
-
-#set wallpaper
-### i3-gaps stuff ###
-
+```conf
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 3
 
@@ -1478,96 +1515,117 @@ bindsym Shift+0     gaps left all set 0
 bindsym Return mode "$mode_gaps"
 bindsym Escape mode "default"
 }
-```
-
-
-## ~/.config/i3blocks/config
-
-```conf
-# Guess the weather hourly
-[dropbox]
-interval=15
-command=echo  "$(my-i3b-db-status)"
-color=#1010E0
-
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-
-interval=900
-color=#A4C2F4
-
-[battery]
-command=echo "$(my-i3b-battery-status)"
-interval=60
-color=#b01010
-
-# [disk]
-# command=echo "D:$(/usr/share/i3blocks/disk)"
-# interval=600
-# color=#003000
-
-# [memory]
-# command=echo "M:$(/usr/share/i3blocks/memory)"
-# interval=30
-# color=#003000
-
-[uptime]
-command=uptime -p
-interval=300
-color=#505050
-
-[ssid]
-command=echo "SSID:$(my-iface-active-ssid)"
-interval=30
-color=#00a000
-
-[ssidQ]
-command=echo "($(my-iface-active-quality)%)"
-interval=30
-color=#008000
-
-[ipaddr]
-command=echo "@$(my-iface-active-ipaddr)"
-interval=30
-color=#009000
-
-[time]
-command=date +"%d/%m/%Y %H:%M"
-interval=60
-color=#e2b007
-
-[volume]
-command=echo "V:$(/usr/share/i3blocks/volume)"
-interval=1
-color=#FF8300
 
 ```
 
 
-## ~/bin/i3-pulse
+## i3blocks
 
-```bash
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-killall -9 pulseaudio
-pulseaudio -D && start-pulseaudio-x11
-(sleep 1 && pavucontrol) &
-```
+1.  config
+
+    ```conf
+    # Guess the weather hourly
+    [dropbox]
+    interval=15
+    command=echo  "$(my-i3b-db-status)"
+    color=#1010E0
+
+    [weather]
+    command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+
+    interval=900
+    color=#A4C2F4
+
+    [battery]
+    command=echo "$(my-i3b-battery-status)"
+    interval=60
+    color=#b01010
+
+    # [disk]
+    # command=echo "D:$(/usr/share/i3blocks/disk)"
+    # interval=600
+    # color=#003000
+
+    # [memory]
+    # command=echo "M:$(/usr/share/i3blocks/memory)"
+    # interval=30
+    # color=#003000
+
+    [uptime]
+    command=uptime -p
+    interval=300
+    color=#505050
+
+    [ssid]
+    command=echo "SSID:$(my-iface-active-ssid)"
+    interval=30
+    color=#00a000
+
+    [ssidQ]
+    command=echo "($(my-iface-active-quality)%)"
+    interval=30
+    color=#008000
+
+    [ipaddr]
+    command=echo "@$(my-iface-active-ipaddr)"
+    interval=30
+    color=#009000
+
+    [time]
+    command=date +"%d/%m/%Y %H:%M"
+    interval=60
+    color=#e2b007
+
+    [volume]
+    command=echo "V:$(/usr/share/i3blocks/volume)"
+    interval=1
+    color=#FF8300
+
+    ```
+
+2.  i3blocks utilities
+
+    1.  ~/bin/my-i3b-battery-status
+
+        ```bash
+        #!/usr/bin/bash
+        #Maintained in linux-init-files.org
+        b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
+        if [ -z "$b" ]; then
+            echo "charged";echo ""; echo "#004400";
+        else
+            echo $b;echo "";echo "#FF0000";
+        fi
+        ```
+
+    2.  ~/bin/my-i3b-db-status
+
+        ```bash
+        #!/usr/bin/bash
+        #Maintained in linux-init-files.org
+        if pidof dropbox > /dev/null ; then
+            stat=$(dropbox status | sed -n 1p)
+            echo "DB:${stat}"; echo "";
+            if (( $(wc -w <<< $stat) == 1 )); then
+                echo "#004000";
+            else
+                echo "#800000";
+            fi
+        else
+            if command -v dropbox > /dev/null; then
+                echo "Starting Dropbox.."
+                dropbox start &> /dev/null &
+            fi
+        fi
+        ```
 
 
-## ~/bin/i3-display-swap
+## i3 utility scripts
+
+
+### ~/bin/i3-display-swap
 
 <https://i3wm.org/docs/user-contributed/swapping-workspaces.html>
-
-
-### Need to install jq
-
-```bash
-sudo apt install jq
-```
-
-
-### script
 
 ```bash
 #!/usr/bin/bash
@@ -2161,6 +2219,111 @@ pidof mu > /dev/null || mu index
 # Misc utils
 
 
+## one commands
+
+if it exists jump to it else start it
+
+
+### ~/bin/oneinstance
+
+```bash
+#!/bin/bash
+#Maintained in linux-init-files.org
+# oneinstance exename pname  winclass
+exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
+if ! pidof "$pname"; then
+    ${exename}
+else
+    xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
+fi
+```
+
+
+### ~/bin/onehtop
+
+process viewer
+
+```bash
+#!/bin/bash
+#Maintained in linux-init-files.org
+WID=`xdotool search --class "htop"`
+if [ -z "$WID" ]; then
+    exec terminator --profile=htop -e htop
+else
+    xdotool windowactivate $WID
+fi
+```
+
+
+### ~/bin/oneterminal
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+WID=`xdotool search "One Terminal"|head -1`
+if [ -z "$WID" ]; then
+    terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
+else
+    notify-send "restoring OneTerminal instance..."
+    xdotool windowactivate $WID
+fi
+```
+
+
+### ~/bin/pop-window
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+xdotool windowactivate `xdotool search --name "$1"`
+```
+
+
+## network interface utilities
+
+1.  ~/bin/my-iface-active-query
+
+    ```bash
+    #!/usr/bin/bash
+    #Maintained in linux-init-files.org
+    nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
+    ```
+
+2.  ~/bin/my-iface-active
+
+    ```bash
+    #!/usr/bin/bash
+    #Maintained in linux-init-files.org
+    IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+    export IFACE_ACTIVE
+    echo $IFACE_ACTIVE
+    ```
+
+3.  ~/bin/my-iface-active-ssid
+
+    ```bash
+    #!/usr/bin/bash
+    #Maintained in linux-init-files.org
+    my-iface-active-query "GENERAL.CONNECTION"
+    ```
+
+4.  ~/bin/my-iface-active-ipaddr
+
+    ```bash
+    #!/usr/bin/bash
+    #Maintained in linux-init-files.org
+    my-iface-active-query "IP4.ADDRESS"
+    ```
+
+5.  ~/bin/my-iface-active-quality
+
+    ```bash
+    #!/usr/bin/bash
+    #Maintained in linux-init-files.org
+    my-iface-active-query "GENERAL.STATE"
+    ```
+
+
 ## ~/bin/dropbox-start-once
 
 ```bash
@@ -2282,63 +2445,16 @@ make --always-make --dry-run \
 ```
 
 
-## one commands
+## ~/bin/pulse-restart
 
-if it exists jump to it else start it
-
-
-### ~/bin/oneinstance
-
-```bash
-#!/bin/bash
-#Maintained in linux-init-files.org
-# oneinstance exename pname  winclass
-exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
-if ! pidof "$pname"; then
-    ${exename}
-else
-    xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
-fi
-```
-
-
-### ~/bin/onehtop
-
-process viewer
-
-```bash
-#!/bin/bash
-#Maintained in linux-init-files.org
-WID=`xdotool search --class "htop"`
-if [ -z "$WID" ]; then
-    exec terminator --profile=htop -e htop
-else
-    xdotool windowactivate $WID
-fi
-```
-
-
-### ~/bin/oneterminal
+restart pulseaudio
 
 ```bash
 #!/usr/bin/bash
-#Maintained in linux-init-files.org
-WID=`xdotool search "One Terminal"|head -1`
-if [ -z "$WID" ]; then
-    terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
-else
-    notify-send "restoring OneTerminal instance..."
-    xdotool windowactivate $WID
-fi
-```
-
-
-### ~/bin/pop-window
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-xdotool windowactivate `xdotool search --name "$1"`
+# Maintained in linux-init-files.org
+killall -9 pulseaudio
+pulseaudio -D && start-pulseaudio-x11
+(sleep 1 && pavucontrol) &
 ```
 
 
@@ -2442,92 +2558,6 @@ if [ $? = 0 ]; then
 else
     exit
 fi
-```
-
-
-## i3blocks utilities
-
-
-### ~/bin/my-i3b-battery-status
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
-if [ -z "$b" ]; then
-    echo "charged";echo ""; echo "#004400";
-else
-    echo $b;echo "";echo "#FF0000";
-fi
-```
-
-
-### ~/bin/my-i3b-db-status
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-if pidof dropbox > /dev/null ; then
-    stat=$(dropbox status | sed -n 1p)
-    echo "DB:${stat}"; echo "";
-    if (( $(wc -w <<< $stat) == 1 )); then
-        echo "#004000";
-    else
-        echo "#800000";
-    fi
-else
-    if command -v dropbox > /dev/null; then
-        echo "Starting Dropbox.."
-        dropbox start &> /dev/null &
-    fi
-fi
-```
-
-
-### ~/bin/my-iface-active-query
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
-```
-
-
-### ~/bin/my-iface-active
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
-export IFACE_ACTIVE
-echo $IFACE_ACTIVE
-```
-
-
-### ~/bin/my-iface-active-ssid
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-my-iface-active-query "GENERAL.CONNECTION"
-```
-
-
-### ~/bin/my-iface-active-ipaddr
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-my-iface-active-query "IP4.ADDRESS"
-```
-
-
-### ~/bin/my-iface-active-quality
-
-```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-my-iface-active-query "GENERAL.STATE"
 ```
 
 
