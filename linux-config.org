@@ -1496,15 +1496,29 @@
     #+end_src
 ** i3blocks
 **** config
-     #+begin_src conf :tangle "~/.config/i3blocks/config"
-       # Guess the weather hourly
+     :PROPERTIES:
+     :header-args:conf: :tangle "~/.config/i3blocks/config"
+     :END:
+
+     #+begin_src conf
        [dropbox]
        interval=15
        command=echo  "$(my-i3b-db-status)"
        color=#1010E0
+     #+end_src
 
+     #+begin_src bash
+       curl -s 'wttr.in/{Hamburg,Lubeck,Grömitz}?format=3'
+     #+end_src
+
+     #+RESULTS:
+     | Hamburg: | ☀️ | +8°C  |
+     | Lubeck:  | ☀️ | +10°C |
+     | Grömitz: | ☀️ | +10°C |
+
+     #+begin_src conf
        [weather]
-       command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+       command=curl -s 'wttr.in/{Grömitz}?format=3'
 
        interval=900
        color=#A4C2F4

@@ -1523,14 +1523,19 @@ bindsym Escape mode "default"
 1.  config
 
     ```conf
-    # Guess the weather hourly
     [dropbox]
     interval=15
     command=echo  "$(my-i3b-db-status)"
     color=#1010E0
+    ```
 
+    ```bash
+    curl -s 'wttr.in/{Hamburg,Lubeck,Grömitz}?format=3'
+    ```
+
+    ```conf
     [weather]
-    command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+    command=curl -s 'wttr.in/{Grömitz}?format=3'
 
     interval=900
     color=#A4C2F4
