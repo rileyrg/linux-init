@@ -3,8 +3,8 @@
 on=${1:-"on"}
 connected=$(xrandr-connected-external | head -n 1)
 first=$(xrandr-first)
-echo "Turning on first display $first"
-xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"
+echo "Turning on first primary display $first"
+xrandr-connected-primary
 if [ ! -z "$connected" ] && [ "$connected" != "$first" ]; then
     echo "Detected 2nd monitor $connected"
     if [ "$on" = "on" ]; then

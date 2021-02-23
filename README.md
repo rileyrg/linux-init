@@ -147,7 +147,7 @@ logger -t "startup-initfile"  XSESSIONRC-LOCAL
 *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
 ! Fonts {{{
 #ifdef SRVR_thinkpadt460
-Xft.dpi:       84
+Xft.dpi:       104
 #endif
 #ifdef SRVR_intelnuc
 Xft.dpi:       108
@@ -386,10 +386,6 @@ Differnt monitors have different resolutions and hence DPI
     xrandr -q | \grep -w "disconnected" | awk '{print $1}'
     ```
 
-    ```bash
-    xrandr-disconnected
-    ```
-
 6.  ~/bin/xrandr-disconnected-off
 
     turn off all disconnected
@@ -400,16 +396,12 @@ Differnt monitors have different resolutions and hence DPI
     xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     ```
 
-    ```bash
-    xrandr-disconnected-off
-    ```
-
 7.  ~/bin/xrandr-connected-external
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_EXTERNAL=$(xrandr-connected | \grep -i "^[hdmi|d]" | head -n 1 | awk '{print $1}')
+    export XRANDR_EXTERNAL="$(xrandr-connected | awk '{print $1}' | \grep -i "^[hdmi|d]" | head -n 1)"
     echo "$XRANDR_EXTERNAL"
     ```
 
@@ -425,16 +417,11 @@ Differnt monitors have different resolutions and hence DPI
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     p="$(xrandr -q | \grep -w "connected" | \grep -w "primary" | awk '{print $1}')"
-    if [ -z $p ]; then
-        p="$(xrandr-connected | awk '{print $1}' | head -n 1)"
+    if [ -z "$p" ]; then
+        p="$(xrandr-connected | head -n 1 | awk '{print $1}')"
     fi
     xrandr --output $p --primary --dpi "${LCD_DPI:-"174"}"
     echo $p
-    ```
-
-    ```bash
-    xrandr-connected-primary
-    xrandr -q | \grep -w "connected" | \grep -w "primary"
     ```
 
 9.  ~/bin/xrandr-multi
@@ -445,8 +432,8 @@ Differnt monitors have different resolutions and hence DPI
     on=${1:-"on"}
     connected=$(xrandr-connected-external | head -n 1)
     first=$(xrandr-first)
-    echo "Turning on first display $first"
-    xrandr --output "$first" --auto --primary --dpi "${LCD_DPI:-"174"}"
+    echo "Turning on first primary display $first"
+    xrandr-connected-primary
     if [ ! -z "$connected" ] && [ "$connected" != "$first" ]; then
         echo "Detected 2nd monitor $connected"
         if [ "$on" = "on" ]; then
@@ -462,27 +449,20 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-    ```bash
-    xrandr-multi
-    ```
-
-    ```bash
-    xrandr-multi off
-    ```
-
-10. TODO ~/bin/xrandr-mancave
+10. ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     on=${1:-"on"}
     connected=${2:-$(xrandr-connected-external | head -n 1)}
-    laptop=$(xrandr-connected | grep -e "^e" | head -n 1)
+    laptop=$(xrandr-first)
     if  [ -z "$connected" ] ;then
+        echo "Not connected to external monitor so making laptop primary"
         xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
     else
         if [ "$on" = "on" ]; then
-            # xrandr --output "$laptop" --off
+            xrandr --output "$laptop"  --off
             xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
             xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
         else

@@ -2,7 +2,7 @@
 *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
 ! Fonts {{{
 #ifdef SRVR_thinkpadt460
-Xft.dpi:       84
+Xft.dpi:       104
 #endif
 #ifdef SRVR_intelnuc
 Xft.dpi:       108

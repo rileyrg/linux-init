@@ -2,12 +2,13 @@
 # Maintained in linux-init-files.org
 on=${1:-"on"}
 connected=${2:-$(xrandr-connected-external | head -n 1)}
-laptop=$(xrandr-connected | grep -e "^e" | head -n 1)
+laptop=$(xrandr-first)
 if  [ -z "$connected" ] ;then
+    echo "Not connected to external monitor so making laptop primary"
     xrandr --output "$laptop" --auto --primary --dpi "${LCD_DPI:-"174"}" #--scale "1x1"
 else
     if [ "$on" = "on" ]; then
-        # xrandr --output "$laptop" --off
+        xrandr --output "$laptop"  --off
         xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
         xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
     else
