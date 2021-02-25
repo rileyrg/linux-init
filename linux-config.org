@@ -1301,7 +1301,7 @@
       # i3bar
       bar {
       status_command i3blocks
-      font pango:JetBrains Sans Mono 6
+      font pango:JetBrains Sans Mono 8
       position top
       #mode hide
       hidden_state hide
@@ -1574,6 +1574,77 @@
       done
     #+end_src
 
+** add-ons
+
+*** TODO Integrate Polybar into I3
+    SCHEDULED: <2021-02-25 Do>
+    https://github.com/polybar/polybar
+    *** TODO 16:02 installing polybar
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-25 Do 16:29]
+     - State "TODO"       from              [2021-02-25 Do 16:13]
+     :END:
+**** DONE build first time
+     CLOSED: [2021-02-25 Do 16:17] SCHEDULED: <2021-02-25 Do>
+     :LOGBOOK:
+     - State "DONE"       from "TODO"       [2021-02-25 Do 16:17]
+     - State "TODO"       from              [2021-02-25 Do 16:17]
+     :END:
+***** DONE dependencies
+      CLOSED: [2021-02-25 Do 16:12]
+      :LOGBOOK:
+      - State "DONE"       from              [2021-02-25 Do 16:12]
+      :END:
+      #+begin_src bash
+        sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+        sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+      #+end_src
+***** DONE git clone
+      CLOSED: [2021-02-25 Do 16:12] SCHEDULED: <2021-02-25 Do>
+      :LOGBOOK:
+      - State "DONE"       from              [2021-02-25 Do 16:12]
+      :END:
+      #+begin_src bash
+        cd ~/bin/thirdparty
+        git clone --recursive https://github.com/polybar/polybar
+        cd polybar
+        mkdir build
+        cd build
+        cmake ..
+        make -j$(nproc)
+        # Optional. This will install the polybar executable in /usr/local/bin
+        sudo make install
+      #+end_src
+**** TODO Install on clients
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-25 Do 16:18]
+     :END:
+     #+begin_src bash
+       cd ~/bin/thirdparty/polybar/build/
+       sudo make install
+     #+end_src
+***** DONE x270
+      CLOSED: [2021-02-25 Do 16:18] SCHEDULED: <2021-02-25 Do>
+      :LOGBOOK:
+      - State "DONE"       from "TODO"       [2021-02-25 Do 16:18]
+      :END:
+***** TODO t460
+      SCHEDULED: <2021-02-28 So>
+***** TODO intelnuc
+      SCHEDULED: <2021-02-26 Fr>
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-25 Do 16:12]
+      :END:
+***** TODO xmgneo
+      SCHEDULED: <2021-02-25 Do>
+
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-25 Do 16:12]
+      - State "TODO"       from              [2021-02-25 Do 16:11]
+      - State "TODO"       from              [2021-02-25 Do 16:11]
+      :END:
+
+      #+RESULTS:
 * Vim
 ** ~/.vimrc
    #+begin_src conf :tangle "DotFiles/.vimrc"
