@@ -1347,14 +1347,42 @@ bindsym $mod+Control+q mode "$mode_system"
 # i3bar
 bar {
 status_command i3blocks
-font pango:JetBrains Sans Mono 6
+font pango:JetBrains Sans Mono 8
 position top
 #mode hide
 hidden_state hide
 modifier $mod
 }
-
 ```
+
+
+### i3 polybar
+
+1.  polybar integration into i3
+
+    ```conf
+    exec_always --no-startup-id $HOME/bin/polybar-launch
+    ```
+
+2.  polybar-launch
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    # Terminate already running bar instances
+    killall -q polybar
+    # If all your bars have ipc enabled, you can also use
+    # polybar-msg cmd quit
+
+    # Launch bar1 and bar2
+    echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log
+    polybar example 2>&1 | tee -a /tmp/polybar1.log & disown
+    #polybar bar2 2>&1 | tee -a /tmp/polybar2.log & disown
+
+    echo "Bars launched..."
+    ```
+
+3.  TODO create config
 
 
 ### i3 gaps
@@ -1628,6 +1656,54 @@ do
     fi
 done
 ```
+
+
+## add-ons
+
+
+### TODO Polybar I3
+
+<https://github.com/polybar/polybar>
+
+1.  TODO 16:02 installing polybar
+
+    1.  DONE build first time
+
+        1.  DONE dependencies
+
+            ```bash
+            sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+            sudo apt install build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+            ```
+
+        2.  DONE git clone
+
+            ```bash
+            cd ~/bin/thirdparty
+            git clone --recursive https://github.com/polybar/polybar
+            cd polybar
+            mkdir build
+            cd build
+            cmake ..
+            make -j$(nproc)
+            # Optional. This will install the polybar executable in /usr/local/bin
+            sudo make install
+            ```
+
+    2.  TODO Install on clients
+
+        ```bash
+        cd ~/bin/thirdparty/polybar/build/
+        sudo make install
+        ```
+
+        1.  DONE x270
+
+        2.  TODO t460
+
+        3.  TODO intelnuc
+
+        4.  TODO xmgneo
 
 
 # Vim
