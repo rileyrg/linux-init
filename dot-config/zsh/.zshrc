@@ -86,6 +86,7 @@ plugins=(
     dotenv
     vi-mode
     tmux
+    safe-paste
     colored-man-pages
     git
     zsh-syntax-highlighting
