@@ -1767,20 +1767,53 @@
      e scr.utf8.curvy=true
      e dbg.bep=main
    #+end_src
-* GDB
-** ~/.gdbinit
-   #+begin_src conf :tangle "DotFiles/.gdbinit"
-     # Maintained in linux-init-files.org
-     alias gef = source ~/bin/thirdparty/gef/gef.py
+* Debuggers
+** GDB
+*** ~/.gdbinit
+    #+begin_src conf :tangle "DotFiles/.gdbinit"
+      # Maintained in linux-init-files.org
+      alias gef = source ~/bin/thirdparty/gef/gef.py
 
-     set auto-load safe-path /
-     set auto-load local-gdbinit on
+      set auto-load safe-path /
+      set auto-load local-gdbinit on
 
-     set history save on
-     set history filename ~/.gdb_history
-     set history size 32768
-     set history expansion on
-   #+end_src
+      set history save on
+      set history filename ~/.gdb_history
+      set history size 32768
+      set history expansion on
+    #+end_src
+** cgdb
+*** ~/.cgdb/cgdbrc
+     #+begin_src conf :tangle "DotFiles/.cgdb/cgdbrc"
+       # Maintained in linux-init-files.org
+     #+end_src
+**** TODO install cgdb dir on linux laptops
+     :LOGBOOK:
+     - State "TODO"       from              [2021-02-26 Fr 09:36]
+     :END:
+     #+begin_src bash
+       ln -sf ~/Dropbox/homefiles/DotFiles/.cgdb     ~/
+     #+end_src
+
+     #+RESULTS:
+
+***** TODO x270
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-26 Fr 09:22]
+      :END:
+***** TODO intelnuc
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-26 Fr 09:22]
+      :END:
+***** TODO t460
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-26 Fr 09:22]
+      :END:
+***** TODO xmgneo
+      :LOGBOOK:
+      - State "TODO"       from              [2021-02-26 Fr 09:23]
+      :END:
+
 
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf

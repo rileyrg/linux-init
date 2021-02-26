@@ -1846,10 +1846,13 @@ e dbg.bep=main
 ```
 
 
-# GDB
+# Debuggers
 
 
-## ~/.gdbinit
+## GDB
+
+
+### ~/.gdbinit
 
 ```conf
 # Maintained in linux-init-files.org
@@ -1863,6 +1866,30 @@ set history filename ~/.gdb_history
 set history size 32768
 set history expansion on
 ```
+
+
+## cgdb
+
+
+### ~/.cgdb/cgdbrc
+
+```conf
+# Maintained in linux-init-files.org
+```
+
+1.  TODO install cgdb dir on linux laptops
+
+    ```bash
+    ln -sf ~/Dropbox/homefiles/DotFiles/.cgdb     ~/
+    ```
+
+    1.  TODO x270
+
+    2.  TODO intelnuc
+
+    3.  TODO t460
+
+    4.  TODO xmgneo
 
 
 # PGP/GNUPG/GPG
