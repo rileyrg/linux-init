@@ -236,15 +236,7 @@ bindsym Escape mode "default"
 }
 bindsym $mod+Control+q mode "$mode_system"
 
-# i3bar
-bar {
-status_command i3blocks
-font pango:JetBrains Sans Mono 8
-position top
-#mode hide
-hidden_state hide
-modifier $mod
-}
+exec_always --no-startup-id $HOME/bin/polybar-launch
 
 # Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 3
