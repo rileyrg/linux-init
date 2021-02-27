@@ -207,6 +207,7 @@ bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
 bindsym $mod+Control+a exec pavucontrol
 bindsym $mod+Control+Shift+a exec pulse-restart
+bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
