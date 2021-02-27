@@ -2339,7 +2339,6 @@ process viewer
 #Maintained in linux-init-files.org
 WID=`xdotool search --name "BpyTOP"`
 if [ -z "$WID" ]; then
-    command -v bpytop || pip3 install bpytop --upgrade
     exec terminator --profile=bpytop -e bpytop
 else
     xdotool windowactivate $WID

@@ -1300,7 +1300,7 @@
     #+end_src
 *** i3 bar
     :PROPERTIES:
-    :header-args:conf: :tangle no
+    # :header-args:conf: :tangle no
     :END:
     #+begin_src conf
       # i3bar
@@ -2238,7 +2238,6 @@
       #Maintained in linux-init-files.org
       WID=`xdotool search --name "BpyTOP"`
       if [ -z "$WID" ]; then
-          command -v bpytop || pip3 install bpytop --upgrade
           exec terminator --profile=bpytop -e bpytop
       else
           xdotool windowactivate $WID
