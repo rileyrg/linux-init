@@ -25,6 +25,10 @@
 !/dot-config/
 !/dot-config/i3
 !/dot-config/i3/config
+
+!/dot-config/i3blocks
+!/dot-config/i3blocks/config
+
 !/dot-config/i3status
 !/dot-config/i3status/config
 

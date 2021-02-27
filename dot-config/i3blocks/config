@@ -1,0 +1,55 @@
+[dropbox]
+interval=15
+command=echo  "$(my-i3b-db-status)"
+color=#1010E0
+
+[weather]
+command=curl -s 'wttr.in/{Grömitz}?format=3'
+
+interval=900
+color=#A4C2F4
+
+[battery]
+command=echo "$(my-i3b-battery-status)"
+interval=60
+color=#b01010
+
+# [disk]
+# command=echo "D:$(/usr/share/i3blocks/disk)"
+# interval=600
+# color=#003000
+
+# [memory]
+# command=echo "M:$(/usr/share/i3blocks/memory)"
+# interval=30
+# color=#003000
+
+[uptime]
+command=uptime -p
+interval=300
+color=#505050
+
+[ssid]
+command=echo "SSID:$(my-iface-active-ssid)"
+interval=30
+color=#00a000
+
+[ssidQ]
+command=echo "($(my-iface-active-quality)%)"
+interval=30
+color=#008000
+
+[ipaddr]
+command=echo "@$(my-iface-active-ipaddr)"
+interval=30
+color=#009000
+
+[time]
+command=date +"%d/%m/%Y %H:%M"
+interval=60
+color=#e2b007
+
+[volume]
+command=echo "V:$(/usr/share/i3blocks/volume)"
+interval=1
+color=#FF8300
