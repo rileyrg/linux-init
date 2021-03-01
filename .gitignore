@@ -47,6 +47,7 @@
 !/DotFiles/.xinitrc
 !/DotFiles/.xsessionrc
 !/DotFiles/.Xresources
+!/DotFiles/.gdbinit
 
 !/directories
 
