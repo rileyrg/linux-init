@@ -199,9 +199,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10 && x-backl
 
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 
-bindsym Print exec gnome-screenshot
-bindsym Shift+Print exec gnome-screenshot -a
-
+bindsym Print exec gnome-screenshot -i
 
 bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
