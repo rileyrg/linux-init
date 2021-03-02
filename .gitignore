@@ -48,6 +48,7 @@
 !/DotFiles/.xsessionrc
 !/DotFiles/.Xresources
 !/DotFiles/.gdbinit
+!/DotFiles/.tmux.conf
 
 !/directories
 

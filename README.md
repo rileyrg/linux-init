@@ -1099,7 +1099,7 @@ set -g @yank_selection_mouse 'clipboard' # or 'primary' or 'secondary'
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
-
+set -g @plugin 'tmux-plugins/tmux-resurrect'
 run -b '~/.tmux/plugins/tpm/tpm'
 
 ```
@@ -2524,7 +2524,7 @@ set confirm off
     pa = advance
     ptc = finish
     t = stepi
-    p = nexti
+    #p = nexti
     g = gef run
     uf = disassemble
     screen-setup = tmux-setup
