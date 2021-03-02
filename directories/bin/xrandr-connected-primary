@@ -1,8 +1,25 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-p="$(xrandr -q | \grep -w "connected" | \grep -w "primary" | awk '{print $1}')"
-if [ -z "$p" ]; then
-    p="$(xrandr-connected | head -n 1 | awk '{print $1}')"
+
+primary="${1}"
+
+if [ ! -z "$primary" ]; then
+    # check if monitor pased in exists
+    if [ -z "$(xrandr-connected | grep -i "$primary")" ]; then
+        echo "no such display : "$primary""
+        exit 1
+    fi
+else
+    # if no monitor provuided then query current primary
+    primary="$(xrandr -q | grep -w "primary" | awk '{print $1}')"
+    if [ -z "$primary" ]; then
+        # if no current primary default to first in list
+        primary="$(xrandr-connected | head -n 1 | awk '{print $1}')"
+    fi
 fi
-xrandr --output $p --primary --dpi "${LCD_DPI:-"174"}"
-echo $p
+
+echo "Setting "$primary" to primary"
+
+xrandr --output "$primary" --auto --primary --dpi "${LCD_DPI:-"174"}"
+
+echo $primary

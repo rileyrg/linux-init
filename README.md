@@ -335,32 +335,38 @@ Differnt monitors have different resolutions and hence DPI
 
 2.  ~/bin/xrandr-connected
 
-    list connected
+    list connected ids
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_CONNECTED=$(xrandr -q | \grep -iw "connected" | awk '{print $1}')
+    export XRANDR_CONNECTED=$(xrandr -q | grep -iw "connected" | awk '{print $1}')
     echo "$XRANDR_CONNECTED"
     ```
 
-    ```bash
-    xrandr-connected
-    ```
+3.  ~/bin/xrandr-connected-detail
 
-3.  ~/bin/xrandr-display-count
+    list connected with detailds
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    echo $(xrandr -q | \grep -iwc "connected")
+    xrandr -q | grep -iw "connected"
+    ```
+
+4.  ~/bin/xrandr-display-count
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    echo $(xrandr -q | grep -iwc "connected")
     ```
 
     ```bash
     xrandr-display-count
     ```
 
-4.  ~/bin/xrandr-first
+5.  ~/bin/xrandr-first
 
     first display
 
@@ -376,17 +382,17 @@ Differnt monitors have different resolutions and hence DPI
     xrandr-first
     ```
 
-5.  ~/bin/xrandr-disconnected
+6.  ~/bin/xrandr-disconnected
 
     list disconnected
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    xrandr -q | \grep -w "disconnected" | awk '{print $1}'
+    xrandr -q | grep -w "disconnected" | awk '{print $1}'
     ```
 
-6.  ~/bin/xrandr-disconnected-off
+7.  ~/bin/xrandr-disconnected-off
 
     turn off all disconnected
 
@@ -396,35 +402,75 @@ Differnt monitors have different resolutions and hence DPI
     xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
     ```
 
-7.  ~/bin/xrandr-connected-external
+8.  ~/bin/xrandr-connected-external
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    export XRANDR_EXTERNAL="$(xrandr-connected | awk '{print $1}' | \grep -i "^[hdmi|d]" | head -n 1)"
+    export XRANDR_EXTERNAL="$(xrandr-connected | awk '{print $1}' | grep -i "^[hdmi|d]" | head -n 1)"
     echo "$XRANDR_EXTERNAL"
     ```
 
-    ```bash
-    xrandr-connected-external
-    ```
-
-8.  ~/bin/xrandr-connected-primary
+9.  ~/bin/xrandr-connected-primary
 
     get id of primary display - if none are primary then set first first connected as primary
 
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    p="$(xrandr -q | \grep -w "connected" | \grep -w "primary" | awk '{print $1}')"
-    if [ -z "$p" ]; then
-        p="$(xrandr-connected | head -n 1 | awk '{print $1}')"
+
+    primary="${1}"
+
+    if [ ! -z "$primary" ]; then
+        # check if monitor pased in exists
+        if [ -z "$(xrandr-connected | grep -i "$primary")" ]; then
+            echo "no such display : "$primary""
+            exit 1
+        fi
+    else
+        # if no monitor provuided then query current primary
+        primary="$(xrandr -q | grep -w "primary" | awk '{print $1}')"
+        if [ -z "$primary" ]; then
+            # if no current primary default to first in list
+            primary="$(xrandr-connected | head -n 1 | awk '{print $1}')"
+        fi
     fi
-    xrandr --output $p --primary --dpi "${LCD_DPI:-"174"}"
-    echo $p
+
+    echo "Setting "$primary" to primary"
+
+    xrandr --output "$primary" --auto --primary --dpi "${LCD_DPI:-"174"}"
+
+    echo $primary
+
     ```
 
-9.  ~/bin/xrandr-multi
+10. ~/bin/xrandr-laptop-id
+
+    ```bash
+    xrandr-connected | grep -i "^[el]"
+    ```
+
+11. ~/bin/xrandr-laptop
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    on=${1:-"on"}
+    l="$(xrandr-laptop-id)"
+    if [ -z "$l" ]; then
+        echo "No laptop screen detected."
+    else
+        if [ "$on" = "off" ]; then
+            echo "Turning off "${l}"."
+            xrandr --output "$l" --off
+        else
+            echo "Turning on "${l}"."
+            xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+        fi
+    fi
+    ```
+
+12. ~/bin/xrandr-multi
 
     ```bash
     #!/usr/bin/bash
@@ -449,7 +495,7 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-10. ~/bin/xrandr-mancave
+13. ~/bin/xrandr-mancave
 
     ```bash
     #!/usr/bin/bash
@@ -471,7 +517,7 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-11. ~/bin/xrandr-smart-connect
+14. ~/bin/xrandr-smart-connect
 
     connect to richie's monitors by default if we can
 
@@ -481,7 +527,7 @@ Differnt monitors have different resolutions and hence DPI
     # turn off call disconnected displays
     xrandr-disconnected-off
     # try and ID the display connected and act accordingly
-    connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
+    connectedmodestring="$(xrandr -q | grep -A 1 -w "connected" | grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
     if [ ! -z "$connectedmodestring" ]; then
         case "$connectedmodestring" in
             *2560*)
@@ -496,7 +542,7 @@ Differnt monitors have different resolutions and hence DPI
     fi
     ```
 
-12. connect/disconnect daemon
+15. connect/disconnect daemon
 
     Note these are not used now in favour of the [srandr](https://github.com/jceb/srandrd) daemon
 
@@ -2292,7 +2338,7 @@ e dbg.bep=main
 ```
 
 
-# Debuggers
+# Debuggers     :debuggers:
 
 
 ## GDB
@@ -2303,10 +2349,10 @@ e dbg.bep=main
 ```conf
 # Maintained in linux-init-files.org
 alias gef = source ~/bin/thirdparty/gef/gef.py
+#alias gefc = gef config context.layout "legend -regs -stack code args source -threads -trace -extra -memory"
 
 set auto-load safe-path /
 set auto-load local-gdbinit on
-
 set history save on
 set history filename ~/.gdb_history
 set history size 32768
@@ -2316,8 +2362,175 @@ set print pretty on
 set pagination off
 set confirm off
 
+#  /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+
+
+
 
 ```
+
+
+### GEF
+
+1.  ~/.gef.rc
+
+    ```conf
+    # Maintained in linux-init-files.org
+    [context]
+    clear_screen = True
+    enable = True
+    grow_stack_down = False
+    ignore_registers =
+    layout = legend regs stack code args source memory threads trace extra
+    nb_lines_backtrace = 10
+    nb_lines_code = 6
+    nb_lines_code_prev = 3
+    nb_lines_stack = 8
+    nb_lines_threads = -1
+    peek_calls = True
+    peek_ret = True
+    redirect =
+    show_registers_raw = False
+    show_stack_raw = False
+    use_capstone = False
+
+    [dereference]
+    max_recursion = 7
+
+    [entry-break]
+    entrypoint_symbols = main _main __libc_start_main __uClibc_main start _start
+
+    [gef-remote]
+    clean_on_exit = False
+
+    [gef]
+    autosave_breakpoints_file =
+    debug = False
+    disable_color = False
+    extra_plugins_dir = ~/bin/thirdparty/gef-extras/scripts
+    follow_child = True
+    readline_compat = False
+    tempdir = /tmp/gef
+
+    [got]
+    function_not_resolved = yellow
+    function_resolved = green
+
+    [heap-analysis-helper]
+    check_double_free = True
+    check_free_null = False
+    check_heap_overlap = True
+    check_uaf = True
+    check_weird_free = True
+
+    [heap-chunks]
+    peek_nb_byte = 16
+
+    [hexdump]
+    always_show_ascii = False
+
+    [highlight]
+    regex = False
+
+    [ida-interact]
+    host = 127.0.0.1
+    port = 1337
+    sync_cursor = False
+
+    [pattern]
+    length = 40
+
+    [pcustom]
+    max_depth = 4
+    struct_path = ~/bin/thirdparty/gef-extras/structs
+
+    [process-search]
+    ps_command = /usr/bin/ps auxww
+
+    [syscall-args]
+    path = ~/bin/thirdparty/gef-extras/syscall-tables
+
+    [theme]
+    address_code = red
+    address_heap = green
+    address_stack = pink
+    context_title_line = gray
+    context_title_message = cyan
+    default_title_line = gray
+    default_title_message = cyan
+    dereference_base_address = cyan
+    dereference_code = gray
+    dereference_register_value = bold blue
+    dereference_string = yellow
+    disassemble_current_instruction = green
+    registers_register_name = blue
+    registers_value_changed = bold red
+    source_current_line = green
+    table_heading = blue
+
+    [trace-run]
+    max_tracing_recursion = 1
+    tracefile_prefix = ./gef-trace-
+
+    [unicorn-emulate]
+    show_disassembly = False
+    verbose = False
+
+    [aliases]
+    pf = print-format
+    status = process-status
+    binaryninja-interact = ida-interact
+    bn = ida-interact
+    binja = ida-interact
+    lookup = scan
+    grep = search-pattern
+    xref = search-pattern
+    flags = edit-flags
+    mprotect = set-permission
+    emulate = unicorn-emulate
+    cs-dis = capstone-disassemble
+    sc-search = shellcode search
+    sc-get = shellcode get
+    asm = assemble
+    ps = process-search
+    start = entry-break
+    nb = name-break
+    ctx = context
+    telescope = dereference
+    pattern offset = pattern search
+    hl = highlight
+    highlight ls = highlight list
+    hll = highlight list
+    hlc = highlight clear
+    highlight set = highlight add
+    hla = highlight add
+    highlight delete = highlight remove
+    highlight del = highlight remove
+    highlight unset = highlight remove
+    highlight rm = highlight remove
+    hlr = highlight remove
+    fmtstr-helper = format-string-helper
+    dps = dereference
+    dq = hexdump qword
+    dd = hexdump dword
+    dw = hexdump word
+    dc = hexdump byte
+    dt = pcustom
+    bl = info breakpoints
+    bp = break
+    be = enable breakpoints
+    bd = disable breakpoints
+    bc = delete breakpoints
+    tbp = tbreak
+    tba = thbreak
+    pa = advance
+    ptc = finish
+    t = stepi
+    p = nexti
+    g = gef run
+    uf = disassemble
+    screen-setup = tmux-setup
+    ```
 
 
 ## cgdb

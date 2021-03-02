@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+on=${1:-"on"}
+l="$(xrandr-laptop-id)"
+if [ -z "$l" ]; then
+    echo "No laptop screen detected."
+else
+    if [ "$on" = "off" ]; then
+        echo "Turning off "${l}"."
+        xrandr --output "$l" --off
+    else
+        echo "Turning on "${l}"."
+        xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+    fi
+fi

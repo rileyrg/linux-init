@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+l="$(xrandr-connected | grep -i "^[el]")"
+if [ -z "$l" ]; then
+    echo "No laptop screen detected."
+else
+    echo "Turning off ${l}."
+    xrandr --output "$l" --off
+fi

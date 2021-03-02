@@ -3,7 +3,7 @@
 # turn off call disconnected displays
 xrandr-disconnected-off
 # try and ID the display connected and act accordingly
-connectedmodestring="$(xrandr -q | \grep -A 1 -w "connected" | \grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
+connectedmodestring="$(xrandr -q | grep -A 1 -w "connected" | grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
 if [ ! -z "$connectedmodestring" ]; then
     case "$connectedmodestring" in
         *2560*)

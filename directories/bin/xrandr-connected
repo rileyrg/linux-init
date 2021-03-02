@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-export XRANDR_CONNECTED=$(xrandr -q | \grep -iw "connected" | awk '{print $1}')
+export XRANDR_CONNECTED=$(xrandr -q | grep -iw "connected" | awk '{print $1}')
 echo "$XRANDR_CONNECTED"
