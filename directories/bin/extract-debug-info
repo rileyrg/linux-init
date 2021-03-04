@@ -39,6 +39,6 @@ if [ ! -d "${debugdir}" ] ; then
 fi
 echo "stripping ${tostripfile}, putting debug info into ${debugfile}"
 objcopy --only-keep-debug "${tostripfile}" "${debugdir}/${debugfile}"
-strip --strip-debug --strip-unneeded "${tostripfile}"
-objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
+strip --strip-debug  "${tostripfile}"
+#objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
 chmod -x "${debugdir}/${debugfile}"

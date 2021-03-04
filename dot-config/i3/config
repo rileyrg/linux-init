@@ -131,6 +131,7 @@ set $ws10 "10"
 
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
+assign [class="discord"] $ws8
 assign [class="Steam"] $ws9
 
 # for_window [class="steam_app.*"] fullscreen enable
