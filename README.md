@@ -1087,10 +1087,9 @@ bind F set -w window-size
 bind m set monitor-activity
 bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
 
-bind K kill-pane -a
 bind k kill-window
-bind & kill-window
 bind x kill-pane
+bind X kill-pane -a
 bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
 new -d -s0
 # neww -d -nemacs 'exec emacsclient -nw ~/.emacs.d/linux-init/inits.org'
@@ -2352,7 +2351,6 @@ e dbg.bep=main
 
 ```conf
 # Maintained in linux-init-files.org
-alias gef = source ~/bin/thirdparty/gef/gef.py
 
 set auto-load safe-path /
 set auto-load local-gdbinit on
@@ -2362,20 +2360,28 @@ set history size 32768
 set history expansion on
 
 set print pretty on
-set pagination off
+
+set print symbol-filename on
+
+set pagination on
 set confirm off
 
 # set print address off
 # set print symbol-filename on
 
-define gef-start
-gef
+define gef-init
+source ~/bin/thirdparty/gef/gef.py
 gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_prev 4
-gef config context.nb_lines_code 60
+gef config context.nb_lines_code 32
+gef config context.nb_lines_code_prev 4
 gef config context.nb_lines_stack 4
 tmux-setup
-ctx
+context
+end
+
+define voltron-init
+source  /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+voltron init
 end
 
 
