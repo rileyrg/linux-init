@@ -11,7 +11,7 @@ set print pretty on
 
 set print symbol-filename on
 
-set pagination on
+set pagination off
 set confirm off
 
 # set print address off

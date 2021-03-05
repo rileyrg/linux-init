@@ -708,7 +708,6 @@ post-lock
 ## this bit sucks. start mbsync,time manually if enrypted homedir else it doesnt work
 systemctl is-active --user mbsync.timer || systemctl --user start mbsync.timer
 dropbox-start-once async
-fortune | cowsay
 ```
 
 
@@ -896,7 +895,6 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 DEFAULT_USER=$USER
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fortune | cowsay
 ```
 
 
@@ -1013,13 +1011,23 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 ```conf
 # Maintained in linux-init-files.org
 
-set-window-option -g status-right " #S "
+new -s TERM
+
+new -s GDB
+splitw -v -p 10 "voltron v breakpoints"
+splitw -h -p 90 "voltron v backtrace"
+splitw -h -p 80 "voltron v register"
+select-pane -t .0
 
 #dracula theme
 set -g @dracula-show-network false
 set -g @dracula-show-weather true
 set -g @dracula-show-powerline true
 set -g @dracula-show-time false
+set -g @dracula-show-fahrenheit false
+set -g @dracula-cpu-usage true
+set -g @dracula-ram-usage true
+set -g @dracula-gpu-usage true
 
 # Change the prefix key to C-a
 set -g prefix C-a
@@ -1060,7 +1068,7 @@ bind F set -w window-size
 bind m set monitor-activity
 bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
 
-bind k kill-window
+bind K kill-window
 bind x kill-pane
 bind X kill-pane -a
 bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
@@ -2345,7 +2353,7 @@ set print pretty on
 
 set print symbol-filename on
 
-set pagination on
+set pagination off
 set confirm off
 
 # set print address off
@@ -3105,7 +3113,7 @@ fi
       sessionname="${1:-TERM}"
       WID=`xdotool search --name "^${sessionname}$" | head -1`
       if [ -z "$WID" ]; then
-          terminator --title="$sessionname" --profile=$(hostname) -e "tmux new-session -A -s $sessionname"
+          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new -A -s $sessionname"
       else
           xdotool windowactivate $WID
 #          i3-msg "[title=${sessionname}] focus"

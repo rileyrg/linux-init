@@ -3,7 +3,7 @@
       sessionname="${1:-TERM}"
       WID=`xdotool search --name "^${sessionname}$" | head -1`
       if [ -z "$WID" ]; then
-          terminator --title="$sessionname" --profile=$(hostname) -e "tmux new-session -A -s $sessionname"
+          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new -A -s $sessionname"
       else
           xdotool windowactivate $WID
 #          i3-msg "[title=${sessionname}] focus"
