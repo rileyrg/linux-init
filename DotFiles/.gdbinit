@@ -20,7 +20,7 @@ set confirm off
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
 gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_code 32
+gef config context.nb_lines_code 16
 gef config context.nb_lines_code_prev 4
 gef config context.nb_lines_stack 4
 tmux-setup
@@ -28,6 +28,11 @@ context
 end
 
 define voltron-init
-source  /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
+end
+
+define init
+gef-init
+voltron-init
 end
