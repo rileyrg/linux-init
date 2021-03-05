@@ -19,10 +19,11 @@ set confirm off
 
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
-gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_code 16
-gef config context.nb_lines_code_prev 4
-gef config context.nb_lines_stack 4
+# gef save updates ~/.gef.rc
+# gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
+# gef config context.nb_lines_code 16
+# gef config context.nb_lines_code_prev 4
+# gef config context.nb_lines_stack 4
 tmux-setup
 context
 end

@@ -1008,10 +1008,18 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 # Tmux     :tmux:
 
 
-## ~/.config/tmux/tmux.conf
+## ~/.tmux.conf
 
 ```conf
 # Maintained in linux-init-files.org
+
+set-window-option -g status-right " #S "
+
+#dracula theme
+set -g @dracula-show-network false
+set -g @dracula-show-weather true
+set -g @dracula-show-powerline true
+set -g @dracula-show-time false
 
 # Change the prefix key to C-a
 set -g prefix C-a
@@ -1019,8 +1027,7 @@ unbind C-b
 bind C-a send-prefix
 
 # reload tmux config
-# bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
-bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
+bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
 
 # To copy, left click and drag to highlight text in yellow,
 # once you release left click yellow text will disappear and will automatically be available in clibboard
@@ -1062,6 +1069,7 @@ new -d -s0
 # setw -t0:1 aggressive-resize on
 # neww -d  -nhtop 'exec htop'
 
+# Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
@@ -1077,7 +1085,7 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'dracula/tmux'
 
-run -b '~/.config/tmux/plugins/tpm/tpm'
+run -b '~/.tmux/plugins/tpm/tpm'
 
 ```
 
@@ -2345,10 +2353,11 @@ set confirm off
 
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
-gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_code 16
-gef config context.nb_lines_code_prev 4
-gef config context.nb_lines_stack 4
+# gef save updates ~/.gef.rc
+# gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
+# gef config context.nb_lines_code 16
+# gef config context.nb_lines_code_prev 4
+# gef config context.nb_lines_stack 4
 tmux-setup
 context
 end
