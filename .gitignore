@@ -16,13 +16,7 @@
 !/etc/zsh/zshprofile
 
 !/dot-config
-!/dot-config/zsh
-!/dot-config/zsh/.zshenv
-!/dot-config/zsh/.zlogin
-!/dot-config/zsh/.zshrc
-!/dot-config/zsh/.zprofile
 
-!/dot-config/
 !/dot-config/i3
 !/dot-config/i3/config
 
@@ -32,9 +26,14 @@
 !/dot-config/i3status
 !/dot-config/i3status/config
 
-!/dot-config/
 !/dot-config/polybar
 !/dot-config/polybar/config
+
+!/dot-config/zsh
+!/dot-config/zsh/.zshenv
+!/dot-config/zsh/.zlogin
+!/dot-config/zsh/.zshrc
+!/dot-config/zsh/.zprofile
 
 !/DotFiles
 

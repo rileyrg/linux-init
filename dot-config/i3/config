@@ -217,8 +217,8 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-bindsym $mod+Return exec "oneterminal TERM"
-bindsym $mod+Shift+Return exec "oneterminal GDB"
+bindsym $mod+Return exec oneterminal TERM
+bindsym $mod+Shift+Return exec oneterminal GDB
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"

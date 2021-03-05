@@ -1,9 +1,10 @@
 #!/usr/bin/bash
-#Maintained in linux-init-files.org
-sessionname="${1:-"oneterminal"}"
-WID=`xdotool search "${sessionname}" | tail -n 1`
-if [ -z "$WID" ]; then
-    terminator --title="${sessionname}" --profile=$(hostname) -e "tmux new-session -A -s ${sessionname}"
-else
-    i3-msg "[title=${sessionname}] focus"
-fi
+      #Maintained in linux-init-files.org
+      sessionname="${1:-TERM}"
+      WID=`xdotool search --name "^${sessionname}$" | head -1`
+      if [ -z "$WID" ]; then
+          terminator --title="$sessionname" --profile=$(hostname) -e "tmux new-session -A -s $sessionname"
+      else
+          xdotool windowactivate $WID
+#          i3-msg "[title=${sessionname}] focus"
+      fi

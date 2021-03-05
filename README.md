@@ -1008,35 +1008,10 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 # Tmux     :tmux:
 
 
-## ~/.config/tmux/config
+## ~/.config/tmux/tmux.conf
 
 ```conf
 # Maintained in linux-init-files.org
-# Example .tmux.conf
-#
-# By Nicholas Marriott. Public domain.
-#
-
-# Some tweaks to the status line
-set -g status-right "%H:%M"
-set -g window-status-current-style "underscore"
-
-# If running inside tmux ($TMUX is set), then change the status line to red
-%if #{TMUX}
-set -g status-bg red
-%endif
-
-# Enable RGB colour if running in xterm(1)
-set-option -sa terminal-overrides ",xterm*:Tc"
-
-# Change the default $TERM to tmux-256color
-set -g default-terminal "tmux-256color"
-
-# No bells at all
-set -g bell-action none
-
-# Keep windows around after they exit
-set -g remain-on-exit off
 
 # Change the prefix key to C-a
 set -g prefix C-a
@@ -1045,7 +1020,7 @@ bind C-a send-prefix
 
 # reload tmux config
 # bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
-bind r source-file ~/.config/tmux/config \; display-message "Config reloaded..."
+bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
 
 # To copy, left click and drag to highlight text in yellow,
 # once you release left click yellow text will disappear and will automatically be available in clibboard
@@ -1087,9 +1062,10 @@ new -d -s0
 # setw -t0:1 aggressive-resize on
 # neww -d  -nhtop 'exec htop'
 
-set -g pane-border-fg magenta
-set -g pane-active-border-fg yellow
-set -g pane-active-border-bg default
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
 
 set -g mouse on
 set -g @yank_selection 'clipboard' # 'primary' or 'secondary' or 'clipboard'
@@ -1099,6 +1075,8 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'dracula/tmux'
+
 run -b '~/.config/tmux/plugins/tpm/tpm'
 
 ```
@@ -1107,7 +1085,7 @@ run -b '~/.config/tmux/plugins/tpm/tpm'
 # I3 window manager
 
 
-## i3wm
+## i3wm config
 
 
 ### general
@@ -1360,8 +1338,8 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-bindsym $mod+Return exec "oneterminal TERM"
-bindsym $mod+Shift+Return exec "oneterminal GDB"
+bindsym $mod+Return exec oneterminal TERM
+bindsym $mod+Shift+Return exec oneterminal GDB
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -3113,15 +3091,16 @@ fi
 ### ~/bin/oneterminal
 
 ```bash
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-sessionname="${1:-"oneterminal"}"
-WID=`xdotool search "${sessionname}" | tail -n 1`
-if [ -z "$WID" ]; then
-    terminator --title="${sessionname}" --profile=$(hostname) -e "tmux new-session -A -s ${sessionname}"
-else
-    i3-msg "[title=${sessionname}] focus"
-fi
+      #!/usr/bin/bash
+      #Maintained in linux-init-files.org
+      sessionname="${1:-TERM}"
+      WID=`xdotool search --name "^${sessionname}$" | head -1`
+      if [ -z "$WID" ]; then
+          terminator --title="$sessionname" --profile=$(hostname) -e "tmux new-session -A -s $sessionname"
+      else
+          xdotool windowactivate $WID
+#          i3-msg "[title=${sessionname}] focus"
+      fi
 ```
 
 
