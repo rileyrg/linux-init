@@ -1,9 +1,11 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-WID=`xdotool search "One Terminal"|head -1`
+sessionname="${1:-oneterminal}"
+WID=`xdotool search "${sessionname}" | head -n 1`
+sessionname="${1:-oneterminal}"
 if [ -z "$WID" ]; then
-    terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
+    terminator --title="${sessionname}" --profile=$(hostname) -e "tmux new-session -A -s ${sessionname}"
 else
-    notify-send "restoring OneTerminal instance..."
+    notify-send "restoring ${sessionname} instance..."
     xdotool windowactivate $WID
 fi

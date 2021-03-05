@@ -1322,7 +1322,8 @@
       bindsym $mod+Control+p exec onehtop
       bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
       bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
-      bindsym --release $mod+Return exec "oneterminal"
+      bindsym $mod+Return exec "oneterminal GeneralTerminalWork"
+      bindsym $mod+Shift+Return exec "oneterminal GDB"
 
       #rofi instead of dmenu
       bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -5269,11 +5270,13 @@
     #+begin_src bash :tangle "~/bin/oneterminal"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
-      WID=`xdotool search "One Terminal"|head -1`
+      sessionname="${1:-oneterminal}"
+      WID=`xdotool search "${sessionname}" | head -n 1`
+      sessionname="${1:-oneterminal}"
       if [ -z "$WID" ]; then
-          terminator --title="One Terminal" --profile=$(hostname) -e "tmux new-session -A -s oneterminal"
+          terminator --title="${sessionname}" --profile=$(hostname) -e "tmux new-session -A -s ${sessionname}"
       else
-          notify-send "restoring OneTerminal instance..."
+          notify-send "restoring ${sessionname} instance..."
           xdotool windowactivate $WID
       fi
     #+end_src
