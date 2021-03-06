@@ -2997,7 +2997,7 @@
               echo "Found an existing session $sessionname so we'll attach to that"
           elif command -v "$scriptname" &> /dev/null; then
               echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
-              "$scriptname" &> /dev/null
+              eval "$scriptname" &> /dev/null
               created=1
           else
               echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
