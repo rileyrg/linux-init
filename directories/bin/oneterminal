@@ -1,10 +1,15 @@
 #!/usr/bin/bash
-      #Maintained in linux-init-files.org
-      sessionname="${1:-TERM}"
-      WID=`xdotool search --name "^${sessionname}$" | head -1`
-      if [ -z "$WID" ]; then
-          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s $sessionname"
-      else
-          xdotool windowactivate $WID
-#          i3-msg "[title=${sessionname}] focus"
-      fi
+#Maintained in linux-init-files.org
+sessionname="${1:-TERM}"
+scriptname="${2}"
+WID=`xdotool search --name "^${sessionname}$" | head -1`
+if [ -z "$WID" ]; then
+    if [ -z "${scriptname}" ]; then
+        terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s "$sessionname""
+    else
+        terminator --title="$sessionname" --profile="$(hostname)" -e "$scriptname"
+    fi
+else
+    xdotool windowactivate $WID
+    #          i3-msg "[title=${sessionname}] focus"
+fi

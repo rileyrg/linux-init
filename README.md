@@ -1349,7 +1349,7 @@ bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+g exec x-lock-utils lock_gpg_clear
+bindsym $mod+Control+g exec oneterminal gdb-session gdb-session
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -1357,7 +1357,6 @@ bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal TERM
-bindsym $mod+Shift+Return exec oneterminal GDB
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -2564,18 +2563,18 @@ end
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    session="${1-gdbVoltron}"
+    session="${1-gdb-session}"
     if tmux has-session -t "${session}"; then
         echo "session ${session} exists so attaching it."
-        tmux attach -t "${session}"
     else
         echo "session ${session}  doesn't exist so creating it."
-        tmux new-session -s "${session}"
+        tmux new-session -d -s "${session}"
         tmux splitw -v -p 10 -t ${session}:0.0 "voltron v breakpoints"
         tmux splitw -h -p 90 -t ${session}:0.1 "voltron v backtrace"
         tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
         tmux select-pane -t .0
     fi
+    tmux attach -t "${session}"
     ```
 
 
@@ -3137,16 +3136,21 @@ fi
 ### ~/bin/oneterminal
 
 ```bash
-      #!/usr/bin/bash
-      #Maintained in linux-init-files.org
-      sessionname="${1:-TERM}"
-      WID=`xdotool search --name "^${sessionname}$" | head -1`
-      if [ -z "$WID" ]; then
-          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s $sessionname"
-      else
-          xdotool windowactivate $WID
-#          i3-msg "[title=${sessionname}] focus"
-      fi
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+sessionname="${1:-TERM}"
+scriptname="${2}"
+WID=`xdotool search --name "^${sessionname}$" | head -1`
+if [ -z "$WID" ]; then
+    if [ -z "${scriptname}" ]; then
+        terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s "$sessionname""
+    else
+        terminator --title="$sessionname" --profile="$(hostname)" -e "$scriptname"
+    fi
+else
+    xdotool windowactivate $WID
+    #          i3-msg "[title=${sessionname}] focus"
+fi
 ```
 
 
