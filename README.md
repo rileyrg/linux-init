@@ -2567,6 +2567,7 @@ end
         tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
         tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
         tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
+        tmux splitw -v -p 10 -t "${session}":0.0
         tmux select-pane -t "${session}":0.0
         exit 0
     fi
