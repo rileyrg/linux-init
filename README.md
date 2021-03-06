@@ -1356,7 +1356,7 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
-bindsym $mod+Return exec oneterminal TERM
+bindsym $mod+Return exec oneterminal
 
 #rofi instead of dmenu
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
@@ -2574,7 +2574,7 @@ end
         tmux splitw -v -p 10 -t ${session}:0.0 "voltron v breakpoints"
         tmux splitw -h -p 90 -t ${session}:0.1 "voltron v backtrace"
         tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
-        tmux select-pane -t .0
+        tmux select-pane -t ${session}:0.0
     fi
     ```
 
@@ -3141,19 +3141,19 @@ Jump it existing window if it exists, it the window doesnt exist attach to a lik
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-sessionname="${1:-TERM}"
+sessionname="${1:-Tmux-Terminal}"
 scriptname="${2:-$sessionname}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 if [ -z "$WID" ]; then
     echo "No window called $sessionname exists so we try to attach to a session or  create one.."
-    if tmux has-session -t "$sessionname"; then
+    script="tmux attach -t $sessionname"
+    if tmux has-session -t "$sessionname" &> /dev/null; then
         echo "Found an existing session $sessionname so we'll attach to that"
-        script="tmux attach -t $sessionname"
     elif command -v "$scriptname" &> /dev/null; then
         echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
-        script="$scriptname"
+        "$scriptname" &> /dev/null
     else
-        echo "No valid script to configure the session so just create a default session."
+        echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
         script="tmux new-session -A -s $sessionname"
     fi
     terminator --title="$sessionname" --profile="$(hostname)" -e "$script"
