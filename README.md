@@ -3135,6 +3135,8 @@ fi
 
 ### ~/bin/oneterminal
 
+Jump it existing window if it exists, it the window doesnt exist attach to a like named tmux session. If there is no like named session then run the passed in script else simply use a default tmux session.
+
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org

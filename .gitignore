@@ -52,7 +52,6 @@
 !/directories
 
 !/directories/bin
-# !/directories/bin/*
 
 !/directories/bin/one*
 
@@ -66,7 +65,7 @@
 !/directories/bin/eman
 !/directories/bin/extract-debug-info
 !/directories/bin/expert-advice
-!/directories/bin/gdb-tmux
+!/directories/bin/gdb-session
 !/directories/bin/getmails
 !/directories/bin/google-trans
 !/directories/bin/google-trans-de-en
