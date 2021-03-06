@@ -3143,7 +3143,7 @@ Jump it existing window if it exists, it the window doesnt exist attach to a lik
 #Maintained in linux-init-files.org
 sessionname="${1:-Tmux-Terminal}"
 scriptname="${2:-$sessionname}"
-created=""
+created=0
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 if [ -z "$WID" ]; then
     echo "No window called $sessionname exists so we try to attach to a session or  create one.."
@@ -3153,7 +3153,7 @@ if [ -z "$WID" ]; then
     elif command -v "$scriptname" &> /dev/null; then
         echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
         "$scriptname" &> /dev/null
-        created="yes"
+        created=1
     else
         echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
         script="tmux new-session -A -s $sessionname"
@@ -3163,7 +3163,8 @@ else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
 fi
-[ -z "$created" ] && exit 1 || exit 0
+# exit 0 (true) if  created a new session so the caller decide if it wants to do some post create init
+[ "$created" = "1" ] && exit 0 || exit 1
 ```
 
 
