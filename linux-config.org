@@ -1302,7 +1302,7 @@
       bindsym $mod+Control+c exec conky
       bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
       bindsym $mod+Control+f exec thunar
-      bindsym $mod+Control+g exec oneterminal gdb-session gdb-session
+      bindsym $mod+Control+g exec oneterminal gdb-session
       bindsym $mod+Control+h exec pidof hexchat || hexchat
       bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
       bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2987,14 +2987,21 @@
       scriptname="${2}"
       WID=`xdotool search --name "^${sessionname}$" | head -1`
       if [ -z "$WID" ]; then
-          if [ -z "${scriptname}" ]; then
-              terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s "$sessionname""
-          else
-              terminator --title="$sessionname" --profile="$(hostname)" -e "$scriptname"
+          echo "No window called $sessionname exists so we try to create one.."
+          if [ -z "$scriptname" ]; then
+              echo "No specific script passed in so we'll default to trying a script called $sessionname".
+              scriptname="$sessionname"
           fi
+          if command -v "$scriptname" &> /dev/null; then
+              script="$scriptname"
+          else
+              echo "No valid script to configure the session so just use a default session."
+              script="tmux new-session -A -s "$sessionname""
+          fi
+          terminator --title="$sessionname" --profile="$(hostname)" -e "$script"
       else
+          echo "Found a window called $sessionname so jumping to it..."
           xdotool windowactivate $WID
-          #          i3-msg "[title=${sessionname}] focus"
       fi
     #+end_src
 *** ~/bin/pop-window
