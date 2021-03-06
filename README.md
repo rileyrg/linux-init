@@ -1349,7 +1349,7 @@ bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+g exec oneterminal gdb-session
+bindsym $mod+Control+g exec oneterminal gdb-session && tmux send-keys -t gdb-session:0.0 "cd ~/development/projects/C/emacs/" C-m "gdb" C-m
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -3143,6 +3143,7 @@ Jump it existing window if it exists, it the window doesnt exist attach to a lik
 #Maintained in linux-init-files.org
 sessionname="${1:-Tmux-Terminal}"
 scriptname="${2:-$sessionname}"
+created=""
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 if [ -z "$WID" ]; then
     echo "No window called $sessionname exists so we try to attach to a session or  create one.."
@@ -3152,6 +3153,7 @@ if [ -z "$WID" ]; then
     elif command -v "$scriptname" &> /dev/null; then
         echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
         "$scriptname" &> /dev/null
+        created="yes"
     else
         echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
         script="tmux new-session -A -s $sessionname"
@@ -3161,6 +3163,7 @@ else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
 fi
+[ -z "$created" ] && exit 1 || exit 0
 ```
 
 
