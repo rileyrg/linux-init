@@ -120,6 +120,8 @@ x-idlehook &
 (post-lock && post-blank) &
 (sleep 2 && gpg-cache)&
 
+xrandr-smart-connect
+
 ```
 
 
@@ -1011,13 +1013,13 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 ```conf
 # Maintained in linux-init-files.org
 
-new -s TERM
+new-session -d -s "TERM"
 
-new -s GDB
-splitw -v -p 10 "voltron v breakpoints"
-splitw -h -p 90 "voltron v backtrace"
-splitw -h -p 80 "voltron v register"
-select-pane -t .0
+# new -s GDB
+# splitw -v -p 10 "voltron v breakpoints"
+# splitw -h -p 90 "voltron v backtrace"
+# splitw -h -p 80 "voltron v register"
+# select-pane -t .0
 
 #dracula theme
 set -g @dracula-show-network false
@@ -1353,7 +1355,7 @@ bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+p exec onehtop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
-bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e tmux"
+bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal TERM
 bindsym $mod+Shift+Return exec oneterminal GDB
 
@@ -2550,6 +2552,33 @@ end
     ```
 
 
+### voltron
+
+<https://github.com/snare/voltron>
+
+
+### tmux gdb setup scripts
+
+1.  ~/bin/gdb-session
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    session="${1-gdbVoltron}"
+    if tmux has-session -t "${session}"; then
+        echo "session ${session} exists so attaching it."
+        tmux attach -t "${session}"
+    else
+        echo "session ${session}  doesn't exist so creating it."
+        tmux new-session -s "${session}"
+        tmux splitw -v -p 10 -t ${session}:0.0 "voltron v breakpoints"
+        tmux splitw -h -p 90 -t ${session}:0.1 "voltron v backtrace"
+        tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
+        tmux select-pane -t .0
+    fi
+    ```
+
+
 ## cgdb
 
 
@@ -3113,7 +3142,7 @@ fi
       sessionname="${1:-TERM}"
       WID=`xdotool search --name "^${sessionname}$" | head -1`
       if [ -z "$WID" ]; then
-          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new -A -s $sessionname"
+          terminator --title="$sessionname" --profile="$(hostname)" -e "tmux new-session -A -s $sessionname"
       else
           xdotool windowactivate $WID
 #          i3-msg "[title=${sessionname}] focus"

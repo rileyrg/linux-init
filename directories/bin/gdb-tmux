@@ -1,5 +1,0 @@
-# Maintained in linux-init-files.org
-## !!!!!!!!!!!!!!!!!! shelved see tmux-setup in gef
-tmux new-session -d 'gdb'
-tmux split-window -v
-tmux -2 attach-session -d
