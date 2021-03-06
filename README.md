@@ -1062,7 +1062,7 @@ bind F set -w window-size
 bind m set monitor-activity
 bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
 
-bind K kill-window
+bind K kill-session
 bind x kill-pane
 bind X kill-pane -a
 bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
