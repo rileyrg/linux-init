@@ -2455,12 +2455,13 @@
     https://github.com/snare/voltron
 *** tmux gdb setup scripts
 **** ~/bin/gdb-session
+     Create a session but let someone else do the attach
      #+begin_src bash :tangle ~/bin/gdb-session
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
        session="${1-gdb-session}"
        if tmux has-session -t "${session}"; then
-           echo "session ${session} exists so attaching it."
+           echo "session ${session} exists so attach to it!"
        else
            echo "session ${session}  doesn't exist so creating it."
            tmux new-session -d -s "${session}"
@@ -2469,7 +2470,6 @@
            tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
            tmux select-pane -t .0
        fi
-       tmux attach -t "${session}"
      #+end_src
 ** cgdb
 *** ~/.cgdb/cgdbrc
@@ -2987,19 +2987,19 @@
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
       sessionname="${1:-TERM}"
-      scriptname="${2}"
+      scriptname="${2:-$sessionname}"
       WID=`xdotool search --name "^${sessionname}$" | head -1`
       if [ -z "$WID" ]; then
-          echo "No window called $sessionname exists so we try to create one.."
-          if [ -z "$scriptname" ]; then
-              echo "No specific script passed in so we'll default to trying a script called $sessionname".
-              scriptname="$sessionname"
-          fi
-          if command -v "$scriptname" &> /dev/null; then
+          echo "No window called $sessionname exists so we try to attach to a session or  create one.."
+          if tmux has-session -t "$sessionname"; then
+              echo "Found an existing session $sessionname so we'll attach to that"
+              script="tmux attach -t $sessionname"
+          elif command -v "$scriptname" &> /dev/null; then
+              echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
               script="$scriptname"
           else
-              echo "No valid script to configure the session so just use a default session."
-              script="tmux new-session -A -s "$sessionname""
+              echo "No valid script to configure the session so just create a default session."
+              script="tmux new-session -A -s $sessionname"
           fi
           terminator --title="$sessionname" --profile="$(hostname)" -e "$script"
       else
