@@ -1013,14 +1013,6 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 ```conf
 # Maintained in linux-init-files.org
 
-new-session -d -s "TERM"
-
-# new -s GDB
-# splitw -v -p 10 "voltron v breakpoints"
-# splitw -h -p 90 "voltron v backtrace"
-# splitw -h -p 80 "voltron v register"
-# select-pane -t .0
-
 #dracula theme
 set -g @dracula-show-network false
 set -g @dracula-show-weather true
@@ -2566,15 +2558,17 @@ end
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     session="${1-gdb-session}"
-    if tmux has-session -t "${session}"; then
+    if tmux has-session -t "${session}" &> /dev/null; then
         echo "session ${session} exists so attach to it!"
+        exit 1
     else
         echo "session ${session}  doesn't exist so creating it."
         tmux new-session -d -s "${session}"
-        tmux splitw -v -p 10 -t ${session}:0.0 "voltron v breakpoints"
-        tmux splitw -h -p 90 -t ${session}:0.1 "voltron v backtrace"
-        tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
-        tmux select-pane -t ${session}:0.0
+        tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
+        tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
+        tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
+        tmux select-pane -t "${session}":0.0
+        exit 0
     fi
     ```
 
@@ -3152,7 +3146,7 @@ if [ -z "$WID" ]; then
         echo "Found an existing session $sessionname so we'll attach to that"
     elif command -v "$scriptname" &> /dev/null; then
         echo "Since no existing session called $sessionname we'll try to run a script $scriptname to create one"
-        eval "$scriptname" &> /dev/null
+        eval "$scriptname"
         created=1
     else
         echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."

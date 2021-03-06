@@ -1,13 +1,15 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
 session="${1-gdb-session}"
-if tmux has-session -t "${session}"; then
+if tmux has-session -t "${session}" &> /dev/null; then
     echo "session ${session} exists so attach to it!"
+    exit 1
 else
     echo "session ${session}  doesn't exist so creating it."
     tmux new-session -d -s "${session}"
-    tmux splitw -v -p 10 -t ${session}:0.0 "voltron v breakpoints"
-    tmux splitw -h -p 90 -t ${session}:0.1 "voltron v backtrace"
-    tmux splitw -h -p 80 -t ${session}:0.2 "voltron v register"
-    tmux select-pane -t ${session}:0.0
+    tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
+    tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
+    tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
+    tmux select-pane -t "${session}":0.0
+    exit 0
 fi
