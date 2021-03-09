@@ -1341,7 +1341,8 @@ bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+e exec emacs-debug
+bindsym $mod+Control+e exec bash-dbg emacs-debug
+bindsym $mod+Control+k exec tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2559,10 +2560,10 @@ end
     # Maintained in linux-init-files.org
     session="${1-gdb-session}"
     if tmux has-session -t "${session}" &> /dev/null; then
-        echo "session ${session} exists so attach to it!"
+        echo "session ${session} exists, so attach to it!"
         exit 1
     else
-        echo "session ${session}  doesn't exist so creating it."
+        echo "creating session ${session}."
         tmux new-session -d -s "${session}"
         tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
         tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
@@ -2578,8 +2579,11 @@ end
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    oneterminal emacs-gdb-session gdb-session
-    tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
+    oneterminal "emacs-gdb-session" "gdb-session"
+    if  [ "$?" = "0" ]; then # created new session
+        tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs" C-m "gdb" C-m
+    fi
+
     ```
 
 
@@ -2590,6 +2594,21 @@ end
 
 ```conf
 # Maintained in linux-init-files.org
+```
+
+
+## Bash
+
+
+### ~/bin/bash-dbg
+
+Using built in bash script tracing
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+export SHELLOPTS
+PS4='$LINENO: ' bash -xv "$@"
 ```
 
 
@@ -3151,29 +3170,29 @@ scriptname="${2:-$sessionname}"
 created=0
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 if [ -z "$WID" ]; then
-    echo "No window called $sessionname exists so we try to attach to a session or  create one.."
-    script="tmux attach -t $sessionname"
-    if tmux has-session -t "$sessionname" &> /dev/null; then
-        echo "Found an existing $sessionname session so we'll attach to that"
+    echo "No window called $sessionname exists so we try to (a) attach to a session or  (b) create one.."
+    script="tmux attach -t ${sessionname}"
+    if tmux has-session -t ${sessionname} &> /dev/null; then
+        echo "Found an existing ${sessionname} session so we'll attach to that"
     elif command -v "$scriptname" &> /dev/null; then
-        echo "Since no existing $sessionname session we'll try to run a script, $scriptname, to create one"
-        "${scriptname}" "$sessionname"
+        echo "Since no existing ${sessionname} session we'll try to to create one using script ${scriptname} "
+        ${scriptname} ${sessionname}
         created=1
     else
         echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
-        script="tmux new-session -A -s $sessionname"
+        script="tmux new-session -A -s ${sessionname}"
     fi
-    terminator --title="$sessionname" --profile="$(hostname)" -e "$script"
+    ( terminator --title="${sessionname}" --profile="$(hostname)" --command="${script}" ) &
 else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
 fi
 if [ "$created" = "1" ]; then
    echo "exit 0 (true) as we created a new session"
-    exit 0
+   exit 0
 else
    echo "exit 1 (false) as we didn't create a new session"
-    exit 1
+   exit 1
 fi
 
 ```
