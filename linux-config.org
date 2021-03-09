@@ -1294,7 +1294,7 @@
       bindsym $mod+Control+c exec conky
       bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
       bindsym $mod+Control+f exec thunar
-      bindsym $mod+Control+g exec oneterminal gdb-session gdb-session && (sleep 2 && tmux send-keys -t gdb-session:0.0 "cd ~/development/projects/C/emacs/" C-m "gdb" C-m) &
+      bindsym $mod+Control+e exec emacs-debug
       bindsym $mod+Control+h exec pidof hexchat || hexchat
       bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
       bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2453,10 +2453,10 @@
        # Maintained in linux-init-files.org
        session="${1-gdb-session}"
        if tmux has-session -t "${session}" &> /dev/null; then
-           echo "session ${session} exists so attach to it!"
+           echo "session ${session} exists, so attach to it!"
            exit 1
        else
-           echo "session ${session}  doesn't exist so creating it."
+           echo "creating session ${session}."
            tmux new-session -d -s "${session}"
            tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
            tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
@@ -2466,12 +2466,29 @@
            exit 0
        fi
      #+end_src
+**** ~/bin/emacs-debug
+     #+begin_src bash :tangle ~/bin/emacs-debug
+       #!/usr/bin/bash
+       # Maintained in linux-init-files.org
+       if oneterminal emacs-gdb-session gdb-session; then
+           tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
+       fi
+
+     #+end_src
 ** cgdb
 *** ~/.cgdb/cgdbrc
     #+begin_src conf :tangle "DotFiles/.cgdb/cgdbrc"
       # Maintained in linux-init-files.org
     #+end_src
-
+** Bash
+*** ~/bin/bash-dbg
+    Using built in bash script tracing
+    #+begin_src bash :tangle ~/bin/bash-dbg
+      #!/usr/bin/bash
+      # Maintained in linux-init-files.org
+      export SHELLOPTS
+      PS4='$LINENO: ' bash -xv "$@"
+    #+end_src
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
    #+begin_src gpg :tangle "~/.gnupg/gpg.conf"
@@ -3464,6 +3481,7 @@
       [ -f ~/.post-blank ]  && . ~/.post-blank
       x-backlight-persist restore
     #+end_src
+
 * tailends
 ** ~/.bash_profile
    #+begin_src bash :tangle "DotFiles/.bash_profile"

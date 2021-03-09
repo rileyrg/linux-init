@@ -1341,7 +1341,7 @@ bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+g exec oneterminal gdb-session gdb-session && (sleep 2 && tmux send-keys -t gdb-session:0.0 "cd ~/development/projects/C/emacs/" C-m "gdb" C-m) &
+bindsym $mod+Control+e exec emacs-debug
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2571,6 +2571,15 @@ end
         tmux select-pane -t "${session}":0.0
         exit 0
     fi
+    ```
+
+2.  ~/bin/emacs-debug
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    oneterminal emacs-gdb-session gdb-session
+    tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
     ```
 
 
