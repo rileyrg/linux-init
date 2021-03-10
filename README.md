@@ -3153,12 +3153,12 @@ terminator --profile "bpytop" --command  'tmux new-session  -A -s "bpytop" bpyto
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
 sessionname="${1:-OneTerminal}"
-script="${2:-"tmux new-s -s "$sessionname""}"
+script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0
 if [ -z "$WID" ]; then
     if ! tmux has-session -t "$sessionname" &> /dev/null; then
-        "$script" "$sessionname"
+        [ ! -z "$script" ] && "$script" "$sessionname"
         created=1
     fi
     terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-s -A -s "$sessionname""
