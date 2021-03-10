@@ -3161,7 +3161,7 @@ if [ -z "$WID" ]; then
         [ ! -z "$script" ] && "$script" "$sessionname"
         created=1
     fi
-    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-s -A -s "$sessionname""
+    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-s -A -s "$sessionname"" &
 else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
