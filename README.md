@@ -1341,7 +1341,7 @@ bindsym $mod+Control+b exec onebpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+e exec bash-dbg emacs-debug
+bindsym $mod+Control+e exec emacs-debug
 bindsym $mod+Control+k exec tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
@@ -2977,7 +2977,8 @@ process viewer
 ```bash
 #!/bin/bash
 #Maintained in linux-init-files.org
-terminator --profile "htop" --command  'tmux new-session  -A -s "htop" htop'
+tmux new-session  -d -s htop
+oneterminal htop
 ```
 
 
@@ -2988,7 +2989,8 @@ process viewer
 ```bash
 #!/bin/bash
 #Maintained in linux-init-files.org
-terminator --profile "bpytop" --command  'tmux new-session  -A -s "bpytop" bpytop'
+tmux new-session  -d -s bpytop bpytop
+oneterminal bpytop
 ```
 
 1.  ~/.config/bpytop/bpytop.conf
@@ -3152,7 +3154,7 @@ terminator --profile "bpytop" --command  'tmux new-session  -A -s "bpytop" bpyto
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-sessionname="${1:-OneTerminal}"
+sessionname="${1:-"OneTerminal"}"
 script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-sessionname="${1:-OneTerminal}"
+sessionname="${1:-"OneTerminal"}"
 script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0

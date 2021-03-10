@@ -1,3 +1,4 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
-terminator --profile "htop" --command  'tmux new-session  -A -s "htop" htop'
+tmux new-session  -d -s htop
+oneterminal htop

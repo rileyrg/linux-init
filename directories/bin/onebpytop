@@ -1,3 +1,4 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
-terminator --profile "bpytop" --command  'tmux new-session  -A -s "bpytop" bpytop'
+tmux new-session  -d -s bpytop bpytop
+oneterminal bpytop
