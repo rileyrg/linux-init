@@ -1,8 +1,3 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
-WID=`xdotool search --name "BpyTOP"`
-if [ -z "$WID" ]; then
-    exec terminator --profile=bpytop -e bpytop
-else
-    xdotool windowactivate $WID
-fi
+terminator --profile "bpytop" --command  'tmux new-session  -A -s "bpytop" bpytop'

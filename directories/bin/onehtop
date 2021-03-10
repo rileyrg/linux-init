@@ -1,8 +1,3 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
-WID=`xdotool search --class "htop"`
-if [ -z "$WID" ]; then
-    exec terminator --profile=htop -e htop
-else
-    xdotool windowactivate $WID
-fi
+terminator --profile "htop" --command  'tmux new-session  -A -s "htop" htop'

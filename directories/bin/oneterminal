@@ -1,31 +1,17 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-sessionname="${1:-Tmux-Terminal}"
-scriptname="${2:-$sessionname}"
-created=0
+sessionname="${1:-OneTerminal}"
+script="${2:-"tmux new-s -s "$sessionname""}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
+created=0
 if [ -z "$WID" ]; then
-    echo "No window called $sessionname exists so we try to (a) attach to a session or  (b) create one.."
-    script="tmux attach -t ${sessionname}"
-    if tmux has-session -t ${sessionname} &> /dev/null; then
-        echo "Found an existing ${sessionname} session so we'll attach to that"
-    elif command -v "$scriptname" &> /dev/null; then
-        echo "Since no existing ${sessionname} session we'll try to to create one using script ${scriptname} "
-        ${scriptname} ${sessionname}
+    if ! tmux has-session -t "$sessionname" &> /dev/null; then
+        "$script" "$sessionname"
         created=1
-    else
-        echo "No session $sessionname and no valid script $scriptname to configure the session so just create a default session."
-        script="tmux new-session -A -s ${sessionname}"
     fi
-    ( terminator --title="${sessionname}" --profile="$(hostname)" --command="${script}" ) &
+    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-s -A -s "$sessionname""
 else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
 fi
-if [ "$created" = "1" ]; then
-   echo "exit 0 (true) as we created a new session"
-   exit 0
-else
-   echo "exit 1 (false) as we didn't create a new session"
-   exit 1
-fi
+[ "$created" = "1" ] && exit 0 || exit 1
