@@ -15,8 +15,8 @@ logger -t "startup-initfile"  PROFILE
 export PRINTER="EPSON_XP-820_Series"
 
 export PROMPT_COMMAND='history -a'
-export EDITOR='emacs-same-frame'
-export VISUAL='emacs-same-frame'
+export EDITOR='edit'
+export VISUAL='edit'
 
 export HISTSIZE=2056
 export HISTCONTROL=ignoreboth:erasedups

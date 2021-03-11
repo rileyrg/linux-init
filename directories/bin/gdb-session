@@ -4,11 +4,10 @@ directory="$(realpath -s "${1:-`pwd`}")"
 session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
 if ! tmux has-session -t "${session}" &> /dev/null; then
     tmux new-session -d -s "${session}"
-    tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
-    tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
-    tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
-    tmux splitw -v -p 10 -t "${session}":0.0
+    tmux splitw -v -p 30 -t "${session}":0.0 "voltron v breakpoints"
+    tmux splitw -h -p 70 -t "${session}":0.1 "voltron v backtrace"
+    tmux splitw -h -p 60 -t "${session}":0.2 "voltron v register"
     tmux select-pane -t "${session}":0.0
-    tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
+    tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
 fi
 echo $session

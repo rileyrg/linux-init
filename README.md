@@ -664,8 +664,8 @@ logger -t "startup-initfile"  PROFILE
 export PRINTER="EPSON_XP-820_Series"
 
 export PROMPT_COMMAND='history -a'
-export EDITOR='emacs-same-frame'
-export VISUAL='emacs-same-frame'
+export EDITOR='edit'
+export VISUAL='edit'
 
 export HISTSIZE=2056
 export HISTCONTROL=ignoreboth:erasedups
@@ -2349,8 +2349,8 @@ set print symbol-filename on
 set pagination off
 set confirm off
 
-# set print address off
-# set print symbol-filename on
+set print address off
+set print symbol-filename off
 
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
@@ -2372,6 +2372,13 @@ define init
 gef-init
 voltron-init
 end
+
+define f
+frame $arg0
+context
+end
+
+init
 
 
 ```
@@ -2561,12 +2568,11 @@ end
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
-        tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
-        tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
-        tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
-        tmux splitw -v -p 10 -t "${session}":0.0
+        tmux splitw -v -p 30 -t "${session}":0.0 "voltron v breakpoints"
+        tmux splitw -h -p 70 -t "${session}":0.1 "voltron v backtrace"
+        tmux splitw -h -p 60 -t "${session}":0.2 "voltron v register"
         tmux select-pane -t "${session}":0.0
-        tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
+        tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
     fi
     echo $session
     ```
@@ -2578,7 +2584,7 @@ end
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
     session="${2}"
-    TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")"
+    TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")" &
     ```
 
 
@@ -3031,12 +3037,12 @@ fi
 ```
 
 
-## ~/bin/edit
+## ~/bin/myedit
 
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-emacs-same-frame "$@"
+emacsclient -c  "$@" &> /dev/null  &
 ```
 
 

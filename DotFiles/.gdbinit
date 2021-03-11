@@ -14,8 +14,8 @@ set print symbol-filename on
 set pagination off
 set confirm off
 
-# set print address off
-# set print symbol-filename on
+set print address off
+set print symbol-filename off
 
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
@@ -37,3 +37,10 @@ define init
 gef-init
 voltron-init
 end
+
+define f
+frame $arg0
+context
+end
+
+init
