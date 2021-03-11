@@ -8,5 +8,4 @@ if [ -z "$WID" ]; then
     terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-session -A -s ${sessionname} ${script}"
 else
     xdotool windowactivate $WID
-    exit 1
 fi

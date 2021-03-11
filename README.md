@@ -1341,7 +1341,7 @@ bindsym $mod+Control+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+e exec "gdb-session debug-emacs && tmux send-keys -t \\"debug-emacs:0.0\\" \\"cd ~/development/projects/C/emacs\\" C-m \\"gdb\\" C-m; oneterminal \\"debug-emacs\\""
+bindsym $mod+Control+e exec emacs-debug
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2555,22 +2555,20 @@ end
     Create a session but let someone else do the attach
 
     ```bash
-           #!/usr/bin/bash
-           # Maintained in linux-init-files.org
-           session="${1:-gdb-session}"
-           if tmux has-session -t "${session}" &> /dev/null; then
-    #           echo "session ${session} exists, so attach to it!"
-               exit 1
-           else
-               echo "creating session ${session}."
-               tmux new-session -d -s "${session}"
-               tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
-               tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
-               tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
-               tmux splitw -v -p 10 -t "${session}":0.0
-     #          tmux select-pane -t "${session}":0.0
-               exit 0
-           fi
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    directory="${1:-`pwd`}"
+    session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
+    if ! tmux has-session -t "${session}" &> /dev/null; then
+        tmux new-session -d -s "${session}"
+        tmux splitw -v -p 10 -t "${session}":0.0 "voltron v breakpoints"
+        tmux splitw -h -p 90 -t "${session}":0.1 "voltron v backtrace"
+        tmux splitw -h -p 80 -t "${session}":0.2 "voltron v register"
+        tmux splitw -v -p 10 -t "${session}":0.0
+        tmux select-pane -t "${session}":0.0
+        tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
+    fi
+    echo $session
     ```
 
 2.  ~/bin/gdb-run
@@ -2579,10 +2577,8 @@ end
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
-    # replace slashes in directory with dashes for a sessionname
-    session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
-    gdb-session "${session}" "${directory}" && tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
-    tmux attach -t "${session}"
+    session="${2}"
+    tmux attach -t "$(gdb-session "${directory}" "${session}")"
     ```
 
 3.  ~/bin/emacs-debug
@@ -2590,11 +2586,7 @@ end
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    gdb-session emacs-gdb-session
-    if  [ "$?" = "0" ]; then # created new session
-        tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs" C-m "gdb" C-m
-    fi
-    oneterminal emacs-gdb-session
+    oneterminal  "$(gdb-session ~/development/projects/C/emacs gdb-emacs)"
 
     ```
 
@@ -2995,7 +2987,6 @@ if [ -z "$WID" ]; then
     terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-session -A -s ${sessionname} ${script}"
 else
     xdotool windowactivate $WID
-    exit 1
 fi
 ```
 

@@ -1,7 +1,3 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-gdb-session emacs-gdb-session
-if  [ "$?" = "0" ]; then # created new session
-    tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs" C-m "gdb" C-m
-fi
-oneterminal emacs-gdb-session
+oneterminal  "$(gdb-session ~/development/projects/C/emacs gdb-emacs)"
