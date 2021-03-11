@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-session="${1-gdb-session}"
+session="${1:-gdb-session}"
 if tmux has-session -t "${session}" &> /dev/null; then
     echo "session ${session} exists, so attach to it!"
     exit 1

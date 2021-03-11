@@ -1341,7 +1341,7 @@ bindsym $mod+Control+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+e exec gdb-session "debug-emacs" && tmux send-keys -t "debug-emacs:0.0" "cd ~/development/projects/C/emacs" C-m "gdb" C-m && oneterminal "debug-emacs" || oneterminal "debug-emacs"
+bindsym $mod+Control+e exec "gdb-session debug-emacs && tmux send-keys -t \\"debug-emacs:0.0\\" \\"cd ~/development/projects/C/emacs\\" C-m \\"gdb\\" C-m; oneterminal \\"debug-emacs\\""
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2557,7 +2557,7 @@ end
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    session="${1-gdb-session}"
+    session="${1:-gdb-session}"
     if tmux has-session -t "${session}" &> /dev/null; then
         echo "session ${session} exists, so attach to it!"
         exit 1
@@ -2573,7 +2573,18 @@ end
     fi
     ```
 
-2.  ~/bin/emacs-debug
+2.  ~/bin/gdb-run
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    session="${1:-gdb-session}"
+    directory="${2:-`pwd`}"
+    gdb-session $@ && tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
+    tmux attach -t "${session}"
+    ```
+
+3.  ~/bin/emacs-debug
 
     ```bash
     #!/usr/bin/bash
