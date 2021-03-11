@@ -1,4 +1,4 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
 tmux new-session  -d -s bpytop bpytop
-oneterminal bpytop
+oneterminal bpytop bpytop

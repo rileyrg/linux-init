@@ -1,17 +1,13 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-sessionname="${1:-"OneTerminal"}"
+sessionname="${1:-OneTerminal}"
 script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0
 if [ -z "$WID" ]; then
-    if ! tmux has-session -t "$sessionname" &> /dev/null; then
-        [ ! -z "$script" ] && "$script" "$sessionname"
-        created=1
-    fi
-    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-s -A -s "$sessionname"" &
+    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-session -A -s ${sessionname} ${script}"
 else
     echo "Found a window called $sessionname so jumping to it..."
     xdotool windowactivate $WID
+    exit 1
 fi
-[ "$created" = "1" ] && exit 0 || exit 1

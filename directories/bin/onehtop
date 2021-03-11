@@ -1,4 +1,4 @@
 #!/bin/bash
 #Maintained in linux-init-files.org
-tmux new-session  -d -s htop
-oneterminal htop
+tmux new-session  -d -s htop htop
+oneterminal htop htop

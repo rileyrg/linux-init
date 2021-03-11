@@ -206,7 +206,7 @@ bindsym $mod+Shift+e exec emacs-same-frame
 bindsym $mod+Shift+f exec google-chrome --disable-session-crashed-bubble
 bindsym $mod+Control+a exec pavucontrol
 bindsym $mod+Control+Shift+a exec pulse-restart
-bindsym $mod+Control+b exec onebpytop
+bindsym $mod+Control+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
@@ -215,7 +215,7 @@ bindsym $mod+Control+k exec tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/deve
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
-bindsym $mod+Control+p exec onehtop
+bindsym $mod+Control+p exec oneterminal "Process-Monitor-htop" htop
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal
