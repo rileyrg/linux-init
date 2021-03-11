@@ -5,7 +5,7 @@ script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0
 if [ -z "$WID" ]; then
-    terminator -T "${sessionname}" -p "${sessionname}" -e "tmux new-session -A -s ${sessionname} ${script}"
+    terminator -T "${sessionname}" -p "${TERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}"
 else
     xdotool windowactivate $WID
 fi
