@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-directory="${1:-`pwd`}"
+directory="$(realpath -s "${1:-`pwd`}")"
 session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
 if ! tmux has-session -t "${session}" &> /dev/null; then
     tmux new-session -d -s "${session}"

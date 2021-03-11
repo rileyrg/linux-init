@@ -64,7 +64,6 @@
 !/directories/bin/dropbox-start-once
 !/directories/bin/edit
 !/directories/bin/eman
-!/directories/bin/emacs-debug
 !/directories/bin/extract-debug-info
 !/directories/bin/expert-advice
 !/directories/bin/gdb-session

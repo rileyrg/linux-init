@@ -1294,7 +1294,7 @@
       bindsym $mod+Control+c exec conky
       bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
       bindsym $mod+Control+f exec thunar
-      bindsym $mod+Control+e exec emacs-debug
+      bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
       bindsym $mod+Control+h exec pidof hexchat || hexchat
       bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
       bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2451,7 +2451,7 @@
      #+begin_src bash :tangle ~/bin/gdb-session
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
-       directory="${1:-`pwd`}"
+       directory="$(realpath -s "${1:-`pwd`}")"
        session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
        if ! tmux has-session -t "${session}" &> /dev/null; then
            tmux new-session -d -s "${session}"
@@ -2470,29 +2470,8 @@
        # Maintained in linux-init-files.org
        directory="${1:-`pwd`}"
        session="${2}"
-       oneterminal "$(gdb-session "${directory}" "${session}")"
+       TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")"
      #+end_src
-**** ~/bin/emacs-debug
-     #+begin_src bash :tangle ~/bin/emacs-debug
-       #!/usr/bin/bash
-       # Maintained in linux-init-files.org
-       oneterminal  "$(gdb-session ~/development/projects/C/emacs gdb-emacs)"
-
-     #+end_src
-** cgdb
-*** ~/.cgdb/cgdbrc
-    #+begin_src conf :tangle "DotFiles/.cgdb/cgdbrc"
-      # Maintained in linux-init-files.org
-    #+end_src
-** Bash
-*** ~/bin/bash-dbg
-    Using built in bash script tracing
-    #+begin_src bash :tangle ~/bin/bash-dbg
-      #!/usr/bin/bash
-      # Maintained in linux-init-files.org
-      export SHELLOPTS
-      PS4='$LINENO: ' bash -xv "$@"
-    #+end_src
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
    #+begin_src gpg :tangle "~/.gnupg/gpg.conf"

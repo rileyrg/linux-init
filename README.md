@@ -1341,7 +1341,7 @@ bindsym $mod+Control+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
-bindsym $mod+Control+e exec emacs-debug
+bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2557,7 +2557,7 @@ end
     ```bash
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
-    directory="${1:-`pwd`}"
+    directory="$(realpath -s "${1:-`pwd`}")"
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
@@ -2578,42 +2578,8 @@ end
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
     session="${2}"
-    oneterminal "$(gdb-session "${directory}" "${session}")"
+    TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")"
     ```
-
-3.  ~/bin/emacs-debug
-
-    ```bash
-    #!/usr/bin/bash
-    # Maintained in linux-init-files.org
-    oneterminal  "$(gdb-session ~/development/projects/C/emacs gdb-emacs)"
-
-    ```
-
-
-## cgdb
-
-
-### ~/.cgdb/cgdbrc
-
-```conf
-# Maintained in linux-init-files.org
-```
-
-
-## Bash
-
-
-### ~/bin/bash-dbg
-
-Using built in bash script tracing
-
-```bash
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-export SHELLOPTS
-PS4='$LINENO: ' bash -xv "$@"
-```
 
 
 # PGP/GNUPG/GPG
