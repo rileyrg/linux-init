@@ -1342,7 +1342,6 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec emacs-debug
-bindsym $mod+Control+k exec tmux send-keys -t "emacs-gdb-session:0.0" "cd ~/development/projects/C/emacs/" Enter  "gdb" Enter
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
