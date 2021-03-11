@@ -2578,7 +2578,7 @@ end
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
     session="${2}"
-    tmux attach -t "$(gdb-session "${directory}" "${session}")"
+    oneterminal "$(gdb-session "${directory}" "${session}")"
     ```
 
 3.  ~/bin/emacs-debug

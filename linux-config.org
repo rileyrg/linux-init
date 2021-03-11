@@ -2470,7 +2470,7 @@
        # Maintained in linux-init-files.org
        directory="${1:-`pwd`}"
        session="${2}"
-       tmux attach -t "$(gdb-session "${directory}" "${session}")"
+       oneterminal "$(gdb-session "${directory}" "${session}")"
      #+end_src
 **** ~/bin/emacs-debug
      #+begin_src bash :tangle ~/bin/emacs-debug
