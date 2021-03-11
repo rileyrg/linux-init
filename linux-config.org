@@ -2470,9 +2470,10 @@
      #+begin_src bash :tangle ~/bin/gdb-run
        #!/usr/bin/bash
        # Maintained in linux-init-files.org
-       session="${1:-gdb-session}"
-       directory="${2:-`pwd`}"
-       gdb-session $@ && tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
+       directory="${1:-`pwd`}"
+       # replace slashes in directory with dashes for a sessionname
+       session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
+       gdb-session "${session}" "${directory}" && tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m
        tmux attach -t "${session}"
      #+end_src
 **** ~/bin/emacs-debug
