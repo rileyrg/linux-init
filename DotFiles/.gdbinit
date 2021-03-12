@@ -40,6 +40,12 @@ define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
 shell oneterminal "$(voltron-session)"
+
+define hook-quit
+shell tmux kill-session -t "$(voltron-session)" &> /dev/null
+shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
+end
+
 end
 
 define ext-init

@@ -1089,7 +1089,7 @@ run -b '~/.tmux/plugins/tpm/tpm'
 ```bash
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-"$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
+echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 ```
 
 
@@ -1348,6 +1348,7 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
+bindsym $mod+Control+g exec oneterminal "gdb"
 bindsym $mod+Control+v exec oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
@@ -2382,6 +2383,12 @@ define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
 shell oneterminal "$(voltron-session)"
+
+define hook-quit
+shell tmux kill-session -t "$(voltron-session)" &> /dev/null
+shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
+end
+
 end
 
 define ext-init
@@ -2629,7 +2636,7 @@ voltron-init
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
     session="${2}"
-    TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")" &
+    ONETERM_PROFILE=gdb ONETERM_TITLE="gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
     ```
 
 
@@ -2998,10 +3005,10 @@ fi
 #Maintained in linux-init-files.org
 sessionname="${1:-OneTerminal}"
 script="${2}"
-WID=`xdotool search --name "^${sessionname}$" | head -1`
-created=0
+title="${ONETERM_TITLE:-${sessionname}}"
+WID=`xdotool search --name "^${title}$" | head -1`
 if [ -z "$WID" ]; then
-    terminator -T "${sessionname}" -p "${TERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
+    terminator -T "${title}" -p "${ONETERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
     xdotool windowactivate $WID
 fi

@@ -216,6 +216,7 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
+bindsym $mod+Control+g exec oneterminal "gdb"
 bindsym $mod+Control+v exec oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
