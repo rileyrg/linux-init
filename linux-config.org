@@ -2276,7 +2276,7 @@
       voltron init
       end
 
-      define init
+      define ext-init
       gef-init
       voltron-init
       end
@@ -2285,8 +2285,6 @@
       frame $arg0
       context
       end
-
-      init
 
 
     #+end_src

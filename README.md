@@ -2368,7 +2368,7 @@ source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
 end
 
-define init
+define ext-init
 gef-init
 voltron-init
 end
@@ -2377,8 +2377,6 @@ define f
 frame $arg0
 context
 end
-
-init
 
 
 ```
