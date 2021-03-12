@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+directory="${1:-`pwd`}"
+session="${2}"
+TERM_PROFILE=gdb oneterminal "$(gdb-session "${directory}" "${session}")" &

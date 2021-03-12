@@ -66,7 +66,7 @@
 !/directories/bin/eman
 !/directories/bin/extract-debug-info
 !/directories/bin/expert-advice
-!/directories/bin/gdb-session
+!/directories/bin/gdb-*
 !/directories/bin/getmails
 !/directories/bin/google-trans
 !/directories/bin/google-trans-de-en
@@ -90,6 +90,7 @@
 !/directories/bin/securelock
 !/directories/bin/sharemouse
 !/directories/bin/sys-logger
+!/directories/bin/voltron-*
 !/directories/bin/x-idlehook
 !/directories/bin/x-backlight-persist
 !/directories/bin/x-lock-utils
