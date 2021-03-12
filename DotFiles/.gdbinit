@@ -17,6 +17,14 @@ set confirm off
 set print address off
 set print symbol-filename off
 
+define lsource
+list *$rip
+end
+
+define infolocals
+info locals
+end
+
 define gef-init
 
 source ~/bin/thirdparty/gef/gef.py
@@ -39,22 +47,20 @@ end
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
-shell oneterminal "$(voltron-session)"
+end
 
 define hook-quit
 shell tmux kill-session -t "$(voltron-session)" &> /dev/null
 shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
 end
 
-end
-
 define ext-init
-voltron-init
 gef-init
+voltron-init
 end
 
 define il
 info locals $arg0
 end
 
-voltron-init
+ext-init

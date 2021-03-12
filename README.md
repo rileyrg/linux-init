@@ -1349,7 +1349,7 @@ bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
 bindsym $mod+Control+g exec oneterminal "gdb"
-bindsym $mod+Control+v exec oneterminal $(voltron-session)
+bindsym $mod+Control+v exec ONETERM_PROFILE=voltron oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2360,6 +2360,14 @@ set confirm off
 set print address off
 set print symbol-filename off
 
+define lsource
+list *$rip
+end
+
+define infolocals
+info locals
+end
+
 define gef-init
 
 source ~/bin/thirdparty/gef/gef.py
@@ -2382,26 +2390,23 @@ end
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 voltron init
-shell oneterminal "$(voltron-session)"
+end
 
 define hook-quit
 shell tmux kill-session -t "$(voltron-session)" &> /dev/null
 shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
 end
 
-end
-
 define ext-init
-voltron-init
 gef-init
+voltron-init
 end
 
 define il
 info locals $arg0
 end
 
-voltron-init
-
+ext-init
 
 ```
 
@@ -2588,9 +2593,11 @@ voltron-init
         session=${1:-"voltron"}
         window=${2:-"0"}
         pane=${3:-"0"}
-        tmux send-keys -t "${session}:${window}.${pane}" "voltron v breakpoints" C-m
-        tmux splitw -h -p 66  -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
-        tmux splitw -h -p 50  -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
+        tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)" "voltron v c infolocals --lexer gdb_intel"
+        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
+        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
         ```
 
 2.  ~/bin/voltron-session
