@@ -1013,20 +1013,13 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 ```conf
 # Maintained in linux-init-files.org
 
-#dracula theme
-set -g @dracula-show-network false
-set -g @dracula-show-weather true
-set -g @dracula-show-powerline true
-set -g @dracula-show-time false
-set -g @dracula-show-fahrenheit false
-set -g @dracula-cpu-usage true
-set -g @dracula-ram-usage true
-set -g @dracula-gpu-usage true
-
 # Change the prefix key to C-a
 set -g prefix C-a
 unbind C-b
 bind C-a send-prefix
+
+set -g pane-border-format "#{pane_index} #{pane_title}"
+set -g pane-border-status bottom
 
 # reload tmux config
 bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
@@ -1085,7 +1078,6 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'dracula/tmux'
 
 run -b '~/.tmux/plugins/tpm/tpm'
 
@@ -1252,6 +1244,11 @@ set $ws8 "8:irc"
 set $ws9 "9:steam"
 set $ws10 "10"
 
+workspace $ws3 gaps inner 0
+workspace $ws3 gaps outer 0
+
+
+
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
 assign [class="discord"] $ws8
@@ -1351,6 +1348,7 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
+bindsym $mod+Control+v exec oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2372,8 +2370,8 @@ end
 
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-# gef config context.nb_lines_code 16
-# gef config context.nb_lines_code_prev 4
+gef config context.nb_lines_code 13
+gef config context.nb_lines_code_prev 6
 # gef config context.nb_lines_stack 4
 tmux-setup
 context
@@ -2382,10 +2380,8 @@ end
 
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
-shell tmux splitw -v -p 50
-shell voltron-panes-h
 voltron init
-shell tmux select-pane -t .0
+shell oneterminal "$(voltron-session)"
 end
 
 define ext-init
@@ -2571,7 +2567,7 @@ end
 
 <https://github.com/snare/voltron>
 
-1.  voltron-panes
+1.  voltron panes
 
     add voltron panes to an existing session
 
@@ -2580,11 +2576,28 @@ end
         ```bash
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        pane=${1:-"1"}
-        tmux send-keys -t $pane "voltron v breakpoints" C-m
-        tmux splitw -h -p 66  "voltron v backtrace"
-        tmux splitw -h -p 50  "voltron v register"
+        session=${1:-"voltron"}
+        window=${2:-"0"}
+        pane=${3:-"0"}
+        tmux send-keys -t "${session}:${window}.${pane}" "voltron v breakpoints" C-m
+        tmux splitw -h -p 66  -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
+        tmux splitw -h -p 50  -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
         ```
+
+2.  ~/bin/voltron-session
+
+    ```bash
+    #!/usr/bin/bash
+    # Maintained in linux-init-files.org
+    session="${1:-voltron}"
+    window="${2:-"0"}"
+    pane="${3:-"0"}"
+    if ! tmux has-session -t ${session} &> /dev/null; then
+        tmux new-session -n "VOLTRON" -d -s "${session}"  &> /dev/null
+        voltron-panes-h "${session}" "${window}" "${pane}"
+    fi
+    echo "${session}"
+    ```
 
 
 ### tmux gdb setup scripts
@@ -2598,11 +2611,13 @@ end
     # Maintained in linux-init-files.org
     directory="$(realpath -s "${1:-`pwd`}")"
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
+    window=${2:-"0"}
+    pane=${3:-"0"}
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
-        tmux send-keys -t .0 "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
+        tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
     fi
-    echo $session
+    echo "$session"
     ```
 
 2.  ~/bin/gdb-run
@@ -2984,7 +2999,7 @@ script="${2}"
 WID=`xdotool search --name "^${sessionname}$" | head -1`
 created=0
 if [ -z "$WID" ]; then
-    terminator -T "${sessionname}" -p "${TERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}"
+    terminator -T "${sessionname}" -p "${TERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
     xdotool windowactivate $WID
 fi

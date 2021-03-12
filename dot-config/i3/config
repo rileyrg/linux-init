@@ -129,6 +129,11 @@ set $ws8 "8:irc"
 set $ws9 "9:steam"
 set $ws10 "10"
 
+workspace $ws3 gaps inner 0
+workspace $ws3 gaps outer 0
+
+
+
 assign [class="Signal"] $ws8
 assign [class="Hexchat"] $ws8
 assign [class="discord"] $ws8
@@ -211,6 +216,7 @@ bindsym $mod+Control+c exec conky
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
+bindsym $mod+Control+v exec oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore

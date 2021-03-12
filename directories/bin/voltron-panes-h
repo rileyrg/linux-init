@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 # Maintained in linux-init-files.org
-pane=${1:-"1"}
-tmux send-keys -t $pane "voltron v breakpoints" C-m
-tmux splitw -h -p 66  "voltron v backtrace"
-tmux splitw -h -p 50  "voltron v register"
+session=${1:-"voltron"}
+window=${2:-"0"}
+pane=${3:-"0"}
+tmux send-keys -t "${session}:${window}.${pane}" "voltron v breakpoints" C-m
+tmux splitw -h -p 66  -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
+tmux splitw -h -p 50  -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"

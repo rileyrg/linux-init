@@ -2,8 +2,10 @@
 # Maintained in linux-init-files.org
 directory="$(realpath -s "${1:-`pwd`}")"
 session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
+window=${2:-"0"}
+pane=${3:-"0"}
 if ! tmux has-session -t "${session}" &> /dev/null; then
     tmux new-session -d -s "${session}"
-    tmux send-keys -t .0 "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
+    tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
 fi
-echo $session
+echo "$session"

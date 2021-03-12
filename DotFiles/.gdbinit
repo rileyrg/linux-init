@@ -28,8 +28,8 @@ end
 
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-# gef config context.nb_lines_code 16
-# gef config context.nb_lines_code_prev 4
+gef config context.nb_lines_code 13
+gef config context.nb_lines_code_prev 6
 # gef config context.nb_lines_stack 4
 tmux-setup
 context
@@ -38,10 +38,8 @@ end
 
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
-shell tmux splitw -v -p 50
-shell voltron-panes-h
 voltron init
-shell tmux select-pane -t .0
+shell oneterminal "$(voltron-session)"
 end
 
 define ext-init
