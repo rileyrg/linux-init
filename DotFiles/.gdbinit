@@ -43,4 +43,9 @@ frame $arg0
 context
 end
 
+define il
+info locals $arg0
+end
+
+
 ext-init

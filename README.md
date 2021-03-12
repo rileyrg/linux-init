@@ -2387,6 +2387,11 @@ frame $arg0
 context
 end
 
+define il
+info locals $arg0
+end
+
+
 ext-init
 
 ```
@@ -2571,12 +2576,10 @@ ext-init
         ```bash
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        session="$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
-        win=${2:-"0"}
-        pane=${3:-"0"}
-        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
-        tmux splitw -h -p 66 -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v backtrace"
-        tmux splitw -h -p 50 -t "${session}":"${win}"."$(expr $pane + 1)" "voltron v register"
+        pane=${1:-"0"}
+        tmux send-keys -t $pane "voltron v breakpoints" C-m
+        tmux splitw -h -p 66  "voltron v backtrace"
+        tmux splitw -h -p 50  "voltron v register"
         ```
 
 
@@ -2593,10 +2596,10 @@ ext-init
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
-        tmux splitw -v -p 30 -t "${session}:0.0"
-        voltron-panes-h "${session}" 0 1
-        tmux select-pane -t "${session}:0.0"
-        tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
+        tmux splitw -v -p 30
+        voltron-panes-h .1
+        tmux select-pane -t .0
+        tmux send-keys -t .0 "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
     fi
     echo $session
     ```
