@@ -2362,11 +2362,14 @@ set print address off
 set print symbol-filename off
 
 define gef-init
+
 source ~/bin/thirdparty/gef/gef.py
+
 define f
 frame $arg0
 context
 end
+
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
 # gef config context.nb_lines_code 16
@@ -2374,25 +2377,26 @@ end
 # gef config context.nb_lines_stack 4
 tmux-setup
 context
-
+shell tmux select-pane -t .0
 end
 
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+shell tmux splitw -v -p 50
+shell voltron-panes-h
 voltron init
+shell tmux select-pane -t .0
 end
 
 define ext-init
-gef-init
 voltron-init
+gef-init
 end
 
 define il
 info locals $arg0
 end
 
-
-ext-init
 
 ```
 
@@ -2576,7 +2580,7 @@ ext-init
         ```bash
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        pane=${1:-"0"}
+        pane=${1:-"1"}
         tmux send-keys -t $pane "voltron v breakpoints" C-m
         tmux splitw -h -p 66  "voltron v backtrace"
         tmux splitw -h -p 50  "voltron v register"
@@ -2596,9 +2600,6 @@ ext-init
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
-        tmux splitw -v -p 30
-        voltron-panes-h .1
-        tmux select-pane -t .0
         tmux send-keys -t .0 "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
     fi
     echo $session

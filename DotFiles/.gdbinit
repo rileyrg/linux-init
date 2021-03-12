@@ -18,11 +18,14 @@ set print address off
 set print symbol-filename off
 
 define gef-init
+
 source ~/bin/thirdparty/gef/gef.py
+
 define f
 frame $arg0
 context
 end
+
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
 # gef config context.nb_lines_code 16
@@ -30,22 +33,22 @@ end
 # gef config context.nb_lines_stack 4
 tmux-setup
 context
-
+shell tmux select-pane -t .0
 end
 
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+shell tmux splitw -v -p 50
+shell voltron-panes-h
 voltron init
+shell tmux select-pane -t .0
 end
 
 define ext-init
-gef-init
 voltron-init
+gef-init
 end
 
 define il
 info locals $arg0
 end
-
-
-ext-init
