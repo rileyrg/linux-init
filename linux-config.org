@@ -1062,6 +1062,12 @@
      run -b '~/.tmux/plugins/tpm/tpm'
 
    #+end_src
+** ~/bin/tmux-current-session
+   #+begin_src bash :tangle ~/bin/tmux-current-session
+     #!/usr/bin/bash
+     # Maintained in linux-init-files.org
+     "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
+   #+end_src
 * I3 window manager
 ** i3wm config
    :PROPERTIES:
@@ -2286,6 +2292,7 @@
       context
       end
 
+      ext-init
 
     #+end_src
 *** GEF
@@ -2456,12 +2463,12 @@
       #+begin_src bash :tangle ~/bin/voltron-panes-h
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        session=${1:-"gdb"}
+        session="$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
         win=${2:-"0"}
         pane=${3:-"0"}
+        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
         tmux splitw -h -p 66 -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v backtrace"
         tmux splitw -h -p 50 -t "${session}":"${win}"."$(expr $pane + 1)" "voltron v register"
-        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
       #+end_src
 *** tmux gdb setup scripts
 **** ~/bin/gdb-session

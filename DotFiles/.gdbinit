@@ -42,3 +42,5 @@ define f
 frame $arg0
 context
 end
+
+ext-init

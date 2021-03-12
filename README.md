@@ -1092,6 +1092,15 @@ run -b '~/.tmux/plugins/tpm/tpm'
 ```
 
 
+## ~/bin/tmux-current-session
+
+```bash
+#!/usr/bin/bash
+# Maintained in linux-init-files.org
+"$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
+```
+
+
 # I3 window manager
 
 
@@ -2378,6 +2387,7 @@ frame $arg0
 context
 end
 
+ext-init
 
 ```
 
@@ -2561,12 +2571,12 @@ end
         ```bash
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
-        session=${1:-"gdb"}
+        session="$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
         win=${2:-"0"}
         pane=${3:-"0"}
+        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
         tmux splitw -h -p 66 -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v backtrace"
         tmux splitw -h -p 50 -t "${session}":"${win}"."$(expr $pane + 1)" "voltron v register"
-        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
         ```
 
 
