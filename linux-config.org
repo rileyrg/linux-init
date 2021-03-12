@@ -2298,6 +2298,8 @@
       info locals $arg0
       end
 
+      voltron-init
+
 
     #+end_src
 *** GEF

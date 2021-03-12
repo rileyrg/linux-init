@@ -2393,6 +2393,8 @@ define il
 info locals $arg0
 end
 
+voltron-init
+
 
 ```
 
