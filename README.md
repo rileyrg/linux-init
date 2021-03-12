@@ -2363,6 +2363,10 @@ set print symbol-filename off
 
 define gef-init
 source ~/bin/thirdparty/gef/gef.py
+define f
+frame $arg0
+context
+end
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
 # gef config context.nb_lines_code 16
@@ -2370,6 +2374,7 @@ source ~/bin/thirdparty/gef/gef.py
 # gef config context.nb_lines_stack 4
 tmux-setup
 context
+
 end
 
 define voltron-init
@@ -2380,11 +2385,6 @@ end
 define ext-init
 gef-init
 voltron-init
-end
-
-define f
-frame $arg0
-context
 end
 
 define il
