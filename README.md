@@ -2562,11 +2562,11 @@ end
         #!/usr/bin/bash
         # Maintained in linux-init-files.org
         session=${1:-"gdb"}
-        win=${2:-0}
-        pane=${3:-0}
-        tmux splitw -v -p 30 -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints"
-        tmux splitw -h -p 66 -t "${session}":"${win}"."$(expr $pane + 1)" "voltron v backtrace"
-        tmux splitw -h -p 50 -t "${session}":"${win}"."$(expr $pane + 2)" "voltron v register"
+        win=${2:-"0"}
+        pane=${3:-"0"}
+        tmux splitw -h -p 66 -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v backtrace"
+        tmux splitw -h -p 50 -t "${session}":"${win}"."$(expr $pane + 1)" "voltron v register"
+        tmux send-keys       -t "${session}":"${win}"."$(expr $pane + 0)" "voltron v breakpoints" C-m
         ```
 
 
@@ -2583,8 +2583,9 @@ end
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     if ! tmux has-session -t "${session}" &> /dev/null; then
         tmux new-session -d -s "${session}"
-        voltron-panes-h "${session}" 0 0
-        tmux select-pane -t "${session}":0.0
+        tmux splitw -v -p 30 -t "${session}:0.0"
+        voltron-panes-h "${session}" 0 1
+        tmux select-pane -t "${session}:0.0"
         tmux send-keys -t "${session}:0.0" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
     fi
     echo $session
