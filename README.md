@@ -1254,6 +1254,8 @@ assign [class="Hexchat"] $ws8
 assign [class="discord"] $ws8
 assign [class="Steam"] $ws9
 
+assign [title="dbg:"] $ws3
+
 # for_window [class="steam_app.*"] fullscreen enable
 
 # switch to workspace
@@ -1349,7 +1351,7 @@ bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+f exec thunar
 bindsym $mod+Control+e exec gdb-run ~/development/projects/C/emacs
 bindsym $mod+Control+g exec oneterminal "gdb"
-bindsym $mod+Control+v exec ONETERM_PROFILE=voltron oneterminal $(voltron-session)
+bindsym $mod+Control+v exec ONETERM_PROFILE=voltron ONETERM_TITLE="dbg:voltron" oneterminal $(voltron-session)
 bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
@@ -2616,8 +2618,8 @@ end
     session="${1:-voltron}"
     window="${2:-"0"}"
     pane="${3:-"0"}"
-    if ! tmux has-session -t ${session} &> /dev/null; then
-        tmux new-session -n "VOLTRON" -d -s "${session}" &> /dev/null
+    if ! tmux has-session -t "${session}" &> /dev/null; then
+        tmux new-session -d -s "${session}" &> /dev/null
         voltron-panes-h "${session}" "${window}" "${pane}"
     fi
     echo "${session}"
@@ -2651,7 +2653,7 @@ end
     # Maintained in linux-init-files.org
     directory="${1:-`pwd`}"
     session="${2}"
-    ONETERM_PROFILE=gdb ONETERM_TITLE="gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
+    ONETERM_PROFILE=gdb ONETERM_TITLE="dbg:gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
     ```
 
 

@@ -2,4 +2,4 @@
 # Maintained in linux-init-files.org
 directory="${1:-`pwd`}"
 session="${2}"
-ONETERM_PROFILE=gdb ONETERM_TITLE="gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
+ONETERM_PROFILE=gdb ONETERM_TITLE="dbg:gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
