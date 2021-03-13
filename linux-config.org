@@ -1348,8 +1348,14 @@
       modifier $mod
       }
     #+end_src
-*** i3 polybar
+*** SOMEDAY i3 polybar                                              :WAITING:
+    :LOGBOOK:
+    - State "SOMEDAY"    from              [2021-03-13 Sa 07:58]
+    :END:
 **** polybar integration into i3
+     :PROPERTIES:
+     :header-args:conf: :tangle no
+     :END:
      #+begin_src conf
        exec_always --no-startup-id $HOME/bin/polybar-launch
      #+end_src
