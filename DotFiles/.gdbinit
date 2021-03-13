@@ -55,6 +55,14 @@ end
 
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+
+alias vtty = shell tmux-pane-tty voltron 4
+
+define voltron-source-tty
+shell tmux-pane-tty
+end
+
+
 voltron init
 end
 

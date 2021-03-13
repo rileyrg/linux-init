@@ -2324,6 +2324,14 @@
 
       define voltron-init
       source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+
+      alias vtty = shell tmux-pane-tty voltron 4
+
+      define voltron-source-tty
+      shell tmux-pane-tty
+      end
+
+
       voltron init
       end
 
@@ -2559,6 +2567,14 @@
        session="${2}"
        ONETERM_PROFILE=gdb ONETERM_TITLE="dbg:gdb"  oneterminal "$(gdb-session "${directory}" "${session}")" &
      #+end_src
+
+*** Python
+**** TODO 00:40 time to look into python inside gdb
+     SCHEDULED: <2021-03-14 Sun>
+     :LOGBOOK:
+     - State "TODO"       from              [2021-03-14 Sun 00:40]
+     :END:
+***** [[https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands][gdb python]]
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
    #+begin_src gpg :tangle "~/.gnupg/gpg.conf"

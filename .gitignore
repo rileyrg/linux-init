@@ -91,6 +91,7 @@
 !/directories/bin/securelock
 !/directories/bin/sharemouse
 !/directories/bin/sys-logger
+!/directories/bin/tmux-pane-tty
 !/directories/bin/voltron-*
 !/directories/bin/x-idlehook
 !/directories/bin/x-backlight-persist
