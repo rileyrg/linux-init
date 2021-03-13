@@ -5,7 +5,7 @@ session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-/
 window=${2:-"0"}
 pane=${3:-"0"}
 if ! tmux has-session -t "${session}" &> /dev/null; then
-    tmux new-session -d -s "${session}"
-    tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
+    tmux new-session -c ${directory} -d -s "${session}"
+    tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "gdb"  C-m
 fi
 echo "$session"

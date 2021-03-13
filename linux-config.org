@@ -2535,8 +2535,8 @@
        window=${2:-"0"}
        pane=${3:-"0"}
        if ! tmux has-session -t "${session}" &> /dev/null; then
-           tmux new-session -d -s "${session}"
-           tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "cd ${directory}" C-m "gdb" C-m "cd ${directory}" C-m
+           tmux new-session -c ${directory} -d -s "${session}"
+           tmux send-keys -t  "${session}:${window}.$(expr $pane + 0)" "gdb"  C-m
        fi
        echo "$session"
      #+end_src
@@ -2859,7 +2859,7 @@
     #+end_src
     #+RESULTS:
 
-* Misc utils
+* bin
 ** one commands
    if it exists jump to it else start it
 *** ~/bin/oneinstance
@@ -2892,7 +2892,7 @@
     #+begin_src bash :tangle "~/bin/pop-window"
       #!/usr/bin/bash
       #Maintained in linux-init-files.org
-      xdotool windowactivate `xdotool search --name "$1"`
+      xdotool windowactivate `xdotool search --name "^$1"`
     #+end_src
 ** network interface utilities
 **** ~/bin/my-iface-active-query
@@ -2945,11 +2945,11 @@
          fi
      fi
    #+end_src
-** ~/bin/myedit
+** ~/bin/edit
    #+begin_src bash :tangle "~/bin/edit"
      #!/usr/bin/bash
      # Maintained in linux-init-files.org
-     emacsclient -c  "$@" &> /dev/null  &
+     ${VISUAL:-${EDITOR:-vi}} "${@}"
    #+end_src
 ** ~/bin/eman
    Use emacs for manpages if it's running

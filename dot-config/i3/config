@@ -224,6 +224,7 @@ bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+p exec oneterminal "Process-Monitor-htop" htop
+bindsym $mod+Control+Shift+p exec oneterminal htop-regexp htop-regexp
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal
@@ -255,10 +256,8 @@ hidden_state hide
 modifier $mod
 }
 
-exec_always --no-startup-id $HOME/bin/polybar-launch
-
 # Necessary for i3-gaps to work properly (pixel can be any value)
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 1
 
 # Smart Gaps
 smart_gaps on
@@ -267,7 +266,7 @@ smart_gaps on
 smart_borders on
 
 # Set inner/outer gaps
-gaps inner 14
+gaps inner 3
 gaps outer 0
 
 # Gaps mode

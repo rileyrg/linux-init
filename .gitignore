@@ -72,6 +72,7 @@
 !/directories/bin/google-trans-de-en
 !/directories/bin/google-trans-en-de
 !/directories/bin/gpg-cache
+!/directories/bin/htop-regexp
 !/directories/bin/i3-display-swap
 !/directories/bin/make-compile_commands
 !/directories/bin/my-*
