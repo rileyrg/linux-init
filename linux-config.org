@@ -1308,6 +1308,7 @@
       bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
       bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
       bindsym $mod+Control+p exec oneterminal "Process-Monitor-htop" htop
+      bindsym $mod+Control+Shift+p exec oneterminal htop-regexp htop-regexp
       bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
       bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
       bindsym $mod+Return exec oneterminal
@@ -3015,6 +3016,13 @@
      #objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
      chmod -x "${debugdir}/${debugfile}"
 
+   #+end_src
+** ~/bin/htop-regexp
+   #+begin_src bash :tangle ~/bin/htop-regexp
+     #!/usr/bin/bash
+     #Maintained in linux-init-files.org
+     pids=$(ps a -o pid,args | awk '/'"${1:-"$(zenity --entry --text "enter your regexp" --title "htop regexp")"}"'/ {print $1}' | xargs | sed -e 's/ /,/g')
+     htop -p $pids
    #+end_src
 ** ~/bin/make-compile_commands
    #+begin_src bash :tangle "~/bin/make-compile_commands"
