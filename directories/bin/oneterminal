@@ -7,5 +7,8 @@ WID=`xdotool search --name "^${title}$" | head -1`
 if [ -z "$WID" ]; then
     terminator -T "${title}" -p "${ONETERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
+    if ! tmux has-session -t  "${sessionname}"; then
+        tmux attach -t "${sessionname}"
+    fi
     xdotool windowactivate $WID
 fi

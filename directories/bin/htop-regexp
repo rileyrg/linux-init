@@ -1,4 +1,8 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-pids=$(ps aux | awk '/'"${1:-"$(zenity --entry --text "Htop filter:" --title "htop regexp")"}"'/ {print $2}' | xargs | sed -e 's/ /,/g')
-htop -p $pids
+filter="${1:-"$(zenity --entry --text "Htop filter:" --title "htop regexp")"}"
+session="${2:-"htopregexp"}"
+pids=$(ps aux | awk '/'"${filter}"'/ {print $2}' | xargs | sed -e 's/ /,/g')
+tmux kill-session -t "${session}" &> /dev/null
+tmux new-session -d -s "${session}" "htop -p $pids"
+ONETERM_TITLE="filtered htop:${filter}" ONETERM_PROFILE="Process-Monitor-htop" oneterminal "${session}"

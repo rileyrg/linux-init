@@ -1358,7 +1358,7 @@ bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+p exec oneterminal "Process-Monitor-htop" htop
-bindsym $mod+Control+Shift+p exec oneterminal htop-regexp htop-regexp
+bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal
@@ -2588,6 +2588,9 @@ WID=`xdotool search --name "^${title}$" | head -1`
 if [ -z "$WID" ]; then
     terminator -T "${title}" -p "${ONETERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
+    if ! tmux has-session -t  "${sessionname}"; then
+        tmux attach -t "${sessionname}"
+    fi
     xdotool windowactivate $WID
 fi
 ```
@@ -2760,8 +2763,12 @@ chmod -x "${debugdir}/${debugfile}"
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-pids=$(ps aux | awk '/'"${1:-"$(zenity --entry --text "Htop filter:" --title "htop regexp")"}"'/ {print $2}' | xargs | sed -e 's/ /,/g')
-htop -p $pids
+filter="${1:-"$(zenity --entry --text "Htop filter:" --title "htop regexp")"}"
+session="${2:-"htopregexp"}"
+pids=$(ps aux | awk '/'"${filter}"'/ {print $2}' | xargs | sed -e 's/ /,/g')
+tmux kill-session -t "${session}" &> /dev/null
+tmux new-session -d -s "${session}" "htop -p $pids"
+ONETERM_TITLE="filtered htop:${filter}" ONETERM_PROFILE="Process-Monitor-htop" oneterminal "${session}"
 ```
 
 

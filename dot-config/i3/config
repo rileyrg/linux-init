@@ -224,7 +224,7 @@ bindsym $mod+Control+h exec pidof hexchat || hexchat
 bindsym $mod+Control+l exec (sleep 1 && xset dpms force off) #triggers xss-lock
 bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
 bindsym $mod+Control+p exec oneterminal "Process-Monitor-htop" htop
-bindsym $mod+Control+Shift+p exec oneterminal htop-regexp htop-regexp
+bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+s exec pidof signal-desktop || signal-desktop
 bindsym $mod+Control+t exec "notify-send -t 2000 'Opening NEW Terminator instance' && terminator -e zsh"
 bindsym $mod+Return exec oneterminal
