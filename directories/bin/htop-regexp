@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-pids=$(ps a -o pid,args | awk '/'"${1:-"$(zenity --entry --text "enter your regexp" --title "htop regexp")"}"'/ {print $1}' | xargs | sed -e 's/ /,/g')
+pids=$(ps aux | awk '/'"${1:-"$(zenity --entry --text "Htop filter:" --title "htop regexp")"}"'/ {print $2}' | xargs | sed -e 's/ /,/g')
 htop -p $pids
