@@ -1797,7 +1797,7 @@
 *** i3 gaps
     #+begin_src conf
       # Necessary for i3-gaps to work properly (pixel can be any value)
-      for_window [class="^.*"] border pixel 3
+      for_window [class="^.*"] border pixel 1
 
       # Smart Gaps
       smart_gaps on
@@ -1806,7 +1806,7 @@
       smart_borders on
 
       # Set inner/outer gaps
-      gaps inner 14
+      gaps inner 3
       gaps outer 0
 
       # Gaps mode
