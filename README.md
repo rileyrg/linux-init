@@ -1095,6 +1095,19 @@ echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 ```
 
 
+## ~/bin/tmux-pane-tty
+
+```bash
+#!/usr/bin/bash
+#Maintained in linux-init-files.org
+session="${1:-""}"
+[ -z ${session} ] && exit 1
+pane_index="${2:-0}"
+window="${3:-0}"
+tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
+```
+
+
 # I3 window manager
 
 

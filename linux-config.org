@@ -1062,6 +1062,16 @@
      # Maintained in linux-init-files.org
      echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
    #+end_src
+** ~/bin/tmux-pane-tty
+   #+begin_src bash :tangle ~/bin/tmux-pane-tty
+     #!/usr/bin/bash
+     #Maintained in linux-init-files.org
+     session="${1:-""}"
+     [ -z ${session} ] && exit 1
+     pane_index="${2:-0}"
+     window="${3:-0}"
+     tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
+   #+end_src
 * I3 window manager
 ** i3wm config
    :PROPERTIES:
