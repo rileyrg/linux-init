@@ -4,7 +4,7 @@ session="${1:-voltron}"
 window="${2:-"0"}"
 pane="${3:-"0"}"
 if ! tmux has-session -t ${session} &> /dev/null; then
-    tmux new-session -n "VOLTRON" -d -s "${session}"  &> /dev/null
+    tmux new-session -n "VOLTRON" -d -s "${session}" &> /dev/null
     voltron-panes-h "${session}" "${window}" "${pane}"
 fi
 echo "${session}"

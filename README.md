@@ -1018,7 +1018,7 @@ set -g prefix C-a
 unbind C-b
 bind C-a send-prefix
 
-set -g pane-border-format "#{pane_index} #{pane_title}"
+set -g pane-border-format "#{pane_index} #{pane_title} tty:#{pane_tty}"
 set -g pane-border-status bottom
 
 # reload tmux config
@@ -2377,14 +2377,23 @@ frame $arg0
 context
 end
 
+define hook-up
+context
+end
+
+define hook-down
+context
+end
+
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_code 13
-gef config context.nb_lines_code_prev 6
+# gef config context.nb_lines_code 13
+# gef config context.nb_lines_code_prev 6
 # gef config context.nb_lines_stack 4
-tmux-setup
-context
-shell tmux select-pane -t .0
+# tmux-setup
+# context
+# shell tmux select-pane -t .0
+
 end
 
 define voltron-init
@@ -2393,6 +2402,7 @@ voltron init
 end
 
 define hook-quit
+tmux kill-server
 shell tmux kill-session -t "$(voltron-session)" &> /dev/null
 shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
 end
@@ -2405,8 +2415,6 @@ end
 define il
 info locals $arg0
 end
-
-ext-init
 
 ```
 
@@ -2594,8 +2602,8 @@ ext-init
         window=${2:-"0"}
         pane=${3:-"0"}
         tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
-        tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
-        tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)" "voltron v c infolocals --lexer gdb_intel"
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v c infolocals --lexer gdb_intel"
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)"
         tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
         tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
         ```
@@ -2609,7 +2617,7 @@ ext-init
     window="${2:-"0"}"
     pane="${3:-"0"}"
     if ! tmux has-session -t ${session} &> /dev/null; then
-        tmux new-session -n "VOLTRON" -d -s "${session}"  &> /dev/null
+        tmux new-session -n "VOLTRON" -d -s "${session}" &> /dev/null
         voltron-panes-h "${session}" "${window}" "${pane}"
     fi
     echo "${session}"

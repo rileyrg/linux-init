@@ -4,7 +4,7 @@ session=${1:-"voltron"}
 window=${2:-"0"}
 pane=${3:-"0"}
 tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
-tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v backtrace"
-tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)" "voltron v c infolocals --lexer gdb_intel"
+tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v c infolocals --lexer gdb_intel"
+tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)"
 tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
 tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"

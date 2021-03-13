@@ -34,14 +34,23 @@ frame $arg0
 context
 end
 
+define hook-up
+context
+end
+
+define hook-down
+context
+end
+
 # gef save updates ~/.gef.rc
 # gef config context.layout "legend -regs stack -args source -code -threads -trace -extra -memory"
-gef config context.nb_lines_code 13
-gef config context.nb_lines_code_prev 6
+# gef config context.nb_lines_code 13
+# gef config context.nb_lines_code_prev 6
 # gef config context.nb_lines_stack 4
-tmux-setup
-context
-shell tmux select-pane -t .0
+# tmux-setup
+# context
+# shell tmux select-pane -t .0
+
 end
 
 define voltron-init
@@ -50,6 +59,7 @@ voltron init
 end
 
 define hook-quit
+tmux kill-server
 shell tmux kill-session -t "$(voltron-session)" &> /dev/null
 shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
 end
@@ -62,5 +72,3 @@ end
 define il
 info locals $arg0
 end
-
-ext-init
