@@ -2223,10 +2223,10 @@ end
         window=${2:-"0"}
         pane=${3:-"0"}
         tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
-        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 0)" "voltron v c ila --lexer gdb_intel"
-        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)"
-        tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
-        tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v c ila --lexer gdb_intel"
+        tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)"
+        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
+        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
         ```
 
 2.  ~/bin/voltron-session
@@ -2235,12 +2235,9 @@ end
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     session="${1:-voltron}"
-    window="${2:-"0"}"
-    pane="${3:-"0"}"
-    export TMUX_DIR="${TMUX_DIR:-$(realpath -s ~/development/projects/C)}"
     if ! tmux has-session -t "${session}" &> /dev/null; then
-        tmux new-session -c "${TMUX_DIR}" -d -s "${session}" &> /dev/null
-        voltron-panes-h "${session}" "${window}" "${pane}"
+        tmux new-session -d -s "${session}" &> /dev/null
+        voltron-panes-h "${session}"
     fi
     echo "${session}"
     ```
@@ -2256,6 +2253,7 @@ end
     #!/usr/bin/bash
     # Maintained in linux-init-files.org
     directory="$(realpath -s "${1:-`pwd`}")"
+    cd "${directory}"
     session="$(echo ${2:-${directory}} | sed 's/\//-/g' | sed 's/ /_/g' | sed 's/^-//' | sed 's/-$//')"
     window=${2:-"0"}
     pane=${3:-"0"}
