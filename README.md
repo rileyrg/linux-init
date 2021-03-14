@@ -2222,10 +2222,9 @@ end
         session=${1:-"voltron"}
         window=${2:-"0"}
         pane=${3:-"0"}
-        TMUX_DIR="$(realpath "~/development/projects/C/emacs/")"
         tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
         tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 0)" "voltron v c ila --lexer gdb_intel"
-        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "$SHELL"
+        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)"
         tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
         tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
         ```
@@ -2238,9 +2237,10 @@ end
     session="${1:-voltron}"
     window="${2:-"0"}"
     pane="${3:-"0"}"
+    export TMUX_DIR="${TMUX_DIR:-$(realpath -s ~/development/projects/C)}"
     if ! tmux has-session -t "${session}" &> /dev/null; then
-        tmux new-session -c "${TMUX_DIR:-"."}" -d -s "${session}" &> /dev/null
-        TMUX_DIR="~/development/projects/C/emacs/" voltron-panes-h "${session}" "${window}" "${pane}"
+        tmux new-session -c "${TMUX_DIR}" -d -s "${session}" &> /dev/null
+        voltron-panes-h "${session}" "${window}" "${pane}"
     fi
     echo "${session}"
     ```

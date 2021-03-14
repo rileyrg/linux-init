@@ -3,8 +3,9 @@
 session="${1:-voltron}"
 window="${2:-"0"}"
 pane="${3:-"0"}"
+export TMUX_DIR="${TMUX_DIR:-$(realpath -s ~/development/projects/C)}"
 if ! tmux has-session -t "${session}" &> /dev/null; then
-    tmux new-session -c "${TMUX_DIR:-"."}" -d -s "${session}" &> /dev/null
-    TMUX_DIR="~/development/projects/C/emacs/" voltron-panes-h "${session}" "${window}" "${pane}"
+    tmux new-session -c "${TMUX_DIR}" -d -s "${session}" &> /dev/null
+    voltron-panes-h "${session}" "${window}" "${pane}"
 fi
 echo "${session}"
