@@ -1012,10 +1012,42 @@ logger -t "startup-initfile"  ADD_USER_PATHS
 
 ## ~/.tmux.conf
 
+
+### start
+
 ```conf
 # Maintained in linux-init-files.org
-
 # Change the prefix key to C-a
+```
+
+
+### styles
+
+```conf
+set-option -g status on
+set-option -g status-interval 1
+set-option -g status-justify centre
+set-option -g status-keys vi
+set-option -g status-position bottom
+set-option -g status-style fg=colour136,bg=colour235
+set-option -g status-left-length 20
+set-option -g status-left-style default
+set-option -g status-left "#[fg=green]#H #[fg=black]• #[fg=green,bright]#(uname -r)#[default]"
+set-option -g status-right-length 140
+set-option -g status-right-style default
+set-option -g status-right "#[fg=green,bg=default,bright]#(tmux-mem-cpu-load) "
+set-option -ag status-right "#[fg=red,dim,bg=default]#(uptime | cut -f 4-5 -d ' ' | cut -f 1 -d ',') "
+set-option -ag status-right " #[fg=white,bg=default]%a%l:%M:%S %p#[default] #[fg=blue]%Y-%m-%d"
+set-window-option -g window-status-style fg=colour244
+set-window-option -g window-status-style bg=default
+set-window-option -g window-status-current-style fg=colour166
+set-window-option -g window-status-current-style bg=default
+```
+
+
+### keys
+
+```conf
 set -g prefix C-a
 unbind C-b
 bind C-a send-prefix
@@ -1096,6 +1128,8 @@ echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 
 
 ## ~/bin/tmux-pane-tty
+
+Written to find the tty for a pane in order to redirect gef context source to a voltron pane
 
 ```bash
 #!/usr/bin/bash
@@ -1940,10 +1974,21 @@ define lsource
 list *$rip
 end
 
-define infolocals
+define il
+info locals $arg0
+end
+
+define ila
 info locals
 end
 
+
+define hook-quit
+shell tmux kill-session -t "$(voltron-session)" &> /dev/null
+shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
+end
+
+#### Initialise GEF Session
 define gef-init
 
 source ~/bin/thirdparty/gef/gef.py
@@ -1966,12 +2011,13 @@ end
 # gef config context.nb_lines_code 13
 # gef config context.nb_lines_code_prev 6
 # gef config context.nb_lines_stack 4
-# tmux-setup
+tmux-setup
 # context
 # shell tmux select-pane -t .0
 
 end
 
+#### Initialise Voltron Session
 define voltron-init
 source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
 
@@ -1981,23 +2027,14 @@ define voltron-source-tty
 shell tmux-pane-tty
 end
 
-
 voltron init
+
 end
 
-define hook-quit
-tmux kill-server
-shell tmux kill-session -t "$(voltron-session)" &> /dev/null
-shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
-end
-
+#### Initialise utility extensions
 define ext-init
 gef-init
 voltron-init
-end
-
-define il
-info locals $arg0
 end
 
 ```
@@ -2185,11 +2222,12 @@ end
         session=${1:-"voltron"}
         window=${2:-"0"}
         pane=${3:-"0"}
+        TMUX_DIR="$(realpath "~/development/projects/C/emacs/")"
         tmux send-keys -t "${session}:${window}.${pane}" "voltron v disasm" C-m
-        tmux splitw -h -t "${session}:${window}.$(expr $pane + 0)" "voltron v c infolocals --lexer gdb_intel"
-        tmux splitw -h -t "${session}:${window}.$(expr $pane + 1)"
-        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
-        tmux splitw -v -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
+        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 0)" "voltron v c ila --lexer gdb_intel"
+        tmux splitw -h -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "$SHELL"
+        tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v register"
+        tmux splitw -v -c "${TMUX_DIR}" -t "${session}:${window}.$(expr $pane + 1)" "voltron v breakpoints"
         ```
 
 2.  ~/bin/voltron-session
@@ -2201,8 +2239,8 @@ end
     window="${2:-"0"}"
     pane="${3:-"0"}"
     if ! tmux has-session -t "${session}" &> /dev/null; then
-        tmux new-session -d -s "${session}" &> /dev/null
-        voltron-panes-h "${session}" "${window}" "${pane}"
+        tmux new-session -c "${TMUX_DIR:-"."}" -d -s "${session}" &> /dev/null
+        TMUX_DIR="~/development/projects/C/emacs/" voltron-panes-h "${session}" "${window}" "${pane}"
     fi
     echo "${session}"
     ```
@@ -2245,7 +2283,7 @@ end
 
     1.  [gdb python](https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands)
 
-2.  Scipts
+2.  Scripts
 
 
 # PGP/GNUPG/GPG
