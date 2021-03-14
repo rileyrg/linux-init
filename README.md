@@ -2245,6 +2245,8 @@ end
 
     1.  [gdb python](https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands)
 
+2.  Scipts
+
 
 # PGP/GNUPG/GPG
 

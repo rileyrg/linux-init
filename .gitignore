@@ -54,6 +54,9 @@
 
 !/directories/bin
 
+!/directories/bin/gdb-scripts/
+!/directories/bin/gdb-scripts/*
+
 !/directories/bin/one*
 
 !/directories/bin/acpi-powerstate

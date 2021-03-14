@@ -2575,6 +2575,33 @@
      - State "TODO"       from              [2021-03-14 Sun 00:40]
      :END:
 ***** [[https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands][gdb python]]
+**** Scipts
+***** STARTED ~/bin/gdb-scripts/tmux-pane-tty.py
+      SCHEDULED: <2021-03-14 Sun>
+      :LOGBOOK:
+      - State "STARTED"    from              [2021-03-14 Sun 01:17]
+      :END:
+      #+begin_src python :tangle ~/bin/gdb-scripts/tmux-pane-tty.py
+        import os
+
+        class TmuxPaneTTY (gdb.Command):
+          """return the tty value in use for a certain session and pane"""
+
+        def__init__(self):
+          super(BugReport, self).__init__("bugreport", gdb.COMMAND_USER)
+
+        def invoke(self, arg, from_tty):
+          pagination = gdb.parameter("pagination")
+          if pagination: gdb.execute("set pagination off")
+          f = open("/tmp/bugreport.txt", "w")
+          f.write(gdb.execute("thread apply all backtrace full", to_string=True))
+          f.close()
+          os.system("uname -a >> /tmp/bugreport.txt")
+          if pagination: gdb.execute("set pagination on")
+
+         BugReport()
+      #+end_src
+
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
    #+begin_src gpg :tangle "~/.gnupg/gpg.conf"
