@@ -2616,7 +2616,7 @@ script="${2}"
 title="${ONETERM_TITLE:-${sessionname}}"
 WID=`xdotool search --name "^${title}$" | head -1`
 if [ -z "$WID" ]; then
-    terminator -T "${title}" -p "${ONETERM_PROFILE:-default}" -e "tmux new-session -A -s ${sessionname} ${script}" &
+    terminator -T "${title}" -p "${ONETERM_PROFILE:-"$(hostname)"}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
     if ! tmux has-session -t  "${sessionname}"; then
         tmux attach -t "${sessionname}"
