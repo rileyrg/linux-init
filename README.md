@@ -2647,12 +2647,16 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
+
 sessionname="${1:-OneTerminal}"
 script="${2}"
+
 title="${ONETERM_TITLE:-${sessionname}}"
+profile="${ONETERM_PROFILE:-"$(hostname)"}"
+
 WID=`xdotool search --name "^${title}$" | head -1`
 if [ -z "$WID" ]; then
-    terminator -T "${title}" -p "${ONETERM_PROFILE:-"$(hostname)"}" -e "tmux new-session -A -s ${sessionname} ${script}" &
+    terminator -T "${title}" -p "${profile}" -e "tmux new-session -A -s ${sessionname} ${script}" &
 else
     if ! tmux has-session -t  "${sessionname}"; then
         tmux attach -t "${sessionname}"
@@ -2667,7 +2671,8 @@ fi
 ```bash
 #!/usr/bin/bash
 #Maintained in linux-init-files.org
-xdotool windowactivate `xdotool search --name "^$1"`
+WID=`xdotool search --name "^${title}$" | head -1`
+[ -z "${WID}" ] || xdotool windowactivate "${WID}"
 ```
 
 
