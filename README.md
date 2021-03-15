@@ -463,11 +463,19 @@ Differnt monitors have different resolutions and hence DPI
         echo "No laptop screen detected."
     else
         if [ "$on" = "off" ]; then
-            echo "Turning off "${l}"."
-            xrandr --output "$l" --off
+            # echo "Turning off "${l}"."
+            # xrandr --output "$l" --off
+            e="$(xrandr-connected-external)"
+            if [ -z "$e"]; then
+                echo "Not external so not turning off laptop"
+            else
+                echo "Mirroring laptop ${l} to external ${e} since turning it off causés X to move at a snail's pace"
+                xrandr --output "${e}" --same-as "${l}"
+            fi
         else
             echo "Turning on "${l}"."
-            xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+            #xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+            xrandr-smart-connect
         fi
     fi
     ```

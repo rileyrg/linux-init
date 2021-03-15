@@ -479,14 +479,25 @@
            echo "No laptop screen detected."
        else
            if [ "$on" = "off" ]; then
-               echo "Turning off "${l}"."
-               xrandr --output "$l" --off
+               # echo "Turning off "${l}"."
+               # xrandr --output "$l" --off
+               e="$(xrandr-connected-external)"
+               if [ -z "$e"]; then
+                   echo "Not external so not turning off laptop"
+               else
+                   echo "Mirroring laptop ${l} to external ${e} since turning it off causés X to move at a snail's pace"
+                   xrandr --output "${e}" --same-as "${l}"
+               fi
            else
                echo "Turning on "${l}"."
-               xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+               #xrandr --output "$l" --auto --dpi "${LCD_DPI:-"174"}"
+               xrandr-smart-connect
            fi
        fi
      #+end_src
+      :LOGBOOK:
+      - State "TODO"       from              [2021-03-15 Mon 17:40]
+      :END:
 **** ~/bin/xrandr-multi
      #+name: xrandr-multi
      #+begin_src bash :tangle ~/bin/xrandr-multi
@@ -2600,14 +2611,14 @@
 
 *** Python
 **** TODO 00:40 time to look into python inside gdb
-     SCHEDULED: <2021-03-14 Sun>
+     SCHEDULED: <2021-03-17 Wed>
      :LOGBOOK:
      - State "TODO"       from              [2021-03-14 Sun 00:40]
      :END:
 ***** [[https://sourceware.org/gdb/onlinedocs/gdb/Python-Commands.html#Python-Commands][gdb python]]
 **** Scripts
 ***** STARTED ~/bin/gdb-scripts/tmux-pane-tty.py
-      SCHEDULED: <2021-03-14 Sun>
+      SCHEDULED: <2021-03-20 Sat>
       :LOGBOOK:
       - State "STARTED"    from              [2021-03-14 Sun 01:17]
       :END:
@@ -2618,10 +2629,10 @@
           """return the tty value in use for a certain session and pane"""
 
          def__init__(self):
-          super(TmuxPaneTTY, self).__init__("tmux-pane-tty", gdb.COMMAND_USER)
+         super(TmuxPaneTTY, self).__init__("tmux-pane-tty", gdb.COMMAND_USER)
 
          def invoke(self, arg, from_tty):
-          os.system("tmux-pane-tty voltron 4")
+           os.system("tmux-pane-tty voltron 4")
 
         TMuxPaneTTY()
       #+end_src
