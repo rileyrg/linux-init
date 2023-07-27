@@ -1239,7 +1239,7 @@ bindsym $mod+l exec sway-lock-utils lock
 bindsym Print exec sway-screenshot -i
 bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
 bindsym $mod+Control+Shift+f exec  "sway-www"
-bindsym $mod+Shift+a exec sway-do-tool "jetbrains-studio" "studio.sh"
+bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
 bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org22a75a7"></a>
+<a id="org231ce7b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org22a75a7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org231ce7b).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3680,7 +3680,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org2f521a5).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org8fe02c9).
 
 ```bash
 #!/usr/bin/env bash
@@ -3716,7 +3716,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org2f521a5"></a>
+<a id="org8fe02c9"></a>
 
 ### Examples:
 

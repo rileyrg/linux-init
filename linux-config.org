@@ -1902,7 +1902,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym Print exec sway-screenshot -i
   bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
   bindsym $mod+Control+Shift+f exec  "sway-www"
-  bindsym $mod+Shift+a exec sway-do-tool "jetbrains-studio" "studio.sh"
+  bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
   bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
   bindsym $mod+Control+c exec conky
   bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
