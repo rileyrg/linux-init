@@ -2647,7 +2647,7 @@ output HDMI-A-2  mode 1920x1080 position 2560,116
 **** config-thinkpadt14s
 #+begin_src conf :tangle "dot-config/kanshi/config-thinkpadt14s"
   {
-  output eDP-1 enable mode 1920x1080  position 0,0
+  output eDP-1 mode 1920x1080  position 0,0
   }
 
   {

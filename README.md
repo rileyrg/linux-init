@@ -2030,7 +2030,7 @@ fi
 
     ```conf
     {
-    output eDP-1 enable mode 1920x1080  position 0,0
+    output eDP-1 mode 1920x1080  position 0,0
     }
     
     {
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org8277240"></a>
+<a id="orgeb87584"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8277240).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeb87584).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3680,7 +3680,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org0c409bc).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgae19cb9).
 
 ```bash
 #!/usr/bin/env bash
@@ -3716,7 +3716,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org0c409bc"></a>
+<a id="orgae19cb9"></a>
 
 ### Examples:
 
