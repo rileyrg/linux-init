@@ -32,7 +32,7 @@ export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
 #alias man=eman
 
-export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.emacs.d/bin/bin":"./node_modules/.bin":"${PATH}"
+export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
 
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession

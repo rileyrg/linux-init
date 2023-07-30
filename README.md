@@ -89,7 +89,7 @@ export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
 #alias man=eman
 
-export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.emacs.d/bin/bin":"./node_modules/.bin":"${PATH}"
+export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
 
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgeb87584"></a>
+<a id="orgeef448b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeb87584).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeef448b).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3680,7 +3680,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgae19cb9).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org0ddb3ac).
 
 ```bash
 #!/usr/bin/env bash
@@ -3716,7 +3716,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="orgae19cb9"></a>
+<a id="org0ddb3ac"></a>
 
 ### Examples:
 
