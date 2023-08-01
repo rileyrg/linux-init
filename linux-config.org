@@ -1462,7 +1462,7 @@ X11 apps still need resource definitions when launched under XWayland.
 
   set $mod Mod4
   set $term 'oneterminal'
-  set $menu 'sway-launcher-rofi'
+  set $menu 'sway-launcher-fzf'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
 

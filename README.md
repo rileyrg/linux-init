@@ -730,7 +730,7 @@ build/sway/sway
 
 set $mod Mod4
 set $term 'oneterminal'
-set $menu 'sway-launcher-rofi'
+set $menu 'sway-launcher-fzf'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current'
 
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgf3f8740"></a>
+<a id="orgc92efa4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf3f8740).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc92efa4).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3689,7 +3689,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org56db772).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org4f22374).
 
 ```bash
 #!/usr/bin/env bash
@@ -3725,7 +3725,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org56db772"></a>
+<a id="org4f22374"></a>
 
 ### Examples:
 
