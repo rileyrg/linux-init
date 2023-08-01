@@ -1898,7 +1898,6 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
   bindsym $mod+Control+b exec sway-lock-utils blank
 
-  bindsym $mod+l exec sway-lock-utils lock
   bindsym Print exec sway-screenshot -i
   bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
   bindsym $mod+Control+Shift+f exec  "sway-www"

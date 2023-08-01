@@ -1235,7 +1235,6 @@ for_window [title="bluetoothctl"] floating enable
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Control+b exec sway-lock-utils blank
 
-bindsym $mod+l exec sway-lock-utils lock
 bindsym Print exec sway-screenshot -i
 bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
 bindsym $mod+Control+Shift+f exec  "sway-www"
@@ -2216,7 +2215,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgeef448b"></a>
+<a id="org54a7e35"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2265,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeef448b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org54a7e35).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3680,7 +3679,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org0ddb3ac).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org652e834).
 
 ```bash
 #!/usr/bin/env bash
@@ -3716,7 +3715,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org0ddb3ac"></a>
+<a id="org652e834"></a>
 
 ### Examples:
 
