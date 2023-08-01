@@ -1455,38 +1455,39 @@ X11 apps still need resource definitions when launched under XWayland.
 :END:
 *** general
 #+begin_src conf
-    # Maintained in linux-config.org
+  # Maintained in linux-config.org
 
-    # xwayland disable
+  # xwayland disable
 
-    set $mod Mod4
-    set $term 'oneterminal'
-    set $menu 'sway-launcher-fzf'
-    set $editor 'sway-editor'
-    set $wallpaper '~/Pictures/Wallpapers/current'
 
-    include /etc/sway/config-vars.d/*
-    include config-vars.d/*
+  set $mod Mod4
+  set $term 'oneterminal'
+  set $menu 'sway-launcher-rofi'
+  set $editor 'sway-editor'
+  set $wallpaper '~/Pictures/Wallpapers/current'
 
-    # start a terminal
-    # Use Mouse+$mod to drag floating windows to their wanted position
-    floating_modifier $mod
-    # kill focused window
-    bindsym $mod+q kill
-    bindsym $mod+0 kill
+  include /etc/sway/config-vars.d/*
+  include config-vars.d/*
 
-    # Font  for window titles. Will also be used by the bar unless a different font
-    # is used in the bar {} block below.
-    font pango: "JetBrainsMono Nerd Font 11"
-    #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+  # start a terminal
+  # Use Mouse+$mod to drag floating windows to their wanted position
+  floating_modifier $mod
+  # kill focused window
+  bindsym $mod+q kill
+  bindsym $mod+0 kill
 
-    # reload the configuration file
-    bindsym $mod+Shift+c reload
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    Bindsym $mod+Shift+r restart
+  # Font  for window titles. Will also be used by the bar unless a different font
+  # is used in the bar {} block below.
+  font pango: "JetBrainsMono Nerd Font 11"
+  #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
 
-    bindsym $mod+Shift+e exec $editor
-    bindsym $mod+d exec $menu
+  # reload the configuration file
+  bindsym $mod+Shift+c reload
+  # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+  Bindsym $mod+Shift+r restart
+
+  bindsym $mod+Shift+e exec $editor
+  bindsym $mod+d exec $menu
 
 #+end_src
 
@@ -2916,6 +2917,12 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   exec dmenu_path | wofi --show drun,dmenu -i | xargs swaymsg exec --
+#+end_src
+*** ~/bin/sway/sway-launcher-rofi
+#+begin_src bash :tangle ~/bin/sway/sway-launcher-rofi
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  exec rofi -combi-modi window,drun,ssh,run -show combi -show-icons
 #+end_src
 *** ~/bin/sway/sway-launcher-fzf
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-fzf

@@ -2,9 +2,10 @@
 
 # xwayland disable
 
+
 set $mod Mod4
 set $term 'oneterminal'
-set $menu 'sway-launcher-fzf'
+set $menu 'sway-launcher-rofi'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current'
 
