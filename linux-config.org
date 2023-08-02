@@ -22,6 +22,15 @@
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
 
+#+FILETAGS: :linux:
+
+* tasks test                                                       :noexport:
+** TODO check linux config tasks in agenda
+SCHEDULED: <2023-08-03 Thu>
+:LOGBOOK:
+- State "TODO"       from              [2023-08-02 Wed 09:50]
+:END:
+
 * Introduction
 ** scratch :noexport:
 gah. just trying to find value of export file name
