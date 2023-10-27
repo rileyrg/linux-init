@@ -704,7 +704,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   #alias man=eman
 
-  export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
+  export PATH="${HOME}/bin":"${HOME}/bin/thirdparty/emacs/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
 
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
   export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -3479,8 +3479,26 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
   export PATH="${PATH}:${ANDROID_STUDIO_HOME}/bin"
 
 #+end_src
-** npm                                                                  :npm:
-*** global -g                                                        :global:
+** node.js
+*** nvm
+[[https://github.com/nvm-sh/nvm#installing-and-updating][nvm]] allows you to quickly install and use different versions of node via the command line.
+
+#+begin_src bash :tangle "DotFiles/.profile"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#+end_src
+
+*** npm
+#+begin_src bash :tangle "DotFiles/.profile"
+  export NPM_PACKAGES="${HOME}/.npm-packages"
+  export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
+  export PATH="$NPM_PACKAGES/bin:$PATH"
+  # Unset manpath so we can inherit from /etc/manpath via the `manpath`
+  # command
+  unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
+  export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+#+end_src
+**** global -g                                                       :global:
 :PROPERTIES:
 :ID:       24d2ffff-bf92-47d8-89d8-8b0e8379e4e6
 :END:
@@ -3678,32 +3696,32 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   SubFolders Legacy
 
   Channel gmx-inbox
-  Master :gmx-remote:"INBOX"
-  Slave :gmx-local:"INBOX"
+  Far :gmx-remote:"INBOX"
+  Near :gmx-local:"INBOX"
 
   Channel gmx-sent
-  Master :gmx-remote:"Gesendet"
-  Slave :gmx-local:"Sent"
+  Far :gmx-remote:"Gesendet"
+  Near :gmx-local:"Sent"
 
   Channel gmx-learning
-  Master :gmx-remote:"Learning"
-  Slave :gmx-local:"Learning"
+  Far :gmx-remote:"Learning"
+  Near :gmx-local:"Learning"
 
   Channel gmx-drafts
-  Master :gmx-remote:"Entw&APw-rfe"
-  Slave :gmx-local:"Drafts"
+  Far :gmx-remote:"Entw&APw-rfe"
+  Near :gmx-local:"Drafts"
 
   Channel gmx-bin
-  Master :gmx-remote:"Gel&APY-scht"
-  Slave :gmx-local:"Bin"
+  Far :gmx-remote:"Gel&APY-scht"
+  Near :gmx-local:"Bin"
 
   Channel gmx-spam
-  Master :gmx-remote:"Spamverdacht"
-  Slave :gmx-local:"Spam"
+  Far :gmx-remote:"Spamverdacht"
+  Near :gmx-local:"Spam"
 
   Channel gmx-archive
-  Master :gmx-remote:"Archiv"
-  Slave :gmx-local:"Archive"
+  Far :gmx-remote:"Archiv"
+  Near :gmx-local:"Archive"
 
   Group gmx
   Channel gmx-inbox
@@ -3733,32 +3751,32 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   SubFolders Legacy
 
   Channel gmail-inbox
-  Master :gmail-remote:"INBOX"
-  Slave :gmail-local:"INBOX"
+  Far :gmail-remote:"INBOX"
+  Near :gmail-local:"INBOX"
 
   Channel gmail-sent
-  Master :gmail-remote:"[Google Mail]/Sent Mail"
-  Slave :gmail-local:"Sent"
+  Far :gmail-remote:"[Google Mail]/Sent Mail"
+  Near :gmail-local:"Sent"
 
   Channel gmail-drafts
-  Master :gmail-remote:"[Google Mail]/Drafts"
-  Slave :gmail-local:"Drafts"
+  Far :gmail-remote:"[Google Mail]/Drafts"
+  Near :gmail-local:"Drafts"
 
   Channel gmail-bin
-  Master :gmail-remote:"[Google Mail]/Bin"
-  Slave :gmail-local:"Bin"
+  Far :gmail-remote:"[Google Mail]/Bin"
+  Near :gmail-local:"Bin"
 
   Channel gmail-spam
-  Master :gmail-remote:"[Google Mail]/Spam"
-  Slave :gmail-local:"Spam"
+  Far :gmail-remote:"[Google Mail]/Spam"
+  Near :gmail-local:"Spam"
 
   Channel gmail-archive
-  Master :gmail-remote:"[Google Mail]/All Mail"
-  Slave :gmail-local:"Archive"
+  Far :gmail-remote:"[Google Mail]/All Mail"
+  Near :gmail-local:"Archive"
 
   Channel gmail-gmx-archive
-  Master :gmail-remote:"[Google Mail]/All Mail"
-  Slave :gmx-local:"gmail/Archive"
+  Far :gmail-remote:"[Google Mail]/All Mail"
+  Near :gmx-local:"gmail/Archive"
 
   Group gmail
   Channel gmail-inbox
