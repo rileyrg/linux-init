@@ -118,10 +118,9 @@ test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 logger -t "startup-initfile"  BASH_PROFILE
-
 [ -f ~/.profile ] && . ~/.profile || true
 [ -f ~/.bashrc ] && . ~/.bashrc || true
-
+emacs --daemon  &> /dev/null &
 ```
 
 
@@ -764,6 +763,7 @@ bindsym $mod+d exec $menu
 
 ```conf
 # exec sway-lock
+# exec emacs --daemon
 exec sway-kanshi
 exec sway-idle
 exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep 1 && sway-notify "~/.sway-autostart processed")'
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org49a63a3"></a>
+<a id="orgf38d01a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org49a63a3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf38d01a).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3663,7 +3663,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgf034826).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org176ea63).
 
 ```bash
 #!/usr/bin/env bash
@@ -3699,7 +3699,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="orgf034826"></a>
+<a id="org176ea63"></a>
 
 ### Examples:
 

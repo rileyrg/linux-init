@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 logger -t "startup-initfile"  BASH_PROFILE
-
 [ -f ~/.profile ] && . ~/.profile || true
 [ -f ~/.bashrc ] && . ~/.bashrc || true
+emacs --daemon  &> /dev/null &
 
 if [ -d "/gnu" ]; then
     echo "GUIX initialised."

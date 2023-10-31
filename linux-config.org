@@ -735,10 +735,9 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   logger -t "startup-initfile"  BASH_PROFILE
-
   [ -f ~/.profile ] && . ~/.profile || true
   [ -f ~/.bashrc ] && . ~/.bashrc || true
-
+  emacs --daemon  &> /dev/null &
 #+end_src
 ** ~/.bashrc
 #+begin_src bash :tangle "DotFiles/.bashrc"
@@ -1503,6 +1502,7 @@ X11 apps still need resource definitions when launched under XWayland.
 *** autostart                                                     :autostart:
 #+begin_src conf
   # exec sway-lock
+  # exec emacs --daemon
   exec sway-kanshi
   exec sway-idle
   exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep 1 && sway-notify "~/.sway-autostart processed")'

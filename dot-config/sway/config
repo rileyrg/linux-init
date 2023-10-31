@@ -33,6 +33,7 @@ bindsym $mod+Shift+e exec $editor
 bindsym $mod+d exec $menu
 
 # exec sway-lock
+# exec emacs --daemon
 exec sway-kanshi
 exec sway-idle
 exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep 1 && sway-notify "~/.sway-autostart processed")'
