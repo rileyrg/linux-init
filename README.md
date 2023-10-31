@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org07caafd"></a>
+<a id="org49a63a3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org07caafd).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org49a63a3).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3502,34 +3502,38 @@ sway-do-tool "$@"
 ## ~/bin/confirm-suspend
 
 ```bash
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  delay=10;
-  message="Almost out of juice."
-  while [ "$#" -gt 0 ]; do
-      case $1 in
-          -d|--delay) delay="${2}";shift;;
-          -m|--message) message="${2} ";shift;;
-          *) echo "Unknown parameter passed: $1"; exit 1 ;;
-      esac
-      shift
-  done
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+delay=10;
+message="Almost out of juice."
+while [ "$#" -gt 0 ]; do
+    case $1 in
+        -d|--delay) delay="${2}";shift;;
+        -m|--message) message="${2} ";shift;;
+        *) echo "Unknown parameter passed: $1"; exit 1 ;;
+    esac
+    shift
+done
 
-  zenity --question --text="${message}Proceed to suspend in ${delay}s?"
-  if [ $? = 0 ]; then
-      sleep "$delay" && systemctl suspend
-  else
-      exit
-  fi
-#+end_src** ~/bin/dropbox-start-once
-#+begin_src bash :tangle "~/bin/dropbox-start-once"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  if (! dropbox running) ; then
-      echo "Dropbox is already running"
-  else
-      dropbox start &> /dev/null &
-  fi
+zenity --question --text="${message}Proceed to suspend in ${delay}s?"
+if [ $? = 0 ]; then
+    sleep "$delay" && systemctl suspend
+else
+    exit
+fi
+```
+
+
+## ~/bin/dropbox-start-once
+
+```bash
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if (! dropbox running) ; then
+    echo "Dropbox is already running"
+else
+    dropbox start &> /dev/null &
+fi
 ```
 
 
@@ -3659,7 +3663,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org6364b8b).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgf034826).
 
 ```bash
 #!/usr/bin/env bash
@@ -3695,7 +3699,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org6364b8b"></a>
+<a id="orgf034826"></a>
 
 ### Examples:
 

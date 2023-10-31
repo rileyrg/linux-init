@@ -3938,7 +3938,8 @@ if it exists jump to it else start it
   else
       exit
   fi
-#+end_src** ~/bin/dropbox-start-once
+#+end_src
+** ~/bin/dropbox-start-once
 #+begin_src bash :tangle "~/bin/dropbox-start-once"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
