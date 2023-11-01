@@ -1210,7 +1210,7 @@ assign [class="Ardour"] $ws6
 assign [class="Code"] $ws3
 assign [class="Signal"] $ws8
 assign [class="jetbrains-studio"] $ws3
-assign [app_id="emacs"] $ws1
+# assign [app_id="emacs"] $ws1
 assign [class="Hexchat"] $ws8
 assign [class="discord"] $ws8
 assign [class="Steam"] $ws9
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgeb2b884"></a>
+<a id="org0885230"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeb2b884).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0885230).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3663,7 +3663,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgf7d0ed3).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org8f27640).
 
 ```bash
 #!/usr/bin/env bash
@@ -3699,7 +3699,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="orgf7d0ed3"></a>
+<a id="org8f27640"></a>
 
 ### Examples:
 
