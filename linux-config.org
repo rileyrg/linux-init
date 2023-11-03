@@ -697,7 +697,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   # export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 
-  export ARDUINO_SDK_PATH="${HOME}"/Dropbox/homefiles/development/arduino/arduinoSDK
+  export ARDUINO_SDK_PATH="${HOME}"/cloud/homefiles/development/arduino/arduinoSDK
   export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
   export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
@@ -737,7 +737,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   logger -t "startup-initfile"  BASH_PROFILE
   [ -f ~/.profile ] && . ~/.profile || true
   [ -f ~/.bashrc ] && . ~/.bashrc || true
-  emacs --bg-daemon  &> /dev/null &
+  #emacs --bg-daemon  &> /dev/null &
 #+end_src
 ** ~/.bashrc
 #+begin_src bash :tangle "DotFiles/.bashrc"
@@ -1509,7 +1509,7 @@ X11 apps still need resource definitions when launched under XWayland.
   exec sleep 2 && gpg-cache
   exec blueman-applet
   exec nm-applet --indicator
-  exec dropbox-start-once
+  #exec dropbox-start-once
 
 #+end_src
 *** library include
@@ -3429,7 +3429,7 @@ export PURE_PYTHON=1
 ** haskell
 #+begin_src bash :tangle "DotFiles/.profile"
   # haskell
-  source "${HOME}/.ghcup/env"
+  #source "${HOME}/.ghcup/env"
 #+end_src
 ** python
 *** pyvenv  https://github.com/pyenv/pyenv#installation

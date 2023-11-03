@@ -82,7 +82,7 @@ export HISTCONTROL=ignoreboth:erasedups
 
 # export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 
-export ARDUINO_SDK_PATH="${HOME}"/Dropbox/homefiles/development/arduino/arduinoSDK
+export ARDUINO_SDK_PATH="${HOME}"/cloud/homefiles/development/arduino/arduinoSDK
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
@@ -120,7 +120,7 @@ test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.profile ] && . ~/.profile || true
 [ -f ~/.bashrc ] && . ~/.bashrc || true
-emacs --bg-daemon  &> /dev/null &
+#emacs --bg-daemon  &> /dev/null &
 ```
 
 
@@ -770,7 +770,7 @@ exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep
 exec sleep 2 && gpg-cache
 exec blueman-applet
 exec nm-applet --indicator
-exec dropbox-start-once
+#exec dropbox-start-once
 
 ```
 
@@ -2216,7 +2216,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org0885230"></a>
+<a id="orgc7807ad"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2266,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0885230).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc7807ad).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2917,7 +2917,7 @@ export PURE_PYTHON=1
 
 ```bash
 # haskell
-source "${HOME}/.ghcup/env"
+#source "${HOME}/.ghcup/env"
 ```
 
 
@@ -3663,7 +3663,7 @@ make --always-make --dry-run \
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org8f27640).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org5e75c70).
 
 ```bash
 #!/usr/bin/env bash
@@ -3699,7 +3699,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org8f27640"></a>
+<a id="org5e75c70"></a>
 
 ### Examples:
 

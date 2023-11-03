@@ -25,7 +25,7 @@ export HISTCONTROL=ignoreboth:erasedups
 
 # export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 
-export ARDUINO_SDK_PATH="${HOME}"/Dropbox/homefiles/development/arduino/arduinoSDK
+export ARDUINO_SDK_PATH="${HOME}"/cloud/homefiles/development/arduino/arduinoSDK
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
@@ -63,7 +63,7 @@ export PATH="${HOME}"/bin/llvm:"${HOME}"/bin/llvm/build/bin:"$PATH"
 export PURE_PYTHON=1
 
 # haskell
-source "${HOME}/.ghcup/env"
+#source "${HOME}/.ghcup/env"
 
 export PYENV_ROOT="${HOME}/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"

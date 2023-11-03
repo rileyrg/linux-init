@@ -3,7 +3,7 @@
 logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.profile ] && . ~/.profile || true
 [ -f ~/.bashrc ] && . ~/.bashrc || true
-emacs --bg-daemon  &> /dev/null &
+#emacs --bg-daemon  &> /dev/null &
 
 if [ -d "/gnu" ]; then
     echo "GUIX initialised."
