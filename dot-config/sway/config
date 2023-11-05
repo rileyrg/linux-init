@@ -218,13 +218,11 @@ exec wl-paste -t text --watch clipman store --max-items 1024
 bindsym $mod+y exec sway-clipboard-history-select
 bindsym $mod+Control+y exec sway-clipboard-history-clear
 
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && sway-notify "Toggle Mute"
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && sway-volume-notify
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && sway-volume-notify
-
+bindsym XF86AudioMute exec  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle  && sway-volume-notify
+bindsym XF86AudioRaiseVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+) && sway-volume-notify
+bindsym XF86AudioLowerVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-) && sway-volume-notify
 # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
 # bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
-# bindsym XF86AudioMute exec pulse-volume "toggle" && sway-volume-notify
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
 
 for_window [app_id="pavucontrol"] floating enable
@@ -259,7 +257,7 @@ assign [class="discord"] $ws8
 assign [class="Steam"] $ws9
 
 for_window [class="feh"] floating enable
-for_window [class="feh"] floating enable
+for_window [class="1Password"] floating enable
 for_window [class="Conky"] floating enable
 for_window [app_id="zenity"] floating enable
 for_window [title="wifi"] floating enable

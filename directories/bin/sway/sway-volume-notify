@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-volume="$(pulse-volume)"
+volume="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 exec sway-notify "🔊$([ $volume = "off" ] && echo "Muted" || echo "$volume%")" &> /dev/null

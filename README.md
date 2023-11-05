@@ -1145,6 +1145,7 @@ bindsym $mod+r mode "resize"
             border-width: 1px;
             border-color: #d4af37;
         }
+        
         ```
 
 
@@ -1154,13 +1155,11 @@ bindsym $mod+r mode "resize"
 
     ```conf
     
-    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && sway-notify "Toggle Mute"
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && sway-volume-notify
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && sway-volume-notify
-    
+    bindsym XF86AudioMute exec  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle  && sway-volume-notify
+    bindsym XF86AudioRaiseVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+) && sway-volume-notify
+    bindsym XF86AudioLowerVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-) && sway-volume-notify
     # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
     # bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
-    # bindsym XF86AudioMute exec pulse-volume "toggle" && sway-volume-notify
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
     
     ```
@@ -1221,7 +1220,7 @@ assign [class="Steam"] $ws9
 
 ```conf
 for_window [class="feh"] floating enable
-for_window [class="feh"] floating enable
+for_window [class="1Password"] floating enable
 for_window [class="Conky"] floating enable
 for_window [app_id="zenity"] floating enable
 for_window [title="wifi"] floating enable
@@ -2216,7 +2215,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org19d2f1c"></a>
+<a id="orgfed66c5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2266,7 +2265,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org19d2f1c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfed66c5).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2374,7 +2373,7 @@ fi
 ```bash
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-volume="$(pulse-volume)"
+volume="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
 exec sway-notify "🔊$([ $volume = "off" ] && echo "Muted" || echo "$volume%")" &> /dev/null
 ```
 
@@ -3661,9 +3660,32 @@ make --always-make --dry-run \
 ```
 
 
+## TODO ~/bin/pw-volume
+
+<https://gist.github.com/venam/bd453b4fd673ff8abb9323e69f182045>
+
+```bash
+#! /bin/sh
+
+# the metadata only contains the name of the default sink
+default_sink_name=$(pw-metadata 0 'default.audio.sink' | grep 'value' | sed "s/.* value:'//;s/' type:.*$//;" | jq .name)
+default_sink_id=$(pw-dump Node Device | jq '.[].info.props|select(."node.name" == '" $default_sink_name "') | ."object.id"')
+current_volume=$(pw-cli enum-params "$default_sink_id" 'Props' | grep -A 2 'Spa:Pod:Object:Param:Props:channelVolumes' | awk '/Float / {gsub(/.*Float\s/," "); print $1^(1/3) }')
+change="${1:-0.1}" # defaults to increment of 0.1
+new_volume=$(echo "$current_volume $change" | awk '{printf "%f", $1 + $2}')
+# we need to reconvert to cubic root
+#new_volume_cube=$(echo "$new_volume" | awk '{ print $1^3 }')
+echo "$new_volume"
+pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_cube , $new_volume_cube ] }"
+# or use wpctl instead
+# wpctl set-volume "$default_sink_id" "$new_volume"
+
+```
+
+
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgbc2e9b8).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org009ca9d).
 
 ```bash
 #!/usr/bin/env bash
@@ -3699,7 +3721,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="orgbc2e9b8"></a>
+<a id="org009ca9d"></a>
 
 ### Examples:
 
