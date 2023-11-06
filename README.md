@@ -2215,7 +2215,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgfed66c5"></a>
+<a id="org1883d66"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2265,7 +2265,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfed66c5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1883d66).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2373,8 +2373,19 @@ fi
 ```bash
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-volume="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
-exec sway-notify "🔊$([ $volume = "off" ] && echo "Muted" || echo "$volume%")" &> /dev/null
+volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
+if [[ -z $volumep ]]; then
+    volumep="0"
+elif [[ $volumep -gt "100" ]];then
+    volumep="100"
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 1
+fi
+if [[ "$volume" == *"MUTED"* ]]; then
+    sway-notify "🔊 MUTED (${volumep}%) "
+else
+    sway-notify "🔊$([ "$volume" = "off" ] && echo "Muted" || echo "${volumep}%")"
+fi
 ```
 
 
@@ -3685,7 +3696,7 @@ pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org009ca9d).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org05e5725).
 
 ```bash
 #!/usr/bin/env bash
@@ -3721,7 +3732,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org009ca9d"></a>
+<a id="org05e5725"></a>
 
 ### Examples:
 

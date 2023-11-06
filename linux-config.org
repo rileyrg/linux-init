@@ -2965,9 +2965,21 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-volume-notify"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  volume="$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
-  exec sway-notify "🔊$([ $volume = "off" ] && echo "Muted" || echo "$volume%")" &> /dev/null
+  volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+  volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
+  if [[ -z $volumep ]]; then
+      volumep="0"
+  elif [[ $volumep -gt "100" ]];then
+      volumep="100"
+      wpctl set-volume @DEFAULT_AUDIO_SINK@ 1
+  fi
+  if [[ "$volume" == *"MUTED"* ]]; then
+      sway-notify "🔊 MUTED (${volumep}%) "
+  else
+      sway-notify "🔊$([ "$volume" = "off" ] && echo "Muted" || echo "${volumep}%")"
+  fi
 #+end_src
+
 *** ~/bin/sway/sway-weather
 :PROPERTIES:
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
