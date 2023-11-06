@@ -2976,7 +2976,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   if [[ "$volume" == *"MUTED"* ]]; then
       sway-notify "🔊 MUTED (${volumep}%) "
   else
-      sway-notify "🔊$([ "$volume" = "off" ] && echo "Muted" || echo "${volumep}%")"
+      sway-notify "🔊${volumep}%"
   fi
 #+end_src
 
