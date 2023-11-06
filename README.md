@@ -1155,9 +1155,9 @@ bindsym $mod+r mode "resize"
 
     ```conf
     
-    bindsym XF86AudioMute exec  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle  && sway-volume-notify
-    bindsym XF86AudioRaiseVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+) && sway-volume-notify
-    bindsym XF86AudioLowerVolume exec (wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-) && sway-volume-notify
+    bindsym XF86AudioMute exec  sway-volume-notify "0"
+    bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
+    bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
     # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
     # bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
@@ -2215,7 +2215,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orgc353150"></a>
+<a id="orga4ae2a7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2265,7 +2265,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc353150).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4ae2a7).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2373,6 +2373,15 @@ fi
 ```bash
 #!/usr/bin/env bash
 # Maintained in linux-config.org
+if [[ "$1" = "0" ]]; then
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+elif [[ "$1" =  "+" ]]; then
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ "0.1+"
+elif [[ "$1" = "-" ]]; then
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ "0.1-"
+fi
+
+
 volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
 if [[ -z $volumep ]]; then
@@ -3696,7 +3705,7 @@ pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org2281ebe).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org8380ec4).
 
 ```bash
 #!/usr/bin/env bash
@@ -3732,7 +3741,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org2281ebe"></a>
+<a id="org8380ec4"></a>
 
 ### Examples:
 
