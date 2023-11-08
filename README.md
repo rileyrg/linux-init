@@ -2215,7 +2215,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="orga4ae2a7"></a>
+<a id="org081a496"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2265,7 +2265,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4ae2a7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org081a496).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3705,7 +3705,7 @@ pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org8380ec4).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgcadc10a).
 
 ```bash
 #!/usr/bin/env bash
@@ -3741,7 +3741,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org8380ec4"></a>
+<a id="orgcadc10a"></a>
 
 ### Examples:
 
@@ -4025,6 +4025,18 @@ xmg-neo-rgb-kbd-lights set-brightness 50
 
 ```bash
 xmg-neo-rgb-kbd-lights set-color red
+```
+
+
+## rclone
+
+
+### ~/bin/cloud\_sync
+
+```bash
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+rclone sync -Lv --fast-list --transfers=40 --checkers=40 --tpslimit=10 --drive-chunk-size=1M --delete-before ~/cloud cloud:
 ```
 
 
