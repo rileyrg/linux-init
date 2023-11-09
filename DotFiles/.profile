@@ -18,7 +18,7 @@ export PROMPT_COMMAND='history -a'
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
-export VISUAL="emacsclient -c"
+export VISUAL="emacsclient -r"
 export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
 
 

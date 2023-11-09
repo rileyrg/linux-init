@@ -690,7 +690,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   export ALTERNATE_EDITOR=""
   export EDITOR="emacsclient -t"
-  export VISUAL="emacsclient -c"
+  export VISUAL="emacsclient -r"
   export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
 
 
