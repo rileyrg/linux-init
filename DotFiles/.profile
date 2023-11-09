@@ -19,6 +19,8 @@ export PROMPT_COMMAND='history -a'
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c"
+export EAT_SHELL_INTEGRATION_DIR="~/.emacs.d/straight/build/eat/integration"
+
 
 export HISTSIZE=2056
 export HISTCONTROL=ignoreboth:erasedups
