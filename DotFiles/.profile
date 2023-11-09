@@ -19,7 +19,7 @@ export PROMPT_COMMAND='history -a'
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -c"
-export EAT_SHELL_INTEGRATION_DIR="~/.emacs.d/straight/build/eat/integration"
+export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
 
 
 export HISTSIZE=2056
@@ -67,7 +67,7 @@ export PURE_PYTHON=1
 # haskell
 #source "${HOME}/.ghcup/env"
 
-export PYENV_ROOT="${HOME}/.pyenv"
+export PYENV_ROOT="${HOME}/bin/thirdparty/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 

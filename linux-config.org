@@ -691,7 +691,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   export ALTERNATE_EDITOR=""
   export EDITOR="emacsclient -t"
   export VISUAL="emacsclient -c"
-  export EAT_SHELL_INTEGRATION_DIR="~/.emacs.d/straight/build/eat/integration"
+  export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
 
 
   export HISTSIZE=2056
@@ -3461,7 +3461,7 @@ export PURE_PYTHON=1
 *** pyvenv  https://github.com/pyenv/pyenv#installation
 **** add pyenv to path
 #+begin_src bash :tangle "DotFiles/.profile"
-  export PYENV_ROOT="${HOME}/.pyenv"
+  export PYENV_ROOT="${HOME}/bin/thirdparty/pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
 #+end_src
@@ -4378,7 +4378,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 #+begin_src bash :tangle "~/bin/cloud_sync"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  rclone bisync "$@" -Lv --tpslimit=10 --drive-chunk-size=256M --drive-use-trash=false --fast-list ~/cloud cloud:
+  rclone bisync "$@" -v --links --tpslimit=10 --drive-chunk-size=256M --drive-use-trash=false --fast-list ~/cloud cloud:
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate
