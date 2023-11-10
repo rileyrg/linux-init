@@ -2221,7 +2221,7 @@ notify-send -t 3000 "${@}" || true
 ```
 
 
-<a id="org2595cf6"></a>
+<a id="orgb59a2f6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2271,7 +2271,7 @@ swaymsg "
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2595cf6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb59a2f6).
 
 :ID: 82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3711,7 +3711,7 @@ pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_
 
 ## ~/bin/pulse-volume
 
-pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#org52eab94).
+pulse/pipeline volume control. Pass in a volume string to change the volume (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status. See [examples](#orgc162544).
 
 ```bash
 #!/usr/bin/env bash
@@ -3747,7 +3747,7 @@ echo "$(getVolume)"
 ```
 
 
-<a id="org52eab94"></a>
+<a id="orgc162544"></a>
 
 ### Examples:
 
@@ -4037,12 +4037,39 @@ xmg-neo-rgb-kbd-lights set-color red
 ## rclone
 
 
-### ~/bin/cloud\_sync
+### ~/bin/rclone\_gdrive\_sync
 
 ```bash
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-rclone bisync "$@" --log-file="${HOME}/rclone-bisync.log" --log-level INFO  --links --ignore-listing-checksum --tpslimit=10 --drive-chunk-size=256M --drive-use-trash=false --fast-list ~/cloud cloud:
+LOGFILE="${HOME}/tmp/rclone-bisync-$(date +"%Y_%m_%d_%I_%M_%p").log"
+ln -sf "${LOGFILE}" "${HOME}/rclone_gdrive_sync.log"
+OPTS=(
+    --log-file="${LOGFILE}"
+    --log-level INFO
+    --checkers=16
+    --drive-pacer-min-sleep=10ms
+    --resilient --links
+    --ignore-listing-checksum
+    --check-sync=false
+    --tpslimit=10
+    --drive-chunk-size=256M
+    --drive-use-trash=false
+    --fast-list "${HOME}/cloud" cloud:
+)
+if pgrep -x "rclone" > /dev/null
+then
+    echo "rclone already running. Bye." >> "${LOGFILE}"
+    exit  0
+fi
+rclone bisync "${OPTS[@]}"
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    echo "Error (${retVal}) last bisync. Doing a resync." >> "$LOGFILE"
+    rclone bisync --resync "${OPTS[@]}"
+else
+    echo "rclone bisync finished without error." >> "$LOGFILE"
+fi
 ```
 
 

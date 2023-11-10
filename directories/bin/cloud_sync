@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-rclone bisync "$@" --log-file="${HOME}/rclone-bisync.log" --log-level INFO  --links --ignore-listing-checksum --tpslimit=10 --drive-chunk-size=256M --drive-use-trash=false --fast-list ~/cloud cloud:

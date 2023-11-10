@@ -100,7 +100,7 @@
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
 !/directories/bin/confirm-suspend
-!/directories/bin/cloud_sync
+!/directories/bin/rclone_gdrive_sync
 !/directories/bin/display-id
 !/directories/bin/dropbox-start-once
 !/directories/bin/edit
