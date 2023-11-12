@@ -6,15 +6,17 @@ LOGFILE="$HOME/tmp/rclone-bisync-$(date +"%Y_%m_%d_%I_%M_%p").log"
 OPTS=(
     --log-file="$LOGFILE"
     --log-level INFO
-    --checkers=16
-    --drive-pacer-min-sleep=10ms
-    --resilient --links
-    --ignore-listing-checksum
-    --check-sync=false
+    --checkers=40
+    --transfers=40
     --tpslimit=10
-    --drive-chunk-size=256M
-    --drive-use-trash=false
-    --fast-list "$HOME/cloud" cloud:
+    --drive-chunk-size=1M
+    --max-backlog 200000
+    --drive-pacer-min-sleep=10ms
+    --resilient
+    --links
+    --fast-list
+     "$HOME/cloud"
+     cloud:
 )
 
 #quit if already running.
