@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org6da26bb"></a>
+<a id="orgd5b904b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6da26bb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd5b904b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3366,7 +3366,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgfa3650c).
+See [examples](#org63578e6).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3400,7 @@ See [examples](#orgfa3650c).
     echo "$(getVolume)"
 
 
-<a id="orgfa3650c"></a>
+<a id="org63578e6"></a>
 
 ### Examples:
 
@@ -3664,12 +3664,11 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     OPTS=(
         --log-file="$LOGFILE"
         --log-level INFO
-        --checkers=40
-        --transfers=40
+        --checkers=8
+        --transfers=8
         --tpslimit=10
-        --drive-chunk-size=1M
+        --drive-chunk-size=64M
         --max-backlog 200000
-        --drive-pacer-min-sleep=10ms
         --resilient
         --links
         --fast-list

@@ -4384,12 +4384,11 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
       OPTS=(
           --log-file="$LOGFILE"
           --log-level INFO
-          --checkers=40
-          --transfers=40
+          --checkers=8
+          --transfers=8
           --tpslimit=10
-          --drive-chunk-size=1M
+          --drive-chunk-size=64M
           --max-backlog 200000
-          --drive-pacer-min-sleep=10ms
           --resilient
           --links
           --fast-list
