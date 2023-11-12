@@ -2000,7 +2000,7 @@ Just a gathering place of locky/suspendy type things&#x2026;
          resume 'sway-lock-utils unblank' \
          timeout ${XIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
          resume 'sway-lock-utils unblank' \
-         timeout ${XIDLEHOOK_SUSPEND:-43200} 'sway-lock-utils suspend' \
+         timeout ${XIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
          resume 'sway-lock-utils unblank' \
          lock 'sway-lock-utils lock' \
          unlock 'sway-lock-utils unblank' \
@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org87ace82"></a>
+<a id="org6da26bb"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org87ace82).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6da26bb).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3366,7 +3366,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org5f680a9).
+See [examples](#orgfa3650c).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3400,7 @@ See [examples](#org5f680a9).
     echo "$(getVolume)"
 
 
-<a id="org5f680a9"></a>
+<a id="orgfa3650c"></a>
 
 ### Examples:
 
