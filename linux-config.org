@@ -4380,8 +4380,6 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
   # Maintained in linux-config.org
   me=$(basename "$0")
   LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
-  echo $LOGFILE
-  exit
 
   OPTS=(
       --log-file="$LOGFILE"

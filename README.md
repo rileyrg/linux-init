@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgdb44465"></a>
+<a id="org1b4a91b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgdb44465).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1b4a91b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3366,7 +3366,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org9533ac0).
+See [examples](#orgb668fc0).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3400,7 @@ See [examples](#org9533ac0).
     echo "$(getVolume)"
 
 
-<a id="org9533ac0"></a>
+<a id="orgb668fc0"></a>
 
 ### Examples:
 
@@ -3660,8 +3660,6 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     # Maintained in linux-config.org
     me=$(basename "$0")
     LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
-    echo $LOGFILE
-    exit
     
     OPTS=(
         --log-file="$LOGFILE"
