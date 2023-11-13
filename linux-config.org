@@ -4376,49 +4376,49 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 ** rclone
 *** ~/bin/rclone_gdrive_sync
 #+begin_src bash :tangle "~/bin/rclone_gdrive_sync"
-      #!/usr/bin/env bash
-      # Maintained in linux-config.org
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
 
-      LOGFILE="$HOME/tmp/rclone-bisync-$(date +"%Y_%m_%d_%I_%M_%p").log"
+  LOGFILE="$HOME/tmp/rclone_gdrive_sync_$(date +"%Y_%m_%d_%I_%M_%p").log"
 
-      OPTS=(
-          --log-file="$LOGFILE"
-          --log-level INFO
-          --checkers=8
-          --transfers=8
-          --tpslimit=10
-          --drive-chunk-size=64M
-          --max-backlog 200000
-          --resilient
-          --links
-          --fast-list
-           "$HOME/cloud"
-           cloud:
-      )
+  OPTS=(
+      --log-file="$LOGFILE"
+      --log-level INFO
+      --checkers=8
+      --transfers=8
+      --tpslimit=10
+      --drive-chunk-size=64M
+      --max-backlog 200000
+      --resilient
+      --links
+      --fast-list
+       "$HOME/cloud"
+       cloud:
+  )
 
-      #quit if already running.
-      if pgrep -x "rclone" > /dev/null
-      then
-          echo "rclone already running. Bye." >> "$LOGFILE"
-          exit  0
-      fi
+  #quit if already running.
+  if pgrep -x "rclone" > /dev/null
+  then
+      echo "rclone already running. Bye." >> "$LOGFILE"
+      exit  0
+  fi
 
-      # prune logs
-      find "$HOME/tmp" -name "rclone-bisync*" | head -n -12 | xargs -d '\n' rm -f --
+  # prune logs
+  find "$HOME/tmp" -name "rclone*" | head -n -12 | xargs -d '\n' rm -f --
 
-      # symlink latest logfile to ~/rclone_gdrive_sync.log
-      ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
+  # symlink latest logfile to ~/rclone_gdrive_sync.log
+  ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
 
-      rclone bisync "$@" "${OPTS[@]}"
-      retVal=$?
-      # if bisyncs failed then generally resync is requiered
-      if [ $retVal -ne 0 ]; then
-          echo "Error (${retVal}) last bisync. Doing a resync." >> "$LOGFILE"
-          rclone bisync --resync "$@" "${OPTS[@]}"
-          echo "rclone bisync resync finished" >> "$LOGFILE"
-      else
-          echo "rclone bisync finished." >> "$LOGFILE"
-      fi
+  rclone bisync "$@" "${OPTS[@]}"
+  retVal=$?
+  # if bisyncs failed then generally resync is requiered
+  if [ $retVal -ne 0 ]; then
+      echo "Error (${retVal}) last bisync. Doing a resync." >> "$LOGFILE"
+      rclone bisync --resync "$@" "${OPTS[@]}"
+      echo "rclone bisync resync finished" >> "$LOGFILE"
+  else
+      echo "rclone bisync finished." >> "$LOGFILE"
+  fi
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 
-LOGFILE="$HOME/tmp/rclone-bisync-$(date +"%Y_%m_%d_%I_%M_%p").log"
+LOGFILE="$HOME/tmp/rclone_gdrive_sync_$(date +"%Y_%m_%d_%I_%M_%p").log"
 
 OPTS=(
     --log-file="$LOGFILE"
@@ -26,7 +26,7 @@ then
 fi
 
 # prune logs
-find "$HOME/tmp" -name "rclone-bisync*" | head -n -12 | xargs -d '\n' rm -f --
+find "$HOME/tmp" -name "rclone*" | head -n -12 | xargs -d '\n' rm -f --
 
 # symlink latest logfile to ~/rclone_gdrive_sync.log
 ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
