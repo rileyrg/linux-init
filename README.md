@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgd5b904b"></a>
+<a id="org90ddd4c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd5b904b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org90ddd4c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3366,7 +3366,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org63578e6).
+See [examples](#orgcfa449c).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3400,7 @@ See [examples](#org63578e6).
     echo "$(getVolume)"
 
 
-<a id="org63578e6"></a>
+<a id="orgcfa449c"></a>
 
 ### Examples:
 
@@ -3689,12 +3689,12 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     # symlink latest logfile to ~/rclone_gdrive_sync.log
     ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
     
-    rclone bisync "${OPTS[@]}"
+    rclone bisync "$@" "${OPTS[@]}"
     retVal=$?
     # if bisyncs failed then generally resync is requiered
     if [ $retVal -ne 0 ]; then
         echo "Error (${retVal}) last bisync. Doing a resync." >> "$LOGFILE"
-        rclone bisync --resync "${OPTS[@]}"
+        rclone bisync --resync "$@" "${OPTS[@]}"
         echo "rclone bisync resync finished" >> "$LOGFILE"
     else
         echo "rclone bisync finished." >> "$LOGFILE"

@@ -4409,12 +4409,12 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
       # symlink latest logfile to ~/rclone_gdrive_sync.log
       ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
 
-      rclone bisync "${OPTS[@]}"
+      rclone bisync "$@" "${OPTS[@]}"
       retVal=$?
       # if bisyncs failed then generally resync is requiered
       if [ $retVal -ne 0 ]; then
           echo "Error (${retVal}) last bisync. Doing a resync." >> "$LOGFILE"
-          rclone bisync --resync "${OPTS[@]}"
+          rclone bisync --resync "$@" "${OPTS[@]}"
           echo "rclone bisync resync finished" >> "$LOGFILE"
       else
           echo "rclone bisync finished." >> "$LOGFILE"
