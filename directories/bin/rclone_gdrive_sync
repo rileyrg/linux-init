@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-
-LOGFILE="$HOME/tmp/rclone_gdrive_sync_$(date +"%Y_%m_%d_%I_%M_%p").log"
+me=$(basename "$0")
+LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
+echo $LOGFILE
+exit
 
 OPTS=(
     --log-file="$LOGFILE"
     --log-level INFO
-    --checkers=8
-    --transfers=8
-    --tpslimit=10
-    --drive-chunk-size=64M
-    --max-backlog 200000
-    --resilient
     --links
     --fast-list
+    --resilient
      "$HOME/cloud"
      cloud:
 )
@@ -26,10 +23,10 @@ then
 fi
 
 # prune logs
-find "$HOME/tmp" -name "rclone*" | head -n -12 | xargs -d '\n' rm -f --
+find "$HOME/tmp" -name "${me}*" | head -n -12 | xargs -d '\n' rm -f --
 
-# symlink latest logfile to ~/rclone_gdrive_sync.log
-ln -sf "$LOGFILE" "$HOME/rclone_gdrive_sync.log"
+# symlink latest logfile
+ln -sf "$LOGFILE" "$HOME/${me}.log"
 
 rclone bisync "$@" "${OPTS[@]}"
 retVal=$?
