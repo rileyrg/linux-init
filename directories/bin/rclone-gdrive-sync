@@ -8,6 +8,7 @@ OPTS=(
     --log-level INFO
     --links
     --delete-during
+    --remove-empty-dirs
     --fast-list
     --resilient
      "$HOME/cloud"

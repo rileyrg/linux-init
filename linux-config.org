@@ -4386,6 +4386,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
       --log-level INFO
       --links
       --delete-during
+      --remove-empty-dirs
       --fast-list
       --resilient
        "$HOME/cloud"
