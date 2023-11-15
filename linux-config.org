@@ -4424,7 +4424,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
   me=$(basename "$0")
   LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
   ln -sf "$LOGFILE" "$HOME/${me}.log"
-  syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"
+  syncrclone "$@" "$HOME/cloud/.syncrclone/config.py" &> "$LOGFILE"
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate
