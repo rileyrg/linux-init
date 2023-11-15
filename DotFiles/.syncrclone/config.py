@@ -237,7 +237,7 @@ list_status_dt = 10  # sec
 # Can also specify a local location. Useful if both remotes are remote. Recall
 # that the paths are relative to this file. If blank, will not save logs
 save_logs = True
-local_log_dest = "${HOME}/tmp"  # NOT on a remote
+local_log_dest = ""  # NOT on a remote
 
 ## Pre- and Post-shell commands to run
 # Specify shell code to be evaluated before and/or after running syncrclone. Note
