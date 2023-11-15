@@ -4374,6 +4374,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 
 #+RESULTS:
 ** rclone
+https://rclone.org/
 *** ~/bin/rclone-gdrive-sync
 #+begin_src bash :tangle "~/bin/rclone-gdrive-sync"
   #!/usr/bin/env bash
@@ -4418,6 +4419,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
   fi
 #+end_src
 *** ~/bin/syncrclone-gdrive-sync
+https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-gdrive-sync"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
