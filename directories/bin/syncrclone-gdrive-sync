@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+# quit if already running.
+me=$(basename "$0")
+LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
+if pgrep -x "rclone" > /dev/null
+then
+    echo "rclone already running. Bye." >> "$LOGFILE"
+    exit  0
+fi
+# prune logs
+find "$HOME/tmp" -name "${me}*" | head -n -12 | xargs -d '\n' rm -f --
+
+ln -sf "$LOGFILE" "$HOME/${me}.log"
+syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"

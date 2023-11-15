@@ -64,6 +64,8 @@
 !/DotFiles/.mbsyncrc
 !/DotFiles/.profile
 !/DotFiles/.ignore
+!/DotFiles/.syncrclone
+!/DotFiles/.syncrclone/config.py
 !/DotFiles/.ripgreprc
 !/DotFiles/.xinitrc
 !/DotFiles/.xsession
@@ -136,6 +138,7 @@
 !/directories/bin/sharemouse
 !/directories/bin/stm32cubeide
 !/directories/bin/stm32cubeide-uninstall
+!/directories/bin/syncrclone-gdrive-sync
 !/directories/bin/sys-logger
 !/directories/bin/tmux-pane-tty
 !/directories/bin/wifi-toggle
