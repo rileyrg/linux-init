@@ -4376,8 +4376,14 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 #+RESULTS:
 ** rclone
 https://rclone.org/
-*** ~/bin/rclone-gdrive-sync
-#+begin_src bash :tangle "~/bin/rclone-gdrive-sync"
+** script
+**** CANCELLED ~/bin/rclone-gdrive-sync                           :CANCELLED:
+CLOSED: [2023-11-16 Thu 12:17]
+:LOGBOOK:
+- State "CANCELLED"  from              [2023-11-16 Thu 12:17] \\
+  use syncrlone directly
+:END:
+#+begin_src bash :tangle "no"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   me=$(basename "$0")
@@ -4420,8 +4426,14 @@ https://rclone.org/
   fi
 #+end_src
 *** ~/bin/syncrclone-gdrive-sync
+**** CANCELLED scrtipt                                            :CANCELLED:
+CLOSED: [2023-11-16 Thu 12:16]
+:LOGBOOK:
+- State "CANCELLED"  from              [2023-11-16 Thu 12:16] \\
+  use syncrclone directly
+:END:
 https://github.com/Jwink3101/syncrclone
-#+begin_src bash :tangle "~/bin/syncrclone-gdrive-sync"
+#+begin_src bash :tangle "no"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # quit if already running.
@@ -4438,7 +4450,7 @@ https://github.com/Jwink3101/syncrclone
   ln -sf "$LOGFILE" "$HOME/${me}.log"
   syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"
 #+end_src
-**** ~/.syncrclone/config.py
+***** ~/.syncrclone/config.py
 #+begin_src python :tangle "~/.syncrclone/config.py"
   # Maintained in linux-config.org
   """

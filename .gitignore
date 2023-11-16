@@ -102,7 +102,6 @@
 !/directories/bin/add-user-paths
 !/directories/bin/battery-warning*
 !/directories/bin/confirm-suspend
-!/directories/bin/rclone-gdrive-sync
 !/directories/bin/display-id
 !/directories/bin/dropbox-start-once
 !/directories/bin/edit
@@ -138,7 +137,6 @@
 !/directories/bin/sharemouse
 !/directories/bin/stm32cubeide
 !/directories/bin/stm32cubeide-uninstall
-!/directories/bin/syncrclone-gdrive-sync
 !/directories/bin/sys-logger
 !/directories/bin/tmux-pane-tty
 !/directories/bin/wifi-toggle
