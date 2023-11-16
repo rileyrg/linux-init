@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgce453d4"></a>
+<a id="org0a5e18b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgce453d4).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0a5e18b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3367,7 +3367,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org84dab46).
+See [examples](#orge124832).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3401,7 +3401,7 @@ See [examples](#org84dab46).
     echo "$(getVolume)"
 
 
-<a id="org84dab46"></a>
+<a id="orge124832"></a>
 
 ### Examples:
 
@@ -3785,13 +3785,13 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
 ## ~/.bash\_profile
 
-    [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
     
     mkdir -p "$HOME/gdrive"
-    
     if ! mountpoint -q "$HOME/gdrive"; then
         (command -v rclone && rclone mount --read-only  cloud: "$HOME/gdrive") &> /dev/null &
     fi
+    
+    [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
     
     if [ -f "${HOME}/.START_SWAY" ]; then
         if [ $(tty) = /dev/tty1 ];then
