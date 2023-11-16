@@ -16,7 +16,7 @@ fi
 mkdir -p "$HOME/gdrive"
 
 if ! mountpoint -q "$HOME/gdrive"; then
-    command -v rclone && rclone mount --read-only cloud: "$HOME/gdrive" &
+    command -v rclone && rclone mount --read-only --vfs-cache-mode full cloud: "$HOME/gdrive" &
 fi
 
 if [ -f "${HOME}/.START_SWAY" ]; then
