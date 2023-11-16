@@ -2964,7 +2964,8 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
       grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
       #Create a link, so don't have to search for the newest
       ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
-      sway-notify "Done! see ${DIR}/screenshot-latest.png"
+      sway-notify "Done! see $
+{DIR}/screenshot-latest.png"
   fi
 #+end_src
 *** ~/bin/sway/sway-volume-notify
@@ -4842,6 +4843,12 @@ https://github.com/Jwink3101/syncrclone
 ** ~/.bash_profile
 #+begin_src bash   :tangle "DotFiles/.bash_profile"
   [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
+
+  mkdir -p "$HOME/gdrive"
+
+  if ! mountpoint -q "$HOME/gdrive"; then
+      command -v rclone && rclone mount --read-only cloud: "$HOME/gdrive" &
+  fi
 
   if [ -f "${HOME}/.START_SWAY" ]; then
       if [ $(tty) = /dev/tty1 ];then

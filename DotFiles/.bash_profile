@@ -13,6 +13,12 @@ fi
 
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
+mkdir -p "$HOME/gdrive"
+
+if ! mountpoint -q "$HOME/gdrive"; then
+    command -v rclone && rclone mount --read-only cloud: "$HOME/gdrive" &
+fi
+
 if [ -f "${HOME}/.START_SWAY" ]; then
     if [ $(tty) = /dev/tty1 ];then
         if  [ $(hostname) = "xmgneo" ];then

@@ -2036,7 +2036,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org552bb01"></a>
+<a id="org32ca36f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,7 +2082,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org552bb01).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org32ca36f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2151,24 +2151,25 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
 Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/>
 
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    # thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
+      #!/usr/bin/env bash
+      # Maintained in linux-config.org
+      # thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
     
-    DIR=${HOME}/tmp/Screenshots
+      DIR=${HOME}/tmp/Screenshots
     
-    mkdir -p "${DIR}"
+      mkdir -p "${DIR}"
     
-    FILENAME="screenshot-$(date +%F-%T).png"
-    region="$(slurp)"
-    if [ ! -z "$region" ]; then
-        sway-notify "Taking pic in 5s.."
-        sleep 5
-        grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
-        #Create a link, so don't have to search for the newest
-        ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
-        sway-notify "Done! see ${DIR}/screenshot-latest.png"
-    fi
+      FILENAME="screenshot-$(date +%F-%T).png"
+      region="$(slurp)"
+      if [ ! -z "$region" ]; then
+          sway-notify "Taking pic in 5s.."
+          sleep 5
+          grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
+          #Create a link, so don't have to search for the newest
+          ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
+          sway-notify "Done! see $
+    {DIR}/screenshot-latest.png"
+      fi
 
 
 ### ~/bin/sway/sway-volume-notify
@@ -3366,7 +3367,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org0de6b7c).
+See [examples](#org57ff8e7).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3401,7 @@ See [examples](#org0de6b7c).
     echo "$(getVolume)"
 
 
-<a id="org0de6b7c"></a>
+<a id="org57ff8e7"></a>
 
 ### Examples:
 
@@ -4139,6 +4140,12 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 ## ~/.bash\_profile
 
     [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
+    
+    mkdir -p "$HOME/gdrive"
+    
+    if ! mountpoint -q "$HOME/gdrive"; then
+        command -v rclone && rclone mount --read-only cloud: "$HOME/gdrive" &
+    fi
     
     if [ -f "${HOME}/.START_SWAY" ]; then
         if [ $(tty) = /dev/tty1 ];then
