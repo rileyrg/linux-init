@@ -11,9 +11,13 @@ if [ -d "/gnu" ]; then
     . "$GUIX_PROFILE/etc/profile"
 fi
 
+mkdir -p "$HOME/hetzner"
+if ! mountpoint -q "$HOME/hetzner"; then
+    (command -v rclone && rclone mount --read-only  hetzner: "$HOME/hetzner") &> /dev/null &
+fi
 mkdir -p "$HOME/gdrive"
 if ! mountpoint -q "$HOME/gdrive"; then
-    (command -v rclone && rclone mount --read-only  cloud: "$HOME/gdrive") &> /dev/null &
+    (command -v rclone && rclone mount --read-only  gdrive: "$HOME/gdrive") &> /dev/null &
 fi
 
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
