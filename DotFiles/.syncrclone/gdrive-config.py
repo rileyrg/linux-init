@@ -45,7 +45,8 @@ workdirB = None  # <remoteB>/.syncrclone
 import subprocess
 name = subprocess.check_output("hostname").rstrip()
 name = name.decode("utf-8")
-#name += hashlib.md5(f"{remoteA}{remoteB}".encode()).hexdigest()
+import hashlib
+name += hashlib.md5(f"{remoteA}{remoteB}".encode()).hexdigest()
 
 ## rclone flags
 

@@ -4450,8 +4450,15 @@ https://github.com/Jwink3101/syncrclone
   ln -sf "$LOGFILE" "$HOME/${me}.log"
   syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"
 #+end_src
-***** ~/.syncrclone/config.py
-#+begin_src python :tangle "~/.syncrclone/config.py"
+*** ~/bin/hetznez-du
+**** script
+#+begin_src bash :tangle "~/bin/hetzner-du"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  echo "df -h"  | sftp u377059@u377059.your-storagebox.de
+#+end_src
+***** ~/.syncrclone/gdrive-config.py
+#+begin_src python :tangle "~/.syncrclone/gdrive-config.py"
   # Maintained in linux-config.org
   """
   syncrclone
@@ -4479,7 +4486,7 @@ https://github.com/Jwink3101/syncrclone
   #
   #  See docs/config_tips.md for some helpful tips and tricks
   remoteA = "/home/rgr/cloud"
-  remoteB = "cloud:"
+  remoteB = "gdrive:cloud"
 
   # (ADVANCED USAGE) Specify where to store past file lists, backups, logs, locks, etc.
   # This value must be either:
@@ -4499,6 +4506,7 @@ https://github.com/Jwink3101/syncrclone
   import subprocess
   name = subprocess.check_output("hostname").rstrip()
   name = name.decode("utf-8")
+  import hashlib
   name += hashlib.md5(f"{remoteA}{remoteB}".encode()).hexdigest()
 
   ## rclone flags
