@@ -1,4 +1,4 @@
-# Maintained in linux-config.org
+# Maintained in linux-config.org rgr
 """
 syncrclone
 
