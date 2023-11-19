@@ -4377,7 +4377,7 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 ** rclone
 https://rclone.org/
 ** script
-**** CANCELLED ~/bin/rclone-gdrive-sync                           :CANCELLED:
+*** CANCELLED ~/bin/rclone-gdrive-sync                            :CANCELLED:
 CLOSED: [2023-11-16 Thu 12:17]
 :LOGBOOK:
 - State "CANCELLED"  from              [2023-11-16 Thu 12:17] \\
@@ -4450,12 +4450,37 @@ https://github.com/Jwink3101/syncrclone
   ln -sf "$LOGFILE" "$HOME/${me}.log"
   syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"
 #+end_src
-*** ~/bin/hetznez-du
+*** ~/bin/hetzner-du
 **** script
 #+begin_src bash :tangle "~/bin/hetzner-du"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   echo "df -h"  | sftp u377059@u377059.your-storagebox.de
+#+end_src
+*** ~/bin/hetzner-mount
+**** script
+#+begin_src bash :tangle "~/bin/hetzner-mount"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  if [ -d ~/hetzner ]; then
+  	umount ~/hetzner
+  	rmdir ~/hetzner
+  else
+  	mkdir -p ~/hetzner
+  	rclone mount --read-only hetzner: ~/hetzner &> /dev/null &
+  fi
+#+end_src
+*** ~/bin/gdrive-mount
+#+begin_src bash :tangle "~/bin/gdrive-mount"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  if [ -d ~/gdrive ]; then
+  	umount ~/gdrive
+  	rmdir ~/gdrive
+  else
+  	mkdir -p ~/gdrive
+  	rclone mount --read-only gdrive: ~/gdrive &> /dev/null &
+  fi
 #+end_src
 ***** ~/.syncrclone/gdrive-config.py
 #+begin_src python :tangle "~/.syncrclone/gdrive-config.py"

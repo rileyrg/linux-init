@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if [ -d ~/gdrive ]; then
+	umount ~/gdrive
+	rmdir ~/gdrive
+else
+	mkdir -p ~/gdrive
+	rclone mount --read-only gdrive: ~/gdrive &> /dev/null &
+fi
