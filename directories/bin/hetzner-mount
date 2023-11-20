@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 if [ -d ~/hetzner ]; then
-	umount ~/hetzner
-	rmdir ~/hetzner
+    umount ~/hetzner
+    rmdir ~/hetzner
+    echo "Closed ~/hetzner"
 else
-	mkdir -p ~/hetzner
-	rclone mount --read-only hetzner: ~/hetzner &> /dev/null &
+    mkdir -p ~/hetzner
+    rclone mount --read-only hetzner: ~/hetzner &> /dev/null &
+    echo "Mounted ~/hetzner"
 fi
