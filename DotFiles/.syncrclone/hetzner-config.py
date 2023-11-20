@@ -81,8 +81,7 @@ filter_flags = ["--filter-from", "excludes.txt"]
 #
 # There is extemely minimal validation of flags. If you're uncertain, have
 # a backup and test with `--dry-run`
-rclone_flags = [ "--links", "--transfers", "10", "--checkers",  "10"]
-#rclone_flags = [ "--links"]
+rclone_flags = [ "--links", "--transfers", "5", "--checkers",  "7"]
 # The following are added to the existing environment.
 # These should NOT include any filtering!
 rclone_env = {}
@@ -90,8 +89,8 @@ rclone_env = {}
 # Additionally, specify flags for only one side or the other.
 # Examples would be things like `--fast-list`
 rclone_flagsA = []
-rclone_flagsB = ["--sftp-disable-hashcheck"]
-
+#rclone_flagsB = ["--sftp-disable-hashcheck"]
+rclone_flagsB = []
 ## Sync Options
 
 # How to compare files on A and B. Note that mtime also includes size.
