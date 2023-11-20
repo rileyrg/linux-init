@@ -4468,7 +4468,7 @@ https://github.com/Jwink3101/syncrclone
       echo "Closed ~/hetzner"
   else
       mkdir -p ~/hetzner
-      rclone mount --read-only hetzner: ~/hetzner &> /dev/null &
+      rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") hetzner: ~/hetzner &> /dev/null &
       echo "Mounted ~/hetzner"
   fi
 #+end_src
