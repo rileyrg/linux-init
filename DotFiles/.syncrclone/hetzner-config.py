@@ -1,4 +1,4 @@
-# Maintained in linux-config.org rgr
+# Maintained in linux-config.org
 """
 syncrclone
 
@@ -25,7 +25,7 @@ This is *ALWAYS* evaluated from the parent of this file.
 #
 #  See docs/config_tips.md for some helpful tips and tricks
 remoteA = "/home/rgr/cloud"
-remoteB = "gdrive:cloud"
+remoteB = "hetzner:cloud"
 
 # (ADVANCED USAGE) Specify where to store past file lists, backups, logs, locks, etc.
 # This value must be either:
@@ -47,7 +47,6 @@ name = subprocess.check_output("hostname").rstrip()
 name = name.decode("utf-8")
 import hashlib
 name += hashlib.md5(f"{remoteA}{remoteB}".encode()).hexdigest()
-
 ## rclone flags
 
 # Specify the path to the rclone executable.
@@ -63,8 +62,7 @@ rclone_exe = "rclone"
 #
 # These should be specified as a list. For example, to exclude *.exc, do
 # ['--exclude','*.exc']
-
-##
+#
 # See warnings in the readme about --exclude-if-present
 filter_flags = ["--filter-from", "excludes.txt"]
 
@@ -83,8 +81,8 @@ filter_flags = ["--filter-from", "excludes.txt"]
 #
 # There is extemely minimal validation of flags. If you're uncertain, have
 # a backup and test with `--dry-run`
-rclone_flags = [ "--links" ]
-
+rclone_flags = [ "--links", "--check-first", "--transfers", "6", "--checkers",  "8"]
+#rclone_flags = [ "--links"]
 # The following are added to the existing environment.
 # These should NOT include any filtering!
 rclone_env = {}
@@ -92,7 +90,7 @@ rclone_env = {}
 # Additionally, specify flags for only one side or the other.
 # Examples would be things like `--fast-list`
 rclone_flagsA = []
-rclone_flagsB = ["--fast-list"]
+rclone_flagsB = ["--sftp-disable-hashcheck"]
 
 ## Sync Options
 

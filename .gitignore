@@ -38,6 +38,9 @@
 !/dot-config/polybar
 !/dot-config/polybar/config
 
+!/dot-config/rclone
+!/dot-config/rclone/rclone.conf
+
 !/dot-config/sway
 !/dot-config/sway/config
 !/dot-config/sway/host-config-*
@@ -67,6 +70,7 @@
 !/DotFiles/.syncrclone
 !/DotFiles/.syncrclone/config.py
 !/DotFiles/.syncrclone/gdrive-config.py
+!/DotFiles/.syncrclone/hetzner-config.py
 !/DotFiles/.ripgreprc
 !/DotFiles/.xinitrc
 !/DotFiles/.xsession
