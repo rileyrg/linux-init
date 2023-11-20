@@ -6,6 +6,6 @@ if [ -d ~/hetzner ]; then
     echo "Closed ~/hetzner"
 else
     mkdir -p ~/hetzner
-    rclone mount --read-only hetzner: ~/hetzner &> /dev/null &
+    rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") hetzner: ~/hetzner &> /dev/null &
     echo "Mounted ~/hetzner"
 fi
