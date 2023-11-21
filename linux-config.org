@@ -4376,7 +4376,6 @@ See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight contr
 #+RESULTS:
 ** rclone
 https://rclone.org/
-** script
 *** CANCELLED ~/bin/rclone-gdrive-sync                            :CANCELLED:
 CLOSED: [2023-11-16 Thu 12:17]
 :LOGBOOK:
@@ -4425,10 +4424,10 @@ CLOSED: [2023-11-16 Thu 12:17]
       echo "rclone bisync finished." >> "$LOGFILE"
   fi
 #+end_src
-*** ~/bin/syncrclone-gdrive-sync
-**** CANCELLED scrtipt                                            :CANCELLED:
-CLOSED: [2023-11-16 Thu 12:16]
+*** CANCELLED ~/bin/syncrclone-gdrive-sync                        :CANCELLED:
+CLOSED: [2023-11-21 Tue 08:43]
 :LOGBOOK:
+- State "CANCELLED"  from              [2023-11-21 Tue 08:43]
 - State "CANCELLED"  from              [2023-11-16 Thu 12:16] \\
   use syncrclone directly
 :END:
@@ -4457,34 +4456,35 @@ https://github.com/Jwink3101/syncrclone
   # Maintained in linux-config.org
   echo "df -h"  | sftp u377059@u377059.your-storagebox.de
 #+end_src
-*** ~/bin/hetzner-mount
-**** script
-#+begin_src bash :tangle "~/bin/hetzner-mount"
+
+*** ~/bin/rclone-mount
+#+begin_src bash :tangle "~/bin/rclone-mount"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  if [ -d ~/hetzner ]; then
-      umount ~/hetzner
-      rmdir ~/hetzner
-      echo "Closed ~/hetzner"
+  remote=${1:-"hetzner"}
+  if [ -d ~/$remote ]; then
+      umount ~/${remote}
+      rmdir ~/${remote}
+      echo "Closed ~/${remote}"
   else
-      mkdir -p ~/hetzner
-      rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") hetzner: ~/hetzner &> /dev/null &
-      echo "Mounted ~/hetzner"
+      mkdir -p ~/${remote}
+      rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") ${remote}: ~/${remote} &> /dev/null &
+      echo "Mounted ~/${remote}"
   fi
 #+end_src
+
 *** ~/bin/gdrive-mount
 #+begin_src bash :tangle "~/bin/gdrive-mount"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  if [ -d ~/gdrive ]; then
-  	umount ~/gdrive
-  	rmdir ~/gdrive
-  else
-  	mkdir -p ~/gdrive
-  	rclone mount --read-only gdrive: ~/gdrive &> /dev/null &
-  fi
+  rclone-mount gdrive
 #+end_src
-
+*** ~/bin/hetzner-mount
+#+begin_src bash :tangle "~/bin/hetzner-mount"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  rclone-mount hetzner
+#+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate
 #+begin_src bash :tangle "~/bin/acpi-powerstate"

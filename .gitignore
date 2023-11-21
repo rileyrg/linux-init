@@ -134,6 +134,7 @@
 !/directories/bin/pulse-restart
 !/directories/bin/pulse-volume
 !/directories/bin/random-man-page
+!/directories/bin/rclone-mount
 !/directories/bin/resgithub
 !/directories/bin/remove-broken-symlinks
 !/directories/bin/remove-conflicted-copies

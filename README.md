@@ -2037,7 +2037,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org8f4e103"></a>
+<a id="orgecb5ce9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2083,7 +2083,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8f4e103).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgecb5ce9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3368,7 +3368,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org135cfc2).
+See [examples](#org4c0c6af).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3402,7 +3402,7 @@ See [examples](#org135cfc2).
     echo "$(getVolume)"
 
 
-<a id="org135cfc2"></a>
+<a id="org4c0c6af"></a>
 
 ### Examples:
 
@@ -3658,12 +3658,6 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 <https://rclone.org/>
 
 
-## script
-
-
-### ~/bin/syncrclone-gdrive-sync
-
-
 ### ~/bin/hetzner-du
 
 1.  script
@@ -3673,34 +3667,34 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
         echo "df -h"  | sftp u377059@u377059.your-storagebox.de
 
 
-### ~/bin/hetzner-mount
+### ~/bin/rclone-mount
 
-1.  script
-
-        #!/usr/bin/env bash
-        # Maintained in linux-config.org
-        if [ -d ~/hetzner ]; then
-            umount ~/hetzner
-            rmdir ~/hetzner
-            echo "Closed ~/hetzner"
-        else
-            mkdir -p ~/hetzner
-            rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") hetzner: ~/hetzner &> /dev/null &
-            echo "Mounted ~/hetzner"
-        fi
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    remote=${1:-"hetzner"}
+    if [ -d ~/$remote ]; then
+        umount ~/${remote}
+        rmdir ~/${remote}
+        echo "Closed ~/${remote}"
+    else
+        mkdir -p ~/${remote}
+        rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") ${remote}: ~/${remote} &> /dev/null &
+        echo "Mounted ~/${remote}"
+    fi
 
 
 ### ~/bin/gdrive-mount
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    if [ -d ~/gdrive ]; then
-            umount ~/gdrive
-            rmdir ~/gdrive
-    else
-            mkdir -p ~/gdrive
-            rclone mount --read-only gdrive: ~/gdrive &> /dev/null &
-    fi
+    rclone-mount gdrive
+
+
+### ~/bin/hetzner-mount
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    rclone-mount hetzner
 
 
 ## Power Monitoring
