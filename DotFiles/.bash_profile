@@ -11,14 +11,6 @@ if [ -d "/gnu" ]; then
     . "$GUIX_PROFILE/etc/profile"
 fi
 
-if [ -d "$HOME/hetzner" ] && ! mountpoint -q "$HOME/hetzner"; then
-    (command -v rclone && rclone mount --read-only  hetzner: "$HOME/hetzner") &> /dev/null &
-fi
-
-if [ -d "$HOME/gdrive" ] && ! mountpoint -q "$HOME/gdrive"; then
-    (command -v rclone && rclone mount --read-only  gdrive: "$HOME/gdrive") &> /dev/null &
-fi
-
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
 if [ -f "${HOME}/.START_SWAY" ]; then
