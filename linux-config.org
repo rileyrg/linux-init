@@ -1919,7 +1919,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
   bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
   bindsym $mod+Control+c exec conky
-  bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
+  #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
   bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
   bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
   bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
@@ -1930,6 +1930,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+g exec oneterminal "lldb"
   bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
   bindsym $mod+Control+p exec sway-htop
+  bindsym $mod+Control+s exec syncrclone-htop
   bindsym $mod+Control+Shift+p exec htop-regexp
   bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty -e zsh
 #+end_src
@@ -4484,6 +4485,12 @@ https://github.com/Jwink3101/syncrclone
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   rclone-mount hetzner
+#+end_src
+*** ~/bin/syncrclone-htop
+#+begin_src bash :tangle "~/bin/syncrclone-htop"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  alacritty -e htop -p $(pgrep -f syncrclone | tr '\n' ',')
 #+end_src
 *** ~/bin/syncrclone-mail
 #+begin_src bash :tangle "~/bin/syncrclone-mail"
