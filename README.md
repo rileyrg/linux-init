@@ -1130,7 +1130,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
     bindsym $mod+Control+c exec conky
-    bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
+    #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
     bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
@@ -1141,6 +1141,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+g exec oneterminal "lldb"
     bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
     bindsym $mod+Control+p exec sway-htop
+    bindsym $mod+Control+s exec syncrclone-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
     bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty -e zsh
 
@@ -2037,7 +2038,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org37d93d3"></a>
+<a id="org93c117d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2083,7 +2084,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org37d93d3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93c117d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3368,7 +3369,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org28d35e7).
+See [examples](#orgabc1ff1).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3402,7 +3403,7 @@ See [examples](#org28d35e7).
     echo "$(getVolume)"
 
 
-<a id="org28d35e7"></a>
+<a id="orgabc1ff1"></a>
 
 ### Examples:
 
@@ -3695,6 +3696,13 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     rclone-mount hetzner
+
+
+### ~/bin/syncrclone-htop
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    alacritty -e htop -p $(pgrep -f syncrclone | tr '\n' ',')
 
 
 ### ~/bin/syncrclone-mail
