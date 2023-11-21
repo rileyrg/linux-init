@@ -68,6 +68,8 @@
 !/DotFiles/.profile
 !/DotFiles/.ignore
 !/DotFiles/.syncrclone
+!/DotFiles/.syncrclone/crontab.t14s
+!/DotFiles/.syncrclone/crontab.x1c6
 !/DotFiles/.syncrclone/excludes.txt
 !/DotFiles/.syncrclone/config.py
 !/DotFiles/.syncrclone/gdrive-config.py
@@ -145,6 +147,7 @@
 !/directories/bin/sharemouse
 !/directories/bin/stm32cubeide
 !/directories/bin/stm32cubeide-uninstall
+!/directories/bin/syncrclone-mail
 !/directories/bin/sys-logger
 !/directories/bin/tmux-pane-tty
 !/directories/bin/wifi-toggle
