@@ -2037,7 +2037,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgba0a58a"></a>
+<a id="org60ce383"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2083,7 +2083,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgba0a58a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org60ce383).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3368,7 +3368,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orga96e5d2).
+See [examples](#org1cb8cde).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3402,7 +3402,7 @@ See [examples](#orga96e5d2).
     echo "$(getVolume)"
 
 
-<a id="orga96e5d2"></a>
+<a id="org1cb8cde"></a>
 
 ### Examples:
 
@@ -3702,6 +3702,13 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     syncrclone | mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
+
+
+### ~/bin/syncrclone-once
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    ! pgrep -x "syncrclone" &> /dev/null  && syncrclone
 
 
 ## Power Monitoring

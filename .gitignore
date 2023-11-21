@@ -148,6 +148,7 @@
 !/directories/bin/stm32cubeide
 !/directories/bin/stm32cubeide-uninstall
 !/directories/bin/syncrclone-mail
+!/directories/bin/syncrclone-once
 !/directories/bin/sys-logger
 !/directories/bin/tmux-pane-tty
 !/directories/bin/wifi-toggle
