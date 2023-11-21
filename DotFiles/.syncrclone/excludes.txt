@@ -1,4 +1,4 @@
 - var/eln-cache/
 - var/dap/
 - var/url/cache/
-- .emacs.d/straight/
+- emacs-config/straight/
