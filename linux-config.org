@@ -4495,7 +4495,7 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-once"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  ! pgrep -x "syncrclone" &> /dev/null  && syncrclone
+  ! pgrep "syncrclone" &> /dev/null  && syncrclone
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate
