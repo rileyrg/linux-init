@@ -68,6 +68,7 @@
 !/DotFiles/.profile
 !/DotFiles/.ignore
 !/DotFiles/.syncrclone
+!/DotFiles/.syncrclone/excludes.txt
 !/DotFiles/.syncrclone/config.py
 !/DotFiles/.syncrclone/gdrive-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
