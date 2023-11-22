@@ -5,12 +5,6 @@ logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.bashrc ] && . ~/.bashrc || true
 #emacs --bg-daemon  &> /dev/null &
 
-if [ -d "/gnu" ]; then
-    echo "GUIX initialised."
-    GUIX_PROFILE="/home/rgr/.guix-profile"
-    . "$GUIX_PROFILE/etc/profile"
-fi
-
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
 if [ -f "${HOME}/.START_SWAY" ]; then

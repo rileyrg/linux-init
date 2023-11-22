@@ -945,9 +945,9 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 #+begin_src bash :tangle "~/.config/zsh/.zprofile"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZPROFILE
-  if [ -f ~/.profile ]; then
-      emulate sh -c '. ~/.profile'
-  fi
+  # if [ -f ~/.profile ]; then
+  #     emulate sh -c '. ~/.profile'
+  # fi
 #+end_src
 **** etc/zsh/zprofile
 #+begin_src bash :tangle "etc/zsh/zshprofile"
@@ -966,13 +966,13 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 #+begin_src bash :tangle "etc/zsh/zshenv"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ETC-ZSHENV
-  if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-  then
-      export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-      if [ -f /etc/profile ]; then
-          emulate sh -c '. /etc/profile'
-      fi
-  fi
+  # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+  # then
+  #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+  #     if [ -f /etc/profile ]; then
+  #         emulate sh -c '. /etc/profile'
+  #     fi
+  # fi
 #+end_src
 **** ~/.config/zsh/.zshenv
 Link this into ${HOME}
@@ -1019,32 +1019,6 @@ CLOSED: [2021-06-30 Wed 15:18]
 https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo
 https://stackoverflow.com/a/38865693/37370
 
-* Guix
-A package management tool for and distribution of the GNU system
-
-I've removed this for now. Hellishly complex and I have to be honest, I can't make head nor tail of the docs and really cant
-be reading reams of "freedom" propaganda that requires in a degree in GUIX to understand how to suid a GUIX installed utiliy.
-
-#+begin_src bash :tangle "DotFiles/.bash_profile"
-  if [ -d "/gnu" ]; then
-      echo "GUIX initialised."
-      GUIX_PROFILE="/home/rgr/.guix-profile"
-      . "$GUIX_PROFILE/etc/profile"
-  fi
-
-#+end_src
-
-** remove GUIX
-#+begin_src bash :tangle "~/bin/remove-guix"
-  # Maintained in linux-config.org
-  sudo systemctl stop guix-daemon.service
-  sudo systemctl stop gnu-store.mount
-  sudo rm -rf /gnu
-  sudo rm -rf /var/guix
-  sudo rm -rf ~/.config/guix
-  sudo rm -rf /etc/guix#+end_src
-  rm -rf ~/.guix-profile
-#+end_src
 * Tmux                                                                 :tmux:
 ** ~/.profile
 :PROPERTIES:

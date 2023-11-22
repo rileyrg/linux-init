@@ -328,9 +328,9 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 
         # Maintained in linux-config.org
         logger -t "startup-initfile"  ZPROFILE
-        if [ -f ~/.profile ]; then
-            emulate sh -c '. ~/.profile'
-        fi
+        # if [ -f ~/.profile ]; then
+        #     emulate sh -c '. ~/.profile'
+        # fi
 
 2.  etc/zsh/zprofile
 
@@ -351,13 +351,13 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 
         # Maintained in linux-config.org
         logger -t "startup-initfile"  ETC-ZSHENV
-        if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-        then
-            export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-            if [ -f /etc/profile ]; then
-                emulate sh -c '. /etc/profile'
-            fi
-        fi
+        # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
+        # then
+        #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
+        #     if [ -f /etc/profile ]; then
+        #         emulate sh -c '. /etc/profile'
+        #     fi
+        # fi
 
 2.  ~/.config/zsh/.zshenv
 
@@ -402,32 +402,6 @@ Directory is [here](.oh-my-zsh/).
 
 <https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo>
 <https://stackoverflow.com/a/38865693/37370>
-
-
-# Guix
-
-A package management tool for and distribution of the GNU system
-
-I've removed this for now. Hellishly complex and I have to be honest, I can't make head nor tail of the docs and really cant
-be reading reams of "freedom" propaganda that requires in a degree in GUIX to understand how to suid a GUIX installed utiliy.
-
-    if [ -d "/gnu" ]; then
-        echo "GUIX initialised."
-        GUIX_PROFILE="/home/rgr/.guix-profile"
-        . "$GUIX_PROFILE/etc/profile"
-    fi
-
-
-## remove GUIX
-
-    # Maintained in linux-config.org
-    sudo systemctl stop guix-daemon.service
-    sudo systemctl stop gnu-store.mount
-    sudo rm -rf /gnu
-    sudo rm -rf /var/guix
-    sudo rm -rf ~/.config/guix
-    sudo rm -rf /etc/guix#+end_src
-    rm -rf ~/.guix-profile
 
 
 # Tmux     :tmux:
@@ -2038,7 +2012,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org93c117d"></a>
+<a id="org26ca51a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2084,7 +2058,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93c117d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org26ca51a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3369,7 +3343,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgabc1ff1).
+See [examples](#org2ff1d14).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3403,7 +3377,7 @@ See [examples](#orgabc1ff1).
     echo "$(getVolume)"
 
 
-<a id="orgabc1ff1"></a>
+<a id="org2ff1d14"></a>
 
 ### Examples:
 
