@@ -4470,7 +4470,9 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-mail"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  syncrclone-once | mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
+  syncrclone-once > ~/.syncrclone.log
+  mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
+
 #+end_src
 *** ~/bin/syncrclone-once
 #+begin_src bash :tangle "~/bin/syncrclone-once"
