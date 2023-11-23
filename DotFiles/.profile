@@ -85,6 +85,8 @@ export PATH="${PATH}:${ANDROID_STUDIO_HOME}/bin"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+export PATH="/snap/bin:$PATH"
+
 export NPM_PACKAGES="${HOME}/.npm-packages"
 export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
 export PATH="$NPM_PACKAGES/bin:$PATH"

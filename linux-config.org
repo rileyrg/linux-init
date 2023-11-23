@@ -1888,8 +1888,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+b exec sway-lock-utils blank
 
   bindsym Print exec sway-screenshot -i
-  bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
-  bindsym $mod+Control+Shift+f exec  "sway-www"
+  # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
+  bindsym $mod+Shift+f exec "sway-www"
   bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
   bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
   bindsym $mod+Control+c exec conky
@@ -2994,8 +2994,8 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
-  google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-  sleep 0.5 && sway-do-tool "Google-chrome"
+  #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+  sway-do-tool "firefox" "firefox"
 #+end_src
 *** ~/bin/sway/sway-wifi
 :PROPERTIES:
@@ -3489,7 +3489,10 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 #+end_src
-
+*** snap
+#+begin_src bash :tangle "DotFiles/.profile"
+  export PATH="/snap/bin:$PATH"
+#+end_src
 *** npm
 #+begin_src bash :tangle "DotFiles/.profile"
   export NPM_PACKAGES="${HOME}/.npm-packages"
@@ -4478,6 +4481,7 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-once"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
+  echo $PATH > /home/rgr/PATH
   ! pgrep "syncrclone" &> /dev/null  && syncrclone
 #+end_src
 ** Power Monitoring

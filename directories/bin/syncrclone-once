@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
+echo $PATH > /home/rgr/PATH
 ! pgrep "syncrclone" &> /dev/null  && syncrclone
