@@ -962,20 +962,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   logger -t "startup-initfile"  ETC-ZPROFILE
 #+end_src
 ** zshenv
-**** etc/zsh/zshenv
-#+begin_src bash :tangle "etc/zsh/zshenv"
-  # Maintained in linux-config.org
-  logger -t "startup-initfile"  ETC-ZSHENV
-  # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-  # then
-  #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-  #     if [ -f /etc/profile ]; then
-  #         emulate sh -c '. /etc/profile'
-  #     fi
-  # fi
-#+end_src
 **** ~/.config/zsh/.zshenv
-Link this into ${HOME}
 #+begin_src bash :tangle "~/.config/zsh/.zshenv"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZSHENV
@@ -984,11 +971,13 @@ Link this into ${HOME}
       export XDG_CONFIG_HOME="${HOME}/.config"
   fi
 
-  if [ -d "$XDG_CONFIG_HOME/zsh" ]
-  then
-      export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-  fi
   xhost +SI:localuser:root &> /dev/null
+#+end_src
+**** ~/.zshenv
+#+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
+  # Maintained in linux-config.org
+ZDOTDIR=$HOME/.config/zsh
+. $ZDOTDIR/.zshenv
 #+end_src
 ** Oh-My-Zsh Related
 Directory is [[file:.oh-my-zsh/][here]].

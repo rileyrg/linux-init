@@ -347,22 +347,8 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 
 ## zshenv
 
-1.  etc/zsh/zshenv
+1.  ~/.config/zsh/.zshenv
 
-        # Maintained in linux-config.org
-        logger -t "startup-initfile"  ETC-ZSHENV
-        # if [[ -z "$PATH" || "$PATH" == "/bin:/usr/bin" ]]
-        # then
-        #     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/games"
-        #     if [ -f /etc/profile ]; then
-        #         emulate sh -c '. /etc/profile'
-        #     fi
-        # fi
-
-2.  ~/.config/zsh/.zshenv
-
-    Link this into ${HOME}
-    
         # Maintained in linux-config.org
         logger -t "startup-initfile"  ZSHENV
         if [ -z "$XDG_CONFIG_HOME" ] && [ -d "${HOME}/.config" ]
@@ -370,11 +356,13 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
             export XDG_CONFIG_HOME="${HOME}/.config"
         fi
         
-        if [ -d "$XDG_CONFIG_HOME/zsh" ]
-        then
-            export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-        fi
         xhost +SI:localuser:root &> /dev/null
+
+2.  ~/.zshenv
+
+          # Maintained in linux-config.org
+        ZDOTDIR=$HOME/.config/zsh
+        . $ZDOTDIR/.zshenv
 
 
 ## Oh-My-Zsh Related
@@ -2012,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orge969e4f"></a>
+<a id="orge54bc7e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2058,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge969e4f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge54bc7e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3360,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org07bfaef).
+See [examples](#org6cb7dad).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3394,7 +3382,7 @@ See [examples](#org07bfaef).
     echo "$(getVolume)"
 
 
-<a id="org07bfaef"></a>
+<a id="org6cb7dad"></a>
 
 ### Examples:
 
