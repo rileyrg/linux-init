@@ -1099,8 +1099,8 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+b exec sway-lock-utils blank
     
     bindsym Print exec sway-screenshot -i
-    bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
-    bindsym $mod+Control+Shift+f exec  "sway-www"
+    # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
+    bindsym $mod+Shift+f exec "sway-www"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
     bindsym $mod+Control+c exec conky
@@ -2012,7 +2012,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org4989742"></a>
+<a id="org02e6c1c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2058,7 +2058,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4989742).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org02e6c1c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2195,8 +2195,8 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
-    google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-    sleep 0.5 && sway-do-tool "Google-chrome"
+    #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+    sway-do-tool "firefox" "firefox"
 
 
 ### ~/bin/sway/sway-wifi
@@ -2723,6 +2723,11 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+
+### snap
+
+    export PATH="/snap/bin:$PATH"
 
 
 ### npm
@@ -3343,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org459d080).
+See [examples](#orgf559c30).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3377,7 +3382,7 @@ See [examples](#org459d080).
     echo "$(getVolume)"
 
 
-<a id="org459d080"></a>
+<a id="orgf559c30"></a>
 
 ### Examples:
 
@@ -3691,6 +3696,7 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
+    echo $PATH > /home/rgr/PATH
     ! pgrep "syncrclone" &> /dev/null  && syncrclone
 
 
