@@ -694,7 +694,7 @@ X11 apps still need resource definitions when launched under XWayland.
     exec sleep 2 && gpg-cache
     exec blueman-applet
     exec nm-applet --indicator
-    #exec dropbox-start-once
+    exec  systemctl --user restart wireplumber
 
 
 ### library include
@@ -2012,7 +2012,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgf4e8651"></a>
+<a id="orge969e4f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2058,7 +2058,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf4e8651).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge969e4f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3360,7 +3360,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org254ac62).
+See [examples](#org07bfaef).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3394,7 +3394,7 @@ See [examples](#org254ac62).
     echo "$(getVolume)"
 
 
-<a id="org254ac62"></a>
+<a id="org07bfaef"></a>
 
 ### Examples:
 
