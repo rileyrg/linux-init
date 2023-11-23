@@ -3491,7 +3491,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #+end_src
 *** snap
 #+begin_src bash :tangle "DotFiles/.profile"
-  export PATH="/snap/bin:$PATH"
+  # export PATH="/snap/bin:$PATH"
 #+end_src
 *** npm
 #+begin_src bash :tangle "DotFiles/.profile"
@@ -3889,13 +3889,13 @@ if it exists jump to it else start it
   sway-do-tool "$@"
 #+end_src
 ** network interface utilities
-**** ~/bin/my-iface-active-query
+*** ~/bin/my-iface-active-query
 #+begin_src bash :tangle "~/bin/my-iface-active-query"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
 #+end_src
-**** ~/bin/my-iface-active
+*** ~/bin/my-iface-active
 #+begin_src bash :tangle "~/bin/my-iface-active"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
@@ -3903,25 +3903,30 @@ if it exists jump to it else start it
   export IFACE_ACTIVE
   echo $IFACE_ACTIVE
 #+end_src
-**** ~/bin/my-iface-active-ssid
+*** ~/bin/my-iface-active-ssid
 #+begin_src bash :tangle "~/bin/my-iface-active-ssid"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   my-iface-active-query "GENERAL.CONNECTION"
 #+end_src
-**** ~/bin/my-iface-active-ipaddr
+*** ~/bin/my-iface-active-ipaddr
 #+begin_src bash :tangle "~/bin/my-iface-active-ipaddr"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   my-iface-active-query "IP4.ADDRESS"
 #+end_src
-**** ~/bin/my-iface-active-quality
+*** ~/bin/my-iface-active-quality
 #+begin_src bash :tangle "~/bin/my-iface-active-quality"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   my-iface-active-query "GENERAL.STATE"
 #+end_src
-
+*** ~/bin/network-online
+#+begin_src bash :tangle "~/bin/network-online"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+  wget -q --spider http://google.com
+#+end_src
 ** ~/bin/confirm-suspend
 #+begin_src bash :tangle "~/bin/confirm-suspend"
   #!/usr/bin/env bash
@@ -4471,8 +4476,8 @@ https://github.com/Jwink3101/syncrclone
 #+end_src
 *** ~/bin/syncrclone-mail
 #+begin_src bash :tangle "~/bin/syncrclone-mail"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
+     #!/usr/bin/env bash
+     # Maintained in linux-config.org
   syncrclone-once > ~/.syncrclone.log
   mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
 
@@ -4481,8 +4486,15 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-once"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  echo $PATH > /home/rgr/PATH
-  ! pgrep "syncrclone" &> /dev/null  && syncrclone
+  if ! network-online; then
+      echo "offline"
+      exit 1
+  fi
+  if pgrep -x "syncrclone" > /dev/null; then
+      echo "syncrclone already running"
+      exit 1
+  fi
+  syncrclone
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate

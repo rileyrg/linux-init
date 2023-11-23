@@ -127,6 +127,7 @@
 !/directories/bin/i3-display-swap
 !/directories/bin/make-compile_commands
 !/directories/bin/my-*
+!/directories/bin/network-online
 !/directories/bin/nvidia-power-usage
 !/directories/bin/pop-window
 !/directories/bin/post-blank

@@ -2012,7 +2012,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org02e6c1c"></a>
+<a id="orgf4e8651"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2058,7 +2058,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org02e6c1c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf4e8651).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2727,7 +2727,7 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
 ### snap
 
-    export PATH="/snap/bin:$PATH"
+    # export PATH="/snap/bin:$PATH"
 
 
 ### npm
@@ -3145,37 +3145,49 @@ if it exists jump to it else start it
 
 ## network interface utilities
 
-1.  ~/bin/my-iface-active-query
 
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
+### ~/bin/my-iface-active-query
 
-2.  ~/bin/my-iface-active
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
 
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
-        export IFACE_ACTIVE
-        echo $IFACE_ACTIVE
 
-3.  ~/bin/my-iface-active-ssid
+### ~/bin/my-iface-active
 
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        my-iface-active-query "GENERAL.CONNECTION"
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
+    export IFACE_ACTIVE
+    echo $IFACE_ACTIVE
 
-4.  ~/bin/my-iface-active-ipaddr
 
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        my-iface-active-query "IP4.ADDRESS"
+### ~/bin/my-iface-active-ssid
 
-5.  ~/bin/my-iface-active-quality
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    my-iface-active-query "GENERAL.CONNECTION"
 
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        my-iface-active-query "GENERAL.STATE"
+
+### ~/bin/my-iface-active-ipaddr
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    my-iface-active-query "IP4.ADDRESS"
+
+
+### ~/bin/my-iface-active-quality
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    my-iface-active-query "GENERAL.STATE"
+
+
+### ~/bin/network-online
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    wget -q --spider http://google.com
 
 
 ## ~/bin/confirm-suspend
@@ -3348,7 +3360,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgf559c30).
+See [examples](#org254ac62).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3382,7 +3394,7 @@ See [examples](#orgf559c30).
     echo "$(getVolume)"
 
 
-<a id="orgf559c30"></a>
+<a id="org254ac62"></a>
 
 ### Examples:
 
@@ -3686,8 +3698,8 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
 ### ~/bin/syncrclone-mail
 
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
+       #!/usr/bin/env bash
+       # Maintained in linux-config.org
     syncrclone-once > ~/.syncrclone.log
     mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
 
@@ -3696,8 +3708,15 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    echo $PATH > /home/rgr/PATH
-    ! pgrep "syncrclone" &> /dev/null  && syncrclone
+    if ! network-online; then
+        echo "offline"
+        exit 1
+    fi
+    if pgrep -x "syncrclone" > /dev/null; then
+        echo "syncrclone already running"
+        exit 1
+    fi
+    syncrclone
 
 
 ## Power Monitoring
