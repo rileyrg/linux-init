@@ -40,7 +40,7 @@ exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep
 exec sleep 2 && gpg-cache
 exec blueman-applet
 exec nm-applet --indicator
-#exec dropbox-start-once
+exec  systemctl --user restart wireplumber
 
 include /etc/sway/config.d/*
 
