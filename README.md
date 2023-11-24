@@ -2000,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orge54bc7e"></a>
+<a id="org299b35b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge54bc7e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org299b35b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3348,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org6cb7dad).
+See [examples](#org897559b).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3382,7 +3382,7 @@ See [examples](#org6cb7dad).
     echo "$(getVolume)"
 
 
-<a id="org6cb7dad"></a>
+<a id="org897559b"></a>
 
 ### Examples:
 
@@ -3684,14 +3684,6 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     htop -p $(pgrep -f syncrclone | tr '\n' ',')
 
 
-### ~/bin/syncrclone-mail
-
-       #!/usr/bin/env bash
-       # Maintained in linux-config.org
-    syncrclone-once > ~/.syncrclone.log
-    mail -s "syncrclone: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
-
-
 ### ~/bin/syncrclone-once
 
     #!/usr/bin/env bash
@@ -3702,9 +3694,17 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     fi
     if pgrep -x "syncrclone" > /dev/null; then
         echo "syncrclone already running"
-        exit 1
+    else
+        syncrclone
     fi
-    syncrclone
+
+
+### ~/bin/syncrclone-mail
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    syncrclone-once > ~/.syncrclone.log
+    mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
 
 
 ## Power Monitoring
