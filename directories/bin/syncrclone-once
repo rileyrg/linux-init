@@ -6,6 +6,6 @@ if ! network-online; then
 fi
 if pgrep -x "syncrclone" > /dev/null; then
     echo "syncrclone already running"
-    exit 1
+else
+    syncrclone
 fi
-syncrclone
