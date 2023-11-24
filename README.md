@@ -2000,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org211335a"></a>
+<a id="org6f92efa"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org211335a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6f92efa).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3348,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org50c61b3).
+See [examples](#org7aac6f5).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3382,7 +3382,7 @@ See [examples](#org50c61b3).
     echo "$(getVolume)"
 
 
-<a id="org50c61b3"></a>
+<a id="org7aac6f5"></a>
 
 ### Examples:
 
@@ -3696,20 +3696,8 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
         echo "syncrclone already running"
         exit 1
     else
-        rm -rf ~/.syncrclone/syncrclone.log
         syncrclone
         exit 0
-    fi
-
-
-### ~/bin/syncrclone-mail
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    if syncrclone-once; then
-        echo "syncrclone running or failed" | mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
-    else
-        mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone/syncrclone.log
     fi
 
 
