@@ -7,6 +7,6 @@ if [ -d ~/$remote ]; then
     echo "Closed ~/${remote}"
 else
     mkdir -p ~/${remote}
-    rclone mount $( [ ! "$1" = "rw" ] && echo "--read-only") ${remote}: ~/${remote} &> /dev/null &
+    rclone mount $( [ "$2" != "rw" ] && echo "--read-only") ${remote}: ~/${remote} &> /dev/null &
     echo "Mounted ~/${remote}"
 fi
