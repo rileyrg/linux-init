@@ -4473,16 +4473,22 @@ https://github.com/Jwink3101/syncrclone
   fi
   if pgrep -x "syncrclone" > /dev/null; then
       echo "syncrclone already running"
+      exit 1
   else
+      rm -rf ~/.syncrclone/syncrclone.log
       syncrclone
+      exit 0
   fi
 #+end_src
 *** ~/bin/syncrclone-mail
 #+begin_src bash :tangle "~/bin/syncrclone-mail"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  syncrclone-once > ~/.syncrclone.log
-  mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
+  if syncrclone-once; then
+      echo "syncrclone running or failed" | mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
+  else
+      mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone/syncrclone.log
+  fi
 #+end_src
 ** Power Monitoring
 *** ~/bin/acpi-powerstate
