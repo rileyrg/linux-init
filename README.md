@@ -2000,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org299b35b"></a>
+<a id="org6c4d342"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org299b35b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6c4d342).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3348,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org897559b).
+See [examples](#org274cd14).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3382,7 +3382,7 @@ See [examples](#org897559b).
     echo "$(getVolume)"
 
 
-<a id="org897559b"></a>
+<a id="org274cd14"></a>
 
 ### Examples:
 
@@ -3694,8 +3694,11 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     fi
     if pgrep -x "syncrclone" > /dev/null; then
         echo "syncrclone already running"
+        exit 1
     else
+        rm -rf ~/.syncrclone/syncrclone.log
         syncrclone
+        exit 0
     fi
 
 
@@ -3703,8 +3706,11 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    syncrclone-once > ~/.syncrclone.log
-    mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone.log
+    if syncrclone-once; then
+        echo "syncrclone running or failed" | mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
+    else
+        mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone/syncrclone.log
+    fi
 
 
 ## Power Monitoring
