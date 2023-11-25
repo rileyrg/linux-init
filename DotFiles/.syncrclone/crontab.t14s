@@ -1,1 +1,1 @@
-0 */2 * * *  bash -lc syncrclone-once
+0 */2 * * *  . $HOME/.profile; export SYNC_CRON=1;syncrclone-once

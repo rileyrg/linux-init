@@ -4,10 +4,14 @@ if ! network-online; then
     echo "offline"
     exit 1
 fi
-if pgrep -x "syncrclone" > /dev/null; then
+if pgrep -x "rclone" > /dev/null; then
     echo "syncrclone already running"
     exit 1
 else
-    syncrclone
+    if [[ -z $SYNC_CRON ]]; then
+        syncrclone | mail -s "syncrclone manual : $(date)" $USER
+    else
+        syncrclone
+    fi
     exit 0
 fi

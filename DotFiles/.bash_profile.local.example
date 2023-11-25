@@ -1,0 +1,6 @@
+XIDLEHOOK_BLANK=300
+XIDLEHOOK_LOCK=1800
+XIDLEHOOK_SUSPEND=20736000
+if [ -z "$SSH_CONNECTION" ];then
+ 	(sleep 30 && syncrclone-once) &
+fi

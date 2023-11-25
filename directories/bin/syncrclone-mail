@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-if syncrclone-once; then
-    echo "syncrclone running or failed" | mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER"
-else
-    mail -s "syncrclone-mail: $(date +'%Y-%m-%d %H:%M:%S')" "$USER" < ~/.syncrclone/syncrclone.log
-fi
