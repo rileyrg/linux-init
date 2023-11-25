@@ -4461,7 +4461,7 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/syncrclone-htop"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  htop -p $(pgrep -f syncrclone | tr '\n' ',')
+  htop -F "syncrclone"
 #+end_src
 *** ~/bin/syncrclone-once
 #+begin_src bash :tangle "~/bin/syncrclone-once"
