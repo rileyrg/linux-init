@@ -13,8 +13,8 @@ volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
 if [[ -z $volumep ]]; then
     volumep="0"
-elif [[ $volumep -gt "100" ]];then
-    volumep="100"
+elif [[ $volumep -gt "150" ]];then
+    volumep="150"
     wpctl set-volume @DEFAULT_AUDIO_SINK@ 1
 fi
 if [[ "$volume" == *"MUTED"* ]]; then

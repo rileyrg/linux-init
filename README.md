@@ -2000,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgec2abdc"></a>
+<a id="org8345233"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgec2abdc).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8345233).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2153,8 +2153,8 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
     if [[ -z $volumep ]]; then
         volumep="0"
-    elif [[ $volumep -gt "100" ]];then
-        volumep="100"
+    elif [[ $volumep -gt "150" ]];then
+        volumep="150"
         wpctl set-volume @DEFAULT_AUDIO_SINK@ 1
     fi
     if [[ "$volume" == *"MUTED"* ]]; then
@@ -3348,7 +3348,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org1b6f558).
+See [examples](#org31638ce).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3382,7 +3382,7 @@ See [examples](#org1b6f558).
     echo "$(getVolume)"
 
 
-<a id="org1b6f558"></a>
+<a id="org31638ce"></a>
 
 ### Examples:
 
