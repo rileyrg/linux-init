@@ -2685,8 +2685,20 @@ output HDMI-A-2  mode 1920x1080 position 2560,116
   }
 
   {
-  output DP-4 mode 1920x1080 position 0,0
   output eDP-1 disable
+  output DP-1 mode 2560x1440 position 0,0
+  }
+
+#+end_src
+**** config-x1c6
+#+begin_src conf :tangle "dot-config/kanshi/config-x1c6"
+  {
+  output eDP-1 enable mode 1920x1080  position 0,0
+  }
+
+  {
+  output eDP-1 disable
+  output DP-1 mode 2560x1440 position 0,0
   }
 
 #+end_src
