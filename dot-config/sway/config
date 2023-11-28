@@ -249,6 +249,7 @@ bindsym $mod+Control+q mode "$mode_system"
 #assign [app_id="Alacritty"] $ws1
 assign [class="Ardour"] $ws6
 assign [class="Code"] $ws3
+assign [class="firefox"] $ws2
 assign [class="Signal"] $ws8
 assign [class="jetbrains-studio"] $ws3
 assign [class="Emacs"] $ws1
@@ -299,7 +300,6 @@ for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
-exec $editor
-workspace $ws2
-exec sway-www
-exec 'sleep 2; swaymsg workspace $ws1'
+exec  "sway-www"
+exec  "sway-editor"
+exec "sleep 1 &&  swaymsg workspace $ws1"

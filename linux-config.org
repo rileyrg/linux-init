@@ -1854,6 +1854,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   #assign [app_id="Alacritty"] $ws1
   assign [class="Ardour"] $ws6
   assign [class="Code"] $ws3
+  assign [class="firefox"] $ws2
   assign [class="Signal"] $ws8
   assign [class="jetbrains-studio"] $ws3
   assign [class="Emacs"] $ws1
@@ -2687,7 +2688,7 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 
   {
   output eDP-1 disable
-  output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
+  output DP-1 enable mode 2560x1440 position 0,0
   }
 
 #+end_src
@@ -4642,8 +4643,7 @@ https://github.com/Jwink3101/syncrclone
 #+end_src
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
-  exec $editor
-  workspace $ws2
-  exec sway-www
-  exec 'sleep 2; swaymsg workspace $ws1'
+ exec  "sway-www"
+ exec  "sway-editor"
+ exec "sleep 1 &&  swaymsg workspace $ws1"
 #+end_src
