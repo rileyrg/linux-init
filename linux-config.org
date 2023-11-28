@@ -2997,7 +2997,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
   #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-  sway-do-tool "firefox" "sway-firefox"
+  sway-do-tool "firefox" "firefox"
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:
