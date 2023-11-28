@@ -2011,7 +2011,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org1a5fec2"></a>
+<a id="org44db7e8"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2057,7 +2057,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1a5fec2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org44db7e8).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3342,6 +3342,15 @@ strip debug info and store elsewhere
              > compile_commands.json
 
 
+## ~/bin/md-read
+
+     #!/usr/bin/env bash
+     #Maintained in linux-config.org
+    [ -z  $(command -v lynx) ] && echo "install lynx" && exit 1
+    [ -z  $(command -v pandoc) ] && echo "install pandoc" && exit 1
+    pandoc "$1" | lynx -stdin
+
+
 ## TODO ~/bin/pw-volume
 
 <https://gist.github.com/venam/bd453b4fd673ff8abb9323e69f182045>
@@ -3366,7 +3375,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org1d3ec59).
+See [examples](#orgb0673d8).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3409,7 @@ See [examples](#org1d3ec59).
     echo "$(getVolume)"
 
 
-<a id="org1d3ec59"></a>
+<a id="orgb0673d8"></a>
 
 ### Examples:
 
