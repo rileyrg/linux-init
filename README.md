@@ -1826,50 +1826,50 @@ Load a host specific kanshi file if it exists
 2.  config-um690
 
         {
-        output HDMI-A-1  mode 2560x1440 position 0,0
-        output HDMI-A-2  mode 1920x1080 position 2560,116
+        output HDMI-A-1  enable mode 2560x1440 position 0,0
+        output HDMI-A-2  enable mode 1920x1080 position 2560,116
         }
 
 3.  config-thinkpadt14s
 
         {
-        output eDP-1 mode 1920x1080  position 0,0
+        output eDP-1 enable mode 1920x1080  position 0,0
         }
         
         {
-        output eDP-1 mode 1920x1080 position 2560,0
-        output HDMI-A-1  mode 2560x1440 position 0,0
+        output eDP-1 enable mode 1920x1080 position 2560,0
+        output HDMI-A-1  enable mode 2560x1440 position 0,0
         }
         
         {
-        output eDP-1 mode 1920x1080 position 2560,0
-        output DP-1  mode 2560x1440 position 0,0
+        output eDP-1 enable mode 1920x1080 position 2560,0
+        output DP-1  enable mode 2560x1440 position 0,0
         }
         
         {
-        output eDP-1 mode 1920x1080 position 2560,0
-        output DP-2  mode 2560x1440 position 0,0
+        output eDP-1 enable mode 1920x1080 position 2560,0
+        output DP-2  enable mode 2560x1440 position 0,0
         }
         
         {
-        output eDP-1 mode 1920x1080 position 1920,0
-        output DP-4 mode 1920x1080 position 0,0
+        output eDP-1 enable mode 1920x1080 position 1920,0
+        output DP-4 enable mode 1920x1080 position 0,0
         }
 
 4.  config-xmgneo
 
         {
-        output eDP-1 enable mode 2560x1440  position 0,0
+        output eDP-1 enable enable mode 2560x1440  position 0,0
         }
         
         {
-        output eDP-1 mode 2560x1440 position 2560,0
-        output HDMI-A-1  mode 2560x1440 position 0,0
+        output eDP-1 enable mode 2560x1440 position 2560,0
+        output HDMI-A-1  enable mode 2560x1440 position 0,0
         }
         
         {
-        output eDP-1 mode 2560x1440 position 2560,0
-        output DP-1  mode 2560x1440 position 0,0
+        output eDP-1 enable mode 2560x1440 position 2560,0
+        output DP-1  enable mode 2560x1440 position 0,0
         }
 
 5.  config-thinkpadt460
@@ -1879,8 +1879,8 @@ Load a host specific kanshi file if it exists
         }
         
         {
-        output eDP-1 mode 1366×768  position 1920,0
-        output DP-4 mode 1920x1080 position 0,0
+        output eDP-1 enable mode 1366×768  position 1920,0
+        output DP-4 enable mode 1920x1080 position 0,0
         }
 
 6.  config-thinkpadx270
@@ -1891,7 +1891,7 @@ Load a host specific kanshi file if it exists
         
         {
         output eDP-1 disable
-        output DP-1 mode 2560x1440 position 0,0
+        output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
         }
 
 7.  config-x1c6
@@ -1902,7 +1902,7 @@ Load a host specific kanshi file if it exists
         
         {
         output eDP-1 disable
-        output DP-1 mode 2560x1440 position 0,0
+        output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
         }
     
     ******\*******
@@ -2011,7 +2011,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org2959f59"></a>
+<a id="org1a5fec2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2057,7 +2057,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2959f59).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1a5fec2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2195,7 +2195,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
     #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-    sway-do-tool "firefox" "sway-firefox"
+    sway-do-tool "firefox" "firefox"
 
 
 ### ~/bin/sway/sway-firefox
@@ -3366,7 +3366,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgefb3556).
+See [examples](#org1d3ec59).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3400,7 +3400,7 @@ See [examples](#orgefb3556).
     echo "$(getVolume)"
 
 
-<a id="orgefb3556"></a>
+<a id="org1d3ec59"></a>
 
 ### Examples:
 
