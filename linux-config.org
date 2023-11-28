@@ -2618,52 +2618,52 @@ Load a host specific kanshi file if it exists
 **** config-um690
 #+begin_src conf :tangle "dot-config/kanshi/config-um690"
 {
-output HDMI-A-1  mode 2560x1440 position 0,0
-output HDMI-A-2  mode 1920x1080 position 2560,116
+output HDMI-A-1  enable mode 2560x1440 position 0,0
+output HDMI-A-2  enable mode 1920x1080 position 2560,116
 }
 #+end_src
 
 **** config-thinkpadt14s
 #+begin_src conf :tangle "dot-config/kanshi/config-thinkpadt14s"
   {
-  output eDP-1 mode 1920x1080  position 0,0
+  output eDP-1 enable mode 1920x1080  position 0,0
   }
 
   {
-  output eDP-1 mode 1920x1080 position 2560,0
-  output HDMI-A-1  mode 2560x1440 position 0,0
+  output eDP-1 enable mode 1920x1080 position 2560,0
+  output HDMI-A-1  enable mode 2560x1440 position 0,0
   }
 
   {
-  output eDP-1 mode 1920x1080 position 2560,0
-  output DP-1  mode 2560x1440 position 0,0
+  output eDP-1 enable mode 1920x1080 position 2560,0
+  output DP-1  enable mode 2560x1440 position 0,0
   }
 
   {
-  output eDP-1 mode 1920x1080 position 2560,0
-  output DP-2  mode 2560x1440 position 0,0
+  output eDP-1 enable mode 1920x1080 position 2560,0
+  output DP-2  enable mode 2560x1440 position 0,0
   }
 
   {
-  output eDP-1 mode 1920x1080 position 1920,0
-  output DP-4 mode 1920x1080 position 0,0
+  output eDP-1 enable mode 1920x1080 position 1920,0
+  output DP-4 enable mode 1920x1080 position 0,0
   }
 
 #+end_src
 **** config-xmgneo
 #+begin_src conf :tangle "dot-config/kanshi/config-xmgneo"
   {
-  output eDP-1 enable mode 2560x1440  position 0,0
+  output eDP-1 enable enable mode 2560x1440  position 0,0
   }
 
   {
-  output eDP-1 mode 2560x1440 position 2560,0
-  output HDMI-A-1  mode 2560x1440 position 0,0
+  output eDP-1 enable mode 2560x1440 position 2560,0
+  output HDMI-A-1  enable mode 2560x1440 position 0,0
   }
 
   {
-  output eDP-1 mode 2560x1440 position 2560,0
-  output DP-1  mode 2560x1440 position 0,0
+  output eDP-1 enable mode 2560x1440 position 2560,0
+  output DP-1  enable mode 2560x1440 position 0,0
   }
 
 #+end_src
@@ -2674,8 +2674,8 @@ output HDMI-A-2  mode 1920x1080 position 2560,116
   }
 
   {
-  output eDP-1 mode 1366×768  position 1920,0
-  output DP-4 mode 1920x1080 position 0,0
+  output eDP-1 enable mode 1366×768  position 1920,0
+  output DP-4 enable mode 1920x1080 position 0,0
   }
 #+end_src
 **** config-thinkpadx270
@@ -2686,7 +2686,7 @@ output HDMI-A-2  mode 1920x1080 position 2560,116
 
   {
   output eDP-1 disable
-  output DP-1 mode 2560x1440 position 0,0
+  output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
   }
 
 #+end_src
@@ -2698,7 +2698,7 @@ output HDMI-A-2  mode 1920x1080 position 2560,116
 
   {
   output eDP-1 disable
-  output DP-1 mode 2560x1440 position 0,0
+  output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
   }
 
 #+end_src
