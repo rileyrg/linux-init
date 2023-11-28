@@ -1789,6 +1789,7 @@ I want a key to create and then toggle a terminal.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
+    # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
     exec emacs-same-frame "$@"
 
 
@@ -2011,7 +2012,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org44db7e8"></a>
+<a id="org00e5a7b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2057,7 +2058,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org44db7e8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org00e5a7b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2788,14 +2789,14 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
         #!/usr/bin/env bash
         #Maintained in linux-config.org
         java -jar ~/bin/thirdparty/STM32CubeMX/STM32CubeMX
+    
+    1.  sway
+    
+            for_window [class="STM32CubeIDE"] floating enable
+            assign [class="STM32CubeIDE"] $ws3
+            assign [title="STM32CubeIDE"] $ws3
 
-4.  sway
-
-        for_window [class="STM32CubeIDE"] floating enable
-        assign [class="STM32CubeIDE"] $ws3
-        assign [title="STM32CubeIDE"] $ws3
-
-5.  launcher for X11 compatability
+4.  launcher for X11 compatability
 
     pending deletion
     
@@ -3375,7 +3376,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgb0673d8).
+See [examples](#org62f68f6).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3409,7 +3410,7 @@ See [examples](#orgb0673d8).
     echo "$(getVolume)"
 
 
-<a id="orgb0673d8"></a>
+<a id="org62f68f6"></a>
 
 ### Examples:
 
@@ -3873,4 +3874,12 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
+
+
+## late addition to .config/sway/config
+
+    exec $editor
+    workspace $ws2
+    exec sway-www
+    exec 'sleep 2; swaymsg workspace $ws1'
 

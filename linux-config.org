@@ -2583,6 +2583,7 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
 #+begin_src bash :tangle "~/bin/sway/sway-editor"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
+  # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
   exec emacs-same-frame "$@"
 #+end_src
 *** ~/bin/sway/sway-htop
@@ -3561,7 +3562,7 @@ This is a bit defunct now (may 2022) as they have packaged their code into exes.
   #Maintained in linux-config.org
   java -jar ~/bin/thirdparty/STM32CubeMX/STM32CubeMX
 #+end_src
-**** sway
+***** sway
 #+begin_src conf :tangle ~/.config/sway/config
   for_window [class="STM32CubeIDE"] floating enable
   assign [class="STM32CubeIDE"] $ws3
@@ -4079,6 +4080,7 @@ strip debug info and store elsewhere
 #+end_src
 
 ** ~/bin/md-read
+
 #+begin_src bash :tangle "~/bin/md-read"
    #!/usr/bin/env bash
    #Maintained in linux-config.org
@@ -4637,4 +4639,11 @@ https://github.com/Jwink3101/syncrclone
   # fix for java apps in sway
   export _JAVA_AWT_WM_NONREPARENTING=1
   [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
+#+end_src
+** late addition to .config/sway/config
+#+begin_src conf :tangle ~/.config/sway/config
+  exec $editor
+  workspace $ws2
+  exec sway-www
+  exec 'sleep 2; swaymsg workspace $ws1'
 #+end_src

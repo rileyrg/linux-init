@@ -298,3 +298,8 @@ bindsym $mod+Alt+b exec killall -SIGUSR1 waybar
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
+
+exec $editor
+workspace $ws2
+exec sway-www
+exec 'sleep 2; swaymsg workspace $ws1'
