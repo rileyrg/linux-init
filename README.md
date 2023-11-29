@@ -730,7 +730,7 @@ done by linux systemd
 
 2.  transparency
 
-        set $trans 0.8
+        set $trans 0.5
         set $alphamark "α"
         for_window [con_mark=$alphamark] opacity set $trans
         bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
@@ -1840,9 +1840,11 @@ Load a host specific kanshi file if it exists
         output DP-2  enable mode 2560x1440 position 0,0
         }
         
+        
         {
-        output eDP-1 enable mode 1920x1080 position 1920,0
-        output DP-4 enable mode 1920x1080 position 0,0
+        output DP-4 enable mode 25640x1440  position 0,0
+        output DP-5 enable mode 1920x1080   position 2560,0
+        output eDP-1 disable mode 1920x1080 position 4540,0
         }
 
 4.  config-xmgneo
@@ -2000,7 +2002,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org6b29a54"></a>
+<a id="orga8e9856"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2048,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6b29a54).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8e9856).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3363,7 +3365,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgd75d9f4).
+See [examples](#org1ae4931).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3397,7 +3399,7 @@ See [examples](#orgd75d9f4).
     echo "$(getVolume)"
 
 
-<a id="orgd75d9f4"></a>
+<a id="org1ae4931"></a>
 
 ### Examples:
 
