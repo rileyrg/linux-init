@@ -1572,7 +1572,7 @@ I want a key to create and then toggle a terminal.
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  swaymsg "[title=ScratchTerminal] scratchpad show " ||  sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s "ScratchTerminal"
+  swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s ScratchTerminal)
 #+end_src
 *** navigation                                  :navigation
 #+begin_src conf
