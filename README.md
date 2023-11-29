@@ -773,7 +773,7 @@ I want a key to create and then toggle a terminal.
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        swaymsg "[title=ScratchTerminal] scratchpad show " ||  sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal"
+        swaymsg "[title=ScratchTerminal] scratchpad show " ||  sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s "ScratchTerminal"
 
 
 ### navigation                                  :navigation
@@ -2000,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org3afc31f"></a>
+<a id="org764fb93"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2046,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3afc31f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org764fb93).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3363,7 +3363,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orge05d790).
+See [examples](#org29cab9a).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3397,7 +3397,7 @@ See [examples](#orge05d790).
     echo "$(getVolume)"
 
 
-<a id="orge05d790"></a>
+<a id="org29cab9a"></a>
 
 ### Examples:
 
