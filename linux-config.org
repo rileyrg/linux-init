@@ -684,6 +684,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   # for ssh logins, install and configure the libpam-umask package.
   #umask 022
 
+  export DOT_PROFILE_SOURCED=1
 
   export PRINTER="Canon_TR8500_series"
 
@@ -928,9 +929,6 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/zsh"
-
-
-  chuck
 #+end_src
 
 #+RESULTS:
@@ -940,30 +938,16 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZLOGIN
   # [ -s "${HOME}/.rvm/scripts/rvm" ] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+  if [[ -z $DOT_PROFILE_SOURCED ]]; then
+      if [ -f ~/.profile ]; then
+          emulate sh -c '. ~/.profile'
+      fi
+  fi
 #+end_src
 ** zprofile
 **** ~/.config/zsh/.zprofile
 #+begin_src bash :tangle "~/.config/zsh/.zprofile"
   # Maintained in linux-config.org
-  logger -t "startup-initfile"  ZPROFILE
-  if ! type "sway-www" > /dev/null; then
-      if [ -f ~/.profile ]; then
-          # install foobar here
-          emulate sh -c '. ~/.profile'
-      fi
-  fi
-#+end_src
-**** etc/zsh/zprofile
-#+begin_src bash :tangle "etc/zsh/zshprofile"
-  # Maintained in linux-config.org
-  # /etc/zsh/zprofile: system-wide .zprofile file for zsh(1).
-  #
-  # This file is sourced only for login shells (i.e. shells
-  # invoked with "-" as the first character of argv[0], and
-  # shells invoked with the -l flag.)
-  #
-  # Global Order: zshenv, zprofile, zshrc, zlogin
-  logger -t "startup-initfile"  ETC-ZPROFILE
 #+end_src
 ** zshenv
 **** ~/.config/zsh/.zshenv
@@ -980,8 +964,8 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 **** ~/.zshenv
 #+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
   # Maintained in linux-config.org
-ZDOTDIR=$HOME/.config/zsh
-. $ZDOTDIR/.zshenv
+  ZDOTDIR=$HOME/.config/zsh
+  . $ZDOTDIR/.zshenv
 #+end_src
 ** Oh-My-Zsh Related
 Directory is [[file:.oh-my-zsh/][here]].
@@ -1588,7 +1572,7 @@ I want a key to create and then toggle a terminal.
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  swaymsg "[title=ScratchTerminal] scratchpad show " || ( sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command bash -c "tmux new-session -A -s ScratchTerminal")
+  swaymsg "[title=ScratchTerminal] scratchpad show " ||  sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal"
 #+end_src
 *** navigation                                  :navigation
 #+begin_src conf
@@ -1900,7 +1884,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+p exec sway-htop
   bindsym $mod+Control+s exec alacritty -e syncrclone-htop
   bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty -e zsh
+  bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
 #+end_src
 
 *** gaming                                                           :gaming:
@@ -3886,9 +3870,8 @@ if it exists jump to it else start it
   sessionname="${1:-`pwd`}"
   title="${ONETERM_TITLE:-${sessionname}}"
   script="${2}"
-
   if ! sway-do-tool "$title"; then
-      alacritty --title "${title}" --command bash -c "tmux new-session -A -s ${sessionname} ${script}" &
+      alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
   else
       if ! tmux has-session -t  "${sessionname}"; then
           tmux attach -t "${sessionname}"

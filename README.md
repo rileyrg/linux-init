@@ -69,6 +69,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     # for ssh logins, install and configure the libpam-umask package.
     #umask 022
     
+    export DOT_PROFILE_SOURCED=1
     
     export PRINTER="Canon_TR8500_series"
     
@@ -310,9 +311,6 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
-    
-    
-    chuck
 
 
 ## ~/.config/zsh/.zlogin
@@ -320,6 +318,11 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     # Maintained in linux-config.org
     logger -t "startup-initfile"  ZLOGIN
     # [ -s "${HOME}/.rvm/scripts/rvm" ] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    if [[ -z $DOT_PROFILE_SOURCED ]]; then
+        if [ -f ~/.profile ]; then
+            emulate sh -c '. ~/.profile'
+        fi
+    fi
 
 
 ## zprofile
@@ -327,25 +330,6 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 1.  ~/.config/zsh/.zprofile
 
         # Maintained in linux-config.org
-        logger -t "startup-initfile"  ZPROFILE
-        if ! type "sway-www" > /dev/null; then
-            if [ -f ~/.profile ]; then
-                # install foobar here
-                emulate sh -c '. ~/.profile'
-            fi
-        fi
-
-2.  etc/zsh/zprofile
-
-        # Maintained in linux-config.org
-        # /etc/zsh/zprofile: system-wide .zprofile file for zsh(1).
-        #
-        # This file is sourced only for login shells (i.e. shells
-        # invoked with "-" as the first character of argv[0], and
-        # shells invoked with the -l flag.)
-        #
-        # Global Order: zshenv, zprofile, zshrc, zlogin
-        logger -t "startup-initfile"  ETC-ZPROFILE
 
 
 ## zshenv
@@ -363,7 +347,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
 
 2.  ~/.zshenv
 
-          # Maintained in linux-config.org
+        # Maintained in linux-config.org
         ZDOTDIR=$HOME/.config/zsh
         . $ZDOTDIR/.zshenv
 
@@ -789,7 +773,7 @@ I want a key to create and then toggle a terminal.
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        swaymsg "[title=ScratchTerminal] scratchpad show " || ( sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command bash -c "tmux new-session -A -s ScratchTerminal")
+        swaymsg "[title=ScratchTerminal] scratchpad show " ||  sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal"
 
 
 ### navigation                                  :navigation
@@ -1109,7 +1093,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+s exec alacritty -e syncrclone-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty -e zsh
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
 
 
 ### gaming     :gaming:
@@ -2016,7 +2000,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org239835a"></a>
+<a id="org3afc31f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2062,7 +2046,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org239835a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3afc31f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3136,9 +3120,8 @@ if it exists jump to it else start it
     sessionname="${1:-`pwd`}"
     title="${ONETERM_TITLE:-${sessionname}}"
     script="${2}"
-    
     if ! sway-do-tool "$title"; then
-        alacritty --title "${title}" --command bash -c "tmux new-session -A -s ${sessionname} ${script}" &
+        alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
     else
         if ! tmux has-session -t  "${sessionname}"; then
             tmux attach -t "${sessionname}"
@@ -3380,7 +3363,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgd59d2a5).
+See [examples](#orge05d790).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3414,7 +3397,7 @@ See [examples](#orgd59d2a5).
     echo "$(getVolume)"
 
 
-<a id="orgd59d2a5"></a>
+<a id="orge05d790"></a>
 
 ### Examples:
 

@@ -11,6 +11,7 @@ logger -t "startup-initfile"  PROFILE
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+export DOT_PROFILE_SOURCED=1
 
 export PRINTER="Canon_TR8500_series"
 
