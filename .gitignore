@@ -39,7 +39,6 @@
 !/dot-config/polybar/config
 
 !/dot-config/rclone
-!/dot-config/rclone/rclone.conf
 
 !/dot-config/sway
 !/dot-config/sway/config
