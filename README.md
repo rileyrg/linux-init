@@ -419,6 +419,7 @@ Directory is [here](.oh-my-zsh/).
     set-window-option -g window-status-current-style bg=default
     
     set-option -g default-shell /bin/zsh
+    set-option -ga update-environment SWAYSOCK
 
 
 ### keys
@@ -532,7 +533,14 @@ Override in .profile.local
 
 ## swaysock for tmux
 
-    export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
+    # if pgrep -x "sway" > /dev/null
+    # then
+    #     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
+    # fi
+    
+    # https://babushk.in/posts/renew-environment-tmux.html
+
+\*\*
 
 
 ## ~/.Xresources
@@ -730,7 +738,7 @@ done by linux systemd
 
 2.  transparency
 
-        set $trans 0.5
+        set $trans 0.7
         set $alphamark "α"
         for_window [con_mark=$alphamark] opacity set $trans
         bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
@@ -848,7 +856,7 @@ I want a key to create and then toggle a terminal.
     set $ws7 7:video
     set $ws8 8:irc
     set $ws9 9:steam
-    set $ws10 "10"
+    set $ws10 10
     
     exec_always sway-screen-naming
     # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
@@ -1047,11 +1055,12 @@ I want a key to create and then toggle a terminal.
 
     # assign [title="dbg:"] $ws3
     #assign [app_id="Alacritty"] $ws1
-    assign [class="Ardour"] $ws6
+    #assign [class="Ardour"] $ws6
     assign [class="Code"] $ws3
-    assign [class="firefox"] $ws2
+    assign [app_id="firefox"] $ws2
     assign [class="Signal"] $ws8
     assign [class="jetbrains-studio"] $ws3
+    assign [app_id="emacs"] $ws1
     assign [class="Emacs"] $ws1
     assign [class="Hexchat"] $ws8
     assign [class="discord"] $ws8
@@ -1893,7 +1902,7 @@ Load a host specific kanshi file if it exists
         
         {
         output eDP-1 disable
-        output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
+        output DP-1 enable mode 2560x1440 position 0,0
         }
     
     ******\*******
@@ -2002,7 +2011,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orga8e9856"></a>
+<a id="org6c511c3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2048,7 +2057,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8e9856).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6c511c3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2068,7 +2077,7 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
     #!/usr/bin/env bash
     #Maintained in linux-config.org
-    export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
+    # export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1)
 
 
 ### ~/bin/sway/sway-display-swap
@@ -2186,7 +2195,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
     #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-    sway-do-tool "firefox" "firefox"
+    sway-do-tool "firefox" "sway-firefox"
 
 
 ### ~/bin/sway/sway-firefox
@@ -3365,7 +3374,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org1ae4931).
+See [examples](#org281a3dd).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3399,7 +3408,7 @@ See [examples](#org1ae4931).
     echo "$(getVolume)"
 
 
-<a id="org1ae4931"></a>
+<a id="org281a3dd"></a>
 
 ### Examples:
 
@@ -3867,7 +3876,7 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
 ## late addition to .config/sway/config
 
-    exec  "sway-www"
-    exec  "sway-editor"
-    exec "sleep 1 &&  swaymsg workspace $ws1"
+    exec sway-www
+    exec sway-editor
+    exec "sleep 0.5 && swaymsg workspace $ws1;"
 

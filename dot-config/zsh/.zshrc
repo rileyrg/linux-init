@@ -123,4 +123,9 @@ DEFAULT_USER=$USER
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
-export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
+# if pgrep -x "sway" > /dev/null
+# then
+#     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
+# fi
+
+# https://babushk.in/posts/renew-environment-tmux.html
