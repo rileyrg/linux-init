@@ -36,7 +36,7 @@ bindsym $mod+d exec $menu
 # exec emacs --daemon
 exec sway-kanshi
 exec sway-idle
-exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep 1 && sway-notify "~/.sway-autostart processed")'
+exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 exec sleep 2 && gpg-cache
 exec blueman-applet
 exec nm-applet --indicator

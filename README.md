@@ -674,7 +674,7 @@ X11 apps still need resource definitions when launched under XWayland.
     # exec emacs --daemon
     exec sway-kanshi
     exec sway-idle
-    exec '[ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart" && (sleep 1 && sway-notify "~/.sway-autostart processed")'
+    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
     exec sleep 2 && gpg-cache
     exec blueman-applet
     exec nm-applet --indicator
@@ -2026,7 +2026,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orged25a44"></a>
+<a id="org7f56886"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2072,7 +2072,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orged25a44).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org7f56886).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3389,7 +3389,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org8116f99).
+See [examples](#orgaa92ebe).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3423,7 +3423,7 @@ See [examples](#org8116f99).
     echo "$(getVolume)"
 
 
-<a id="org8116f99"></a>
+<a id="orgaa92ebe"></a>
 
 ### Examples:
 
