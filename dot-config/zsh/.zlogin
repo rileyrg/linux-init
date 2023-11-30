@@ -6,3 +6,4 @@ if [[ -z $DOT_PROFILE_SOURCED ]]; then
         emulate sh -c '. ~/.profile'
     fi
 fi
+sway-autostart

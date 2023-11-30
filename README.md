@@ -204,7 +204,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     ZSH_TMUX_AUTOSTART=false
     
     ZSH_TMUX_AUTOSTART_ONCE=true
-    ZSH_TMUX_AUTOCONNECT=true
+    ZSH_TMUX_AUTOCONNECT=false
     ZSH_TMUX_AUTOQUIT=true
     
     # Set name of the theme to load --- if set to "random", it will
@@ -323,6 +323,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
             emulate sh -c '. ~/.profile'
         fi
     fi
+    sway-autostart
 
 
 ## zprofile
@@ -419,7 +420,7 @@ Directory is [here](.oh-my-zsh/).
     set-window-option -g window-status-current-style bg=default
     
     set-option -g default-shell /bin/zsh
-    set-option -ga update-environment SWAYSOCK
+    #set-option -ga update-environment SWAYSOCK
 
 
 ### keys
@@ -777,7 +778,21 @@ I want a key to create and then toggle a terminal.
     
     for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
 
-1.  ~/bin/sway/sway-scratch-terminal
+1.  ~/bin/sway/sway-autostart
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        if [ -f "${HOME}/.SWAY_START" ]; then
+            if [ $(tty) = /dev/tty1 ];then
+                if  [ $(hostname) = "xmgneo" ];then
+                    sway --my-next-gpu-wont-be-nvidia &
+                else
+                    sway &
+                fi
+            fi
+        fi
+
+2.  ~/bin/sway/sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -2011,7 +2026,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org6c511c3"></a>
+<a id="orged25a44"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2057,7 +2072,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6c511c3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orged25a44).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3374,7 +3389,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org281a3dd).
+See [examples](#org8116f99).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3408,7 +3423,7 @@ See [examples](#org281a3dd).
     echo "$(getVolume)"
 
 
-<a id="org281a3dd"></a>
+<a id="org8116f99"></a>
 
 ### Examples:
 
@@ -3856,15 +3871,7 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     
     [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
     
-    if [ -f "${HOME}/.START_SWAY" ]; then
-        if [ $(tty) = /dev/tty1 ];then
-            if  [ $(hostname) = "xmgneo" ];then
-                exec sway --my-next-gpu-wont-be-nvidia
-            else
-                exec sway
-            fi
-        fi
-    fi
+    sway-autostart &
 
 
 ## Late addition to ~/.profile
