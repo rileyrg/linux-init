@@ -15,7 +15,7 @@ fi
 ZSH_TMUX_AUTOSTART=false
 
 ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOCONNECT=false
 ZSH_TMUX_AUTOQUIT=true
 
 # Set name of the theme to load --- if set to "random", it will

@@ -7,12 +7,4 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
-if [ -f "${HOME}/.START_SWAY" ]; then
-    if [ $(tty) = /dev/tty1 ];then
-        if  [ $(hostname) = "xmgneo" ];then
-            exec sway --my-next-gpu-wont-be-nvidia
-        else
-            exec sway
-        fi
-    fi
-fi
+sway-autostart &

@@ -822,7 +822,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   ZSH_TMUX_AUTOSTART=false
 
   ZSH_TMUX_AUTOSTART_ONCE=true
-  ZSH_TMUX_AUTOCONNECT=true
+  ZSH_TMUX_AUTOCONNECT=false
   ZSH_TMUX_AUTOQUIT=true
 
   # Set name of the theme to load --- if set to "random", it will
@@ -943,6 +943,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
           emulate sh -c '. ~/.profile'
       fi
   fi
+  sway-autostart
 #+end_src
 ** zprofile
 **** ~/.config/zsh/.zprofile
@@ -1038,7 +1039,7 @@ https://stackoverflow.com/a/38865693/37370
   set-window-option -g window-status-current-style bg=default
 
   set-option -g default-shell /bin/zsh
-  set-option -ga update-environment SWAYSOCK
+  #set-option -ga update-environment SWAYSOCK
 
 #+end_src
 *** keys
@@ -1575,6 +1576,20 @@ I want a key to create and then toggle a terminal.
   bindsym $mod+Return exec sway-scratch-terminal
 
   for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
+#+end_src
+**** ~/bin/sway/sway-autostart
+#+begin_src bash :tangle "~/bin/sway/sway-autostart"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+  if [ -f "${HOME}/.SWAY_START" ]; then
+      if [ $(tty) = /dev/tty1 ];then
+          if  [ $(hostname) = "xmgneo" ];then
+              sway --my-next-gpu-wont-be-nvidia &
+          else
+              sway &
+          fi
+      fi
+  fi
 #+end_src
 **** ~/bin/sway/sway-scratch-terminal
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
@@ -4622,15 +4637,7 @@ https://github.com/Jwink3101/syncrclone
 
   [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
-  if [ -f "${HOME}/.START_SWAY" ]; then
-      if [ $(tty) = /dev/tty1 ];then
-          if  [ $(hostname) = "xmgneo" ];then
-              exec sway --my-next-gpu-wont-be-nvidia
-          else
-              exec sway
-          fi
-      fi
-  fi
+  sway-autostart &
 #+end_src
 ** Late addition to ~/.profile
 #+begin_src bash :tangle "DotFiles/.profile"
