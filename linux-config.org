@@ -1038,6 +1038,7 @@ https://stackoverflow.com/a/38865693/37370
   set-window-option -g window-status-current-style bg=default
 
   set-option -g default-shell /bin/zsh
+  set-option -ga update-environment SWAYSOCK
 
 #+end_src
 *** keys
@@ -1148,8 +1149,15 @@ Override in .profile.local
 - State "WAITING"    from              [2021-05-22 Sat 03:17]
 :END:
 #+begin_src bash :tangle "~/.config/zsh/.zshrc"
-  export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
+  # if pgrep -x "sway" > /dev/null
+  # then
+  #     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
+  # fi
+
+  # https://babushk.in/posts/renew-environment-tmux.html
+
 #+end_src
+**
 ** ~/.Xresources
 *** resource file
 X11 apps still need resource definitions when launched under XWayland.
@@ -1532,7 +1540,7 @@ done by linux systemd
 #+end_src
 **** transparency
 #+begin_src conf
-  set $trans 0.5
+  set $trans 0.7
   set $alphamark "α"
   for_window [con_mark=$alphamark] opacity set $trans
   bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
@@ -1646,7 +1654,7 @@ I want a key to create and then toggle a terminal.
   set $ws7 7:video
   set $ws8 8:irc
   set $ws9 9:steam
-  set $ws10 "10"
+  set $ws10 10
 
   exec_always sway-screen-naming
   # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
@@ -1839,11 +1847,12 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+begin_src conf
   # assign [title="dbg:"] $ws3
   #assign [app_id="Alacritty"] $ws1
-  assign [class="Ardour"] $ws6
+  #assign [class="Ardour"] $ws6
   assign [class="Code"] $ws3
-  assign [class="firefox"] $ws2
+  assign [app_id="firefox"] $ws2
   assign [class="Signal"] $ws8
   assign [class="jetbrains-studio"] $ws3
+  assign [app_id="emacs"] $ws1
   assign [class="Emacs"] $ws1
   assign [class="Hexchat"] $ws8
   assign [class="discord"] $ws8
@@ -2689,7 +2698,7 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 
   {
   output eDP-1 disable
-  output DP-1 enable mode 2560x1440 position 0,0 scale 1.1
+  output DP-1 enable mode 2560x1440 position 0,0
   }
 
 #+end_src
@@ -2873,7 +2882,7 @@ Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-
 #+begin_src bash :tangle "~/bin/sway/sway-swaysock"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  export SWAYSOCK=/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock
+  # export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1)
 #+end_src
 *** ~/bin/sway/sway-display-swap
 https://i3wm.org/docs/user-contributed/swapping-workspaces.html
@@ -2988,7 +2997,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
   #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-  sway-do-tool "firefox" "firefox"
+  sway-do-tool "firefox" "sway-firefox"
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:
@@ -4631,7 +4640,7 @@ https://github.com/Jwink3101/syncrclone
 #+end_src
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
- exec  "sway-www"
- exec  "sway-editor"
- exec "sleep 1 &&  swaymsg workspace $ws1"
+  exec sway-www
+  exec sway-editor
+  exec "sleep 0.5 && swaymsg workspace $ws1;"
 #+end_src

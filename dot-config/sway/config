@@ -57,7 +57,7 @@ for_window [title="sway-launcher"] floating enable
 set $wallpaper "~/Pictures/Wallpapers/current"
 output * bg  $wallpaper fill
 
-set $trans 0.5
+set $trans 0.7
 set $alphamark "α"
 for_window [con_mark=$alphamark] opacity set $trans
 bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
@@ -150,7 +150,7 @@ set $ws6 6:music
 set $ws7 7:video
 set $ws8 8:irc
 set $ws9 9:steam
-set $ws10 "10"
+set $ws10 10
 
 exec_always sway-screen-naming
 # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
@@ -247,11 +247,12 @@ bindsym $mod+Control+q mode "$mode_system"
 
 # assign [title="dbg:"] $ws3
 #assign [app_id="Alacritty"] $ws1
-assign [class="Ardour"] $ws6
+#assign [class="Ardour"] $ws6
 assign [class="Code"] $ws3
-assign [class="firefox"] $ws2
+assign [app_id="firefox"] $ws2
 assign [class="Signal"] $ws8
 assign [class="jetbrains-studio"] $ws3
+assign [app_id="emacs"] $ws1
 assign [class="Emacs"] $ws1
 assign [class="Hexchat"] $ws8
 assign [class="discord"] $ws8
@@ -300,6 +301,6 @@ for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
-exec  "sway-www"
-exec  "sway-editor"
-exec "sleep 1 &&  swaymsg workspace $ws1"
+exec sway-www
+exec sway-editor
+exec "sleep 0.5 && swaymsg workspace $ws1;"
