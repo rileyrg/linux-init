@@ -4251,6 +4251,15 @@ restart pulseaudio
   fi;
 #+end_src
 
+** ~/cloud/etc/rsnapshot-excludes
+#+begin_src conf :tangle ~/cloud/etc/rsnapshot-excludes
+  /home/rsnapshot
+  /home/rgr/.steam
+
+#+end_src
+
+
+
 
 ** ~/bin/sharemouse
   ,#+begin_src bash :tangle "~/bin/sharemouse"
