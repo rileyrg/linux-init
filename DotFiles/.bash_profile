@@ -7,4 +7,4 @@ logger -t "startup-initfile"  BASH_PROFILE
 
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
-sway-autostart &
+sway-autostart

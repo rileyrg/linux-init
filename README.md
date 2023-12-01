@@ -782,7 +782,7 @@ I want a key to create and then toggle a terminal.
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        if [ -f "${HOME}/.SWAY_START" ]; then
+        if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
             if [ $(tty) = /dev/tty1 ];then
                 if  [ $(hostname) = "xmgneo" ];then
                     sway --my-next-gpu-wont-be-nvidia &
@@ -2026,7 +2026,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org391726e"></a>
+<a id="org3f17355"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2072,7 +2072,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org391726e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3f17355).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3389,7 +3389,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org17f34d4).
+See [examples](#orgfedec8c).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3423,7 +3423,7 @@ See [examples](#org17f34d4).
     echo "$(getVolume)"
 
 
-<a id="org17f34d4"></a>
+<a id="orgfedec8c"></a>
 
 ### Examples:
 
@@ -3880,7 +3880,7 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     
     [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
     
-    sway-autostart &
+    sway-autostart
 
 
 ## Late addition to ~/.profile
