@@ -4442,30 +4442,12 @@ CLOSED: [2023-11-16 Thu 12:17]
       echo "rclone bisync finished." >> "$LOGFILE"
   fi
 #+end_src
-*** CANCELLED ~/bin/syncrclone-gdrive-sync                        :CANCELLED:
-CLOSED: [2023-11-21 Tue 08:43]
-:LOGBOOK:
-- State "CANCELLED"  from              [2023-11-21 Tue 08:43]
-- State "CANCELLED"  from              [2023-11-16 Thu 12:16] \\
-  use syncrclone directly
-:END:
+*** ~/bin/syncrclone-gdrive
 https://github.com/Jwink3101/syncrclone
-#+begin_src bash :tangle "no"
+#+begin_src bash :tangle ~/bin/syncrclone-gdrive
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  # quit if already running.
-  me=$(basename "$0")
-  LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
-  if pgrep -x "rclone" > /dev/null
-  then
-      echo "rclone already running. Bye." >> "$LOGFILE"
-      exit  0
-  fi
-  # prune logs
-  find "$HOME/tmp" -name "${me}*" | head -n -12 | xargs -d '\n' rm -f --
-
-  ln -sf "$LOGFILE" "$HOME/${me}.log"
-  syncrclone "$@" "$HOME/.syncrclone/config.py" &> "$LOGFILE"
+  syncrclone "$HOME"/.syncrclone/gdrive-config.py
 #+end_src
 *** ~/bin/hetzner-du
 **** script

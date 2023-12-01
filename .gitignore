@@ -147,6 +147,7 @@
 !/directories/bin/sharemouse
 !/directories/bin/stm32cubeide
 !/directories/bin/stm32cubeide-uninstall
+!/directories/bin/syncrclone-gdrive
 !/directories/bin/syncrclone-htop
 !/directories/bin/syncrclone-once
 !/directories/bin/sys-logger
