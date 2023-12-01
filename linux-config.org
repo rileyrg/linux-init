@@ -1581,7 +1581,7 @@ I want a key to create and then toggle a terminal.
 #+begin_src bash :tangle "~/bin/sway/sway-autostart"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  if [ -f "${HOME}/.SWAY_START" ]; then
+  if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
       if [ $(tty) = /dev/tty1 ];then
           if  [ $(hostname) = "xmgneo" ];then
               sway --my-next-gpu-wont-be-nvidia &
@@ -4619,7 +4619,7 @@ https://github.com/Jwink3101/syncrclone
 
   [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
 
-  sway-autostart &
+  sway-autostart
 #+end_src
 ** Late addition to ~/.profile
 #+begin_src bash :tangle "DotFiles/.profile"
