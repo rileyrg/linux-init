@@ -123,6 +123,9 @@ DEFAULT_USER=$USER
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
+xhost +local: > /dev/null
+chuck
+
 # if pgrep -x "sway" > /dev/null
 # then
 #     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
