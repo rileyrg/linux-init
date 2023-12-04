@@ -1900,6 +1900,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+c exec conky
   #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
   bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+  bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
   bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
   bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
   bindsym $mod+Control+Shift+d exec sway-screen-menu
@@ -3519,7 +3520,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #+end_src
 *** snap
 #+begin_src bash :tangle "DotFiles/.profile"
-  # export PATH="/snap/bin:$PATH"
+  export PATH="/snap/bin:$PATH"
 #+end_src
 *** npm
 #+begin_src bash :tangle "DotFiles/.profile"

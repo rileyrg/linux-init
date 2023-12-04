@@ -1109,6 +1109,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+c exec conky
     #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
     bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
     bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
     bindsym $mod+Control+Shift+d exec sway-screen-menu
@@ -2029,7 +2030,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org844546e"></a>
+<a id="org358b0a8"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2075,7 +2076,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org844546e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org358b0a8).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2751,7 +2752,7 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
 ### snap
 
-    # export PATH="/snap/bin:$PATH"
+    export PATH="/snap/bin:$PATH"
 
 
 ### npm
@@ -3392,7 +3393,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org4762f1a).
+See [examples](#org76f1512).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3426,7 +3427,7 @@ See [examples](#org4762f1a).
     echo "$(getVolume)"
 
 
-<a id="org4762f1a"></a>
+<a id="org76f1512"></a>
 
 ### Examples:
 

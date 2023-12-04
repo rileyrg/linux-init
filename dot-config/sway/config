@@ -276,6 +276,7 @@ bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
 bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
 bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
 bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
 bindsym $mod+Control+Shift+d exec sway-screen-menu
