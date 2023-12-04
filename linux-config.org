@@ -929,6 +929,9 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+
+  xhost +local: > /dev/null
+  chuck
 #+end_src
 
 #+RESULTS:

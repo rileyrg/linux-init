@@ -311,6 +311,9 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+    
+    xhost +local: > /dev/null
+    chuck
 
 
 ## ~/.config/zsh/.zlogin
@@ -2026,7 +2029,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgb626289"></a>
+<a id="orgf3fa476"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2072,7 +2075,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb626289).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf3fa476).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3389,7 +3392,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgdaa7cb9).
+See [examples](#org3a47601).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3423,7 +3426,7 @@ See [examples](#orgdaa7cb9).
     echo "$(getVolume)"
 
 
-<a id="orgdaa7cb9"></a>
+<a id="org3a47601"></a>
 
 ### Examples:
 
