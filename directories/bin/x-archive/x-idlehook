@@ -1,5 +1,5 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
+#!/usr/bin/env bash
+# Maintained in linux-config.org
 
 xidlehook \
     `# Don't lock when there's a fullscreen application` \
@@ -15,7 +15,7 @@ xidlehook \
     --timer ${XIDLEHOOK_BLANK:-120}\
     'xset dpms force off' \
     'post-blank'
-    # --timer ${XIDLEHOOK_LOCK:-2400}\
+# --timer ${XIDLEHOOK_LOCK:-2400}\
     # '(pre-lock && x-lock-utils lock)' \
     # '(post-blank && post-lock)' \
     # --timer ${XIDLEHOOK_SUSPEND:-3600}\

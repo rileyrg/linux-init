@@ -1,5 +1,5 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
+#!/usr/bin/env bash
+# Maintained in linux-config.org
 on=${1:-"on"}
 connected=${2:-$(xrandr-connected-external | head -n 1)}
 laptop=$(xrandr-laptop-id)
