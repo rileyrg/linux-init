@@ -1815,6 +1815,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   assign [app_id="emacs"] $ws1
   assign [class="Emacs"] $ws1
   assign [class="Hexchat"] $ws8
+  assign [app_id="whatsapp-for-linux"] $ws8
   assign [class="discord"] $ws8
   assign [class="Steam"] $ws9
 #+end_src
