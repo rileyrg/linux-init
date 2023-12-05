@@ -463,6 +463,7 @@ Directory is [here](.oh-my-zsh/).
     bind x kill-pane
     bind X kill-pane -a
     bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
+    bind + new-window
     new -d -s0
     # neww -d -nemacs 'exec emacsclient -nw ~/.emacs.d/linux-init/inits.org'
     # setw -t0:1 aggressive-resize on
@@ -1967,7 +1968,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org1c68701"></a>
+<a id="orgaebe8e6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2013,7 +2014,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1c68701).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgaebe8e6).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3330,7 +3331,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org7d48d68).
+See [examples](#orgec0ea4d).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3364,7 +3365,7 @@ See [examples](#org7d48d68).
     echo "$(getVolume)"
 
 
-<a id="org7d48d68"></a>
+<a id="orgec0ea4d"></a>
 
 ### Examples:
 
