@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-xrandr-mancave "$@"

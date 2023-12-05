@@ -1,8 +1,8 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
+#!/usr/bin/env bash
+# Maintained in linux-config.org
 
 # lock() {
-#     logger -t "x-lock-utils"  lock
+#     rgr-logger -t "x-lock-utils"  lock
 #     pre-lock
 #     xbacklight -set 5
 #     xset dpms 5 0 0
@@ -17,7 +17,7 @@ lock() {
 }
 
 lock_gpg_clear() {
-    logger -t "x-lock-utils"  lock_gpg_clear
+    rgr-logger -t "x-lock-utils"  lock_gpg_clear
     [ "$1" = gpg_clear ] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
     lock
 }

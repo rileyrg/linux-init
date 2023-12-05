@@ -74,9 +74,6 @@
 !/DotFiles/.syncrclone/gdrive-cloud-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
 !/DotFiles/.ripgreprc
-!/DotFiles/.xinitrc
-!/DotFiles/.xsession
-!/DotFiles/.xsessionrc
 !/DotFiles/.Xresources
 !/DotFiles/.gdbinit
 !/DotFiles/.lldbinit
@@ -156,9 +153,7 @@
 !/directories/bin/wifi-toggle
 !/directories/bin/upd
 !/directories/bin/voltron-*
-!/directories/bin/x-idlehook
-!/directories/bin/x-backlight-persist
-!/directories/bin/x-lock-utils
-!/directories/bin/xmg-neo-rgb-kbd-lights
-!/directories/bin/xrandr-*
 /directories/bin/sway-test
+
+!/directories/bin/x-archive
+!/directories/bin/x-archive/x*
