@@ -123,7 +123,7 @@ DEFAULT_USER=$USER
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
-xhost +local: > /dev/null
+# xhost +local  > /dev/null 2>&1
 chuck
 
 # if pgrep -x "sway" > /dev/null

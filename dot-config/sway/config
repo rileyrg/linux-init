@@ -107,9 +107,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+h splith
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v splitv
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -272,7 +272,6 @@ bindsym Print exec sway-screenshot -i
 # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
 bindsym $mod+Shift+f exec "sway-www"
 bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
 bindsym $mod+Control+c exec conky
 #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
 bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
