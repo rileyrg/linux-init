@@ -566,7 +566,7 @@ X11 apps still need resource definitions when launched under XWayland.
     #ifdef SRVR_intelnuc
     Xft.dpi:       108
     #endif
-    #ifdef SRVR_thinkpadx270
+    #ifdef SRVR_x270
     Xft.dpi:       96
     #endif
     #ifdef SRVR_thinkpadt14s
@@ -1848,7 +1848,7 @@ Load a host specific kanshi file if it exists
         output DP-4 enable mode 1920x1080 position 0,0
         }
 
-6.  config-thinkpadx270
+6.  config-x270
 
         {
         output eDP-1 enable mode 1920x1080  position 0,0
@@ -1976,7 +1976,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org305761c"></a>
+<a id="org596f118"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2022,7 +2022,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org305761c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org596f118).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3339,7 +3339,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orge70078e).
+See [examples](#org43f800d).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3373,7 +3373,7 @@ See [examples](#orge70078e).
     echo "$(getVolume)"
 
 
-<a id="orge70078e"></a>
+<a id="org43f800d"></a>
 
 ### Examples:
 

@@ -161,7 +161,7 @@ Another placeholder doing nothing as xinit launches XSession which uses .xsessio
       "thinkpadt14s")
           #picom --backend glx --vsync &
           ;;
-      "thinkpadx270")
+      "x270")
           #picom --backend glx --vsync &
           ;;
       "xmgneo")
@@ -220,7 +220,7 @@ Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][
   #ifdef SRVR_intelnuc
   Xft.dpi:       108
   #endif
-  #ifdef SRVR_thinkpadx270
+  #ifdef SRVR_x270
   Xft.dpi:       96
   #endif
   #ifdef SRVR_thinkpadt14s
@@ -1172,7 +1172,7 @@ X11 apps still need resource definitions when launched under XWayland.
   #ifdef SRVR_intelnuc
   Xft.dpi:       108
   #endif
-  #ifdef SRVR_thinkpadx270
+  #ifdef SRVR_x270
   Xft.dpi:       96
   #endif
   #ifdef SRVR_thinkpadt14s
@@ -2638,8 +2638,8 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
   output DP-4 enable mode 1920x1080 position 0,0
   }
 #+end_src
-**** config-thinkpadx270
-#+begin_src conf :tangle "dot-config/kanshi/config-thinkpadx270"
+**** config-x270
+#+begin_src conf :tangle "dot-config/kanshi/config-x270"
   {
   output eDP-1 enable mode 1920x1080  position 0,0
   }
