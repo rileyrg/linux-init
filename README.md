@@ -1028,6 +1028,7 @@ I want a key to create and then toggle a terminal.
     assign [app_id="emacs"] $ws1
     assign [class="Emacs"] $ws1
     assign [class="Hexchat"] $ws8
+    assign [app_id="whatsapp-for-linux"] $ws8
     assign [class="discord"] $ws8
     assign [class="Steam"] $ws9
 
@@ -1976,7 +1977,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org596f118"></a>
+<a id="org5d93f5c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2022,7 +2023,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org596f118).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5d93f5c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3339,7 +3340,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org43f800d).
+See [examples](#org78938c1).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3373,7 +3374,7 @@ See [examples](#org43f800d).
     echo "$(getVolume)"
 
 
-<a id="org43f800d"></a>
+<a id="org78938c1"></a>
 
 ### Examples:
 
