@@ -312,7 +312,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
     
-    xhost +local: > /dev/null
+    # xhost +local  > /dev/null 2>&1
     chuck
 
 
@@ -544,13 +544,8 @@ Override in .profile.local
     
     # https://babushk.in/posts/renew-environment-tmux.html
 
-\*\*
-
 
 ## ~/.Xresources
-
-
-### resource file
 
 X11 apps still need resource definitions when launched under XWayland.
 
@@ -581,54 +576,6 @@ X11 apps still need resource definitions when launched under XWayland.
     Xft.dpi:       188
     #endif
     ! }}}
-
-
-## Building from source
-
-
-### wayland
-
-    mkdir -p ${HOME}/development/projects/wayland/clones
-    export WLD=${HOME}/development/projects/wayland
-    export LD_LIBRARY_PATH=$WLD/lib
-    export PKG_CONFIG_PATH=$WLD/lib/pkgconfig/:$WLD/share/pkgconfig/
-    export PATH=$WLD/bin:$PATH
-    
-    cd ${HOME}/development/projects/wayland/clones
-    
-    git clone https://gitlab.freedesktop.org/wayland/wayland.git
-    cd wayland
-    meson build/ --prefix=$WLD
-    ninja -C build/ install
-    cd ..
-    
-    git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
-    cd wayland-protocols
-    meson build/ --prefix=$WLD
-    ninja -C build/ install
-    cd ..
-    
-    git clone https://gitlab.freedesktop.org/wayland/weston.git
-    cd weston
-    meson build/ --prefix=$WLD -Dbackend-wayland=true -Dcolor-management-colord=false -Dremoting=false
-    ninja -C build/ install
-    cd ..
-
-
-### sway
-
-    # Clone repositories
-    
-    git clone git@github.com:swaywm/sway.git
-    cd sway
-    git clone git@github.com:swaywm/wlroots.git subprojects/wlroots
-    
-    # Build sway and wlroots
-    meson build/
-    ninja -C build/
-    
-    # Start sway
-    build/sway/sway
 
 
 ## Sway config
@@ -831,9 +778,9 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Shift+Right move right
     
     # split in horizontal orientation
-    bindsym $mod+h split h
+    bindsym $mod+h splith
     # split in vertical orientation
-    bindsym $mod+v split v
+    bindsym $mod+v splitv
     
     # enter fullscreen mode for the focused container
     bindsym $mod+f fullscreen toggle
@@ -1105,7 +1052,6 @@ I want a key to create and then toggle a terminal.
     # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
     bindsym $mod+Shift+f exec "sway-www"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-    bindsym $mod+Shift+b exec oneterminal "Process-Monitor-bpytop" bpytop
     bindsym $mod+Control+c exec conky
     #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
@@ -2030,7 +1976,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org358b0a8"></a>
+<a id="org305761c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2076,7 +2022,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org358b0a8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org305761c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3393,7 +3339,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org76f1512).
+See [examples](#orge70078e).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3427,7 +3373,7 @@ See [examples](#org76f1512).
     echo "$(getVolume)"
 
 
-<a id="org76f1512"></a>
+<a id="orge70078e"></a>
 
 ### Examples:
 
@@ -3584,7 +3530,7 @@ update sw
 ## XMG Neo 15 Specifics
 
 
-### ~/bin/xmg-neo-rgb-kbd-lights
+### ~/bin/x-archive/xmg-neo-rgb-kbd-lights
 
 See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3-ctl) for the controller code.
 

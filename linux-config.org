@@ -921,7 +921,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
-  xhost +local: > /dev/null
+  # xhost +local  > /dev/null 2>&1
   chuck
 #+end_src
 
@@ -1571,9 +1571,9 @@ I want a key to create and then toggle a terminal.
   bindsym $mod+Shift+Right move right
 
   # split in horizontal orientation
-  bindsym $mod+h split h
+  bindsym $mod+h splith
   # split in vertical orientation
-  bindsym $mod+v split v
+  bindsym $mod+v splitv
 
   # enter fullscreen mode for the focused container
   bindsym $mod+f fullscreen toggle
