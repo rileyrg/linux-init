@@ -1002,17 +1002,9 @@ https://stackoverflow.com/a/38865693/37370
 #+end_src
 
 ** ~/.tmux.conf
-:PROPERTIES:
-:header-args:conf: :tangle "DotFiles/.tmux.conf"
-:ID:       639d3b72-c669-415e-b141-606764cc7b75
-:END:
-*** start
-#+begin_src conf
+#+begin_src conf :tangle "DotFiles/.tmux.conf"
   # Maintained in linux-config.org
   # Change the prefix key to C-a
-#+end_src
-*** styles
-#+begin_src conf
   set-option -g status on
   set-option -g status-interval 1
   set-option -g status-justify centre
@@ -1033,12 +1025,9 @@ https://stackoverflow.com/a/38865693/37370
   set-window-option -g window-status-current-style bg=default
 
   set-option -g default-shell /bin/zsh
-  #set-option -ga update-environment SWAYSOCK
 
-#+end_src
-*** keys
-#+begin_src conf
   set -g prefix C-a
+
   unbind C-b
   bind C-a send-prefix
 
