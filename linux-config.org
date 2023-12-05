@@ -1072,6 +1072,7 @@ https://stackoverflow.com/a/38865693/37370
   bind x kill-pane
   bind X kill-pane -a
   bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
+  bind + new-window
   new -d -s0
   # neww -d -nemacs 'exec emacsclient -nw ~/.emacs.d/linux-init/inits.org'
   # setw -t0:1 aggressive-resize on
