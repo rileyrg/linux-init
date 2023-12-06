@@ -392,7 +392,7 @@ Directory is [here](.oh-my-zsh/).
     export FZF_TMUX_OPTS="-d 40%"
 
 
-## ~/.tmux.conf
+## ,config/tmux/tmux.conf
 
     # Maintained in linux-config.org
     # Change the prefix key to C-a
@@ -416,6 +416,7 @@ Directory is [here](.oh-my-zsh/).
     set-window-option -g window-status-current-style bg=default
     
     set-option -g default-shell /bin/zsh
+    set-option -ga update-environment SWAYSOCK
     
     set -g prefix C-a
     
@@ -1958,7 +1959,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgf2deeaa"></a>
+<a id="orgefb8e12"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2004,7 +2005,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf2deeaa).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgefb8e12).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3314,7 +3315,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgea2a3a1).
+See [examples](#org75dc7a0).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3348,7 +3349,7 @@ See [examples](#orgea2a3a1).
     echo "$(getVolume)"
 
 
-<a id="orgea2a3a1"></a>
+<a id="org75dc7a0"></a>
 
 ### Examples:
 

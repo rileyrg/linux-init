@@ -125,10 +125,3 @@ DEFAULT_USER=$USER
 
 # xhost +local  > /dev/null 2>&1
 chuck
-
-# if pgrep -x "sway" > /dev/null
-# then
-#     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
-# fi
-
-# https://babushk.in/posts/renew-environment-tmux.html
