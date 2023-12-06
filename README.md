@@ -392,7 +392,7 @@ Directory is [here](.oh-my-zsh/).
     export FZF_TMUX_OPTS="-d 40%"
 
 
-## ,config/tmux/tmux.conf
+## .config/tmux/tmux.conf
 
     # Maintained in linux-config.org
     # Change the prefix key to C-a
@@ -1776,7 +1776,7 @@ Load a host specific kanshi file if it exists
         output HDMI-A-2  enable mode 1920x1080 position 2560,116
         }
 
-3.  config-thinkpadt14s
+3.  config-t14s
 
         {
         output eDP-1 enable mode 1920x1080  position 0,0
@@ -1851,6 +1851,11 @@ Load a host specific kanshi file if it exists
         {
         output eDP-1 disable
         output DP-1 enable mode 2560x1440 position 0,0
+        }
+        
+        {
+        output eDP-1 disable
+        output HDMI-A-1 enable mode 2560x1440 position 0,0
         }
     
     ******\*******
@@ -1959,7 +1964,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgefb8e12"></a>
+<a id="org0ccc990"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2005,7 +2010,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgefb8e12).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0ccc990).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3315,7 +3320,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org75dc7a0).
+See [examples](#orgf4a3d0e).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3349,7 +3354,7 @@ See [examples](#org75dc7a0).
     echo "$(getVolume)"
 
 
-<a id="org75dc7a0"></a>
+<a id="orgf4a3d0e"></a>
 
 ### Examples:
 

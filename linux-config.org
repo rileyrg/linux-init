@@ -1001,7 +1001,7 @@ https://stackoverflow.com/a/38865693/37370
   export FZF_TMUX_OPTS="-d 40%"
 #+end_src
 
-** ,config/tmux/tmux.conf
+** .config/tmux/tmux.conf
 #+begin_src conf :tangle "dot-config/tmux/tmux.conf"
   # Maintained in linux-config.org
   # Change the prefix key to C-a
@@ -1411,7 +1411,7 @@ X11 apps still need resource definitions when launched under XWayland.
 #+end_src
 **** Thinkpad T14s
 :PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-thinkpadt14s"
+:header-args:conf: :tangle "~/.config/sway/host-config-t14s"
 :END:
 ***** scaling
 #+begin_src conf
@@ -2560,8 +2560,8 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 }
 #+end_src
 
-**** config-thinkpadt14s
-#+begin_src conf :tangle "dot-config/kanshi/config-thinkpadt14s"
+**** config-t14s
+#+begin_src conf :tangle "dot-config/kanshi/config-t14s"
   {
   output eDP-1 enable mode 1920x1080  position 0,0
   }
@@ -2638,6 +2638,11 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
   {
   output eDP-1 disable
   output DP-1 enable mode 2560x1440 position 0,0
+  }
+
+  {
+  output eDP-1 disable
+  output HDMI-A-1 enable mode 2560x1440 position 0,0
   }
 
 #+end_src
@@ -4170,7 +4175,7 @@ restart pulseaudio
 #+end_src
 
 ** ~/cloud/etc/rsnapshot-excludes
-#+begin_src conf :tangle ~/cloud/etc/rsnapshot-excludes
+#+begin_src conf :tangle ~/cloud/homefiles/etc/rsnapshot-excludes
   #Maintained in linux-config.org
   /home/rsnapshot
   /home/rgr/.steam
