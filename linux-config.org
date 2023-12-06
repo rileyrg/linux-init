@@ -4174,8 +4174,8 @@ restart pulseaudio
   fi;
 #+end_src
 
-** ~/cloud/etc/rsnapshot-excludes
-#+begin_src conf :tangle ~/cloud/homefiles/etc/rsnapshot-excludes
+** ~/cloud/etc/rsnapshot/excludes
+#+begin_src conf :tangle ~/cloud/homefiles/etc/rsnapshot/excludes
   #Maintained in linux-config.org
   /home/rsnapshot
   /home/rgr/.steam
