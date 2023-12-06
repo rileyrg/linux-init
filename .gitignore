@@ -17,7 +17,8 @@
 !/etc/apt/sources.list.d
 !/etc/apt/sources.list.d/*
 
-!/etc/rsnapshot-excludes
+!/etc/rsnapshot
+!/etc/rsnapshot/*
 
 !/etc/zsh
 !/etc/zsh/zshenvb
