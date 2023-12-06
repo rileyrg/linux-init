@@ -1001,7 +1001,7 @@ https://stackoverflow.com/a/38865693/37370
   export FZF_TMUX_OPTS="-d 40%"
 #+end_src
 
-** ~/.tmux.conf
+** ,config/tmux/tmux.conf
 #+begin_src conf :tangle "dot-config/tmux/tmux.conf"
   # Maintained in linux-config.org
   # Change the prefix key to C-a
@@ -1025,6 +1025,7 @@ https://stackoverflow.com/a/38865693/37370
   set-window-option -g window-status-current-style bg=default
 
   set-option -g default-shell /bin/zsh
+  set-option -ga update-environment SWAYSOCK
 
   set -g prefix C-a
 
