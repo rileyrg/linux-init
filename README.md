@@ -426,7 +426,7 @@ Directory is [here](.oh-my-zsh/).
     set -g pane-border-status bottom
     
     # reload tmux config
-    bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+    bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
     
     # To copy, left click and drag to highlight text in yellow,
     # once you release left click yellow text will disappear and will automatically be available in clibboard
@@ -485,7 +485,7 @@ Directory is [here](.oh-my-zsh/).
     set -g @plugin 'tmux-plugins/tmux-resurrect'
     set -g @plugin 'sainnhe/tmux-fzf'
     
-    run -b '~/.tmux/plugins/tpm/tpm'
+    run -b '~/.config/tmux/plugins/tpm/tpm'
 
 
 ## ~/bin/tmux-current-session
@@ -524,16 +524,6 @@ Override in .profile.local
 
 
 ## Gnome     :ARCHIVE:
-
-
-## swaysock for tmux
-
-    # if pgrep -x "sway" > /dev/null
-    # then
-    #     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
-    # fi
-    
-    # https://babushk.in/posts/renew-environment-tmux.html
 
 
 ## ~/.Xresources
@@ -1968,7 +1958,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgaebe8e6"></a>
+<a id="orgf2deeaa"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2014,7 +2004,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgaebe8e6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf2deeaa).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2028,13 +2018,6 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
         fi
     fi
     exit 0
-
-
-### ~/bin/sway/sway-swaysock     :swaysock:
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    # export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1)
 
 
 ### ~/bin/sway/sway-display-swap
@@ -3331,7 +3314,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgec0ea4d).
+See [examples](#orgea2a3a1).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3365,7 +3348,7 @@ See [examples](#orgec0ea4d).
     echo "$(getVolume)"
 
 
-<a id="orgec0ea4d"></a>
+<a id="orgea2a3a1"></a>
 
 ### Examples:
 
@@ -3482,6 +3465,7 @@ restart pulseaudio
 
 ## ~/cloud/etc/rsnapshot-excludes
 
+    #Maintained in linux-config.org
     /home/rsnapshot
     /home/rgr/.steam
 
