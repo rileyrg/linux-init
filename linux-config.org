@@ -1002,7 +1002,7 @@ https://stackoverflow.com/a/38865693/37370
 #+end_src
 
 ** ~/.tmux.conf
-#+begin_src conf :tangle "DotFiles/.tmux.conf"
+#+begin_src conf :tangle "dot-config/tmux/tmux.conf"
   # Maintained in linux-config.org
   # Change the prefix key to C-a
   set-option -g status on
@@ -1035,7 +1035,7 @@ https://stackoverflow.com/a/38865693/37370
   set -g pane-border-status bottom
 
   # reload tmux config
-  bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+  bind r source-file ~/.config/tmux/tmux.conf \; display-message "Config reloaded..."
 
   # To copy, left click and drag to highlight text in yellow,
   # once you release left click yellow text will disappear and will automatically be available in clibboard
@@ -1094,7 +1094,7 @@ https://stackoverflow.com/a/38865693/37370
   set -g @plugin 'tmux-plugins/tmux-resurrect'
   set -g @plugin 'sainnhe/tmux-fzf'
 
-  run -b '~/.tmux/plugins/tpm/tpm'
+  run -b '~/.config/tmux/plugins/tpm/tpm'
 
 #+end_src
 ** ~/bin/tmux-current-session
@@ -1128,19 +1128,6 @@ Override in .profile.local
 #+begin_src bash :tangle "DotFiles/.profile"
   # Force GTK to use wayland
   # export GDK_BACKEND=wayland
-#+end_src
-** swaysock for tmux
-:LOGBOOK:
-- State "WAITING"    from              [2021-05-22 Sat 03:17]
-:END:
-#+begin_src bash :tangle "~/.config/zsh/.zshrc"
-  # if pgrep -x "sway" > /dev/null
-  # then
-  #     export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1) &> /dev/null
-  # fi
-
-  # https://babushk.in/posts/renew-environment-tmux.html
-
 #+end_src
 ** ~/.Xresources
 X11 apps still need resource definitions when launched under XWayland.
@@ -2828,12 +2815,6 @@ Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-
       fi
   fi
   exit 0
-#+end_src
-*** ~/bin/sway/sway-swaysock                                       :swaysock:
-#+begin_src bash :tangle "~/bin/sway/sway-swaysock"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  # export SWAYSOCK=$(ls /run/user/1000/sway-ipc.* | head -n 1)
 #+end_src
 *** ~/bin/sway/sway-display-swap
 https://i3wm.org/docs/user-contributed/swapping-workspaces.html
