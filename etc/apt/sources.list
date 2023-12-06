@@ -1,0 +1,21 @@
+#------------------------------------------------------------------------------#
+#                   OFFICIAL DEBIAN REPOS
+#------------------------------------------------------------------------------#
+
+###### Debian Main Repos
+deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+
+deb http://deb.debian.org/debian-security trixie-security main
+deb-src http://deb.debian.org/debian-security trixie-security main
+
+# deb http://deb.debian.org/debian/ unstable main contrib non-free non-free-firmware
+# deb-src http://deb.debian.org/debian/ unstable main contrib non-free non-free-firmware
+
+deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-12 main
+# deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-12 main
+
+# deb http://deb.debian.org/debian bookworm-backports main
