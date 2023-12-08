@@ -2728,7 +2728,13 @@ Just a gathering place of locky/suspendy type things...
        unlock 'sway-lock-utils unblank' \
        before-sleep 'sway-lock-utils lock'
 #+end_src
-
+**** SWAY-IDLE DEFAULTS
+called XIDLE cos of laziness and legacy
+#+begin_src bash :tangle "DotFiles/.profile"
+  export XIDLEHOOK_BLANK=300
+  export XIDLEHOOK_LOCK=3600
+  export XIDLEHOOK_SUSPEND=7200
+#+end_src
 *** ~/bin/sway/sway-laptop-id
 Here we look for an env ~LAPTOP_ID~. In my setup that would be set in ~${HOME}/.profile.local~. If thats not set we assume ~eDP-1~
 but in both cases we check if it exists in the sway tree, and, if not, set it it to the first one found.

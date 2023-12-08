@@ -59,6 +59,10 @@ export FZF_TMUX_OPTS="-d 40%"
 export XKB_DEFAULT_LAYOUT=de
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
+export XIDLEHOOK_BLANK=300
+export XIDLEHOOK_LOCK=3600
+export XIDLEHOOK_SUSPEND=7200
+
 export PATH="${HOME}/bin/thirdparty/flutter/bin:$PATH"
 
 export PATH="${HOME}"/bin/llvm:"${HOME}"/bin/llvm/build/bin:"$PATH"

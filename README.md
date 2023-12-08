@@ -1934,6 +1934,14 @@ Just a gathering place of locky/suspendy type things&#x2026;
          unlock 'sway-lock-utils unblank' \
          before-sleep 'sway-lock-utils lock'
 
+1.  SWAY-IDLE DEFAULTS
+
+    called XIDLE cos of laziness and legacy
+    
+        export XIDLEHOOK_BLANK=300
+        export XIDLEHOOK_LOCK=3600
+        export XIDLEHOOK_SUSPEND=7200
+
 
 ### ~/bin/sway/sway-laptop-id
 
@@ -1964,7 +1972,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org0ccc990"></a>
+<a id="org38212ca"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2010,7 +2018,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0ccc990).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org38212ca).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3320,7 +3328,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgf4a3d0e).
+See [examples](#org9542b8d).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3354,7 +3362,7 @@ See [examples](#orgf4a3d0e).
     echo "$(getVolume)"
 
 
-<a id="orgf4a3d0e"></a>
+<a id="org9542b8d"></a>
 
 ### Examples:
 
@@ -3469,7 +3477,7 @@ restart pulseaudio
     fi;
 
 
-## ~/cloud/etc/rsnapshot-excludes
+## ~/cloud/etc/rsnapshot/excludes
 
     #Maintained in linux-config.org
     /home/rsnapshot
