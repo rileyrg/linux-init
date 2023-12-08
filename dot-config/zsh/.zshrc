@@ -6,16 +6,14 @@ export TERM="xterm-256color"
 export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
 
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    ZSH_TMUX_AUTOSTART=false
-else
     ZSH_TMUX_AUTOSTART=true
+else
+    ZSH_TMUX_AUTOSTART=false
 fi
 
-# turn off auto tmux start
-ZSH_TMUX_AUTOSTART=false
-
-ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_AUTOCONNECT=false
+# ZSH_TMUX_
+AUTOSTART_ONCE=true
+ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=true
 
 # Set name of the theme to load --- if set to "random", it will

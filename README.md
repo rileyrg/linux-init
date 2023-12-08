@@ -195,16 +195,14 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
     
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        ZSH_TMUX_AUTOSTART=false
-    else
         ZSH_TMUX_AUTOSTART=true
+    else
+        ZSH_TMUX_AUTOSTART=false
     fi
     
-    # turn off auto tmux start
-    ZSH_TMUX_AUTOSTART=false
-    
-    ZSH_TMUX_AUTOSTART_ONCE=true
-    ZSH_TMUX_AUTOCONNECT=false
+    # ZSH_TMUX_
+    AUTOSTART_ONCE=true
+    ZSH_TMUX_AUTOCONNECT=true
     ZSH_TMUX_AUTOQUIT=true
     
     # Set name of the theme to load --- if set to "random", it will
@@ -1972,7 +1970,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org38212ca"></a>
+<a id="orgcd9936c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2018,7 +2016,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org38212ca).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcd9936c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3328,7 +3326,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org9542b8d).
+See [examples](#org3ef5059).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3362,7 +3360,7 @@ See [examples](#org9542b8d).
     echo "$(getVolume)"
 
 
-<a id="org9542b8d"></a>
+<a id="org3ef5059"></a>
 
 ### Examples:
 
