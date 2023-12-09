@@ -12,6 +12,8 @@
 !/etc/acpi/actions
 !/etc/acpi/actions/*
 
+!/etc/crypttab*
+
 !/etc/apt
 !/etc/apt/*
 !/etc/apt/sources.list.d

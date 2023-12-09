@@ -3439,8 +3439,8 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 [[https://github.com/nvm-sh/nvm#installing-and-updating][nvm]] allows you to quickly install and use different versions of node via the command line.
 
 #+begin_src bash :tangle "DotFiles/.profile"
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  export NVM_DIR="$HOME/.config/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #+end_src
 *** snap
 #+begin_src bash :tangle "DotFiles/.profile"

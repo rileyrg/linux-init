@@ -87,8 +87,8 @@ export PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 export ANDROID_STUDIO_HOME="${HOME}/bin/thirdparty/android-studio"
 export PATH="${PATH}:${ANDROID_STUDIO_HOME}/bin"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH="/snap/bin:$PATH"
 
