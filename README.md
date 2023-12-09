@@ -1970,7 +1970,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgcd9936c"></a>
+<a id="orga8fd2a7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2016,7 +2016,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcd9936c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8fd2a7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2679,8 +2679,8 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
 [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) allows you to quickly install and use different versions of node via the command line.
 
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
 ### snap
@@ -3326,7 +3326,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org3ef5059).
+See [examples](#orgd6569df).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3360,7 +3360,7 @@ See [examples](#org3ef5059).
     echo "$(getVolume)"
 
 
-<a id="org3ef5059"></a>
+<a id="orgd6569df"></a>
 
 ### Examples:
 
