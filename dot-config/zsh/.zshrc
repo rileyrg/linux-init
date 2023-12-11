@@ -87,7 +87,7 @@ plugins=(
     colored-man-pages
     zsh-syntax-highlighting
 )
-HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
+export HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
 
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY
