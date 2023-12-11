@@ -276,7 +276,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
         colored-man-pages
         zsh-syntax-highlighting
     )
-    HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
+    export HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
     
     setopt EXTENDED_HISTORY
     setopt SHARE_HISTORY
@@ -1970,7 +1970,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orga8fd2a7"></a>
+<a id="org1f11191"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2016,7 +2016,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8fd2a7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1f11191).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3326,7 +3326,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgd6569df).
+See [examples](#org0430e98).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3360,7 +3360,7 @@ See [examples](#orgd6569df).
     echo "$(getVolume)"
 
 
-<a id="orgd6569df"></a>
+<a id="org0430e98"></a>
 
 ### Examples:
 
