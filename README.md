@@ -1970,7 +1970,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org75b74f7"></a>
+<a id="org20b38a3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2016,7 +2016,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org75b74f7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org20b38a3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2682,6 +2682,10 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
     export NVM_DIR="$HOME/.config/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+    if ! command -v "nvm"; then
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    fi
+
 
 ### snap
 
@@ -3326,7 +3330,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org1bcb233).
+See [examples](#org6d4f3a8).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3360,7 +3364,7 @@ See [examples](#org1bcb233).
     echo "$(getVolume)"
 
 
-<a id="org1bcb233"></a>
+<a id="org6d4f3a8"></a>
 
 ### Examples:
 
