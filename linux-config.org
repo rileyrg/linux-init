@@ -3437,9 +3437,14 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 ** node.js
 *** nvm
 [[https://github.com/nvm-sh/nvm#installing-and-updating][nvm]] allows you to quickly install and use different versions of node via the command line.
-#+begin_src bash :tangle "dot-config/zsh/.zprofile"
+#+begin_src bash :tangle "DotFiles/.profile"
   export NVM_DIR="$HOME/.config/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#+end_src
+#+begin_src bash :tangle "dot-config/zsh/.zprofile"
+  if ! command -v "nvm"; then
+      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  fi
 #+end_src
 
 *** snap
