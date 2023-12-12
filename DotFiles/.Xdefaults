@@ -1,5 +1,5 @@
 ! Use a truetype font and size.
-*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
+*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
 Xft.autohint: 0
 Xft.antialias: 1
 Xft.hinting: true
@@ -9,7 +9,7 @@ Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 
 ! Fonts {{{
-#ifdef SRVR_thinkpadt460
+#ifdef SRVR_t460
 Xft.dpi:       104
 #endif
 #ifdef SRVR_intelnuc
@@ -18,7 +18,10 @@ Xft.dpi:       108
 #ifdef SRVR_x270
 Xft.dpi:       96
 #endif
-#ifdef SRVR_thinkpadt14s
+#ifdef SRVR_t14s
+Xft.dpi:       96
+#endif
+#ifdef SRVR_x1c6
 Xft.dpi:       96
 #endif
 #ifdef SRVR_xmgneo

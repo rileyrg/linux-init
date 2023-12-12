@@ -106,6 +106,41 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 - State "DONE"       from "TODO"       [2021-01-11 Mo 01:36]
 - State "TODO"       from              [2021-01-10 Sun 09:32]
 :END:
+* X/Sway common
+** ~/.Xdefaults
+#+begin_src conf :tangle "DotFiles/.Xdefaults"
+  ! Use a truetype font and size.
+  ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+  Xft.autohint: 0
+  Xft.antialias: 1
+  Xft.hinting: true
+  Xft.hintstyle: hintslight
+  Xft.dpi: 96
+  Xft.rgba: rgb
+  Xft.lcdfilter: lcddefault
+
+  ! Fonts {{{
+  #ifdef SRVR_t460
+  Xft.dpi:       104
+  #endif
+  #ifdef SRVR_intelnuc
+  Xft.dpi:       108
+  #endif
+  #ifdef SRVR_x270
+  Xft.dpi:       96
+  #endif
+  #ifdef SRVR_t14s
+  Xft.dpi:       96
+  #endif
+  #ifdef SRVR_x1c6
+  Xft.dpi:       96
+  #endif
+  #ifdef SRVR_xmgneo
+  Xft.dpi:       188
+  #endif
+  ! }}}
+
+#+end_src
 * X Related                                                         :ARCHIVE:
 Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
 ** ~/.xinitrc
@@ -119,7 +154,7 @@ CLOSED: [2020-12-20 Sun 13:35]
     - State "TODO"       from              [2020-12-12 Sa 14:11]
 :END:
 I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
-#+begin_src conf :tangle "DotFiles/.xinitrc"
+#+begin_src conf :tangle "DotFiles/x-archive/.xinitrc"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # Dont need that as startx will use xinitc anyway if this doesnt exist.
@@ -128,20 +163,20 @@ I use this as a kind of placeholder to remind me that system xinitrc is doing th
 #+end_src
 ** ~/.xprofile
 Another placeholder doing nothing as xinit launches XSession which uses .xsession and .xsessionrc on Debian
-#+begin_src bash :tangle "DotFiles/.xprofile"
+#+begin_src bash :tangle "DotFiles/x-archive/.xprofile"
   # Maintained in linux-config.org
   # all moved to .xsessionrc so /etc/X11/Xsession loads it
 
 #+end_src
 ** ~/.xsession
-#+begin_src bash :tangle "DotFiles/.xsession"
+#+begin_src bash :tangle "DotFiles/x-archive/.xsession"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   rgr-logger -t "startup-initfile"  USER-XSESSION
   exec dbus-launch --sh-syntax --exit-with-session i3
 #+end_src
 ** ~/.xsessionrc
-#+begin_src bash :tangle "DotFiles/.xsessionrc"
+#+begin_src bash :tangle "DotFiles/x-archive/.xsessionrc"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   rgr-logger -t "startup-initfile"  XSESSIONRC
@@ -201,37 +236,6 @@ Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][
     # export XIDLEHOOK_BLANK=600
     # export XIDLEHOOK_LOCK=7200
     # export XIDLEHOOK_SUSPEND=3600
-#+end_src
-** ~/.Xresources
-#+begin_src conf :tangle "DotFiles/.Xresources"
-  ! Use a truetype font and size.
-  ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
-  Xft.autohint: 0
-  Xft.antialias: 1
-  Xft.hinting: true
-  Xft.hintstyle: hintslight
-  Xft.dpi: 96
-  Xft.rgba: rgb
-  Xft.lcdfilter: lcddefault
-
-  ! Fonts {{{
-  #ifdef SRVR_thinkpadt460
-  Xft.dpi:       104
-  #endif
-  #ifdef SRVR_intelnuc
-  Xft.dpi:       108
-  #endif
-  #ifdef SRVR_x270
-  Xft.dpi:       96
-  #endif
-  #ifdef SRVR_thinkpadt14s
-  Xft.dpi:       96
-  #endif
-  #ifdef SRVR_xmgneo
-  Xft.dpi:       188
-  #endif
-  ! }}}
-
 #+end_src
 ** ~/bin/x-archive/x-lock-utils
 Just a gathering place of locky/suspendy type things...
@@ -1125,42 +1129,6 @@ Override in .profile.local
   export XKB_DEFAULT_LAYOUT=de
   export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 #+end_src
-** Gnome                                                            :ARCHIVE:
-#+begin_src bash :tangle "DotFiles/.profile"
-  # Force GTK to use wayland
-  # export GDK_BACKEND=wayland
-#+end_src
-** ~/.Xresources
-X11 apps still need resource definitions when launched under XWayland.
-#+begin_src conf :tangle "DotFiles/.Xresources"
-  ! Use a truetype font and size.
-  *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
-  Xft.autohint: 0
-  Xft.antialias: 1
-  Xft.hinting: true
-  Xft.hintstyle: hintslight
-  Xft.dpi: 96
-  Xft.rgba: rgb
-  Xft.lcdfilter: lcddefault
-
-  ! Fonts {{{
-  #ifdef SRVR_thinkpadt460
-  Xft.dpi:       104
-  #endif
-  #ifdef SRVR_intelnuc
-  Xft.dpi:       108
-  #endif
-  #ifdef SRVR_x270
-  Xft.dpi:       96
-  #endif
-  #ifdef SRVR_thinkpadt14s
-  Xft.dpi:       96
-  #endif
-  #ifdef SRVR_xmgneo
-  Xft.dpi:       188
-  #endif
-  ! }}}
-#+end_src
 ** sway json fun                                                   :noexport:
 *** cur ws
 #+name: cur_ws_json
@@ -1171,111 +1139,173 @@ X11 apps still need resource definitions when launched under XWayland.
 #+RESULTS: cur_ws_json
 :results:
 {
-"id": 20,
-"name": "1:edit",
-"rect": {
-"x": 4,
-"y": 4,
-"width": 1912,
-"height": 1042
-},
-"focus": [
-14,
-21,
-11
-],
-"border": "none",
-"current_border_width": 0,
-"layout": "splith",
-"orientation": "horizontal",
-"percent": null,
-"window_rect": {
-"x": 0,
-"y": 0,
-"width": 0,
-"height": 0
-},
-"deco_rect": {
-"x": 0,
-"y": 0,
-"width": 0,
-"height": 0
-},
-"geometry": {
-"x": 0,
-"y": 0,
-"width": 0,
-"height": 0
-},
-"window": null,
-"urgent": false,
-"marks": [],
-"fullscreen_mode": 1,
-"nodes": [],
-"floating_nodes": [
-{
-"id": 11,
-"name": "ScratchTerminal",
-"rect": {
-"x": 480,
-"y": 146,
-"width": 960,
-"height": 783
-},
-"focused": false,
-"focus": [],
-"border": "normal",
-"current_border_width": 2,
-"layout": "none",
-"orientation": "none",
-"percent": 0.38982002746568795,
-"window_rect": {
-"x": 2,
-"y": 0,
-"width": 956,
-"height": 781
-},
-"deco_rect": {
-"x": 476,
-"y": 116,
-"width": 960,
-"height": 26
-},
-"geometry": {
-"x": 0,
-"y": 0,
-"width": 800,
-"height": 600
-},
-"window": null,
-"urgent": false,
-"marks": [
-"α"
-],
-"fullscreen_mode": 0,
-"nodes": [],
-"floating_nodes": [],
-"sticky": false,
-"type": "floating_con",
-"pid": 227866,
-"app_id": "Alacritty",
-"visible": true,
-"max_render_time": 0,
-"shell": "xdg_shell",
-"inhibit_idle": false,
-"idle_inhibitors": {
-"user": "none",
-"application": "none"
-}
-}
-],
-"sticky": false,
-"num": 1,
-"output": "eDP-1",
-"type": "workspace",
-"representation": "H[Emacs Alacritty]",
-"focused": true,
-"visible": true
+  "id": 6,
+  "type": "workspace",
+  "orientation": "horizontal",
+  "percent": null,
+  "urgent": false,
+  "marks": [],
+  "layout": "splith",
+  "border": "none",
+  "current_border_width": 0,
+  "rect": {
+    "x": 1,
+    "y": 1,
+    "width": 1918,
+    "height": 1048
+  },
+  "deco_rect": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "window_rect": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "geometry": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "name": "1:edit",
+  "window": null,
+  "nodes": [],
+  "floating_nodes": [
+    {
+      "id": 47,
+      "type": "floating_con",
+      "orientation": "none",
+      "percent": 0.0083330680018148685,
+      "urgent": false,
+      "marks": [],
+      "focused": false,
+      "layout": "none",
+      "border": "csd",
+      "current_border_width": 2,
+      "rect": {
+        "x": 792,
+        "y": 500,
+        "width": 335,
+        "height": 50
+      },
+      "deco_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "window_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 335,
+        "height": 50
+      },
+      "geometry": {
+        "x": 0,
+        "y": 0,
+        "width": 335,
+        "height": 29
+      },
+      "name": "Emulator",
+      "window": 6291479,
+      "nodes": [],
+      "floating_nodes": [],
+      "focus": [],
+      "fullscreen_mode": 0,
+      "sticky": false,
+      "pid": 25515,
+      "app_id": null,
+      "visible": true,
+      "max_render_time": 0,
+      "shell": "xwayland",
+      "inhibit_idle": false,
+      "idle_inhibitors": {
+        "user": "none",
+        "application": "none"
+      },
+      "window_properties": {
+        "title": "Emulator",
+        "transient_for": 6291461,
+        "window_type": "utility"
+      }
+    },
+    {
+      "id": 53,
+      "type": "floating_con",
+      "orientation": "none",
+      "percent": 0.019103869329533785,
+      "urgent": false,
+      "marks": [],
+      "focused": false,
+      "layout": "none",
+      "border": "csd",
+      "current_border_width": 2,
+      "rect": {
+        "x": 922,
+        "y": 269,
+        "width": 75,
+        "height": 512
+      },
+      "deco_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "window_rect": {
+        "x": 0,
+        "y": 0,
+        "width": 75,
+        "height": 512
+      },
+      "geometry": {
+        "x": 0,
+        "y": 0,
+        "width": 61,
+        "height": 512
+      },
+      "name": "Emulator",
+      "window": 6291473,
+      "nodes": [],
+      "floating_nodes": [],
+      "focus": [],
+      "fullscreen_mode": 0,
+      "sticky": false,
+      "pid": 25515,
+      "app_id": null,
+      "visible": true,
+      "max_render_time": 0,
+      "shell": "xwayland",
+      "inhibit_idle": false,
+      "idle_inhibitors": {
+        "user": "none",
+        "application": "none"
+      },
+      "window_properties": {
+        "title": "Emulator",
+        "transient_for": 6291461,
+        "window_type": "utility"
+      }
+    }
+  ],
+  "focus": [
+    10,
+    61,
+    53,
+    47
+  ],
+  "fullscreen_mode": 1,
+  "sticky": false,
+  "num": 1,
+  "output": "eDP-1",
+  "representation": "H[emacs V[H[firefox] (null)]]",
+  "focused": true,
+  "visible": true
 }
 :end:
 {
