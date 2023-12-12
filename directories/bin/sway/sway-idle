@@ -6,11 +6,11 @@ exec swayidle -w \
      resume 'sway-lock-utils unblank' \
      timeout 10 'pidof swaylock && sway-lock-utils blank' \
      resume 'sway-lock-utils unblank' \
-     timeout ${XIDLEHOOK_BLANK:-3600} 'sway-lock-utils blank' \
+     timeout ${SWAYIDLEHOOK_BLANK:-3600} 'sway-lock-utils blank' \
      resume 'sway-lock-utils unblank' \
-     timeout ${XIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
+     timeout ${SWAYIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
      resume 'sway-lock-utils unblank' \
-     timeout ${XIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
+     timeout ${SWAYIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
      resume 'sway-lock-utils unblank' \
      lock 'sway-lock-utils lock' \
      unlock 'sway-lock-utils unblank' \
