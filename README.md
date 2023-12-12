@@ -1922,11 +1922,11 @@ Just a gathering place of locky/suspendy type things&#x2026;
          resume 'sway-lock-utils unblank' \
          timeout 10 'pidof swaylock && sway-lock-utils blank' \
          resume 'sway-lock-utils unblank' \
-         timeout ${XIDLEHOOK_BLANK:-3600} 'sway-lock-utils blank' \
+         timeout ${SWAYIDLEHOOK_BLANK:-3600} 'sway-lock-utils blank' \
          resume 'sway-lock-utils unblank' \
-         timeout ${XIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
+         timeout ${SWAYIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
          resume 'sway-lock-utils unblank' \
-         timeout ${XIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
+         timeout ${SWAYIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
          resume 'sway-lock-utils unblank' \
          lock 'sway-lock-utils lock' \
          unlock 'sway-lock-utils unblank' \
@@ -1934,11 +1934,9 @@ Just a gathering place of locky/suspendy type things&#x2026;
 
 1.  SWAY-IDLE DEFAULTS
 
-    called XIDLE cos of laziness and legacy
-    
-        export XIDLEHOOK_BLANK=300
-        export XIDLEHOOK_LOCK=3600
-        export XIDLEHOOK_SUSPEND=7200
+        export SWAYIDLEHOOK_BLANK=300
+        export SWAYIDLEHOOK_LOCK=3600
+        export SWAYIDLEHOOK_SUSPEND=0
 
 
 ### ~/bin/sway/sway-laptop-id
@@ -1970,7 +1968,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org20b38a3"></a>
+<a id="org17a5494"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2016,7 +2014,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org20b38a3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org17a5494).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2679,12 +2677,13 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
 [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) allows you to quickly install and use different versions of node via the command line.
 
+    lts/*
+
+    # if ! command -v "nvm"; then
+    #     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    # fi
     export NVM_DIR="$HOME/.config/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-    if ! command -v "nvm"; then
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    fi
 
 
 ### snap
@@ -3330,7 +3329,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org6d4f3a8).
+See [examples](#org268193d).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3364,7 +3363,7 @@ See [examples](#org6d4f3a8).
     echo "$(getVolume)"
 
 
-<a id="org6d4f3a8"></a>
+<a id="org268193d"></a>
 
 ### Examples:
 

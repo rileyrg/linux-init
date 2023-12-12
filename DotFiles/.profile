@@ -59,9 +59,9 @@ export FZF_TMUX_OPTS="-d 40%"
 export XKB_DEFAULT_LAYOUT=de
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
-export XIDLEHOOK_BLANK=300
-export XIDLEHOOK_LOCK=3600
-export XIDLEHOOK_SUSPEND=7200
+export SWAYIDLEHOOK_BLANK=300
+export SWAYIDLEHOOK_LOCK=3600
+export SWAYIDLEHOOK_SUSPEND=0
 
 export PATH="${HOME}/bin/thirdparty/flutter/bin:$PATH"
 
@@ -86,9 +86,6 @@ export PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 
 export ANDROID_STUDIO_HOME="${HOME}/bin/thirdparty/android-studio"
 export PATH="${PATH}:${ANDROID_STUDIO_HOME}/bin"
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH="/snap/bin:$PATH"
 
