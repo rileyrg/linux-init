@@ -39,6 +39,43 @@ NB - NOT Exported as lots of things want to update it
     fi
 
 
+# X/Sway common
+
+
+## ~/.Xdefaults
+
+    ! Use a truetype font and size.
+    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+    Xft.autohint: 0
+    Xft.antialias: 1
+    Xft.hinting: true
+    Xft.hintstyle: hintslight
+    Xft.dpi: 96
+    Xft.rgba: rgb
+    Xft.lcdfilter: lcddefault
+    
+    ! Fonts {{{
+    #ifdef SRVR_t460
+    Xft.dpi:       104
+    #endif
+    #ifdef SRVR_intelnuc
+    Xft.dpi:       108
+    #endif
+    #ifdef SRVR_x270
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_t14s
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_x1c6
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_xmgneo
+    Xft.dpi:       188
+    #endif
+    ! }}}
+
+
 # X Related     :ARCHIVE:
 
 
@@ -520,42 +557,6 @@ Override in .profile.local
 
     export XKB_DEFAULT_LAYOUT=de
     export XKB_DEFAULT_OPTIONS=ctrl:nocaps
-
-
-## Gnome     :ARCHIVE:
-
-
-## ~/.Xresources
-
-X11 apps still need resource definitions when launched under XWayland.
-
-    ! Use a truetype font and size.
-    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-6-*-*-*-*-*-*
-    Xft.autohint: 0
-    Xft.antialias: 1
-    Xft.hinting: true
-    Xft.hintstyle: hintslight
-    Xft.dpi: 96
-    Xft.rgba: rgb
-    Xft.lcdfilter: lcddefault
-    
-    ! Fonts {{{
-    #ifdef SRVR_thinkpadt460
-    Xft.dpi:       104
-    #endif
-    #ifdef SRVR_intelnuc
-    Xft.dpi:       108
-    #endif
-    #ifdef SRVR_x270
-    Xft.dpi:       96
-    #endif
-    #ifdef SRVR_thinkpadt14s
-    Xft.dpi:       96
-    #endif
-    #ifdef SRVR_xmgneo
-    Xft.dpi:       188
-    #endif
-    ! }}}
 
 
 ## Sway config
@@ -1968,7 +1969,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org17a5494"></a>
+<a id="org266a302"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2014,7 +2015,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org17a5494).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org266a302).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3329,7 +3330,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org268193d).
+See [examples](#org4805ba6).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3363,7 +3364,7 @@ See [examples](#org268193d).
     echo "$(getVolume)"
 
 
-<a id="org268193d"></a>
+<a id="org4805ba6"></a>
 
 ### Examples:
 

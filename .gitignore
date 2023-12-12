@@ -88,7 +88,7 @@
 !/DotFiles/.syncrclone/gdrive-cloud-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
 !/DotFiles/.ripgreprc
-!/DotFiles/.Xresources
+!/DotFiles/.Xdefaults
 !/DotFiles/.gdbinit
 !/DotFiles/.lldbinit
 
