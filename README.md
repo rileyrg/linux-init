@@ -669,7 +669,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+minus scratchpad show
     bindsym $mod+Return exec sway-scratch-terminal
     
-    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerm
+    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
 
 1.  ~/bin/sway/sway-autostart
 
@@ -1931,7 +1931,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org4aa37c3"></a>
+<a id="org863bb33"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1977,7 +1977,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4aa37c3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org863bb33).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3297,7 +3297,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgd96af29).
+See [examples](#orgcfa4471).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3331,7 +3331,7 @@ See [examples](#orgd96af29).
     echo "$(getVolume)"
 
 
-<a id="orgd96af29"></a>
+<a id="orgcfa4471"></a>
 
 ### Examples:
 
