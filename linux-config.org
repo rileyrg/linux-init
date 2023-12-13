@@ -107,8 +107,14 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 - State "TODO"       from              [2021-01-10 Sun 09:32]
 :END:
 * X/Sway common
-** ~/.Xdefaults
-#+begin_src conf :tangle "DotFiles/.Xdefaults"
+** CANCELLED ~/.Xdefaults                                         :CANCELLED:
+CLOSED: [2023-12-13 Wed 13:28]
+:LOGBOOK:
+- State "CANCELLED"  from              [2023-12-13 Wed 13:28]
+:END:
+(:tangle "DotFiles/.Xdefaults")
+#+begin_src conf :tangle no
+  ! Maintained in linux-config.org
   ! Use a truetype font and size.
   ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
   Xft.autohint: 0
@@ -1467,12 +1473,16 @@ off in the *.profile* or something.
 exec systemctl start --user mbsync.service
 #+end_src
 
-*** xrdb integration
+*** CANCELLED xrdb integration                                    :CANCELLED:
+CLOSED: [2023-12-13 Wed 13:12]
 :PROPERTIES:
 :header-args:conf: :tangle "~/.config/sway/config"
 :ID:       28b74638-3fc4-499c-bb15-3360f58bccae
 :END:
-#+begin_src conf
+:LOGBOOK:
+- State "CANCELLED"  from              [2023-12-13 Wed 13:12]
+:END:
+#+begin_src conf :tangle no
   exec xrdb -merge ~/.Xresources
 #+end_src
 
