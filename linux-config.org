@@ -1538,7 +1538,7 @@ I want a key to create and then toggle a terminal.
   bindsym $mod+minus scratchpad show
   bindsym $mod+Return exec sway-scratch-terminal
 
-  for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
+  for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerm
 #+end_src
 **** ~/bin/sway/sway-autostart
 #+begin_src bash :tangle "~/bin/sway/sway-autostart"
@@ -3880,6 +3880,9 @@ if it exists jump to it else start it
   exit 0
 
 #+end_src
+**** alacritty config
+[[https://github.com/alacritty/alacritty#configuration]]
+[[file:dot-config/alacritty/alacritty.yml][alacritty config file]]
 *** ~/bin/pop-window
 #+begin_src bash :tangle "~/bin/pop-window"
   #!/usr/bin/env bash
