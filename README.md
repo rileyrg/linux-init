@@ -42,40 +42,6 @@ NB - NOT Exported as lots of things want to update it
 # X/Sway common
 
 
-## ~/.Xdefaults
-
-    ! Use a truetype font and size.
-    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
-    Xft.autohint: 0
-    Xft.antialias: 1
-    Xft.hinting: true
-    Xft.hintstyle: hintslight
-    Xft.dpi: 96
-    Xft.rgba: rgb
-    Xft.lcdfilter: lcddefault
-    
-    ! Fonts {{{
-    #ifdef SRVR_t460
-    Xft.dpi:       104
-    #endif
-    #ifdef SRVR_intelnuc
-    Xft.dpi:       108
-    #endif
-    #ifdef SRVR_x270
-    Xft.dpi:       96
-    #endif
-    #ifdef SRVR_t14s
-    Xft.dpi:       96
-    #endif
-    #ifdef SRVR_x1c6
-    Xft.dpi:       96
-    #endif
-    #ifdef SRVR_xmgneo
-    Xft.dpi:       188
-    #endif
-    ! }}}
-
-
 # X Related     :ARCHIVE:
 
 
@@ -642,11 +608,6 @@ I do this here because the user systemd service wont start with an encrypted HOM
 off in the **.profile** or something.
 
     exec systemctl start --user mbsync.service
-
-
-### xrdb integration
-
-    exec xrdb -merge ~/.Xresources
 
 
 ### mako
@@ -1969,7 +1930,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org266a302"></a>
+<a id="orgd9773df"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2015,7 +1976,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org266a302).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd9773df).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3330,7 +3291,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org4805ba6).
+See [examples](#org51d7b12).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3364,7 +3325,7 @@ See [examples](#org4805ba6).
     echo "$(getVolume)"
 
 
-<a id="org4805ba6"></a>
+<a id="org51d7b12"></a>
 
 ### Examples:
 

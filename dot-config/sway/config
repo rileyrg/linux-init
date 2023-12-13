@@ -48,8 +48,6 @@ include "${HOME}/.config/sway/host-config-$(hostname)"
 
 exec systemctl start --user mbsync.service
 
-exec xrdb -merge ~/.Xresources
-
 # exec mako
 
 for_window [title="sway-launcher"] floating enable
