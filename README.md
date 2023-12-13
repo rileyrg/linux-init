@@ -1930,7 +1930,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgd9773df"></a>
+<a id="org2d5ae18"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1976,7 +1976,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd9773df).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2d5ae18).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3057,6 +3057,11 @@ if it exists jump to it else start it
     fi
     exit 0
 
+1.  alacritty config
+
+    <https://github.com/alacritty/alacritty#configuration>
+    [alacritty config file](dot-config/alacritty/alacritty.yml)
+
 
 ### ~/bin/pop-window
 
@@ -3291,7 +3296,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org51d7b12).
+See [examples](#org3bd43bd).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3325,7 +3330,7 @@ See [examples](#org51d7b12).
     echo "$(getVolume)"
 
 
-<a id="org51d7b12"></a>
+<a id="org3bd43bd"></a>
 
 ### Examples:
 

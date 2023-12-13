@@ -28,6 +28,9 @@
 
 !/dot-config
 
+!/dot-config/alacritty
+!/dot-config/alacritty/*
+
 !/dot-config/mako
 !/dot-config/mako/*
 
