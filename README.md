@@ -309,6 +309,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     # DEFAULT_USER means we dont show user and host in normal shell prompt
     DEFAULT_USER=$USER
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
@@ -1930,7 +1931,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org445a3ae"></a>
+<a id="org4aa37c3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1976,7 +1977,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org445a3ae).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4aa37c3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3296,7 +3297,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgcf2b2c1).
+See [examples](#orgd96af29).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3330,7 +3331,7 @@ See [examples](#orgcf2b2c1).
     echo "$(getVolume)"
 
 
-<a id="orgcf2b2c1"></a>
+<a id="orgd96af29"></a>
 
 ### Examples:
 
