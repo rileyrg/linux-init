@@ -76,7 +76,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 bindsym $mod+Return exec sway-scratch-terminal
 
-for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerm
+for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
 
 # change focus
 # bindsym $mod+h focus left
