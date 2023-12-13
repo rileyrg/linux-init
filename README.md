@@ -668,7 +668,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+minus scratchpad show
     bindsym $mod+Return exec sway-scratch-terminal
     
-    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
+    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerm
 
 1.  ~/bin/sway/sway-autostart
 
@@ -1930,7 +1930,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org2d5ae18"></a>
+<a id="org445a3ae"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1976,7 +1976,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2d5ae18).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org445a3ae).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2641,9 +2641,9 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
 
     lts/*
 
-    # if ! command -v "nvm"; then
-    #     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    # fi
+    export NVM_DIR="$HOME/.config/nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
     export NVM_DIR="$HOME/.config/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -3296,7 +3296,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org3bd43bd).
+See [examples](#orgcf2b2c1).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3330,7 +3330,7 @@ See [examples](#org3bd43bd).
     echo "$(getVolume)"
 
 
-<a id="org3bd43bd"></a>
+<a id="orgcf2b2c1"></a>
 
 ### Examples:
 
