@@ -983,6 +983,7 @@ I want a key to create and then toggle a terminal.
     for_window [class="Conky"] floating enable
     for_window [app_id="zenity"] floating enable
     for_window [title="wifi"] floating enable
+    for_window [title="Emulator"] floating enable
     for_window [title="bluetoothctl"] floating enable
 
 
@@ -1931,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org863bb33"></a>
+<a id="org3ce4e9b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1977,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org863bb33).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3ce4e9b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3297,7 +3298,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgcfa4471).
+See [examples](#orgcc28156).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3331,7 +3332,7 @@ See [examples](#orgcfa4471).
     echo "$(getVolume)"
 
 
-<a id="orgcfa4471"></a>
+<a id="orgcc28156"></a>
 
 ### Examples:
 

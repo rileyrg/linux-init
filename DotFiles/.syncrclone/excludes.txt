@@ -4,3 +4,4 @@
 - emacs-config/straight/build
 - emacs-config/straight/build-cache.el
 - emacs-config/straight/modified
+- .android/avd/
