@@ -1600,7 +1600,7 @@ I want a key to create and then toggle a terminal.
 
   # change container layout (stacked, tabbed, toggle split)
   bindsym $mod+s layout stacking
-  bindsym $mod+w layout tabbed
+  bindsym $mod+t layout tabbed
   bindsym $mod+e layout toggle split
 
   # toggle tiling / floatving
@@ -1828,7 +1828,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   #assign [app_id="Alacritty"] $ws1
   #assign [class="Ardour"] $ws6
   assign [class="Code"] $ws3
-  assign [app_id="firefox"] $ws2
+  # assign [app_id="firefox"] $ws2
   assign [class="Signal"] $ws8
   assign [class="jetbrains-studio"] $ws3
   assign [app_id="emacs"] $ws1
@@ -1852,29 +1852,29 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 *** apps keybindings
 #+begin_src conf
 
-  bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
-  bindsym $mod+Control+b exec sway-lock-utils blank
+    bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+    bindsym $mod+Control+b exec sway-lock-utils blank
 
-  bindsym Print exec sway-screenshot -i
-  # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
-  bindsym $mod+Shift+f exec "sway-www"
-  bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-  bindsym $mod+Control+c exec conky
-  #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
-  bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-  bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
-  bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
-  bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
-  bindsym $mod+Control+Shift+d exec sway-screen-menu
-  bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
-  bindsym $mod+Control+e exec lldb-ui "/home/rgr/development/projects/emacs/emacs/src" "emacs"; workspace $ws3
-  bindsym $mod+Control+u exec lldb-ui "/home/rgr/development/education/Udemy/UdemyCpp/Computerspiel1/" "udemy"; workspace $ws3
-  bindsym $mod+Control+g exec oneterminal "lldb"
-  bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
-  bindsym $mod+Control+p exec sway-htop
-  bindsym $mod+Control+s exec alacritty -e syncrclone-htop
-  bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
+    bindsym Print exec sway-screenshot -i
+    bindsym $mod+Shift+f exec "sway-www"
+    bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
+    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
+    bindsym $mod+Control+c exec conky
+    #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
+    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
+    bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
+    bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
+    bindsym $mod+Control+Shift+d exec sway-screen-menu
+    bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
+    bindsym $mod+Control+e exec lldb-ui "/home/rgr/development/projects/emacs/emacs/src" "emacs"; workspace $ws3
+    bindsym $mod+Control+u exec lldb-ui "/home/rgr/development/education/Udemy/UdemyCpp/Computerspiel1/" "udemy"; workspace $ws3
+    bindsym $mod+Control+g exec oneterminal "lldb"
+    bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
+    bindsym $mod+Control+p exec sway-htop
+    bindsym $mod+Control+s exec alacritty -e syncrclone-htop
+    bindsym $mod+Control+Shift+p exec htop-regexp
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
 #+end_src
 
 *** gaming                                                           :gaming:
@@ -2982,7 +2982,16 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
   #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-  sway-do-tool "firefox" "sway-firefox"
+  sway-firefox "$1"
+#+end_src
+*** ~/bin/sway/sway-email
+:PROPERTIES:
+:ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
+:END:
+#+begin_src bash :tangle "~/bin/sway/sway-email"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  MOZ_ENABLE_WAYLAND=1 firefox --name=wwwemail --new-window "https://www.gmail.com"
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:
@@ -2990,7 +2999,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-firefox"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  MOZ_ENABLE_WAYLAND=1 firefox
+  MOZ_ENABLE_WAYLAND=1 firefox --new-window "$1"
 #+end_src
 *** ~/bin/sway/sway-wifi
 :PROPERTIES:

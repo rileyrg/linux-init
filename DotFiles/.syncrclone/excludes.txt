@@ -1,6 +1,6 @@
-- emacs-config/var/eln-cache/
-- emacs-config/var/dap/
-- emacs-config/var/url/cache/
+# - emacs-config/var/eln-cache/
+# - emacs-config/var/dap/
+# - emacs-config/var/url/cache/
 - emacs-config/straight/build
 - emacs-config/straight/build-cache.el
 - emacs-config/straight/modified
