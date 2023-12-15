@@ -2,4 +2,4 @@
 # Maintained in linux-config.org
 # google-chrome   "$@" &> /dev/null &
 #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-sway-do-tool "firefox" "sway-firefox"
+sway-firefox "$1"

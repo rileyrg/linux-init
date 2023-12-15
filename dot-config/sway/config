@@ -115,7 +115,7 @@ bindsym $mod+Shift+t inhibit_fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floatving
@@ -247,7 +247,7 @@ bindsym $mod+Control+q mode "$mode_system"
 #assign [app_id="Alacritty"] $ws1
 #assign [class="Ardour"] $ws6
 assign [class="Code"] $ws3
-assign [app_id="firefox"] $ws2
+# assign [app_id="firefox"] $ws2
 assign [class="Signal"] $ws8
 assign [class="jetbrains-studio"] $ws3
 assign [app_id="emacs"] $ws1
@@ -269,8 +269,8 @@ bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Control+b exec sway-lock-utils blank
 
 bindsym Print exec sway-screenshot -i
-# bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
 bindsym $mod+Shift+f exec "sway-www"
+bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
 bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
 bindsym $mod+Control+c exec conky
 #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"

@@ -731,7 +731,7 @@ I want a key to create and then toggle a terminal.
     
     # change container layout (stacked, tabbed, toggle split)
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    bindsym $mod+t layout tabbed
     bindsym $mod+e layout toggle split
     
     # toggle tiling / floatving
@@ -965,7 +965,7 @@ I want a key to create and then toggle a terminal.
     #assign [app_id="Alacritty"] $ws1
     #assign [class="Ardour"] $ws6
     assign [class="Code"] $ws3
-    assign [app_id="firefox"] $ws2
+    # assign [app_id="firefox"] $ws2
     assign [class="Signal"] $ws8
     assign [class="jetbrains-studio"] $ws3
     assign [app_id="emacs"] $ws1
@@ -994,8 +994,8 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+b exec sway-lock-utils blank
     
     bindsym Print exec sway-screenshot -i
-    # bindsym $mod+Shift+f exec sway-do-tool "Google-chrome" "sway-www"
     bindsym $mod+Shift+f exec "sway-www"
+    bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
     #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org3ce4e9b"></a>
+<a id="orgd18b8e6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3ce4e9b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd18b8e6).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2109,14 +2109,21 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
     #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-    sway-do-tool "firefox" "sway-firefox"
+    sway-firefox "$1"
+
+
+### ~/bin/sway/sway-email
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    MOZ_ENABLE_WAYLAND=1 firefox --name=wwwemail --new-window "https://www.gmail.com"
 
 
 ### ~/bin/sway/sway-firefox
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    MOZ_ENABLE_WAYLAND=1 firefox
+    MOZ_ENABLE_WAYLAND=1 firefox --new-window "$1"
 
 
 ### ~/bin/sway/sway-wifi
@@ -3298,7 +3305,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orgcc28156).
+See [examples](#org711748b).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3332,7 +3339,7 @@ See [examples](#orgcc28156).
     echo "$(getVolume)"
 
 
-<a id="orgcc28156"></a>
+<a id="org711748b"></a>
 
 ### Examples:
 
