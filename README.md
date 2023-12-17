@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgd18b8e6"></a>
+<a id="orge372476"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd18b8e6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge372476).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3305,7 +3305,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org711748b).
+See [examples](#org3a91c13).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3339,7 +3339,7 @@ See [examples](#org711748b).
     echo "$(getVolume)"
 
 
-<a id="org711748b"></a>
+<a id="org3a91c13"></a>
 
 ### Examples:
 
