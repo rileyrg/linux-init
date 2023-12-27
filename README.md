@@ -193,7 +193,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     # Maintained in linux-config.org
     logger -t "startup-initfile"  ZSHRC
     [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-    export TERM="xterm-256color"
+    export TERM="alacritty"
     # Path to your oh-my-zsh installation.
     export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
     
@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org711494d"></a>
+<a id="orgd64d228"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org711494d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd64d228).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3284,7 +3284,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org1361dcf).
+See [examples](#orgd0da5b1).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3318,7 +3318,7 @@ See [examples](#org1361dcf).
     echo "$(getVolume)"
 
 
-<a id="org1361dcf"></a>
+<a id="orgd0da5b1"></a>
 
 ### Examples:
 
