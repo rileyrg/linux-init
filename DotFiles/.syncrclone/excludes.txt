@@ -1,5 +1,5 @@
-- var/eln-cache/
-- straight/build
+- var/eln-cache/**
+- straight/build/**
 - straight/build-cache.el
-- straight/modified
-- .android/avd/
+- straight/modified/**
+- .android/avd/**

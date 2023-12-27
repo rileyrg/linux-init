@@ -3504,29 +3504,6 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 #+begin_src bash :tangle "DotFiles/.profile"
   export PATH="/snap/bin:$PATH"
 #+end_src
-*** npm
-#+begin_src bash :tangle "DotFiles/.profile"
-  export NPM_PACKAGES="${HOME}/.npm-packages"
-  export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-  export PATH="$NPM_PACKAGES/bin:$PATH"
-  # Unset manpath so we can inherit from /etc/manpath via the `manpath`
-  # command
-  unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-  export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-#+end_src
-**** global -g                                                       :global:
-:PROPERTIES:
-:ID:       24d2ffff-bf92-47d8-89d8-8b0e8379e4e6
-:END:
-#+begin_src bash :tangle "DotFiles/.profile"
-  export NPM_PACKAGES="${HOME}/.npm-packages"
-  export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-  export PATH="$NPM_PACKAGES/bin:$PATH"
-  # Unset manpath so we can inherit from /etc/manpath via the `manpath`
-  # command
-  unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-  export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-#+end_src
 ** stm32                                                     :embedded:stm32:
 *** stm32cubeide                                               :stm32cubeide:
 :PROPERTIES:
