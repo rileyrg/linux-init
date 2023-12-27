@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orge372476"></a>
+<a id="org711494d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge372476).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org711494d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2662,27 +2662,6 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
     export PATH="/snap/bin:$PATH"
 
 
-### npm
-
-    export NPM_PACKAGES="${HOME}/.npm-packages"
-    export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-    export PATH="$NPM_PACKAGES/bin:$PATH"
-    # Unset manpath so we can inherit from /etc/manpath via the `manpath`
-    # command
-    unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-    export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-1.  global -g     :global:
-
-        export NPM_PACKAGES="${HOME}/.npm-packages"
-        export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-        export PATH="$NPM_PACKAGES/bin:$PATH"
-        # Unset manpath so we can inherit from /etc/manpath via the `manpath`
-        # command
-        unset MANPATH  # delete if you already modified MANPATH elsewhere in your config
-        export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-
 ## stm32     :embedded:stm32:
 
 
@@ -3305,7 +3284,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org3a91c13).
+See [examples](#org1361dcf).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3339,7 +3318,7 @@ See [examples](#org3a91c13).
     echo "$(getVolume)"
 
 
-<a id="org3a91c13"></a>
+<a id="org1361dcf"></a>
 
 ### Examples:
 
