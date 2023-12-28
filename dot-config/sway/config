@@ -262,7 +262,7 @@ for_window [class="1Password"] floating enable
 for_window [class="Conky"] floating enable
 for_window [app_id="zenity"] floating enable
 for_window [title="wifi"] floating enable
-for_window [title="Emulator"] floating enable
+# for_window [title="Emulator"] floating enable
 for_window [title="bluetoothctl"] floating enable
 
 bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""

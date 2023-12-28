@@ -983,7 +983,7 @@ I want a key to create and then toggle a terminal.
     for_window [class="Conky"] floating enable
     for_window [app_id="zenity"] floating enable
     for_window [title="wifi"] floating enable
-    for_window [title="Emulator"] floating enable
+    # for_window [title="Emulator"] floating enable
     for_window [title="bluetoothctl"] floating enable
 
 
@@ -1037,6 +1037,7 @@ I want a key to create and then toggle a terminal.
     1.  ~/.config/waybar/config
     
         note :     "output": "HDMI-A-1", removed
+        commented out       # "custom/dropbox" in modules-left
         
             {
               "layer": "top",
@@ -1048,8 +1049,7 @@ I want a key to create and then toggle a terminal.
                 "sway/workspaces",
                 "cpu",
                 "temperature",
-                "memory",
-                "custom/dropbox"
+                "memory"
               ],
             
               "modules-center": [
@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgc199a36"></a>
+<a id="org25f7ec5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc199a36).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org25f7ec5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3284,7 +3284,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org39a1fc6).
+See [examples](#orge632da2).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3318,7 +3318,7 @@ See [examples](#org39a1fc6).
     echo "$(getVolume)"
 
 
-<a id="org39a1fc6"></a>
+<a id="orge632da2"></a>
 
 ### Examples:
 
