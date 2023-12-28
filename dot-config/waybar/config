@@ -8,8 +8,7 @@
     "sway/workspaces",
     "cpu",
     "temperature",
-    "memory",
-    "custom/dropbox"
+    "memory"
   ],
 
   "modules-center": [

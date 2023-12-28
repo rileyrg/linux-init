@@ -1845,7 +1845,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   for_window [class="Conky"] floating enable
   for_window [app_id="zenity"] floating enable
   for_window [title="wifi"] floating enable
-  for_window [title="Emulator"] floating enable
+  # for_window [title="Emulator"] floating enable
   for_window [title="bluetoothctl"] floating enable
 #+end_src
 
@@ -1902,7 +1902,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 :END:
 
 note :     "output": "HDMI-A-1", removed
-
+commented out       # "custom/dropbox" in modules-left
 
 #+begin_src json
   {
@@ -1915,8 +1915,7 @@ note :     "output": "HDMI-A-1", removed
       "sway/workspaces",
       "cpu",
       "temperature",
-      "memory",
-      "custom/dropbox"
+      "memory"
     ],
 
     "modules-center": [
