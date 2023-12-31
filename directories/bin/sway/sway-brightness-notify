@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-sway-notify "🔆:$(printf "%.0f" `light -G`)"
+sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"

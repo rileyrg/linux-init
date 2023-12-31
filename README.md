@@ -645,8 +645,8 @@ done by linux systemd
 
 4.  brightness     :brightness:
 
-        bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10 && sway-brightness-notify
-        bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10 && sway-brightness-notify
+        bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +15 && sway-brightness-notify
+        bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set 15- && sway-brightness-notify
 
 5.  gaps
 
@@ -1639,7 +1639,7 @@ I want a key to create and then toggle a terminal.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    sway-notify "🔆:$(printf "%.0f" `light -G`)"
+    sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 
 
 ### ~/bin/sway/sway-bluetooth
@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org25f7ec5"></a>
+<a id="org98baaf7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org25f7ec5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org98baaf7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3284,7 +3284,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#orge632da2).
+See [examples](#org2820c35).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3318,7 +3318,7 @@ See [examples](#orge632da2).
     echo "$(getVolume)"
 
 
-<a id="orge632da2"></a>
+<a id="org2820c35"></a>
 
 ### Examples:
 

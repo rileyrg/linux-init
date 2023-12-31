@@ -16,9 +16,9 @@
 # do not export any sections marked as tasks unless TODO or DONE
 #+OPTIONS: tasks:("TODO" "DONE")
 
-#+PROPERTY: header-args:bash :tangle-mode (identity #o555)
+#+PROPERTY: header-args:bash :tangle-mode (identity #o755)
 ####+PROPERTY: header-args:python :tangle-mode (identity #o555)
-#+PROPERTY: header-args:conf :tangle-mode (identity #o444)
+#+PROPERTY: header-args:conf :tangle-mode (identity #o644)
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
 
@@ -1518,8 +1518,8 @@ done by linux systemd
 #+end_src
 **** brightness                                                  :brightness:
 #+begin_src conf
-  bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10 && sway-brightness-notify
-  bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10 && sway-brightness-notify
+  bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +15 && sway-brightness-notify
+  bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set 15- && sway-brightness-notify
 #+end_src
 **** gaps
 #+begin_src conf
@@ -2504,7 +2504,7 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
 #+begin_src bash :tangle "~/bin/sway/sway-brightness-notify"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  sway-notify "🔆:$(printf "%.0f" `light -G`)"
+  sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 #+end_src
 *** ~/bin/sway/sway-bluetooth
 :PROPERTIES:
