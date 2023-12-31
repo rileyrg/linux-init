@@ -64,8 +64,8 @@ set $laptop-id `sway-laptop-id`
 bindswitch lid:on exec "sway-screen disable $laptop-id"
 bindswitch lid:off exec "sway-screen enable $laptop-id"
 
-bindsym --locked XF86MonBrightnessUp exec --no-startup-id light -A 10 && sway-brightness-notify
-bindsym --locked XF86MonBrightnessDown exec --no-startup-id light -U 10 && sway-brightness-notify
+bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +15 && sway-brightness-notify
+bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set 15- && sway-brightness-notify
 
 gaps inner  1
 gaps outer  0
