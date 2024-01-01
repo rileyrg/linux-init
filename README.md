@@ -576,7 +576,7 @@ Override in .profile.local
     exec sleep 2 && gpg-cache
     exec blueman-applet
     exec nm-applet --indicator
-    exec  systemctl --user restart wireplumber
+    # exec  systemctl --user restart wireplumber
 
 
 ### library include
@@ -1890,7 +1890,7 @@ Just a gathering place of locky/suspendy type things&#x2026;
          resume 'sway-lock-utils unblank' \
          timeout ${SWAYIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
          resume 'sway-lock-utils unblank' \
-         timeout ${SWAYIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
+         timeout ${SWAYIDLEHOOK_SUSPEND:-0} 'sway-lock-utils suspend' \
          resume 'sway-lock-utils unblank' \
          lock 'sway-lock-utils lock' \
          unlock 'sway-lock-utils unblank' \
@@ -1932,7 +1932,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgb2192f6"></a>
+<a id="orge2cfe6e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1978,7 +1978,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb2192f6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge2cfe6e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3284,7 +3284,7 @@ strip debug info and store elsewhere
 
 pulse/pipeline volume control.
 Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org4d31f02).
+See [examples](#org9deaf66).
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -3318,7 +3318,7 @@ See [examples](#org4d31f02).
     echo "$(getVolume)"
 
 
-<a id="org4d31f02"></a>
+<a id="org9deaf66"></a>
 
 ### Examples:
 
@@ -3794,7 +3794,5 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
 
 ## late addition to .config/sway/config
 
-    exec sway-www
-    exec sway-editor
     exec "sleep 0.5 && swaymsg workspace $ws1;"
 
