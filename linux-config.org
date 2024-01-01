@@ -1518,8 +1518,8 @@ done by linux systemd
 #+end_src
 **** brightness                                                  :brightness:
 #+begin_src conf
-  bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +15 && sway-brightness-notify
-  bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set 15- && sway-brightness-notify
+  bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
+  bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
 #+end_src
 **** gaps
 #+begin_src conf
