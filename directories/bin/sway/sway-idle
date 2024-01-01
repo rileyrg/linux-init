@@ -10,7 +10,7 @@ exec swayidle -w \
      resume 'sway-lock-utils unblank' \
      timeout ${SWAYIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
      resume 'sway-lock-utils unblank' \
-     timeout ${SWAYIDLEHOOK_SUSPEND:-86400} 'sway-lock-utils suspend' \
+     timeout ${SWAYIDLEHOOK_SUSPEND:-0} 'sway-lock-utils suspend' \
      resume 'sway-lock-utils unblank' \
      lock 'sway-lock-utils lock' \
      unlock 'sway-lock-utils unblank' \
