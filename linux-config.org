@@ -3331,119 +3331,6 @@ update sw
   export DEBIAN_FRONTEND=noninteractive
   sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
 #+end_src
-** XMG Neo 15 Specifics
-*** ~/bin/x-archive/xmg-neo-rgb-kbd-lights
-
-See [[https://github.com/pobrn/ite8291r3-ctl][XMGNeo 15 keyboard backlight controller]] for the controller code.
-#+begin_src bash :tangle "~/bin/x-archive/xmg-neo-rgb-kbd-lights"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-
-  sf="${HOME}/.xmg-neo-kbd"
-
-  if ! command -v ite8291r3-ctl &> /dev/null;  then
-      echo "xmg rgb keyboard light controller not found. install ite8291r3-ctl?"
-      exit 1;
-  fi
-
-  save() (
-      echo "$lightstatus:$brightness:$color:$rgb" > "$sf"
-  )
-
-  restore(){
-      lightstatus="on";brightness=20;rgb="";color="silver";
-      if [ -f "$sf" ]; then
-          _ifs="$IFS";IFS=':' read -r lightstatus brightness color rgb < "$sf";IFS="$_ifs";
-      fi
-  }
-
-  update(){
-      if [ "$lightstatus" = "off" ]; then
-          ite8291r3-ctl off
-      else
-          ite8291r3-ctl monocolor $([ -n "$color" ] && echo "--name $color" || echo "--rgb $rgb") --brightness "$brightness" &> /dev/null
-      fi
-      save
-  }
-
-  restore
-
-  case "${1:-on}" in
-      on)
-          lightstatus="on"
-          update
-          ;;
-      off)
-          lightstatus="off"
-          update
-          ;;
-      sleep)
-          # use sleep to turn off light for less noise when not interacting with the keyboard
-          ite8291r3-ctl brightness 0
-          ;;
-      wake)
-          update
-          ;;
-      get-brightness)
-          ite8291r3-ctl query --brightness
-          ;;
-      set-brightness)
-          brightness=${2:-"$brightness"}
-          if [ -z "${brightness##*[!0-9]*}" ]; then
-              brightness=50
-          elif (( $brightness > 50 )); then
-              brightness=50
-          fi
-          update
-          ;;
-      set-color)
-          color=${2:-"$color"};rgb="";
-          update
-          ;;
-      set-rgb)
-          rgb=${2:-"$rgb"};color="";
-          update
-          ;;
-      toggle)
-          lightstatus=$( [ $lightstatus = "off" ] && echo "on" || echo "off")
-          update
-          ;;
-      inc)
-          ;;
-      dec)
-          ;;
-      ,*)
-          echo "Usage:${0} on|off|sleep|wake|set-brightness|get-brightness|set-color|set-rgb|inc v|dec v"
-          exit 1
-          ;;
-  esac
-
-  exit 0
-#+end_src
-*** test
-#+begin_src bash
-  xmg-neo-rgb-kbd-lights on
-#+end_src
-
-#+RESULTS:
-
-#+begin_src bash
-  xmg-neo-rgb-kbd-lights off
-#+end_src
-
-#+RESULTS:
-
-#+begin_src bash
-  xmg-neo-rgb-kbd-lights set-brightness 50
-#+end_src
-
-#+RESULTS:
-
-#+begin_src bash
-  xmg-neo-rgb-kbd-lights set-color red
-#+end_src
-
-#+RESULTS:
 ** rclone
 https://rclone.org/
 *** CANCELLED ~/bin/rclone-gdrive-sync                            :CANCELLED:
@@ -3563,28 +3450,6 @@ https://github.com/Jwink3101/syncrclone
       exit 0
   fi
 #+end_src
-** Power Monitoring
-*** ~/bin/acpi-powerstate
-#+begin_src bash :tangle "~/bin/acpi-powerstate"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  . /usr/share/acpi-support/power-funcs
-  . /usr/share/acpi-support/policy-funcs
-  getState
-  echo "export POWERSTATE=${STATE}"  > "${HOME}"/.acpi-powerstate
-  export POWERSTATE=$STATE
-#+end_src
-*** NVIDIA
-**** ~/bin/nvidia-power-usage
-#+begin_src bash :tangle ~/bin/nvidia-power-usage
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  for i in $(seq 1 ${1:-5})
-  do
-      sleep ${2:-1} && echo "$(date +"%Y-%m-%d %H:%M:%S"):$(nvidia-smi -q -d POWER | grep Draw | sed 's/  */ /g')"
-  done
-
-#+end_src
 ** Google Translate Helpers
 #+begin_src bash
   sudo apt install translate-shell
@@ -3663,6 +3528,30 @@ https://github.com/Jwink3101/syncrclone
   #Maintained in linux-config.org
   [ -f ~/.post-blank ]  && . ~/.post-blank
   command -v brightnessctl && brightnessctl -r
+#+end_src
+* AIS
+out of date
+
+#+begin_src bash :tangle "~/bin/AIS"
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+TMUX= tmux new  -A -s "AIS" AIScatcher
+#+end_src
+
+#+begin_src bash :tangle "~/bin/AIScheck"
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+if ! pgrep AIS-catcher >/dev/null
+then
+    echo "`date`: AIS-catcher down. Restarting." >> "${HOME}/.AISStatus"
+    "${HOME}/bin/AIScatcher" &> /dev/null &
+fi
+#+end_src
+
+#+begin_src bash :tangle "~/bin/AIScatcher"
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+"${HOME}/bin/AIS-catcher"  -d:0 -u 127.0.0.1 2345
 #+end_src
 
 * tailends

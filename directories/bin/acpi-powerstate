@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-. /usr/share/acpi-support/power-funcs
-. /usr/share/acpi-support/policy-funcs
-getState
-echo "export POWERSTATE=${STATE}"  > "${HOME}"/.acpi-powerstate
-export POWERSTATE=$STATE

@@ -1,8 +1,0 @@
-#!/usr/bin/bash
-#Maintained in linux-init-files.org
-b=`acpi | grep -m 1 -i "remaining\|charging" | sed 's/.*Battery....//I'`
-if [ -z "$b" ]; then
-    echo "charged";echo ""; echo "#00FF00";
-else
-    echo $b;echo "";echo "#FF0000";
-fi

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-pulseaudio -k &> /dev/null
-pulseaudio -D &> /dev/null
-start-pulseaudio-x11
