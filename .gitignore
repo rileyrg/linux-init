@@ -119,8 +119,10 @@
 !/directories/bin/build-emacs
 !/directories/bin/edit
 !/directories/bin/eman
+!/directories/bin/emacs-same-frame
 !/directories/bin/expert-advice
 !/directories/bin/extract-debug-info
+!/directories/bin/firefox
 !/directories/bin/gdb-scripts
 !/directories/bin/gdrive-mount
 !/directories/bin/getmails
@@ -134,6 +136,7 @@
 !/directories/bin/llvm
 !/directories/bin/make-compile_commands
 !/directories/bin/md-read
+!/directories/bin/network-online
 !/directories/bin/post-blank
 !/directories/bin/post-lock
 !/directories/bin/pre-blank
