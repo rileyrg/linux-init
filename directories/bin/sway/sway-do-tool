@@ -3,24 +3,21 @@
 
 # NB ths is currently lazy. It uses brute force, and i need to do some get_tree jq stuff instead to
 # get the app_id/class instance instead. But.. it works.
-
 id="$1"
 script="$2"
 [ -z "$id" ] && echo "usage: sway-do-tool id" && exit 1
 if swaymsg "[title=${id}] focus" &> /dev/null; then
-    rgr-logger -t "sway-do-tool" "title ${id} found"
+    :
 else
     if  swaymsg "[class=${id}] focus" &> /dev/null; then
-        rgr-logger -t "sway-do-tool" "class ${id} found"
+        :
     else
         if  swaymsg "[app_id=${id}] focus" &> /dev/null; then
-            rgr-logger -t "sway-do-tool" "app_id ${id} found"
+            :
         else
             if [ ! -z "$script" ]; then
-                rgr-logger -t "sway-do-tool" "evaling script $scipt"
                 eval "$script" &
             else
-                rgr-logger -t "sway-do-tool" "exiting"
                 exit 1
             fi
         fi
