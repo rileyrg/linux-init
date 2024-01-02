@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-while true; do
-    sleep 5
-    [ -z "$(pidof "steam")" ] && xrandr-smart-connect &> /dev/null
-done
