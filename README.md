@@ -524,10 +524,44 @@ Written to find the tty for a pane in order to redirect gef context source to a 
     tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
 
 
-# Vim
+# Network
 
 
-## ~/.vimrc
+## ~/bin/network-online
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    wget -q --spider http://google.com
+
+
+# Editors
+
+
+## Emacs
+
+
+### use same emacs instance
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    if ! pidof "emacs"; then
+        #emacs --daemon
+        emacsclient -n -c -a "" "$@"
+    else
+        emacsclient -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+        if [ "$?" = 1 ]; then
+            emacsclient -n -c -a "" "$@"
+        else
+            emacsclient -n -a "" "$@"
+            sway-do-tool "Emacs"
+        fi
+    fi
+
+
+## Vim
+
+
+### ~/.vimrc
 
     " Maintained in linux-config.org
     set nocompatible              " be iMproved, required
@@ -2019,7 +2053,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org31add95"></a>
+<a id="org464732e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2065,7 +2099,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org31add95).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org464732e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

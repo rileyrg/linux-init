@@ -588,8 +588,36 @@ Written to find the tty for a pane in order to redirect gef context source to a 
   window="${3:-0}"
   tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
 #+end_src
-* Vim
-** ~/.vimrc
+
+* Network
+** ~/bin/network-online
+#+begin_src bash :tangle "~/bin/sway/sway-autostart"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+  wget -q --spider http://google.com
+#+end_src
+* Editors
+** Emacs
+*** use same emacs instance
+#+begin_src  bash :tangle "~/bin/emacs-same-frame"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+  if ! pidof "emacs"; then
+      #emacs --daemon
+      emacsclient -n -c -a "" "$@"
+  else
+      emacsclient -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+      if [ "$?" = 1 ]; then
+          emacsclient -n -c -a "" "$@"
+      else
+          emacsclient -n -a "" "$@"
+          sway-do-tool "Emacs"
+      fi
+  fi
+#+end_src
+
+** Vim
+*** ~/.vimrc
 #+begin_src conf :tangle "DotFiles/.vimrc"
   " Maintained in linux-config.org
   set nocompatible              " be iMproved, required
