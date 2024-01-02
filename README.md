@@ -38,25 +38,50 @@ NB - NOT Exported as lots of things want to update it
     fi
 
 
-# X/Sway common
+# Basic shell things
 
 
-# X Related     :ARCHIVE:
+## X/Sway common
+
+(:tangle "DotFiles/.Xdefaults")
+
+    ! Maintained in linux-config.org
+    ! Use a truetype font and size.
+    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+    Xft.autohint: 0
+    Xft.antialias: 1
+    Xft.hinting: true
+    Xft.hintstyle: hintslight
+    Xft.dpi: 96
+    Xft.rgba: rgb
+    Xft.lcdfilter: lcddefault
+    
+    ! Fonts {{{
+    #ifdef SRVR_t460
+    Xft.dpi:       104
+    #endif
+    #ifdef SRVR_intelnuc
+    Xft.dpi:       108
+    #endif
+    #ifdef SRVR_x270
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_t14s
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_x1c6
+    Xft.dpi:       96
+    #endif
+    #ifdef SRVR_xmgneo
+    Xft.dpi:       188
+    #endif
+    ! }}}
 
 
-# User system services
+## Bash Startup Files
 
 
-### gpg-agent
-
-If using startx on debian this is taken care of by the system XSession loading everyhing in /etc/X11/Xsession.d.
-see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
-
-
-# Bash Startup Files
-
-
-## ~/.profile
+### ~/.profile
 
     # Maintained in linux-config.org
     logger -t "startup-initfile"  PROFILE
@@ -114,7 +139,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
 
-## ~/.bash\_profile
+### ~/.bash\_profile
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -124,7 +149,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     #emacs --bg-daemon  &> /dev/null &
 
 
-## ~/.bashrc
+### ~/.bashrc
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -172,22 +197,20 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     
     GPG_TTY=$(tty)
     export GPG_TTY
-    
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+1.  bash git prompt
 
-### bash git prompt
-
-    if [ -f "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh" ]; then
-        GIT_PROMPT_ONLY_IN_REPO=1
-        source "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh"
-    fi
-
-
-# ZSH Related
+        if [ -f "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh" ]; then
+            GIT_PROMPT_ONLY_IN_REPO=1
+            source "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh"
+        fi
 
 
-## ~/.config/zsh/.zshrc
+## ZSH Related
+
+
+### ~/.config/zsh/.zshrc
 
     # Maintained in linux-config.org
     logger -t "startup-initfile"  ZSHRC
@@ -317,7 +340,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     chuck
 
 
-## ~/.config/zsh/.zlogin
+### ~/.config/zsh/.zlogin
 
     # Maintained in linux-config.org
     logger -t "startup-initfile"  ZLOGIN
@@ -330,14 +353,14 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
     sway-autostart
 
 
-## zprofile
+### zprofile
 
 1.  ~/.config/zsh/.zprofile
 
         # Maintained in linux-config.org
 
 
-## zshenv
+### zshenv
 
 1.  ~/.config/zsh/.zshenv
 
@@ -357,7 +380,7 @@ see [/usr/share/doc/gnupg/examples](file:///usr/share/doc/gnupg/examples)
         . $ZDOTDIR/.zshenv
 
 
-## Oh-My-Zsh Related
+### Oh-My-Zsh Related
 
 Directory is [here](.oh-my-zsh/).
 
@@ -375,25 +398,16 @@ Directory is [here](.oh-my-zsh/).
         }
 
 
-## BUGS
+## Tmux     :tmux:
 
 
-### DONE slow git prompt
-
-<https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo>
-<https://stackoverflow.com/a/38865693/37370>
-
-
-# Tmux     :tmux:
-
-
-## ~/.profile
+### ~/.profile
 
     export FZF_TMUX_OPTS=1
     export FZF_TMUX_OPTS="-d 40%"
 
 
-## .config/tmux/tmux.conf
+### .config/tmux/tmux.conf
 
     # Maintained in linux-config.org
     # Change the prefix key to C-a
@@ -490,14 +504,14 @@ Directory is [here](.oh-my-zsh/).
     run -b '~/.config/tmux/plugins/tpm/tpm'
 
 
-## ~/bin/tmux-current-session
+### ~/bin/tmux-current-session
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 
 
-## ~/bin/tmux-pane-tty
+### ~/bin/tmux-pane-tty
 
 Written to find the tty for a pane in order to redirect gef context source to a voltron pane
 
@@ -508,6 +522,92 @@ Written to find the tty for a pane in order to redirect gef context source to a 
     pane_index="${2:-0}"
     window="${3:-0}"
     tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
+
+
+# Vim
+
+
+## ~/.vimrc
+
+    " Maintained in linux-config.org
+    set nocompatible              " be iMproved, required
+    filetype off                  " required
+    
+    call plug#begin('~/.vim/plugged')
+    
+    Plug 'scrooloose/nerdtree'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'vim-scripts/mru.vim'
+    " Plug 'ervandew/supertab'
+    
+    call plug#end()
+    
+    set nonu nu ic is hls
+    
+    map ; :Files<CR>
+    
+    " Mapping selecting mappings
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    xmap <leader><tab> <plug>(fzf-maps-x)
+    omap <leader><tab> <plug>(fzf-maps-o)
+    
+    nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+    nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+    
+    " Insert mode completion
+    imap <c-x><c-k> <plug>(fzf-complete-word)
+    imap <c-x><c-f> <plug>(fzf-complete-path)
+    imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+    imap <c-x><c-l> <plug>(fzf-complete-line)
+    
+    cnoreabbrev <expr> tn getcmdtype() == ":" && getcmdline() == 'tn' ? 'tabnew' : 'tn'
+    cnoreabbrev <expr> th getcmdtype() == ":" && getcmdline() == 'th' ? 'tabp' : 'th'
+    cnoreabbrev <expr> tl getcmdtype() == ":" && getcmdline() == 'tl' ? 'tabn' : 'tl'
+    cnoreabbrev <expr> te getcmdtype() == ":" && getcmdline() == 'te' ? 'tabedit' : 'te'
+    
+    nnoremap <F5> :buffers<CR>:buffer<Space>
+    
+    map <C-o> :NERDTreeToggle<CR>
+    
+    set shortmess+=A
+    set splitbelow
+    set splitright
+
+
+# ripgrep
+
+
+## ~/.ignore
+
+    # Maintained in linux-config.org
+    *~
+    .git
+    cache
+    .cache
+
+
+## ~/.ripgreprc
+
+    
+    # Maintained in linux-config.org
+    # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
+    --max-columns=150
+    
+    # Set the colors.
+    --color=never
+    --colors=line:none
+    --colors=line:style:bold
+    
+    # Because who cares about case!?
+    --smart-case
+    
+    #ignore .gitignore
+    # --no-ignore-vcs
 
 
 # Sway Wayland Compositing Tile Manager     :i3:swaywm:sway:
@@ -536,7 +636,7 @@ Override in .profile.local
     
     
     set $mod Mod4
-    set $term 'oneterminal'
+    set $term 'sway-oneterminal'
     set $menu 'sway-launcher-fzf'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
@@ -1006,7 +1106,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+e exec lldb-ui "/home/rgr/development/projects/emacs/emacs/src" "emacs"; workspace $ws3
     bindsym $mod+Control+u exec lldb-ui "/home/rgr/development/education/Udemy/UdemyCpp/Computerspiel1/" "udemy"; workspace $ws3
-    bindsym $mod+Control+g exec oneterminal "lldb"
+    bindsym $mod+Control+g exec sway-oneterminal "lldb"
     bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+s exec alacritty -e syncrclone-htop
@@ -1645,7 +1745,7 @@ I want a key to create and then toggle a terminal.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    exec oneterminal "bluetoothctl" "bluetoothctl"
+    exec sway-oneterminal "bluetoothctl" "bluetoothctl"
 
 
 ### ~/bin/sway/sway-do-tool
@@ -1655,24 +1755,21 @@ I want a key to create and then toggle a terminal.
     
     # NB ths is currently lazy. It uses brute force, and i need to do some get_tree jq stuff instead to
     # get the app_id/class instance instead. But.. it works.
-    
     id="$1"
     script="$2"
     [ -z "$id" ] && echo "usage: sway-do-tool id" && exit 1
     if swaymsg "[title=${id}] focus" &> /dev/null; then
-        rgr-logger -t "sway-do-tool" "title ${id} found"
+        :
     else
         if  swaymsg "[class=${id}] focus" &> /dev/null; then
-            rgr-logger -t "sway-do-tool" "class ${id} found"
+            :
         else
             if  swaymsg "[app_id=${id}] focus" &> /dev/null; then
-                rgr-logger -t "sway-do-tool" "app_id ${id} found"
+                :
             else
                 if [ ! -z "$script" ]; then
-                    rgr-logger -t "sway-do-tool" "evaling script $scipt"
                     eval "$script" &
                 else
-                    rgr-logger -t "sway-do-tool" "exiting"
                     exit 1
                 fi
             fi
@@ -1703,7 +1800,7 @@ I want a key to create and then toggle a terminal.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    exec oneterminal "Processes" htop
+    exec sway-oneterminal "Processes" htop
 
 
 ### ~/bin/sway/sway-kanshi
@@ -1931,7 +2028,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgb606ef2"></a>
+<a id="orged882a6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1977,7 +2074,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb606ef2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orged882a6).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2129,232 +2226,15 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    oneterminal "wifi" "nmtui"  &>/dev/null
+    sway-oneterminal "wifi" "nmtui"  &>/dev/null
 
 
 ## wayland utils
 
 
-### notification daemon
+### ~/.config/mako/config
 
-1.  mako
-
-    Use mako as the notification daemon
-    
-    1.  install
-    
-            sudo apt install mako-notifier
-    
-    2.  ~/.config/mako/config
-    
-            default-timeout=10000
-    
-    3.  notification daemon
-    
-            sudo apt install notification-daemon libnotifier-bin
-        
-        Enable it as a dbus service <https://wiki.archlinux.org/title/Desktop_notifications>
-        $XDG\_DATA\_HOME/dbus-1/services/org.freedesktop.Notifications.service
-        
-            [D-BUS Service]
-            Name=org.freedesktop.Notifications
-            Exec=/usr/lib/notification-daemon/notification-daemon
-
-
-# Vim
-
-
-## ~/.vimrc
-
-    " Maintained in linux-config.org
-    set nocompatible              " be iMproved, required
-    filetype off                  " required
-    
-    call plug#begin('~/.vim/plugged')
-    
-    Plug 'scrooloose/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'tpope/vim-fugitive'
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'vim-scripts/mru.vim'
-    " Plug 'ervandew/supertab'
-    
-    call plug#end()
-    
-    set nonu nu ic is hls
-    
-    map ; :Files<CR>
-    
-    " Mapping selecting mappings
-    nmap <leader><tab> <plug>(fzf-maps-n)
-    xmap <leader><tab> <plug>(fzf-maps-x)
-    omap <leader><tab> <plug>(fzf-maps-o)
-    
-    nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-    nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-    
-    " Insert mode completion
-    imap <c-x><c-k> <plug>(fzf-complete-word)
-    imap <c-x><c-f> <plug>(fzf-complete-path)
-    imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-    imap <c-x><c-l> <plug>(fzf-complete-line)
-    
-    cnoreabbrev <expr> tn getcmdtype() == ":" && getcmdline() == 'tn' ? 'tabnew' : 'tn'
-    cnoreabbrev <expr> th getcmdtype() == ":" && getcmdline() == 'th' ? 'tabp' : 'th'
-    cnoreabbrev <expr> tl getcmdtype() == ":" && getcmdline() == 'tl' ? 'tabn' : 'tl'
-    cnoreabbrev <expr> te getcmdtype() == ":" && getcmdline() == 'te' ? 'tabedit' : 'te'
-    
-    nnoremap <F5> :buffers<CR>:buffer<Space>
-    
-    map <C-o> :NERDTreeToggle<CR>
-    
-    set shortmess+=A
-    set splitbelow
-    set splitright
-
-
-# ripgrep
-
-
-## ~/.ignore
-
-    # Maintained in linux-config.org
-    *~
-    .git
-    cache
-    .cache
-
-
-## ~/.ripgreprc
-
-    
-    # Maintained in linux-config.org
-    # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
-    --max-columns=150
-    
-    # Set the colors.
-    --color=never
-    --colors=line:none
-    --colors=line:style:bold
-    
-    # Because who cares about case!?
-    --smart-case
-    
-    #ignore .gitignore
-    # --no-ignore-vcs
-
-
-## ~/development/projects/.gitignore
-
-    # Maintained in linux-config.org
-    !*
-
-
-# Conky
-
-
-## ~/.config/conky/conky.conf
-
-    --[[
-    Conky, a system monitor, based on torsmo
-    
-    Any original torsmo code is licensed under the BSD license
-    
-    All code written since the fork of torsmo is licensed under the GPL
-    
-    Please see COPYING for details
-    
-    Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
-    Copyright (c) 2005-2019 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
-    All rights reserved.
-    
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-    ]]
-    
-    conky.config = {
-    alignment = 'top_left',
-    background = false,
-    border_width = 1,
-    cpu_avg_samples = 2,
-    default_color = 'white',
-    default_outline_color = 'white',
-    default_shade_color = 'white',
-    double_buffer = true,
-    draw_borders = false,
-    draw_graph_borders = true,
-    draw_outline = false,
-    draw_shades = false,
-    extra_newline = false,
-    font = 'DejaVu Sans Mono:size=8',
-    gap_x = 60,
-    gap_y = 60,
-    minimum_height = 5,
-    minimum_width = 5,
-    net_avg_samples = 2,
-    no_buffers = true,
-    out_to_console = false,
-    out_to_ncurses = false,
-    out_to_stderr = false,
-    out_to_x = true,
-    own_window = true,
-    own_window_class = 'Conky',
-    own_window_type = 'desktop',
-    show_graph_range = false,
-    show_graph_scale = false,
-    stippled_borders = 0,
-    update_interval = 1.0,
-    uppercase = false,
-    use_spacer = 'none',
-    use_xft = true,
-    }
-    
-    conky.text = [[
-    ${color grey}Info:$color ${scroll 32 Conky $conky_version - $sysname $nodename $kernel $machine}
-    $hr
-    ${color grey}Uptime:$color $uptime
-    ${color grey}Frequency (in MHz):$color $freq
-    ${color grey}Frequency (in GHz):$color $freq_g
-    ${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
-    ${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
-    ${color grey}CPU Usage:$color $cpu% ${cpubar 4}
-    ${color grey}Processes:$color $processes  ${color grey}Running:$color $running_processes
-    $hr
-    ${color grey}File systems:
-    / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
-    ${color grey}Networking:
-    Up:$color ${upspeed} ${color grey} - Down:$color ${downspeed}
-    $hr
-    ${color grey}Name              PID     CPU%   MEM%
-    ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
-    ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
-    ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
-    ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
-    ]]
-
-
-# Radare
-
-Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/content/first_steps/intro.html).
-
-
-## ~/.config/radare2/radare2rc
-
-    e scr.utf8=true
-    e scr.utf8.curvy=true
-    e dbg.bep=main
+    default-timeout=10000
 
 
 # Programming Related     :programming:
@@ -2491,7 +2371,7 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
             # Maintained in linux-config.org
             directory="${1:-`pwd`}"
             session="$(lldb-ui-session "${directory}" "$2")"
-            ONETERM_TITLE="dbg:lldb-$session"  oneterminal "$session"
+            ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"
     
     4.  emacs
     
@@ -2735,10 +2615,14 @@ Reverse engineering packges [radare2](https://radare.gitbooks.io/radare2book/con
     export USER_STARTX_START=
 
 
-## ~/.profile.local     :crypt:
+## ~/.profile.local
+
+potentially need some gpg keys : not tangled
+
+
+### keys     :crypt:
 
 &#x2013;&#x2014;BEGIN PGP MESSAGE&#x2013;&#x2014;
-
 hQEMA7IjL5SkHG4iAQgAnAMLgodgtOc1tsGz6mRqJbkJsM+R+5MTPdsOdml6xMoL
 xFZjkYTDUGa3G6PsQHpbJ/tjD+6B4qmZIymq1EReWPtrepGGN6DNG8hLPVNnQ+9N
 WAFaK1o+gzzfsw9XuptT5Um47k2G3zm019mGKDe0OwYJJ/r/DTHpz9yI9nj5lVdq
@@ -2752,65 +2636,6 @@ P/fo8sDBBu2QBoL2+gQZ11l7uSZMjTCR/8msBO5LbLDmyOUposbv6va1dzPN898F
 ZsaqN9VNjV2b75kQiPJsZaoekClV7yOFc10/VRKBFD1MlspEovrIpReI9by6azIU
 =nb0T
 &#x2013;&#x2014;END PGP MESSAGE&#x2013;&#x2014;
-
-
-# ACPI
-
-
-## power status
-
-
-### acpid events
-
-You must copy these into [*etc/acpi/events*](file:///etc/acpi/events/) if you have an encrypted home directory else symlink.
-
-1.  /etc/acpi/events/user-powerstate
-
-        # Maintained in linux-config.org
-        # /etc/acpi/events/user-powerstate
-        # Called when the user connects ac power to us
-        #
-        event=ac_adapter.*
-        action=/etc/acpi/actions/user-powerstate.sh
-
-2.  /etc/acpi/events/xmg-neo-powerstate
-
-        # Maintained in linux-config.org
-        # /etc/acpi/events/xmg-neo-powerstate
-        # Called when the user connects ac power to us
-        #
-        event=ac_adapter.*
-        action=/etc/acpi/actions/xmg-neo-powerstate.sh
-
-
-### acpid actions
-
-You must copy these into [/etc/acpi/actions](file:///etc/acpi/actions) if you have an encrypted home directory else symlink.
-
-1.  /etc/acpi/actions/user-powerstate.sh
-
-        #!/usr/bin/env bash
-        # Maintained in linux-config.org
-        # /etc/acpi/actions/user-powerstate
-        . /usr/share/acpi-support/power-funcs
-        . /usr/share/acpi-support/policy-funcs
-        getState
-        echo "export POWERSTATE=${STATE}"  > /tmp/user-acpi-powerstate
-        export POWERSTATE=$STATE
-
-2.  /etc/acpi/actions/xmg-neo-powerstate.sh
-
-        #!/usr/bin/env bash
-        # Maintained in linux-config.org
-        # /etc/acpi/actions/xmg-neo-powerstate
-        . /usr/share/acpi-support/power-funcs
-        . /usr/share/acpi-support/policy-funcs
-        getState
-        echo $( [ $STATE ="AC" ] && echo 0 || echo 1 ) > /sys/class/leds/qc71_laptop::lightbar/brightness
-    
-    remembering to restart acpid :
-    
-        sudo systemctl restart acpid
 
 
 # Email Related
@@ -3009,25 +2834,7 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 # bin
 
 
-## one commands
-
-if it exists jump to it else start it
-
-
-### ~/bin/oneinstance
-
-    #!/bin/bash
-    #Maintained in linux-config.org
-    # oneinstance exename pname  winclass
-    exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
-    if ! pidof "$pname"; then
-        ${exename}
-    else
-        xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
-    fi
-
-
-### ~/bin/oneterminal
+## ~/bin/sway/sway-oneterminal
 
     #!/usr/bin/env bash
     #Maintained in linux-config.org
@@ -3043,99 +2850,6 @@ if it exists jump to it else start it
         fi
     fi
     exit 0
-
-1.  alacritty config
-
-    <https://github.com/alacritty/alacritty#configuration>
-    [alacritty config file](dot-config/alacritty/alacritty.yml)
-
-
-### ~/bin/pop-window
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    sway-do-tool "$@"
-
-
-## network interface utilities
-
-
-### ~/bin/my-iface-active-query
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
-
-
-### ~/bin/my-iface-active
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
-    export IFACE_ACTIVE
-    echo $IFACE_ACTIVE
-
-
-### ~/bin/my-iface-active-ssid
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    my-iface-active-query "GENERAL.CONNECTION"
-
-
-### ~/bin/my-iface-active-ipaddr
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    my-iface-active-query "IP4.ADDRESS"
-
-
-### ~/bin/my-iface-active-quality
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    my-iface-active-query "GENERAL.STATE"
-
-
-### ~/bin/network-online
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    wget -q --spider http://google.com
-
-
-## ~/bin/confirm-suspend
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    delay=10;
-    message="Almost out of juice."
-    while [ "$#" -gt 0 ]; do
-        case $1 in
-            -d|--delay) delay="${2}";shift;;
-            -m|--message) message="${2} ";shift;;
-            *) echo "Unknown parameter passed: $1"; exit 1 ;;
-        esac
-        shift
-    done
-    
-    zenity --question --text="${message}Proceed to suspend in ${delay}s?"
-    if [ $? = 0 ]; then
-        sleep "$delay" && systemctl suspend
-    else
-        exit
-    fi
-
-
-## ~/bin/dropbox-start-once
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    if (! dropbox running) ; then
-        echo "Dropbox is already running"
-    else
-        dropbox start &> /dev/null &
-    fi
 
 
 ## ~/bin/edit
@@ -3156,7 +2870,7 @@ might be an idea set an alias such as 'alias man=eman'
     if pidof emacs; then
         emacsclient -c -e "(manual-entry \"-a ${mp}\")" &> /dev/null &
     else
-        oneterminal random-man "man $mp"
+        sway-oneterminal random-man "man $mp"
     fi
 
 
@@ -3236,7 +2950,7 @@ strip debug info and store elsewhere
     fi
     tmux new-session -d -s "${session}" "htop -p $pids"
     sleep 0.1
-    ONETERM_TITLE="filtered htop:${filter}" oneterminal "${session}"
+    ONETERM_TITLE="filtered htop:${filter}" sway-oneterminal "${session}"
 
 
 ## ~/bin/make-compile\_commands
@@ -3257,104 +2971,6 @@ strip debug info and store elsewhere
     [ -z  $(command -v lynx) ] && echo "install lynx" && exit 1
     [ -z  $(command -v pandoc) ] && echo "install pandoc" && exit 1
     pandoc "$1" | lynx -stdin
-
-
-## TODO ~/bin/pw-volume
-
-<https://gist.github.com/venam/bd453b4fd673ff8abb9323e69f182045>
-
-    #! /bin/sh
-    
-    # the metadata only contains the name of the default sink
-    default_sink_name=$(pw-metadata 0 'default.audio.sink' | grep 'value' | sed "s/.* value:'//;s/' type:.*$//;" | jq .name)
-    default_sink_id=$(pw-dump Node Device | jq '.[].info.props|select(."node.name" == '" $default_sink_name "') | ."object.id"')
-    current_volume=$(pw-cli enum-params "$default_sink_id" 'Props' | grep -A 2 'Spa:Pod:Object:Param:Props:channelVolumes' | awk '/Float / {gsub(/.*Float\s/," "); print $1^(1/3) }')
-    change="${1:-0.1}" # defaults to increment of 0.1
-    new_volume=$(echo "$current_volume $change" | awk '{printf "%f", $1 + $2}')
-    # we need to reconvert to cubic root
-    #new_volume_cube=$(echo "$new_volume" | awk '{ print $1^3 }')
-    echo "$new_volume"
-    pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_cube , $new_volume_cube ] }"
-    # or use wpctl instead
-    # wpctl set-volume "$default_sink_id" "$new_volume"
-
-
-## ~/bin/pulse-volume
-
-pulse/pipeline volume control.
-Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [examples](#org082afb9).
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    
-    getVolume(){
-        if [ "$(pactl list sinks | grep Mute | awk '{print $2}')" = "yes" ]; then
-            echo "off"
-        else
-            SINK=$( pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1 )
-            echo "$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
-        fi
-    }
-    
-    v="$1"
-    
-    case "$v" in
-        "on"|"off"|"toggle")
-            pactl set-sink-mute @DEFAULT_SINK@  "$([ "$v" = "off" ] && echo "1" || ( [ "$v" = "on" ] && echo "0" || echo "toggle"))"
-            ;;
-        *)
-            if [ ! -z "$v" ];then
-                pactl set-sink-mute @DEFAULT_SINK@ 0
-                pactl set-sink-volume @DEFAULT_SINK@ "$v"
-                if [ "$(getVolume)" -gt 100 ]; then
-                    pactl set-sink-volume @DEFAULT_SINK@ "100%"
-                fi
-            fi
-            ;;
-    esac
-    
-    echo "$(getVolume)"
-
-
-<a id="org082afb9"></a>
-
-### Examples:
-
-1.  increase by 10%
-
-        pulse-volume "+10%"
-
-2.  decrease by 10%
-
-        pulse-volume "-10%"
-
-3.  set to 50%
-
-        pulse-volume "50%"
-
-4.  mute
-
-        pulse-volume "off"
-
-5.  unmute
-
-        pulse-volume "on"
-
-6.  toggle mute
-
-        pulse-volume "toggle"
-
-
-## ~/bin/pulse-restart
-
-restart pulseaudio
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    pulseaudio -k &> /dev/null
-    pulseaudio -D &> /dev/null
-    start-pulseaudio-x11
 
 
 ## ~/bin/random-man-page
@@ -3409,13 +3025,6 @@ restart pulseaudio
     else
         echo "test Warning: No git config file found. Aborting.";exit;
     fi
-
-
-## ~/bin/rgr-logger
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    [ -z "$RGR_LOGGER" ] || logger "$@"
 
 
 ## ~/bin/rsnapshot-if-mounted

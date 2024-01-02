@@ -17,8 +17,8 @@
 #+OPTIONS: tasks:("TODO" "DONE")
 
 #+PROPERTY: header-args:bash :tangle-mode (identity #o755)
-#+PROPERTY: header-args:python :tangle-mode (identity #o555)
-#+PROPERTY: header-args:conf :tangle-mode (identity #o644)
+#+PROPERTY: header-args:python :tangle-mode (identity #o755)
+#+PROPERTY: header-args:conf :tangle-mode (identity #o744)
 #+PROPERTY: header-args:gpg :cache no :tangle-mode (identity #o600)
 #+PROPERTY: export:md yes
 
@@ -106,12 +106,8 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 - State "DONE"       from "TODO"       [2021-01-11 Mo 01:36]
 - State "TODO"       from              [2021-01-10 Sun 09:32]
 :END:
-* X/Sway common
-** CANCELLED ~/.Xdefaults                                         :CANCELLED:
-CLOSED: [2023-12-13 Wed 13:28]
-:LOGBOOK:
-- State "CANCELLED"  from              [2023-12-13 Wed 13:28]
-:END:
+* Basic shell things
+** X/Sway common
 (:tangle "DotFiles/.Xdefaults")
 #+begin_src conf :tangle no
   ! Maintained in linux-config.org
@@ -145,529 +141,9 @@ CLOSED: [2023-12-13 Wed 13:28]
   Xft.dpi:       188
   #endif
   ! }}}
-
 #+end_src
-* X Related                                                         :ARCHIVE:
-Manual setup files for startx. See http://bhepple.com/doku/doku.php?id=starting_x
-** ~/.xinitrc
-CLOSED: [2020-12-20 Sun 13:35]
-:LOGBOOK:
-- Note taken on [2020-12-20 Sun 13:35] \\
-  startx will run this - so lets just run the system one
-  - State "DONE"       from "TODO"       [2020-12-20 Sun 13:35]
-  - Note taken on [2020-12-12 Sa 14:11] \\
-    confused about xinitrc
-    - State "TODO"       from              [2020-12-12 Sa 14:11]
-:END:
-I use this as a kind of placeholder to remind me that system xinitrc is doing the work.
-#+begin_src conf :tangle "DotFiles/x-archive/.xinitrc"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  # Dont need that as startx will use xinitc anyway if this doesnt exist.
-  rm ~/.xsession-errors
-  . /etc/X11/xinit/xinitrc
-#+end_src
-** ~/.xprofile
-Another placeholder doing nothing as xinit launches XSession which uses .xsession and .xsessionrc on Debian
-#+begin_src bash :tangle "DotFiles/x-archive/.xprofile"
-  # Maintained in linux-config.org
-  # all moved to .xsessionrc so /etc/X11/Xsession loads it
-
-#+end_src
-** ~/.xsession
-#+begin_src bash :tangle "DotFiles/x-archive/.xsession"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  rgr-logger -t "startup-initfile"  USER-XSESSION
-  exec dbus-launch --sh-syntax --exit-with-session i3
-#+end_src
-** ~/.xsessionrc
-#+begin_src bash :tangle "DotFiles/x-archive/.xsessionrc"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  rgr-logger -t "startup-initfile"  XSESSIONRC
-
-  xset s off
-  xset -dpms
-
-  xrdb -merge ~/.Xresources
-
-  # .xsessionrc.local for this type of thing
-  case "$(hostname)" in
-      "thinkpadt460")
-          # disable trackpad
-          xinput set-prop $(xinput list --id-only "SynPS/2 Synaptics TouchPad") "Device Enabled" 0
-          # picom --backend glx --vsync &
-          ;;
-      "thinkpadt14s")
-          #picom --backend glx --vsync &
-          ;;
-      "x270")
-          #picom --backend glx --vsync &
-          ;;
-      "xmgneo")
-          # xrandr --output eDP-1 --mode 2560x1440 --rate 165 #--scale 0.8x0.8
-          #picom --backend glx --vsync &
-          ;;
-      ,*)
-          # picom --backend glx --vsync &
-          ;;
-  esac
-
-  [ -f "${HOME}"/.config/user-dirs.dir ] && . "${HOME}"/.config/user-dirs.dir || true
-
-  # command -v srandrd && srandrd xrandr-smart-connect
-  [ -z "$(pidof "pulseaudio")" ] &> /dev/null  && pulseaudio -D
-
-
-  # leave to local machine
-  # xss-lock -- i3lock -n -c 000000 &
-  x-idlehook &
-  (post-lock && post-blank) &
-  (sleep 2 && gpg-cache)&
-
-  [ -f "${HOME}"/.xsessionrc.local ] && . "${HOME}"/.xsessionrc.local || true
-
-#+end_src
-** ~/.xsessionrc.local
-Add machine specifics. The xmg neo 15 [[https://github.com/pobrn/ite8291r3-ctl][keyboard backlight repo]] for example.
-#+begin_src bash :tangle "no"
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    rgr-logger -
-  t "startup-initfile"  XSESSIONRC-LOCAL
-    # sugestions for .xsessionrc.local
-    # export XIDLEHOOK_KBD=60
-    # export XIDLEHOOK_DIM=120
-    # export XIDLEHOOK_BLANK=600
-    # export XIDLEHOOK_LOCK=7200
-    # export XIDLEHOOK_SUSPEND=3600
-#+end_src
-** ~/bin/x-archive/x-lock-utils
-Just a gathering place of locky/suspendy type things...
-#+begin_src bash :tangle "~/bin/x-archive/x-lock-utils"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-
-  # lock() {
-  #     rgr-logger -t "x-lock-utils"  lock
-  #     pre-lock
-  #     xbacklight -set 5
-  #     xset dpms 5 0 0
-  #     i3lock -n -c 000000
-  #     xset -dpms
-  #     x-backlight-persist restore
-  #     post-lock
-  # }
-  lock() {
-      #xset dpms force off && i3lock -n -c 000000
-      xset dpms force off && i3lock-fancy
-  }
-
-  lock_gpg_clear() {
-      rgr-logger -t "x-lock-utils"  lock_gpg_clear
-      [ "$1" = gpg_clear ] &&  (echo RELOADAGENT | gpg-connect-agent &>/dev/null )
-      lock
-  }
-
-  case "$1" in
-      lock)
-          lock
-          ;;
-      lock_gpg_clear)
-          lock_gpg_clear
-          ;;
-      logout)
-          i3-msg exit
-          ;;
-      suspend)
-          systemctl suspend && lock
-          ;;
-      hibernate)
-          systemctl hibernate && lock
-          ;;
-      reboot)
-          systemctl reboot
-          ;;
-      shutdown)
-          systemctl poweroff
-          ;;
-      screenoff)
-          xset dpms force off
-          ;;
-      ,*)
-          lock
-          ;;
-  esac
-
-  exit 0
-#+end_src
-** ~/bin/x-archive/x-idlehook
-See [[https://github.com/jD91mZM2/xidlehook][xidlehook]]. Better handling of idle things. Dont dim or blank when watching a video or in full screen.
-[[https://gitlab.com/wavexx/acpilight
-][acpilight]] provides a better xbacklight.*
-*** ~/bin/x-archive/x-idlehook
-#+begin_src bash :tangle "~/bin/x-archive/x-idlehook"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-
-  xidlehook \
-      `# Don't lock when there's a fullscreen application` \
-      --not-when-fullscreen \
-      `# Don't lock when there's audio playing` \
-      --not-when-audio \
-      --timer ${XIDLEHOOK_KBD:-60}\
-      'pre-blank' \
-      'post-blank' \
-      --timer ${XIDLEHOOK_DIM:-180}\
-      'command -v brightnessctl && brightnessctl s 10' \
-      'post-blank' \
-      --timer ${XIDLEHOOK_BLANK:-120}\
-      'xset dpms force off' \
-      'post-blank'
-  # --timer ${XIDLEHOOK_LOCK:-2400}\
-      # '(pre-lock && x-lock-utils lock)' \
-      # '(post-blank && post-lock)' \
-      # --timer ${XIDLEHOOK_SUSPEND:-3600}\
-      # 'systemctl suspend' \
-      # ''
-#+end_src
-** ~/bin/rnv
-enable force of nvidia driver - run with nvidia
-#+begin_src bash :tangle "~/bin/rnv"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia ${@}
-#+end_src
-** ~/bin/x-archive/x-backlight-persist
-Save and restore backlight values
-#+begin_src bash :tangle "~/bin/x-archive/x-backlight-persist"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-
-  save() {
-      l=$(xbacklight -get);
-      echo  $l > ~/.x-backlight-persist
-      echo $l
-  }
-
-  get() {
-      if command -v brightnessctl; then
-          echo $(brightnessctl g)
-      else
-          echo $(xbacklight -get);
-      fi
-  }
-
-  restore() {
-      b=100
-      [ -f ~/.x-backlight-persist ] && read b < ~/.x-backlight-persist
-      xbacklight -set $b
-      echo $b
-  }
-
-  case "$1" in
-      save)
-          command -v brightnessctl && brightnessctl -s && exit 0
-          save
-          [ -n "$2" ] && xbacklight -set "$2"
-          ;;
-      restore)
-          command -v brightnessctl && brightnessctl -r && exit 0
-          restore
-          ;;
-      get)
-          get
-          ;;
-      ,*)
-          save
-          ;;
-  esac
-
-  exit 0
-
-#+end_src
-
-** xrandr monitor related
-Differnt monitors have different resolutions and hence DPI
-*** utility functions
-
-**** xrandr-dpi-calc
-org code block to calculate the DPI - pass inWidth as width in inches, else cmWidth as.... yay!
-#+name: xrandr-dpi-calc
-#+begin_src emacs-lisp :var xRes=1920 inWidth=0 cmWidth=28
-  (let*((inWidth (or (if (eq inWidth 0)(/ cmWidth 2.54) inWidth )))
-        (dpi (/ xRes inWidth)))
-    (setq rgr/monitor-DPI dpi)
-    (format "DPI of %.1f inch width screen with a horizontal pixel count of %d is: %d"
-            inWidth xRes dpi))
-#+end_src
-
-#+RESULTS: xrandr-dpi-calc
-: DPI of 11.0 inch width screen with a horizontal pixel count of 1920 is: 174
-
-**** xrandr-connected-active
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-connected-active"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  XRANDR_CONNECTED_ACTIVE="$(xrandr --listactivemonitors | tail -n +2  | awk '{print $4}')"
-  echo "$XRANDR_CONNECTED_ACTIVE"
-#+end_src
-**** ~/bin/x-archive/xrandr-connected
-list connected ids
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-connected"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  export XRANDR_CONNECTED=$(xrandr -q | grep -iw "connected" | awk '{print $1}')
-  echo "$XRANDR_CONNECTED"
-#+end_src
-**** ~/bin/x-archive/xrandr-connected-first
-return the id of the first display reported by xrandr
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-connected-first"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xrandr-connected | head -n 1 | awk '{print $1}'
-#+end_src
-
-#+RESULTS:
-: eDP1
-
-**** ~/bin/x-archive/xrandr-disconnected
-list disconnected
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-disconnected"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xrandr -q | grep -w "disconnected" | awk '{print $1}'
-#+end_src
-
-**** ~/bin/x-archive/xrandr-disconnected-off
-turn off all disconnected
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-disconnected-off"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xargs -I {} xrandr --output {} --off <<< $(xrandr-disconnected)
-#+end_src
-
-**** ~/bin/x-archive/xrandr-connected-external
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-connected-external"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  export XRANDR_EXTERNAL="$(xrandr-connected | awk '{print $1}' | grep -i "^[hdmi|d]" | head -n 1)"
-  echo "$XRANDR_EXTERNAL"
-#+end_src
-**** ~/bin/x-archive/xrandr-connected-primary
-:PROPERTIES:
-:ID:       c58034ed-1c87-4740-aa7d-256676b74926
-:END:
-set the primary display to  arg1 else set first in list thats on
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-connected-primary"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  primary="${1-$(xrandr-connected-active|head -n 1)}"
-  existingprimary="$(xrandr -q | grep -w "primary" | awk '{print $1}')"
-  [ "${existingprimary}" != "${primary}" ] &&
-      xrandr --output "${primary}" --primary
-  echo "${primary}"
-#+end_src
-**** ~/bin/x-archive/xrandr-laptop-id
-:PROPERTIES:
-:ID:       207b09f0-f98d-4c5f-bd55-07262cb092d9
-:END:
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-laptop-id
-  xrandr-connected | grep -i "^[el]"
-#+end_src
-**** ~/bin/x-archive/xrandr-laptop
-:PROPERTIES:
-:ID:       0a82acba-d53d-453a-8ab9-f1ab8233b093
-:END:
-#+begin_src bash :tangle "~/bin/x-archive/xrandr-laptop"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  on=${1:-"on"}
-  l="$(xrandr-laptop-id)"
-  if [ -z "$l" ]; then
-      echo "No laptop screen detected."
-  else
-      if [ "$on" = "off" ]; then
-          # echo "Turning off "${l}"."
-          # xrandr --output "$l" --off
-          e="$(xrandr-connected-external)"
-          if [ -z "$e"]; then
-              echo "No external monitor so not turning off laptop"
-          else
-              echo "Mirroring laptop ${l} to external ${e} since turning it off causés X to move at a snail's pace"
-              xrandr --output "${e}" --same-as "${l}"
-          fi
-      else
-          echo "Turning on "${l}"."
-          xrandr-smart-connect
-      fi
-  fi
-#+end_src
-:LOGBOOK:
-- State "TODO"       from              [2021-03-15 Mon 17:40]
-:END:
-**** ~/bin/x-archive/xrandr-multi
-#+name: xrandr-multi
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-multi
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  on=${1:-"on"}
-  as_primary=${2:-"yes"}
-  extmonitor=$(xrandr-connected-external | head -n 1)
-  first=$(xrandr-connected-first)
-  if [ ! -z "$extmonitor" ] && [ "$extmonitor" != "$first" ]; then
-      echo "Detected 2nd monitor $extmonitor"
-      if [ "$on" = "on" ]; then
-          echo "Turning on $extmonitor"
-          xrandr --output "$extmonitor" --auto  --right-of "$first" &> /dev/null;
-          if [ "${as_primary}" = "yes" ]; then
-              xrandr --output "${extmonitor}" --primary
-          else
-              xrandr-connected-primary
-          fi
-      else
-          echo "Turning off  $extmonitor"
-          xrandr --output "$extmonitor" --off  &> /dev/null;
-          xrandr-connected-primary "$(xrandr-laptop-id)"  &> /dev/null
-      fi
-  else
-      echo "no addtional external monitors detected so turning off all disconnected anyway..."
-      xrandr-disconnected-off
-  fi
-
-#+end_src
-
-**** ~/bin/x-archive/xrandr-mancave
-#+name: xrandr-mancave
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-mancave
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  on=${1:-"on"}
-  connected=${2:-$(xrandr-connected-external | head -n 1)}
-  laptop=$(xrandr-laptop-id)
-  if  [ -z "$connected" ] ;then
-      echo "Not connected to external monitor so making laptop primary"
-      xrandr-connected-primary
-  else
-      if [ "$on" = "on" ]; then
-          xrandr --output "$laptop"  --off
-          xrandr --output "$connected" --mode 2560x1440  --rate 74.6 --primary --dpi "108"
-          xrandr --output "$laptop"  --right-of "$connected" --auto # --scale "${scale:-"1x1"}"
-      else
-          xrandr-multi off
-      fi
-  fi
-#+end_src
-
-**** ~/bin/x-archive/xrandr-smart-connect
-connect to richie's monitors by default if we can
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-smart-connect
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  # turn off call disconnected displays
-  xrandr-disconnected-off
-  # try and ID the display connected and act accordingly
-  connectedmodestring="$(xrandr -q | grep -A 1 -w "connected" | grep -A 1 -i "^[hd||d]" | tail -n 1 | awk '{print $1}')"
-  if [ ! -z "$connectedmodestring" ]; then
-      case "$connectedmodestring" in
-          ,*2560*)
-              xrandr-mancave on
-              ;;
-          ,*)
-              xrandr-multi on
-              ;;
-      esac
-  else
-      xrandr-multi off
-  fi
-#+end_src
-
-**** connect/disconnect daemon
-Note these are not used now in favour of the [[https://github.com/jceb/srandrd][srandr]] daemon
-***** ~/bin/x-archive/xrandr-smart-connect-daemon
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-smart-connect-daemon
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  while true; do
-      sleep 5
-      [ -z "$(pidof "steam")" ] && xrandr-smart-connect &> /dev/null
-  done
-
-
-#+end_src
-
-***** ~/bin/x-archive/xrandr-smart-connect-daemon-run
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-smart-connect-daemon-run
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  if pidof -x xrandr-smart-connect-daemon &> /dev/null; then
-      echo "$0 already running."
-      exit 1;
-  fi
-  xrandr-smart-connect-daemon &
-#+end_src
-
-*** x270
-
-#+CALL: xrandr-dpi-calc(cmWidth=28,xRes=1920)
-
-#+RESULTS:
-: DPI of 11.0 inch width screen with a horizontal pixel count of 1920 is: 174
-
-***** ~/bin/x-archive/xrandr-x270-bigtv
-#+name: xrandr-x270-bigtv
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-x270-bigtv
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xrandr-multi "$@"
-#+end_src
-
-***** ~/bin/x-archive/xrandr-x270-mancave
-
-#+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
-
-#+RESULTS:
-: DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
-
-
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-x270-mancave
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xrandr-mancave "$@"
-#+end_src
-
-*** XMG Neo 15
-
-***** ~/bin/x-archive/xrandr-xmgneo-bigtv
-#+name: xrandr-xmgneo-bigtv
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-xmgneo-bigtv
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  xrandr-multi on "$@"
-#+end_src
-
-
-***** ~/bin/x-archive/xrandr-xmgneo-mancave
-
-#+CALL: xrandr-dpi-calc(cmWidth=60,xRes=2560)
-
-#+RESULTS:
-: DPI of 23.6 inch width screen with a horizontal pixel count of 2560 is: 108
-
-#+begin_src bash :tangle ~/bin/x-archive/xrandr-xmgneo-mancave
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  dpi=188 xrandr-mancave "$@"
-#+end_src
-
-* User system services
-*** gpg-agent
-If using startx on debian this is taken care of by the system XSession loading everyhing in /etc/X11/Xsession.d.
-see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
-
-* Bash Startup Files
-** ~/.profile
+** Bash Startup Files
+*** ~/.profile
 :PROPERTIES:
 :ID:       a0ce8c14-82b5-468b-b942-5ca9cdc4d832
 :END:
@@ -732,7 +208,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
 #+end_src
 
-** ~/.bash_profile
+*** ~/.bash_profile
 :PROPERTIES:
 :ID:       606c1aee-d313-42f6-a174-3f9e9fa97548
 :END:
@@ -745,7 +221,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   [ -f ~/.bashrc ] && . ~/.bashrc || true
   #emacs --bg-daemon  &> /dev/null &
 #+end_src
-** ~/.bashrc
+*** ~/.bashrc
 #+begin_src bash :tangle "DotFiles/.bashrc"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
@@ -793,19 +269,17 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
   GPG_TTY=$(tty)
   export GPG_TTY
-
   [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 #+end_src
-*** bash git prompt
+**** bash git prompt
 #+begin_src bash :tangle "DotFiles/.bashrc"
     if [ -f "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh" ]; then
         GIT_PROMPT_ONLY_IN_REPO=1
         source "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh"
     fi
 #+end_src
-* ZSH Related
-** ~/.config/zsh/.zshrc
+** ZSH Related
+*** ~/.config/zsh/.zshrc
 #+begin_src zsh :tangle "dot-config/zsh/.zshrc"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZSHRC
@@ -937,7 +411,7 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
 
 #+RESULTS:
 
-** ~/.config/zsh/.zlogin
+*** ~/.config/zsh/.zlogin
 #+begin_src bash :tangle "~/.config/zsh/.zlogin"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZLOGIN
@@ -949,13 +423,13 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   fi
   sway-autostart
 #+end_src
-** zprofile
-**** ~/.config/zsh/.zprofile
+*** zprofile
+***** ~/.config/zsh/.zprofile
 #+begin_src bash :tangle "~/.config/zsh/.zprofile"
   # Maintained in linux-config.org
 #+end_src
-** zshenv
-**** ~/.config/zsh/.zshenv
+*** zshenv
+***** ~/.config/zsh/.zshenv
 #+begin_src bash :tangle "~/.config/zsh/.zshenv"
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZSHENV
@@ -967,22 +441,22 @@ see [[file:/usr/share/doc/gnupg/examples][/usr/share/doc/gnupg/examples]]
   xhost +SI:localuser:root &> /dev/null
 
 #+end_src
-**** ~/.zshenv
+***** ~/.zshenv
 #+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
   # Maintained in linux-config.org
   ZDOTDIR=$HOME/.config/zsh
   . $ZDOTDIR/.zshenv
 #+end_src
-** Oh-My-Zsh Related
+*** Oh-My-Zsh Related
 Directory is [[file:.oh-my-zsh/][here]].
-**** Aliases ~/.config/zsh/oh-my-zsh/custom/aliases.zsh
+***** Aliases ~/.config/zsh/oh-my-zsh/custom/aliases.zsh
 #+begin_src conf :tangle "~/.config/zsh/oh-my-zsh/custom/aliases.zsh"
   # Maintained in linux-config.org
   alias grep="grep -n --color"
   alias hg='history|grep'
 #+end_src
 
-**** Functions ~/.config/zsh/oh-my-zsh/custom/functions.zsh
+***** Functions ~/.config/zsh/oh-my-zsh/custom/functions.zsh
 #+begin_src bash :tangle "~/.config/zsh/oh-my-zsh/custom/functions.zsh"
   mkc () {
       mkdir -p "$@" && cd "$@" #create full path and cd to it
@@ -990,20 +464,8 @@ Directory is [[file:.oh-my-zsh/][here]].
   }
 #+end_src
 
-** BUGS
-*** DONE slow git prompt
-CLOSED: [2021-06-30 Wed 15:18]
-        :PROPERTIES:
-        :DateCreated: <2021-06-30 Wed 15:17>
-        :END:
-:LOGBOOK:
-- State "DONE"       from              [2021-06-30 Wed 15:18]
-:END:
-https://stackoverflow.com/questions/12765344/oh-my-zsh-slow-but-only-for-certain-git-repo
-https://stackoverflow.com/a/38865693/37370
-
-* Tmux                                                                 :tmux:
-** ~/.profile
+** Tmux                                                                :tmux:
+*** ~/.profile
 :PROPERTIES:
 :header-args:bash: :tangle "DotFiles/.profile"
 :END:
@@ -1012,7 +474,7 @@ https://stackoverflow.com/a/38865693/37370
   export FZF_TMUX_OPTS="-d 40%"
 #+end_src
 
-** .config/tmux/tmux.conf
+*** .config/tmux/tmux.conf
 #+begin_src conf :tangle "dot-config/tmux/tmux.conf"
   # Maintained in linux-config.org
   # Change the prefix key to C-a
@@ -1109,13 +571,13 @@ https://stackoverflow.com/a/38865693/37370
   run -b '~/.config/tmux/plugins/tpm/tpm'
 
 #+end_src
-** ~/bin/tmux-current-session
+*** ~/bin/tmux-current-session
 #+begin_src bash :tangle ~/bin/tmux-current-session
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 #+end_src
-** ~/bin/tmux-pane-tty
+*** ~/bin/tmux-pane-tty
 Written to find the tty for a pane in order to redirect gef context source to a voltron pane
 #+begin_src bash :tangle ~/bin/tmux-pane-tty
   #!/usr/bin/env bash
@@ -1126,6 +588,89 @@ Written to find the tty for a pane in order to redirect gef context source to a 
   window="${3:-0}"
   tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
 #+end_src
+* Vim
+** ~/.vimrc
+#+begin_src conf :tangle "DotFiles/.vimrc"
+  " Maintained in linux-config.org
+  set nocompatible              " be iMproved, required
+  filetype off                  " required
+
+  call plug#begin('~/.vim/plugged')
+
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'tpope/vim-fugitive'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'vim-scripts/mru.vim'
+  " Plug 'ervandew/supertab'
+
+  call plug#end()
+
+  set nonu nu ic is hls
+
+  map ; :Files<CR>
+
+  " Mapping selecting mappings
+  nmap <leader><tab> <plug>(fzf-maps-n)
+  xmap <leader><tab> <plug>(fzf-maps-x)
+  omap <leader><tab> <plug>(fzf-maps-o)
+
+  nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+  nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+  " Insert mode completion
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+
+  cnoreabbrev <expr> tn getcmdtype() == ":" && getcmdline() == 'tn' ? 'tabnew' : 'tn'
+  cnoreabbrev <expr> th getcmdtype() == ":" && getcmdline() == 'th' ? 'tabp' : 'th'
+  cnoreabbrev <expr> tl getcmdtype() == ":" && getcmdline() == 'tl' ? 'tabn' : 'tl'
+  cnoreabbrev <expr> te getcmdtype() == ":" && getcmdline() == 'te' ? 'tabedit' : 'te'
+
+  nnoremap <F5> :buffers<CR>:buffer<Space>
+
+  map <C-o> :NERDTreeToggle<CR>
+
+  set shortmess+=A
+  set splitbelow
+  set splitright
+
+#+end_src
+* ripgrep
+** ~/.ignore
+#+begin_src conf :tangle "DotFiles/.ignore"
+  # Maintained in linux-config.org
+  ,*~
+  .git
+  cache
+  .cache
+#+end_src
+** ~/.ripgreprc
+#+begin_src conf :tangle "DotFiles/.ripgreprc"
+
+  # Maintained in linux-config.org
+  # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
+  --max-columns=150
+
+  # Set the colors.
+  --color=never
+  --colors=line:none
+  --colors=line:style:bold
+
+  # Because who cares about case!?
+  --smart-case
+
+  #ignore .gitignore
+  # --no-ignore-vcs
+
+
+#+end_src
+
 * Sway Wayland Compositing Tile Manager                      :i3:swaywm:sway:
 Sway is a tiling Wayland compositor and a drop-in replacement for the i3 window manager for X11.
 It works with your existing i3 configuration and supports most of i3's features, plus a few extras.
@@ -1395,7 +940,7 @@ Override in .profile.local
 
 
   set $mod Mod4
-  set $term 'oneterminal'
+  set $term 'sway-oneterminal'
   set $menu 'sway-launcher-fzf'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
@@ -1869,7 +1414,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+e exec lldb-ui "/home/rgr/development/projects/emacs/emacs/src" "emacs"; workspace $ws3
     bindsym $mod+Control+u exec lldb-ui "/home/rgr/development/education/Udemy/UdemyCpp/Computerspiel1/" "udemy"; workspace $ws3
-    bindsym $mod+Control+g exec oneterminal "lldb"
+    bindsym $mod+Control+g exec sway-oneterminal "lldb"
     bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+s exec alacritty -e syncrclone-htop
@@ -2513,7 +2058,7 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
 #+begin_src bash :tangle "~/bin/sway/sway-bluetooth"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  exec oneterminal "bluetoothctl" "bluetoothctl"
+  exec sway-oneterminal "bluetoothctl" "bluetoothctl"
 #+end_src
 *** ~/bin/sway/sway-do-tool
 #+begin_src bash :tangle "~/bin/sway/sway-do-tool"
@@ -2522,24 +2067,21 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
 
   # NB ths is currently lazy. It uses brute force, and i need to do some get_tree jq stuff instead to
   # get the app_id/class instance instead. But.. it works.
-
   id="$1"
   script="$2"
   [ -z "$id" ] && echo "usage: sway-do-tool id" && exit 1
   if swaymsg "[title=${id}] focus" &> /dev/null; then
-      rgr-logger -t "sway-do-tool" "title ${id} found"
+      :
   else
       if  swaymsg "[class=${id}] focus" &> /dev/null; then
-          rgr-logger -t "sway-do-tool" "class ${id} found"
+          :
       else
           if  swaymsg "[app_id=${id}] focus" &> /dev/null; then
-              rgr-logger -t "sway-do-tool" "app_id ${id} found"
+              :
           else
               if [ ! -z "$script" ]; then
-                  rgr-logger -t "sway-do-tool" "evaling script $scipt"
                   eval "$script" &
               else
-                  rgr-logger -t "sway-do-tool" "exiting"
                   exit 1
               fi
           fi
@@ -2567,7 +2109,7 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
 #+begin_src bash :tangle "~/bin/sway/sway-htop"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  exec oneterminal "Processes" htop
+  exec sway-oneterminal "Processes" htop
 #+end_src
 *** ~/bin/sway/sway-kanshi
 Monitor control with hotplug https://github.com/emersion/kanshi
@@ -3007,216 +2549,12 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-wifi"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  oneterminal "wifi" "nmtui"  &>/dev/null
+  sway-oneterminal "wifi" "nmtui"  &>/dev/null
 #+end_src
 ** wayland utils
-*** notification daemon
-**** mako
-Use mako as the notification daemon
-***** install
-#+begin_src bash
-  sudo apt install mako-notifier
-#+end_src
-***** ~/.config/mako/config
+*** ~/.config/mako/config
 #+begin_src conf :tangle "~/.config/mako/config"
 default-timeout=10000
-#+end_src
-***** notification daemon
-#+begin_src bash
-  sudo apt install notification-daemon libnotifier-bin
-#+end_src
-Enable it as a dbus service https://wiki.archlinux.org/title/Desktop_notifications
-$XDG_DATA_HOME/dbus-1/services/org.freedesktop.Notifications.service
-#+begin_src conf :tangle no
-  [D-BUS Service]
-  Name=org.freedesktop.Notifications
-  Exec=/usr/lib/notification-daemon/notification-daemon
-#+end_src
-* Vim
-** ~/.vimrc
-#+begin_src conf :tangle "DotFiles/.vimrc"
-  " Maintained in linux-config.org
-  set nocompatible              " be iMproved, required
-  filetype off                  " required
-
-  call plug#begin('~/.vim/plugged')
-
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'tpope/vim-fugitive'
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'vim-scripts/mru.vim'
-  " Plug 'ervandew/supertab'
-
-  call plug#end()
-
-  set nonu nu ic is hls
-
-  map ; :Files<CR>
-
-  " Mapping selecting mappings
-  nmap <leader><tab> <plug>(fzf-maps-n)
-  xmap <leader><tab> <plug>(fzf-maps-x)
-  omap <leader><tab> <plug>(fzf-maps-o)
-
-  nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
-  nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
-
-  " Insert mode completion
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line)
-
-  cnoreabbrev <expr> tn getcmdtype() == ":" && getcmdline() == 'tn' ? 'tabnew' : 'tn'
-  cnoreabbrev <expr> th getcmdtype() == ":" && getcmdline() == 'th' ? 'tabp' : 'th'
-  cnoreabbrev <expr> tl getcmdtype() == ":" && getcmdline() == 'tl' ? 'tabn' : 'tl'
-  cnoreabbrev <expr> te getcmdtype() == ":" && getcmdline() == 'te' ? 'tabedit' : 'te'
-
-  nnoremap <F5> :buffers<CR>:buffer<Space>
-
-  map <C-o> :NERDTreeToggle<CR>
-
-  set shortmess+=A
-  set splitbelow
-  set splitright
-
-#+end_src
-* ripgrep
-** ~/.ignore
-#+begin_src conf :tangle "DotFiles/.ignore"
-  # Maintained in linux-config.org
-  ,*~
-  .git
-  cache
-  .cache
-#+end_src
-** ~/.ripgreprc
-#+begin_src conf :tangle "DotFiles/.ripgreprc"
-
-  # Maintained in linux-config.org
-  # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
-  --max-columns=150
-
-  # Set the colors.
-  --color=never
-  --colors=line:none
-  --colors=line:style:bold
-
-  # Because who cares about case!?
-  --smart-case
-
-  #ignore .gitignore
-  # --no-ignore-vcs
-
-
-#+end_src
-
-** ~/development/projects/.gitignore
-#+begin_src conf :tangle "directories/development/projects/.gitignore"
-  # Maintained in linux-config.org
-  !*
-#+end_src
-
-* Conky
-** ~/.config/conky/conky.conf
-#+begin_src conf :tangle "~/.config/conky/conky.conf"
-  --[[
-  Conky, a system monitor, based on torsmo
-
-  Any original torsmo code is licensed under the BSD license
-
-  All code written since the fork of torsmo is licensed under the GPL
-
-  Please see COPYING for details
-
-  Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
-  Copyright (c) 2005-2019 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
-  All rights reserved.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  ]]
-
-  conky.config = {
-  alignment = 'top_left',
-  background = false,
-  border_width = 1,
-  cpu_avg_samples = 2,
-  default_color = 'white',
-  default_outline_color = 'white',
-  default_shade_color = 'white',
-  double_buffer = true,
-  draw_borders = false,
-  draw_graph_borders = true,
-  draw_outline = false,
-  draw_shades = false,
-  extra_newline = false,
-  font = 'DejaVu Sans Mono:size=8',
-  gap_x = 60,
-  gap_y = 60,
-  minimum_height = 5,
-  minimum_width = 5,
-  net_avg_samples = 2,
-  no_buffers = true,
-  out_to_console = false,
-  out_to_ncurses = false,
-  out_to_stderr = false,
-  out_to_x = true,
-  own_window = true,
-  own_window_class = 'Conky',
-  own_window_type = 'desktop',
-  show_graph_range = false,
-  show_graph_scale = false,
-  stippled_borders = 0,
-  update_interval = 1.0,
-  uppercase = false,
-  use_spacer = 'none',
-  use_xft = true,
-  }
-
-  conky.text = [[
-  ${color grey}Info:$color ${scroll 32 Conky $conky_version - $sysname $nodename $kernel $machine}
-  $hr
-  ${color grey}Uptime:$color $uptime
-  ${color grey}Frequency (in MHz):$color $freq
-  ${color grey}Frequency (in GHz):$color $freq_g
-  ${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
-  ${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
-  ${color grey}CPU Usage:$color $cpu% ${cpubar 4}
-  ${color grey}Processes:$color $processes  ${color grey}Running:$color $running_processes
-  $hr
-  ${color grey}File systems:
-  / $color${fs_used /}/${fs_size /} ${fs_bar 6 /}
-  ${color grey}Networking:
-  Up:$color ${upspeed} ${color grey} - Down:$color ${downspeed}
-  $hr
-  ${color grey}Name              PID     CPU%   MEM%
-  ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
-  ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
-  ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
-  ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
-  ]]
-#+end_src
-* Radare
-Reverse engineering packges [[https://radare.gitbooks.io/radare2book/content/first_steps/intro.html][radare2]].
-** ~/.config/radare2/radare2rc
-#+begin_src conf :tangle "~/.config/radare2/radare2rc"
-  e scr.utf8=true
-  e scr.utf8.curvy=true
-  e dbg.bep=main
 #+end_src
 * Programming Related                                           :programming:
 ** dart/flutter                                                :dart:flutter:
@@ -3340,7 +2678,7 @@ Create a session but let someone else do the attach
   # Maintained in linux-config.org
   directory="${1:-`pwd`}"
   session="$(lldb-ui-session "${directory}" "$2")"
-  ONETERM_TITLE="dbg:lldb-$session"  oneterminal "$session"
+  ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"
 #+end_src
 
 ***** emacs
@@ -3579,9 +2917,10 @@ pending deletion
   export USER_STARTX_START=
 #+end_src
 
-** ~/.profile.local                                                   :crypt:
+** ~/.profile.local
+potentially need some gpg keys : not tangled
+*** keys                                                              :crypt:
 -----BEGIN PGP MESSAGE-----
-
 hQEMA7IjL5SkHG4iAQgAnAMLgodgtOc1tsGz6mRqJbkJsM+R+5MTPdsOdml6xMoL
 xFZjkYTDUGa3G6PsQHpbJ/tjD+6B4qmZIymq1EReWPtrepGGN6DNG8hLPVNnQ+9N
 WAFaK1o+gzzfsw9XuptT5Um47k2G3zm019mGKDe0OwYJJ/r/DTHpz9yI9nj5lVdq
@@ -3595,60 +2934,6 @@ P/fo8sDBBu2QBoL2+gQZ11l7uSZMjTCR/8msBO5LbLDmyOUposbv6va1dzPN898F
 ZsaqN9VNjV2b75kQiPJsZaoekClV7yOFc10/VRKBFD1MlspEovrIpReI9by6azIU
 =nb0T
 -----END PGP MESSAGE-----
-* ACPI
-** power status
-*** acpid events
-You must copy these into [[/etc/acpi/events/][/etc/acpi/events/]] if you have an encrypted home directory else symlink.
-**** /etc/acpi/events/user-powerstate
-
-#+begin_src conf :tangle "etc/acpi/events/user-powerstate"
-  # Maintained in linux-config.org
-  # /etc/acpi/events/user-powerstate
-  # Called when the user connects ac power to us
-  #
-  event=ac_adapter.*
-  action=/etc/acpi/actions/user-powerstate.sh
-#+end_src
-**** /etc/acpi/events/xmg-neo-powerstate
-#+begin_src conf :tangle "etc/acpi/events/xmg-neo-powerstate"
-  # Maintained in linux-config.org
-  # /etc/acpi/events/xmg-neo-powerstate
-  # Called when the user connects ac power to us
-  #
-  event=ac_adapter.*
-  action=/etc/acpi/actions/xmg-neo-powerstate.sh
-#+end_src
-*** acpid actions
-You must copy these into [[/etc/acpi/actions][/etc/acpi/actions]] if you have an encrypted home directory else symlink.
-**** /etc/acpi/actions/user-powerstate.sh
-#+begin_src bash :tangle "etc/acpi/actions/user-powerstate.sh"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  # /etc/acpi/actions/user-powerstate
-  . /usr/share/acpi-support/power-funcs
-  . /usr/share/acpi-support/policy-funcs
-  getState
-  echo "export POWERSTATE=${STATE}"  > /tmp/user-acpi-powerstate
-  export POWERSTATE=$STATE
-#+end_src
-**** /etc/acpi/actions/xmg-neo-powerstate.sh
-#+begin_src bash :tangle "etc/acpi/actions/xmg-neo-powerstate.sh"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  # /etc/acpi/actions/xmg-neo-powerstate
-  . /usr/share/acpi-support/power-funcs
-  . /usr/share/acpi-support/policy-funcs
-  getState
-  echo $( [ $STATE ="AC" ] && echo 0 || echo 1 ) > /sys/class/leds/qc71_laptop::lightbar/brightness
-
-#+end_src
-remembering to restart acpid :
-#+begin_src bash
-  sudo systemctl restart acpid
-#+end_src
-
-#+RESULTS:
-
 * Email Related
 ** mu4e  - mu for Emacs
 [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]], a Maildir based email client for Emacs, is configured in my [[https://github.com/rileyrg/Emacs-Customisations][emacs-config]]
@@ -3836,22 +3121,8 @@ and activate them
   pidof mu &> /dev/null || mu index
 #+end_src
 * bin
-** one commands
-if it exists jump to it else start it
-*** ~/bin/oneinstance
-#+begin_src bash :tangle "~/bin/oneinstance"
-  #!/bin/bash
-  #Maintained in linux-config.org
-  # oneinstance exename pname  winclass
-  exename=$1;pname="${2:-"$exename"}";winclass={$3:-${pname}};
-  if ! pidof "$pname"; then
-      ${exename}
-  else
-      xdotool windowactivate $(head -n 1 <<< $(xdotool search --name "${winclass}"))
-  fi
-#+end_src
-*** ~/bin/oneterminal
-#+begin_src bash :tangle "~/bin/oneterminal"
+** ~/bin/sway/sway-oneterminal
+#+begin_src bash :tangle "~/bin/sway/sway-oneterminal"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
 
@@ -3867,86 +3138,6 @@ if it exists jump to it else start it
   fi
   exit 0
 
-#+end_src
-**** alacritty config
-[[https://github.com/alacritty/alacritty#configuration]]
-[[file:dot-config/alacritty/alacritty.yml][alacritty config file]]
-*** ~/bin/pop-window
-#+begin_src bash :tangle "~/bin/pop-window"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  sway-do-tool "$@"
-#+end_src
-** network interface utilities
-*** ~/bin/my-iface-active-query
-#+begin_src bash :tangle "~/bin/my-iface-active-query"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'
-#+end_src
-*** ~/bin/my-iface-active
-#+begin_src bash :tangle "~/bin/my-iface-active"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
-  export IFACE_ACTIVE
-  echo $IFACE_ACTIVE
-#+end_src
-*** ~/bin/my-iface-active-ssid
-#+begin_src bash :tangle "~/bin/my-iface-active-ssid"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  my-iface-active-query "GENERAL.CONNECTION"
-#+end_src
-*** ~/bin/my-iface-active-ipaddr
-#+begin_src bash :tangle "~/bin/my-iface-active-ipaddr"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  my-iface-active-query "IP4.ADDRESS"
-#+end_src
-*** ~/bin/my-iface-active-quality
-#+begin_src bash :tangle "~/bin/my-iface-active-quality"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  my-iface-active-query "GENERAL.STATE"
-#+end_src
-*** ~/bin/network-online
-#+begin_src bash :tangle "~/bin/network-online"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  wget -q --spider http://google.com
-#+end_src
-** ~/bin/confirm-suspend
-#+begin_src bash :tangle "~/bin/confirm-suspend"
-  #!/usr/bin/env bash
-  #Maintained in linux-config.org
-  delay=10;
-  message="Almost out of juice."
-  while [ "$#" -gt 0 ]; do
-      case $1 in
-          -d|--delay) delay="${2}";shift;;
-          -m|--message) message="${2} ";shift;;
-          ,*) echo "Unknown parameter passed: $1"; exit 1 ;;
-      esac
-      shift
-  done
-
-  zenity --question --text="${message}Proceed to suspend in ${delay}s?"
-  if [ $? = 0 ]; then
-      sleep "$delay" && systemctl suspend
-  else
-      exit
-  fi
-#+end_src
-** ~/bin/dropbox-start-once
-#+begin_src bash :tangle "~/bin/dropbox-start-once"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  if (! dropbox running) ; then
-      echo "Dropbox is already running"
-  else
-      dropbox start &> /dev/null &
-  fi
 #+end_src
 ** ~/bin/edit
 #+begin_src bash :tangle "~/bin/edit"
@@ -3964,7 +3155,7 @@ might be an idea set an alias such as 'alias man=eman'
   if pidof emacs; then
       emacsclient -c -e "(manual-entry \"-a ${mp}\")" &> /dev/null &
   else
-      oneterminal random-man "man $mp"
+      sway-oneterminal random-man "man $mp"
   fi
 #+end_src
 ** ~/bin/expert-advice
@@ -4044,7 +3235,7 @@ strip debug info and store elsewhere
   fi
   tmux new-session -d -s "${session}" "htop -p $pids"
   sleep 0.1
-  ONETERM_TITLE="filtered htop:${filter}" oneterminal "${session}"
+  ONETERM_TITLE="filtered htop:${filter}" sway-oneterminal "${session}"
 #+end_src
 ** ~/bin/make-compile_commands
 #+begin_src bash :tangle "~/bin/make-compile_commands"
@@ -4058,109 +3249,12 @@ strip debug info and store elsewhere
 #+end_src
 
 ** ~/bin/md-read
-
 #+begin_src bash :tangle "~/bin/md-read"
    #!/usr/bin/env bash
    #Maintained in linux-config.org
   [ -z  $(command -v lynx) ] && echo "install lynx" && exit 1
   [ -z  $(command -v pandoc) ] && echo "install pandoc" && exit 1
   pandoc "$1" | lynx -stdin
-#+end_src
-
-** TODO ~/bin/pw-volume
-:LOGBOOK:
-- State "TODO"       from              [2023-11-05 Sun 15:01]
-:END:
-https://gist.github.com/venam/bd453b4fd673ff8abb9323e69f182045
-#+begin_src  bash :tangle "~/bin/pw-volume"
-  #! /bin/sh
-
-  # the metadata only contains the name of the default sink
-  default_sink_name=$(pw-metadata 0 'default.audio.sink' | grep 'value' | sed "s/.* value:'//;s/' type:.*$//;" | jq .name)
-  default_sink_id=$(pw-dump Node Device | jq '.[].info.props|select(."node.name" == '" $default_sink_name "') | ."object.id"')
-  current_volume=$(pw-cli enum-params "$default_sink_id" 'Props' | grep -A 2 'Spa:Pod:Object:Param:Props:channelVolumes' | awk '/Float / {gsub(/.*Float\s/," "); print $1^(1/3) }')
-  change="${1:-0.1}" # defaults to increment of 0.1
-  new_volume=$(echo "$current_volume $change" | awk '{printf "%f", $1 + $2}')
-  # we need to reconvert to cubic root
-  #new_volume_cube=$(echo "$new_volume" | awk '{ print $1^3 }')
-  echo "$new_volume"
-  pw-cli s "$default_sink_id" Props "{ mute: false, channelVolumes: [ $new_volume_cube , $new_volume_cube ] }"
-  # or use wpctl instead
-  # wpctl set-volume "$default_sink_id" "$new_volume"
-
-#+end_src
-** ~/bin/pulse-volume
-pulse/pipeline volume control.
-Pass in a volume string to change the volume  (man pactl) or on/off/toggle. It wont allow larger than 100% volume. Always returns the current volume volume/status.
-See [[id:d7ab0b28-ce54-4fa3-a318-d8b0caaced52][examples]].
-#+begin_src bash :tangle "~/bin/pulse-volume"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-
-  getVolume(){
-      if [ "$(pactl list sinks | grep Mute | awk '{print $2}')" = "yes" ]; then
-          echo "off"
-      else
-          SINK=$( pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1 )
-          echo "$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
-      fi
-  }
-
-  v="$1"
-
-  case "$v" in
-      "on"|"off"|"toggle")
-          pactl set-sink-mute @DEFAULT_SINK@  "$([ "$v" = "off" ] && echo "1" || ( [ "$v" = "on" ] && echo "0" || echo "toggle"))"
-          ;;
-      ,*)
-          if [ ! -z "$v" ];then
-              pactl set-sink-mute @DEFAULT_SINK@ 0
-              pactl set-sink-volume @DEFAULT_SINK@ "$v"
-              if [ "$(getVolume)" -gt 100 ]; then
-                  pactl set-sink-volume @DEFAULT_SINK@ "100%"
-              fi
-          fi
-          ;;
-  esac
-
-  echo "$(getVolume)"
-#+end_src
-*** Examples:
-:PROPERTIES:
-:ID:       d7ab0b28-ce54-4fa3-a318-d8b0caaced52
-:END:
-**** increase by 10%
-#+begin_src bash
-  pulse-volume "+10%"
-#+end_src
-**** decrease by 10%
-#+begin_src bash
-  pulse-volume "-10%"
-#+end_src
-**** set to 50%
-#+begin_src bash
-  pulse-volume "50%"
-#+end_src
-**** mute
-#+begin_src bash
-  pulse-volume "off"
-#+end_src
-**** unmute
-#+begin_src bash
-  pulse-volume "on"
-#+end_src
-**** toggle mute
-#+begin_src bash
-  pulse-volume "toggle"
-#+end_src
-** ~/bin/pulse-restart
-restart pulseaudio
-#+begin_src bash :tangle "~/bin/pulse-restart"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  pulseaudio -k &> /dev/null
-  pulseaudio -D &> /dev/null
-  start-pulseaudio-x11
 #+end_src
 ** ~/bin/random-man-page
 #+begin_src bash :tangle "~/bin/random-man-page"
@@ -4194,13 +3288,6 @@ restart pulseaudio
 [[https://github.com/rileyrg/resgithub][resgithub.sh - reset local and remote git repo]]
 
 #+include: "directories/development/projects/utilities/resgithub/resgithub.sh" src bash :tangle bin/resgithub.sh
-
-** ~/bin/rgr-logger
-#+begin_src bash :tangle ~/bin/rgr-logger
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    [ -z "$RGR_LOGGER" ] || logger "$@"
-#+end_src
 
 ** ~/bin/rsnapshot-if-mounted
 #+begin_src bash :tangle ~/bin/rsnapshot-if-mounted

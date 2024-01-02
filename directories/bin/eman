@@ -4,5 +4,5 @@ mp="${1:-man}"
 if pidof emacs; then
     emacsclient -c -e "(manual-entry \"-a ${mp}\")" &> /dev/null &
 else
-    oneterminal random-man "man $mp"
+    sway-oneterminal random-man "man $mp"
 fi

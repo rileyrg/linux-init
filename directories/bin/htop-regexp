@@ -10,4 +10,4 @@ if tmux has-session -t "${session}"; then
 fi
 tmux new-session -d -s "${session}" "htop -p $pids"
 sleep 0.1
-ONETERM_TITLE="filtered htop:${filter}" oneterminal "${session}"
+ONETERM_TITLE="filtered htop:${filter}" sway-oneterminal "${session}"

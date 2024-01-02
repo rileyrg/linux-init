@@ -44,7 +44,6 @@ stty -ixon
 
 GPG_TTY=$(tty)
 export GPG_TTY
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [ -f "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh" ]; then
