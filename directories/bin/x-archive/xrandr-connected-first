@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# Maintained in linux-config.org
-xrandr-connected | head -n 1 | awk '{print $1}'
