@@ -824,19 +824,13 @@ I want a key to create and then toggle a terminal.
     # split in vertical orientation
     bindsym $mod+v splitv
     
-    # enter fullscreen mode for the focused container
     bindsym $mod+f fullscreen toggle
-    bindsym $mod+Shift+t inhibit_fullscreen toggle
     
-    # change container layout (stacked, tabbed, toggle split)
     bindsym $mod+s layout stacking
     bindsym $mod+t layout tabbed
     bindsym $mod+e layout toggle split
     
-    # toggle tiling / floatving
     bindsym $mod+Shift+space floating toggle
-    
-    # change focus between tiling / floating windows
     bindsym $mod+space focus mode_toggle
     
     # focus the parent container
@@ -1135,9 +1129,6 @@ I want a key to create and then toggle a terminal.
     
     1.  ~/.config/waybar/config
     
-        note :     "output": "HDMI-A-1", removed
-        commented out       # "custom/dropbox" in modules-left
-        
             {
               "layer": "top",
               "position": "bottom",
@@ -2028,7 +2019,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orged882a6"></a>
+<a id="org858a8f1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2074,7 +2065,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orged882a6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org858a8f1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
