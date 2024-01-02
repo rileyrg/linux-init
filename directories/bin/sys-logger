@@ -1,3 +1,0 @@
-#!/usr/bin/bash
-# Maintained in linux-init-files.org
-[ -z "${MY_LOGGER} -T "STARTUP-INITFILE" _ON" ] || /usr/bin/logger -t "startup-initfile"  "$@"

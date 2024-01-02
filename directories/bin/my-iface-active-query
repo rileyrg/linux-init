@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-#Maintained in linux-config.org
-nmcli device show ${IFACE_ACTIVE:-$(my-iface-active)} | grep -i -m 1 "${1:-".*"}.*:" | awk '{print $2}'

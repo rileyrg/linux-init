@@ -2019,7 +2019,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org858a8f1"></a>
+<a id="org31add95"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2065,7 +2065,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org858a8f1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org31add95).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3072,109 +3072,6 @@ update sw
     sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
 
 
-## XMG Neo 15 Specifics
-
-
-### ~/bin/x-archive/xmg-neo-rgb-kbd-lights
-
-See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3-ctl) for the controller code.
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    
-    sf="${HOME}/.xmg-neo-kbd"
-    
-    if ! command -v ite8291r3-ctl &> /dev/null;  then
-        echo "xmg rgb keyboard light controller not found. install ite8291r3-ctl?"
-        exit 1;
-    fi
-    
-    save() (
-        echo "$lightstatus:$brightness:$color:$rgb" > "$sf"
-    )
-    
-    restore(){
-        lightstatus="on";brightness=20;rgb="";color="silver";
-        if [ -f "$sf" ]; then
-            _ifs="$IFS";IFS=':' read -r lightstatus brightness color rgb < "$sf";IFS="$_ifs";
-        fi
-    }
-    
-    update(){
-        if [ "$lightstatus" = "off" ]; then
-            ite8291r3-ctl off
-        else
-            ite8291r3-ctl monocolor $([ -n "$color" ] && echo "--name $color" || echo "--rgb $rgb") --brightness "$brightness" &> /dev/null
-        fi
-        save
-    }
-    
-    restore
-    
-    case "${1:-on}" in
-        on)
-            lightstatus="on"
-            update
-            ;;
-        off)
-            lightstatus="off"
-            update
-            ;;
-        sleep)
-            # use sleep to turn off light for less noise when not interacting with the keyboard
-            ite8291r3-ctl brightness 0
-            ;;
-        wake)
-            update
-            ;;
-        get-brightness)
-            ite8291r3-ctl query --brightness
-            ;;
-        set-brightness)
-            brightness=${2:-"$brightness"}
-            if [ -z "${brightness##*[!0-9]*}" ]; then
-                brightness=50
-            elif (( $brightness > 50 )); then
-                brightness=50
-            fi
-            update
-            ;;
-        set-color)
-            color=${2:-"$color"};rgb="";
-            update
-            ;;
-        set-rgb)
-            rgb=${2:-"$rgb"};color="";
-            update
-            ;;
-        toggle)
-            lightstatus=$( [ $lightstatus = "off" ] && echo "on" || echo "off")
-            update
-            ;;
-        inc)
-            ;;
-        dec)
-            ;;
-        *)
-            echo "Usage:${0} on|off|sleep|wake|set-brightness|get-brightness|set-color|set-rgb|inc v|dec v"
-            exit 1
-            ;;
-    esac
-    
-    exit 0
-
-
-### test
-
-    xmg-neo-rgb-kbd-lights on
-
-    xmg-neo-rgb-kbd-lights off
-
-    xmg-neo-rgb-kbd-lights set-brightness 50
-
-    xmg-neo-rgb-kbd-lights set-color red
-
-
 ## rclone
 
 <https://rclone.org/>
@@ -3254,32 +3151,6 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
         fi
         exit 0
     fi
-
-
-## Power Monitoring
-
-
-### ~/bin/acpi-powerstate
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    . /usr/share/acpi-support/power-funcs
-    . /usr/share/acpi-support/policy-funcs
-    getState
-    echo "export POWERSTATE=${STATE}"  > "${HOME}"/.acpi-powerstate
-    export POWERSTATE=$STATE
-
-
-### NVIDIA
-
-1.  ~/bin/nvidia-power-usage
-
-        #!/usr/bin/env bash
-        # Maintained in linux-config.org
-        for i in $(seq 1 ${1:-5})
-        do
-            sleep ${2:-1} && echo "$(date +"%Y-%m-%d %H:%M:%S"):$(nvidia-smi -q -d POWER | grep Draw | sed 's/  */ /g')"
-        done
 
 
 ## Google Translate Helpers
@@ -3371,6 +3242,27 @@ See [XMGNeo 15 keyboard backlight controller](https://github.com/pobrn/ite8291r3
     #Maintained in linux-config.org
     [ -f ~/.post-blank ]  && . ~/.post-blank
     command -v brightnessctl && brightnessctl -r
+
+
+# AIS
+
+out of date
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    TMUX= tmux new  -A -s "AIS" AIScatcher
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    if ! pgrep AIS-catcher >/dev/null
+    then
+        echo "`date`: AIS-catcher down. Restarting." >> "${HOME}/.AISStatus"
+        "${HOME}/bin/AIScatcher" &> /dev/null &
+    fi
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    "${HOME}/bin/AIS-catcher"  -d:0 -u 127.0.0.1 2345
 
 
 # tailends

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-#Maintained in linux-config.org
-IFACE_ACTIVE="$(nmcli device show | grep -m 1 "GENERAL.DEVICE" | awk '{print $2}')"
-export IFACE_ACTIVE
-echo $IFACE_ACTIVE
