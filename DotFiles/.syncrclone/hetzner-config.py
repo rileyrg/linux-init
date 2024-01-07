@@ -81,7 +81,7 @@ filter_flags = ["--filter-from", "excludes.txt"]
 #
 # There is extemely minimal validation of flags. If you're uncertain, have
 # a backup and test with `--dry-run`
-rclone_flags = [ "--links"]
+rclone_flags = [ "--links","--check-first","--checkers","4","--transfers","2"]
 # The following are added to the existing environment.
 # These should NOT include any filtering!
 rclone_env = {}
