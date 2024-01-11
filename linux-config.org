@@ -200,7 +200,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   fi
 
   # for sway waybar tray
-  export XDG_CURRENT_DESKTOP=Unity
+  export XDG_CURRENT_DESKTOP=Wayland
 
   [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
