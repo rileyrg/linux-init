@@ -118,6 +118,9 @@ NB - NOT Exported as lots of things want to update it
     
     export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
     
+    # OBS recording studio
+    export QT_QPA_PLATFORM=wayland
+    
     #alias man=eman
     
     export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
@@ -2053,7 +2056,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org464732e"></a>
+<a id="org7371001"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2099,7 +2102,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org464732e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org7371001).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -184,6 +184,9 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
   export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
+  # OBS recording studio
+  export QT_QPA_PLATFORM=wayland
+
   #alias man=eman
 
   export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"

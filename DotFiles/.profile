@@ -33,6 +33,9 @@ export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
+# OBS recording studio
+export QT_QPA_PLATFORM=wayland
+
 #alias man=eman
 
 export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
