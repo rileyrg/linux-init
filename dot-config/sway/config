@@ -4,7 +4,7 @@
 
 
 set $mod Mod4
-set $term 'sway-oneterminal'
+set $term 'xterm'
 set $menu 'sway-launcher-fzf'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current'
@@ -281,7 +281,7 @@ bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist
 bindsym $mod+Control+p exec sway-htop
 bindsym $mod+Control+s exec alacritty -e syncrclone-htop
 bindsym $mod+Control+Shift+p exec htop-regexp
-bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
+bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && xterm
 
 for_window [class="steam_app.*"] fullscreen enable
 for_window [class="steam_app*"] inhibit_idle focus

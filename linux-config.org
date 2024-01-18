@@ -189,7 +189,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
   #alias man=eman
 
-  export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
+  export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
 
   export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
   export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -971,7 +971,7 @@ Override in .profile.local
 
 
   set $mod Mod4
-  set $term 'sway-oneterminal'
+  set $term 'xterm'
   set $menu 'sway-launcher-fzf'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
@@ -1444,7 +1444,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+s exec alacritty -e syncrclone-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && xterm
 #+end_src
 
 *** gaming                                                           :gaming:

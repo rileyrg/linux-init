@@ -123,7 +123,7 @@ NB - NOT Exported as lots of things want to update it
     
     #alias man=eman
     
-    export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"./node_modules/.bin":"${PATH}"
+    export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
     
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
     export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -673,7 +673,7 @@ Override in .profile.local
     
     
     set $mod Mod4
-    set $term 'sway-oneterminal'
+    set $term 'xterm'
     set $menu 'sway-launcher-fzf'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
@@ -1095,7 +1095,7 @@ I want a key to create and then toggle a terminal.
     #assign [app_id="Alacritty"] $ws1
     #assign [class="Ardour"] $ws6
     assign [class="Code"] $ws3
-    # assign [app_id="firefox"] $ws2
+    assign [app_id="firefox"] $ws2
     assign [class="Signal"] $ws8
     assign [class="jetbrains-studio"] $ws3
     assign [app_id="emacs"] $ws1
@@ -1142,7 +1142,7 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+s exec alacritty -e syncrclone-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && xterm
 
 
 ### gaming     :gaming:
@@ -2056,7 +2056,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgf0ad46c"></a>
+<a id="org2b37058"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2102,7 +2102,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf0ad46c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2b37058).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2189,7 +2189,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    wl-recorder -g "$(slurp)"
+    wf-recorder -g "$(slurp)"
 
 
 ### ~/bin/sway/sway-volume-notify
