@@ -1398,7 +1398,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   #assign [app_id="Alacritty"] $ws1
   #assign [class="Ardour"] $ws6
   assign [class="Code"] $ws3
-  # assign [app_id="firefox"] $ws2
+  assign [app_id="firefox"] $ws2
   assign [class="Signal"] $ws8
   assign [class="jetbrains-studio"] $ws3
   assign [app_id="emacs"] $ws1
@@ -2493,6 +2493,14 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 {DIR}/screenshot-latest.png"
   fi
 #+end_src
+
+*** ~/bin/sway/sway-screen-recorder
+#+begin_src bash :tangle ~/bin/sway/sway-screen-recorder
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  wf-recorder -g "$(slurp)"
+#+end_src
+
 *** ~/bin/sway/sway-volume-notify
 #+begin_src bash :tangle "~/bin/sway/sway-volume-notify"
   #!/usr/bin/env bash
