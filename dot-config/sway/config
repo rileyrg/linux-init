@@ -52,7 +52,6 @@ exec systemctl start --user mbsync.service
 
 for_window [title="sway-launcher"] floating enable
 
-set $wallpaper "~/Pictures/Wallpapers/current"
 output * bg  $wallpaper fill
 
 set $trans 0.7

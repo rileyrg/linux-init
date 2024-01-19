@@ -123,7 +123,7 @@ NB - NOT Exported as lots of things want to update it
     
     #alias man=eman
     
-    export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
+    export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/bin/thirdparty/emacs/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
     
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
     export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -763,7 +763,6 @@ done by linux systemd
 
 1.  wallpaper
 
-        set $wallpaper "~/Pictures/Wallpapers/current"
         output * bg  $wallpaper fill
 
 2.  transparency
@@ -2056,7 +2055,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org2b37058"></a>
+<a id="orgb7fff3f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2102,7 +2101,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2b37058).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb7fff3f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
