@@ -1397,7 +1397,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   #assign [app_id="Alacritty"] $ws1
   #assign [class="Ardour"] $ws6
   assign [class="Code"] $ws3
-  assign [app_id="firefox"] $ws2
+  # assign [app_id="firefox"] $ws2
   assign [class="Signal"] $ws8
   assign [class="jetbrains-studio"] $ws3
   assign [app_id="emacs"] $ws1

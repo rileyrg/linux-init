@@ -1094,7 +1094,7 @@ I want a key to create and then toggle a terminal.
     #assign [app_id="Alacritty"] $ws1
     #assign [class="Ardour"] $ws6
     assign [class="Code"] $ws3
-    assign [app_id="firefox"] $ws2
+    # assign [app_id="firefox"] $ws2
     assign [class="Signal"] $ws8
     assign [class="jetbrains-studio"] $ws3
     assign [app_id="emacs"] $ws1
@@ -2055,7 +2055,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="org9d9c9b7"></a>
+<a id="orgf60b954"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2101,7 +2101,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d9c9b7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf60b954).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
