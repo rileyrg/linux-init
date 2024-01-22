@@ -134,7 +134,8 @@ NB - NOT Exported as lots of things want to update it
     fi
     
     # for sway waybar tray
-    export XDG_CURRENT_DESKTOP=Wayland
+    export XDG_CURRENT_DESKTOP=sway
+    export XDG_SESSION_DESKTOP=sway
     
     [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
     
@@ -2055,7 +2056,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgf60b954"></a>
+<a id="orgdbadea9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2101,7 +2102,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf60b954).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgdbadea9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

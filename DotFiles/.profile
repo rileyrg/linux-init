@@ -49,7 +49,8 @@ then
 fi
 
 # for sway waybar tray
-export XDG_CURRENT_DESKTOP=Wayland
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
 
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
