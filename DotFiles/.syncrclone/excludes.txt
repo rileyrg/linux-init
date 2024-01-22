@@ -3,3 +3,6 @@
 - straight/build-cache.el
 - straight/modified/**
 - .android/avd/**
+- hexchat/logs/**
+- hexchat/scrollback/**
+- cache/**

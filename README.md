@@ -674,7 +674,7 @@ Override in .profile.local
     
     set $mod Mod4
     set $term 'xterm'
-    set $menu 'sway-launcher-fzf'
+    set $menu 'sway-launcher'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
     
@@ -2055,7 +2055,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgb7fff3f"></a>
+<a id="org9d9c9b7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2101,7 +2101,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb7fff3f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d9c9b7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2157,6 +2157,28 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     exec alacritty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
+
+
+### ~/bin/sway/sway-launcher-ulauncher
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if ! pgrep "ulauncher"; then
+        ulauncher
+    else
+        ulauncher-toggle
+    fi
+
+
+### ~/bin/sway/sway-launcher
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if command -v "ulauncher"; then
+        sway-launcher-ulauncher
+    else
+        sway-launcher-fzf
+    fi
 
 
 ### ~/bin/sway/sway-screenshot
