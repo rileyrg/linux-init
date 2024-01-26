@@ -675,7 +675,7 @@ Override in .profile.local
     
     set $mod Mod4
     set $term 'xterm'
-    set $menu 'sway-launcher'
+    set $menu 'sway-launcher-fzf'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
     
@@ -701,6 +701,7 @@ Override in .profile.local
     
     bindsym $mod+Shift+e exec $editor
     bindsym $mod+d exec $menu
+    bindsym $mod+u exec sway-launcher-ulauncher
 
 
 ### autostart     :autostart:
@@ -2056,7 +2057,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgdbadea9"></a>
+<a id="orgee600ac"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2102,7 +2103,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgdbadea9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgee600ac).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
