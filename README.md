@@ -137,6 +137,8 @@ NB - NOT Exported as lots of things want to update it
     export XDG_CURRENT_DESKTOP=sway
     export XDG_SESSION_DESKTOP=sway
     
+    export GRIM_DEFAULT_DIR="${HOME}/tmp"
+    
     [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
     
     #homebrew
@@ -1125,6 +1127,8 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Control+b exec sway-lock-utils blank
     
     bindsym $mod+Print exec sway-screenshot -i
+    bindsym $mod+Control+Print exec sway-screen-recorder
+    
     bindsym $mod+Shift+f exec "sway-www"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
@@ -2057,7 +2061,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t 3000 "${@}" || true
 
 
-<a id="orgee600ac"></a>
+<a id="orgb702965"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2103,7 +2107,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgee600ac).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb702965).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2187,32 +2191,39 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
 Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/>
 
-      #!/usr/bin/env bash
-      # Maintained in linux-config.org
-      # thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    # thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
     
-      DIR=${HOME}/tmp/Screenshots
+    DIR=${HOME}/tmp/Screenshots
     
-      mkdir -p "${DIR}"
+    mkdir -p "${DIR}"
     
-      FILENAME="screenshot-$(date +%F-%T).png"
-      region="$(slurp)"
-      if [ ! -z "$region" ]; then
-          sway-notify "Taking pic in 5s.."
-          sleep 5
-          grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
-          #Create a link, so don't have to search for the newest
-          ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
-          sway-notify "Done! see $
-    {DIR}/screenshot-latest.png"
-      fi
+    FILENAME="screenshot-$(date +%F-%T).png"
+    sway-notify "use the mouse to select region.."
+    region="$(slurp)"
+    if [ ! -z "$region" ]; then
+        sway-notify "Taking pic in 5s.."
+        sleep 5
+        grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
+        #Create a link, so don't have to search for the newest
+        ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
+        sway-notify "Done! see ${DIR}/screenshot-latest.png"
+    fi
 
 
 ### ~/bin/sway/sway-screen-recorder
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    wf-recorder -g "$(slurp)"
+    if pgrep -x "wf-recorder"; then
+        sway-notify "stopping wf-recorder"
+        # sigint
+        kill -2 $(pgrep wf-recorder)
+    else
+        sway-notify "starting wf-recorder"
+        wf-recorder -f ${HOME}/tmp/output.mkv -g "$(slurp)"
+    fi
 
 
 ### ~/bin/sway/sway-volume-notify

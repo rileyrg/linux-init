@@ -52,6 +52,8 @@ fi
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_DESKTOP=sway
 
+export GRIM_DEFAULT_DIR="${HOME}/tmp"
+
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
 #homebrew
