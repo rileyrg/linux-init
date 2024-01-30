@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 lock() {
-    pidof swaylock || swaylock -f -i ~/Pictures/LockScreen/current -s fill -c 000000 &
+    pidof swaylock || swaylock -f -i ~/Pictures/LockScreen/current -s fill -c 000000
+    sway-notify "unlocked"
 }
 
 lock_gpg_clear() {

@@ -1959,7 +1959,8 @@ Just a gathering place of locky/suspendy type things&#x2026;
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     lock() {
-        pidof swaylock || swaylock -f -i ~/Pictures/LockScreen/current -s fill -c 000000 &
+        pidof swaylock || swaylock -f -i ~/Pictures/LockScreen/current -s fill -c 000000
+        sway-notify "unlocked"
     }
     
     lock_gpg_clear() {
@@ -2058,10 +2059,10 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    notify-send -t 3000 "${@}" || true
+    notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb702965"></a>
+<a id="org805ed0f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2107,7 +2108,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb702965).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org805ed0f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
