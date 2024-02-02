@@ -105,7 +105,7 @@ NB - NOT Exported as lots of things want to update it
     export ALTERNATE_EDITOR=""
     export EDITOR="emacsclient -t"
     export VISUAL="emacsclient -r"
-    export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
+    # export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
     
     
     export HISTSIZE=2056
@@ -2062,7 +2062,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org805ed0f"></a>
+<a id="org17547ed"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2108,7 +2108,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org805ed0f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org17547ed).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

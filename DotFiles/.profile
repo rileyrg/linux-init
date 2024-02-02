@@ -20,7 +20,7 @@ export PROMPT_COMMAND='history -a'
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"
 export VISUAL="emacsclient -r"
-export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
+# export EAT_SHELL_INTEGRATION_DIR="$HOME/.emacs.d/straight/build/eat/integration"
 
 
 export HISTSIZE=2056
