@@ -2028,6 +2028,8 @@ Just a gathering place of locky/suspendy type things&#x2026;
 
 1.  SWAY-IDLE DEFAULTS
 
+    Not exported : add to .profile.local
+    
         export SWAYIDLEHOOK_BLANK=300
         export SWAYIDLEHOOK_LOCK=3600
         export SWAYIDLEHOOK_SUSPEND=0
@@ -2062,7 +2064,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org17547ed"></a>
+<a id="orgc547d4b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2108,7 +2110,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org17547ed).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc547d4b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

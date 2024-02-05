@@ -2339,7 +2339,8 @@ Just a gathering place of locky/suspendy type things...
        before-sleep 'sway-lock-utils lock'
 #+end_src
 **** SWAY-IDLE DEFAULTS
-#+begin_src bash :tangle "DotFiles/.profile"
+Not exported : add to .profile.local
+#+begin_src bash :tangle no
   export SWAYIDLEHOOK_BLANK=300
   export SWAYIDLEHOOK_LOCK=3600
   export SWAYIDLEHOOK_SUSPEND=0
