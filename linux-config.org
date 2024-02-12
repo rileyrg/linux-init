@@ -185,7 +185,8 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
   # OBS recording studio
-  export QT_QPA_PLATFORM=wayland
+  # export QT_QPA_PLATFORM=wayland
+  export QT_QPA_PLATFORM="xcb"
 
   #alias man=eman
 

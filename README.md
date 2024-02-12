@@ -119,7 +119,8 @@ NB - NOT Exported as lots of things want to update it
     export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
     
     # OBS recording studio
-    export QT_QPA_PLATFORM=wayland
+    # export QT_QPA_PLATFORM=wayland
+    export QT_QPA_PLATFORM="xcb"
     
     #alias man=eman
     
@@ -2064,7 +2065,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc547d4b"></a>
+<a id="org354a2c5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2110,7 +2111,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc547d4b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org354a2c5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

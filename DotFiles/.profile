@@ -34,7 +34,8 @@ export CMAKE_EXPORT_COMPILE_COMMANDS=1
 export RIPGREP_CONFIG_PATH="${HOME}"/.ripgreprc
 
 # OBS recording studio
-export QT_QPA_PLATFORM=wayland
+# export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORM="xcb"
 
 #alias man=eman
 
