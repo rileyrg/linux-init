@@ -2585,8 +2585,8 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
-  #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-  sway-firefox "$1"
+  google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+  # sway-firefox "$1"
 #+end_src
 *** ~/bin/sway/sway-email
 :PROPERTIES:
