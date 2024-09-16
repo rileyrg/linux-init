@@ -147,6 +147,10 @@ set $ws10 10
 exec_always sway-screen-naming
 # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
 
+# switch focus between outputs
+bindsym $mod+Control+Left focus output left
+bindsym $mod+Control+Right focus output right
+
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1

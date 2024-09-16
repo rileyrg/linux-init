@@ -6,3 +6,8 @@
 - hexchat/logs/**
 - hexchat/scrollback/**
 - cache/**
+<<<<<<< Updated upstream
+=======
+- rclone/rclone.conf
+- .syncrclone/logs/**
+>>>>>>> Stashed changes

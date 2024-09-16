@@ -1211,7 +1211,6 @@ I want a key to create and then toggle a terminal.
   exec_always sway-screen-naming
   # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
 
-
   # switch to workspace
   bindsym $mod+1 workspace number $ws1
   bindsym $mod+2 workspace number $ws2
