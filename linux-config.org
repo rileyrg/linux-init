@@ -980,6 +980,8 @@ Override in .profile.local
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
 
+  mouse_warping output
+
   include /etc/sway/config-vars.d/*
   include config-vars.d/*
 
