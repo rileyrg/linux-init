@@ -1,8 +1,8 @@
 {
   "layer": "top",
-  "position": "bottom",
-  "height": 30,
-  "width": 1280,
+  "position": "top",
+  "height": 10,
+  "width": 0,
 
   "modules-left": [
     "sway/workspaces",

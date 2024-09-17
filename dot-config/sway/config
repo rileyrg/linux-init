@@ -136,7 +136,7 @@ bindsym $mod+Tab workspace back_and_forth
 set $ws1 1:edit
 set $ws2 2:research
 set $ws3 3:IDE
-set $ws4 4:browse
+set $ws4 4:debug
 set $ws5 5:dired
 set $ws6 6:music
 set $ws7 7:video

@@ -1200,7 +1200,7 @@ I want a key to create and then toggle a terminal.
   set $ws1 1:edit
   set $ws2 2:research
   set $ws3 3:IDE
-  set $ws4 4:browse
+  set $ws4 4:debug
   set $ws5 5:dired
   set $ws6 6:music
   set $ws7 7:video
@@ -1476,11 +1476,12 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 :END:
 
 #+begin_src json
+
   {
     "layer": "top",
-    "position": "bottom",
-    "height": 30,
-    "width": 1280,
+    "position": "top",
+    "height": 10,
+    "width": 0,
 
     "modules-left": [
       "sway/workspaces",
