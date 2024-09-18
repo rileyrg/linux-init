@@ -1096,7 +1096,7 @@ I want a key to create and then toggle a terminal.
   bindsym $mod+9 workspace $ws9
   #  bindsym $mod+0 workspace number $ws10
 
-  bindsym $mod+m move workspace to output next
+  bindsym $mod+m move workspace to output right
   bindsym $mod+Control+m exec sway-display-swap
   bindsym $mod+Tab workspace back_and_forth
 
@@ -1602,7 +1602,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   #workspaces button {
       padding: 0 5px;
       /*	background: rgba(28, 28, 28, 0.9);*/
-      color: #b8b8b8;
+      color: #888888;
       /*	margin: 0 1px;*/
   }
   #workspaces button:hover {
@@ -1614,16 +1614,16 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   #workspaces button.visible {
       padding: 0 5px;
       border-radius: 10px;
-      color: #770000;
+      color: #ff0000;
       margin: 0 0px;
   }
 
   #workspaces button.focused {
-      color: #ffffff;
+      color: #00ff00;
 
   }
   #workspaces button.urgent {
-      background: #00ff55;
+      background: #5555ff;
 
   }
 

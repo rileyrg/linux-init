@@ -151,7 +151,7 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 #  bindsym $mod+0 workspace number $ws10
 
-bindsym $mod+m move workspace to output next
+bindsym $mod+m move workspace to output right
 bindsym $mod+Control+m exec sway-display-swap
 bindsym $mod+Tab workspace back_and_forth
 
