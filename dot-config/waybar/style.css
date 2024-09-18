@@ -34,7 +34,7 @@
 #workspaces button {
     padding: 0 5px;
     /*	background: rgba(28, 28, 28, 0.9);*/
-    color: #b8b8b8;
+    color: #888888;
     /*	margin: 0 1px;*/
 }
 #workspaces button:hover {
@@ -46,12 +46,16 @@
 #workspaces button.visible {
     padding: 0 5px;
     border-radius: 10px;
-    color: #770000;
+    color: #ff0000;
     margin: 0 0px;
 }
 
 #workspaces button.focused {
-    color: #ff0000;
+    color: #00ff00;
+
+}
+#workspaces button.urgent {
+    background: #5555ff;
 
 }
 
