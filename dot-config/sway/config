@@ -144,7 +144,7 @@ set $ws6 6:music
 set $ws7 7:video
 set $ws8 8:irc
 set $ws9 9:steam
-set $ws10 10
+set $ws10 10:scratch
 
 exec_always sway-screen-naming
 # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"

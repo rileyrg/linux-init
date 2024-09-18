@@ -737,9 +737,9 @@ Override in .profile.local
   "current_border_width": 0,
   "rect": {
     "x": 1,
-    "y": 1,
+    "y": 23,
     "width": 1918,
-    "height": 1048
+    "height": 1056
   },
   "deco_rect": {
     "x": 0,
@@ -762,135 +762,15 @@ Override in .profile.local
   "name": "1:edit",
   "window": null,
   "nodes": [],
-  "floating_nodes": [
-    {
-      "id": 47,
-      "type": "floating_con",
-      "orientation": "none",
-      "percent": 0.0083330680018148685,
-      "urgent": false,
-      "marks": [],
-      "focused": false,
-      "layout": "none",
-      "border": "csd",
-      "current_border_width": 2,
-      "rect": {
-        "x": 792,
-        "y": 500,
-        "width": 335,
-        "height": 50
-      },
-      "deco_rect": {
-        "x": 0,
-        "y": 0,
-        "width": 0,
-        "height": 0
-      },
-      "window_rect": {
-        "x": 0,
-        "y": 0,
-        "width": 335,
-        "height": 50
-      },
-      "geometry": {
-        "x": 0,
-        "y": 0,
-        "width": 335,
-        "height": 29
-      },
-      "name": "Emulator",
-      "window": 6291479,
-      "nodes": [],
-      "floating_nodes": [],
-      "focus": [],
-      "fullscreen_mode": 0,
-      "sticky": false,
-      "pid": 25515,
-      "app_id": null,
-      "visible": true,
-      "max_render_time": 0,
-      "shell": "xwayland",
-      "inhibit_idle": false,
-      "idle_inhibitors": {
-        "user": "none",
-        "application": "none"
-      },
-      "window_properties": {
-        "title": "Emulator",
-        "transient_for": 6291461,
-        "window_type": "utility"
-      }
-    },
-    {
-      "id": 53,
-      "type": "floating_con",
-      "orientation": "none",
-      "percent": 0.019103869329533785,
-      "urgent": false,
-      "marks": [],
-      "focused": false,
-      "layout": "none",
-      "border": "csd",
-      "current_border_width": 2,
-      "rect": {
-        "x": 922,
-        "y": 269,
-        "width": 75,
-        "height": 512
-      },
-      "deco_rect": {
-        "x": 0,
-        "y": 0,
-        "width": 0,
-        "height": 0
-      },
-      "window_rect": {
-        "x": 0,
-        "y": 0,
-        "width": 75,
-        "height": 512
-      },
-      "geometry": {
-        "x": 0,
-        "y": 0,
-        "width": 61,
-        "height": 512
-      },
-      "name": "Emulator",
-      "window": 6291473,
-      "nodes": [],
-      "floating_nodes": [],
-      "focus": [],
-      "fullscreen_mode": 0,
-      "sticky": false,
-      "pid": 25515,
-      "app_id": null,
-      "visible": true,
-      "max_render_time": 0,
-      "shell": "xwayland",
-      "inhibit_idle": false,
-      "idle_inhibitors": {
-        "user": "none",
-        "application": "none"
-      },
-      "window_properties": {
-        "title": "Emulator",
-        "transient_for": 6291461,
-        "window_type": "utility"
-      }
-    }
-  ],
+  "floating_nodes": [],
   "focus": [
-    10,
-    61,
-    53,
-    47
+    7
   ],
   "fullscreen_mode": 1,
   "sticky": false,
   "num": 1,
   "output": "eDP-1",
-  "representation": "H[emacs V[H[firefox] (null)]]",
+  "representation": "H[Emacs]",
   "focused": true,
   "visible": true
 }
@@ -1208,7 +1088,7 @@ I want a key to create and then toggle a terminal.
   set $ws7 7:video
   set $ws8 8:irc
   set $ws9 9:steam
-  set $ws10 10
+  set $ws10 10:scratch
 
   exec_always sway-screen-naming
   # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
@@ -1520,9 +1400,18 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
 
     "sway/workspaces": {
+
+      "persistant_workspaces": {
+         "edit": [],
+         "research": [],
+         "IDE": [],
+         "DEBUG": [],
+      },
+
+
       "disable-scroll": true,
-      "all-outputs": true,
-      "format": "{name}",
+      "all-outputs": false,
+      "format": "{index} {name}",
       "format-icons": {
         "urgent": "<span color='#e85c5c'></span>",
         "focused": "<span color='#8af0f0'></span>",

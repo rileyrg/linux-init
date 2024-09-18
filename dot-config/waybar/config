@@ -39,9 +39,18 @@
 
 
   "sway/workspaces": {
+
+    "persistant_workspaces": {
+       "edit": [],
+       "research": [],
+       "IDE": [],
+       "DEBUG": [],
+    },
+
+
     "disable-scroll": true,
-    "all-outputs": true,
-    "format": "{name}",
+    "all-outputs": false,
+    "format": "{index} {name}",
     "format-icons": {
       "urgent": "<span color='#e85c5c'></span>",
       "focused": "<span color='#8af0f0'></span>",
