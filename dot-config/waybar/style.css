@@ -51,7 +51,11 @@
 }
 
 #workspaces button.focused {
-    color: #ff0000;
+    color: #ffffff;
+
+}
+#workspaces button.urgent {
+    background: #00ff55;
 
 }
 

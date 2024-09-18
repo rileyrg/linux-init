@@ -39,23 +39,21 @@
 
 
   "sway/workspaces": {
-
-    "persistant_workspaces": {
-       "edit": [],
-       "research": [],
-       "IDE": [],
-       "DEBUG": [],
-    },
-
-
     "disable-scroll": true,
     "all-outputs": false,
-    "format": "{index} {name}",
+    "format": "({name}){icon}",
     "format-icons": {
-      "urgent": "<span color='#e85c5c'></span>",
-      "focused": "<span color='#8af0f0'></span>",
-      "default": "<span color='#b8b8b8'></span>"
-    }
+      "1": "edit",
+      "2": "research",
+      "3": "IDE",
+      "4": "Debug",
+      "5": "DIRED",
+      "6": "Music",
+      "7": "Video",
+      "8": "IRC",
+      "9": "Steam",
+      "10": "Scratch",
+    },
   },
 
   "sway/mode": {
