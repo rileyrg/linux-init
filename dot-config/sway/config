@@ -298,4 +298,5 @@ for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
+exec_always cat /proc/acpi/button/lid/LID/state | awk '{print $2}' | grep -q 'closed' && swaymsg output eDP-1 disable
 exec "sleep 0.5 && swaymsg workspace $ws1;"

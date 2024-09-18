@@ -2088,9 +2088,9 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 
 
   {
+  output eDP-1 disable mode 1920x1080 position 4540,0
   output DP-4 enable mode 25640x1440  position 0,0
   output DP-5 enable mode 1920x1080   position 2560,0
-  output eDP-1 disable mode 1920x1080 position 4540,0
   }
 
 #+end_src
@@ -3537,5 +3537,6 @@ fi
 #+end_src
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
+  exec_always cat /proc/acpi/button/lid/LID/state | awk '{print $2}' | grep -q 'closed' && swaymsg output eDP-1 disable
   exec "sleep 0.5 && swaymsg workspace $ws1;"
 #+end_src
