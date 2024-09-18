@@ -1068,8 +1068,6 @@ I want a key to create and then toggle a terminal.
   # Define names for default workspaces for which we configure key bindings later on.
   # We use variables to avoid repeating the names in multiple places.
 
-
-
   set $ws1 "1"
   set $ws2 "2"
   set $ws3 "3"
@@ -1284,6 +1282,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   assign [class="Emacs"] $ws1
   assign [class="Hexchat"] $ws8
   assign [app_id="whatsapp-for-linux"] $ws8
+  assign [app_id="telegram"] $ws8
   assign [class="discord"] $ws8
   assign [class="Steam"] $ws9
 #+end_src
@@ -1399,14 +1398,14 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       "all-outputs": false,
       "format": "({name}){icon}",
       "format-icons": {
-        "1": "edit",
-        "2": "research",
-        "3": "IDE",
-        "4": "Debug",
-        "5": "DIRED",
-        "6": "Music",
-        "7": "Video",
-        "8": "IRC",
+        "1": "⌨",
+        "2": "🔍",
+        "3": "👷",
+        "4": "🪲",
+        "5": "📁",
+        "6": "🎧",
+        "7": "",
+        "8": "🗨",
         "9": "Steam",
         "10": "Scratch",
       },
@@ -2086,8 +2085,8 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 
   {
   output eDP-1 disable mode 1920x1080 position 4540,0
-  output DP-4 enable mode 25640x1440  position 0,0
-  output DP-5 enable mode 1920x1080   position 2560,0
+  output DP-4 enable mode 2560x1440  position 0,0
+  output DP-3 enable mode 1920x1080   position 2560,0
   }
 
 #+end_src
@@ -3535,5 +3534,5 @@ fi
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
   exec_always cat /proc/acpi/button/lid/LID/state | awk '{print $2}' | grep -q 'closed' && swaymsg output eDP-1 disable
-  exec "sleep 0.5 && swaymsg workspace $ws1;"
+  exec_always  sleep 0.5 && swaymsg workspace $ws1
 #+end_src

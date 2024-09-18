@@ -123,8 +123,6 @@ bindsym $mod+Shift+s sticky toggle
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 
-
-
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -243,6 +241,7 @@ assign [app_id="emacs"] $ws1
 assign [class="Emacs"] $ws1
 assign [class="Hexchat"] $ws8
 assign [app_id="whatsapp-for-linux"] $ws8
+assign [app_id="telegram"] $ws8
 assign [class="discord"] $ws8
 assign [class="Steam"] $ws9
 
@@ -293,4 +292,4 @@ assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
 exec_always cat /proc/acpi/button/lid/LID/state | awk '{print $2}' | grep -q 'closed' && swaymsg output eDP-1 disable
-exec "sleep 0.5 && swaymsg workspace $ws1;"
+exec_always  sleep 0.5 && swaymsg workspace $ws1
