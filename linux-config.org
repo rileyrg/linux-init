@@ -1398,6 +1398,18 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
 
     "sway/workspaces": {
+      "persistent_workspaces": {
+          "1": [],
+          "2": [],
+          "3": [],
+          "4": [],
+          "5": [],
+          "6": [],
+          "7": [],
+          "8": [],
+          "9": [],
+          "10": []
+      },
       "disable-scroll": true,
       "all-outputs": false,
       "format": "({name}){icon}",
@@ -2088,9 +2100,9 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 
 
   {
-  output eDP-1 disable mode 1920x1080 position 4540,0
   output DP-4 enable mode 2560x1440  position 0,0
   output DP-3 enable mode 1920x1080   position 2560,0
+  output eDP-1 disable mode 1920x1080 position 4540,0
   }
 
 #+end_src
@@ -2296,16 +2308,18 @@ See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-move"
   #!/usr/bin/env bash
 
-  # outputs=(
-  #     $(swaymsg -t get_outputs |   jq -r 'select(.active)| sort_by(.rect.x) | .[].name')
-  # )
+  outputs=(
+      $(swaymsg -t get_outputs |   jq -r 'sort_by(.rect.x) | .[].name')
+  )
 
-  # export leftOutput=${outputs[1]}
-  # export rightOutput=${outputs[2]}
+  # leftOutput=${outputs[0]}
+  # rightOutput=${outputs[2]}
+  # sway-notify $leftOutput
+  # sway-notify $rightOutput
   export leftOutput="DP-4"
   export rightOutput="DP-3"
 
-  swaymsg '
+  swaymsg "
     workspace 1; move workspace to output $leftOutput;
     workspace 2; move workspace to output $leftOutput;
     workspace 3; move workspace to output $leftOutput;
@@ -2315,7 +2329,7 @@ See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
     workspace 7; move workspace to output $rightOutput;
     workspace 8; move workspace to output $rightOutput;
     workspace 9; move workspace to output $rightOutput;
-  '
+  "
 #+end_src
 
 *** ~/bin/sway/sway-screen-menu
@@ -3538,5 +3552,6 @@ fi
 #+end_src
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
-    exec_always sleep 1.5 && swaymsg workspace $ws1
+  # exec_always sleep 1 && sway-workspace-move
+  exec_always sleep 1.5 && swaymsg workspace $ws1
 #+end_src

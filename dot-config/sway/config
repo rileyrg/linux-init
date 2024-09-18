@@ -294,4 +294,5 @@ for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
+# exec_always sleep 1 && sway-workspace-move
 exec_always sleep 1.5 && swaymsg workspace $ws1
