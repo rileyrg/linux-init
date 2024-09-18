@@ -1062,6 +1062,8 @@ I want a key to create and then toggle a terminal.
 
   bindsym $mod+Shift+s sticky toggle
 
+  bindsym $mod+Control+w exec sway-workspace-move
+
   # focus the child container
   #bindsym $mod+d focus child
 
@@ -1078,9 +1080,6 @@ I want a key to create and then toggle a terminal.
   set $ws8 "8"
   set $ws9 "9"
   set $ws10 "scratch"
-
-  exec_always sway-screen-naming
-  # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
 
   # switch to workspace
   bindsym $mod+1 workspace $ws1
@@ -2292,30 +2291,31 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   (sleep 2 && sway-notify "${m}:${c}") &
 #+end_src
 
-*** ~/bin/sway/sway-screen-naming
+*** ~/bin/sway/sway-workspace-move
 See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
-#+begin_src bash :tangle "~/bin/sway/sway-screen-naming"
-    #!/usr/bin/env bash
+#+begin_src bash :tangle "~/bin/sway/sway-workspace-move"
+  #!/usr/bin/env bash
 
-    outputs=(
-        $(swaymsg -t get_outputs | jq -r 'sort_by(.rect.x) | .[].name')
-    )
+  # outputs=(
+  #     $(swaymsg -t get_outputs |   jq -r 'select(.active)| sort_by(.rect.x) | .[].name')
+  # )
 
-    export leftOutput=${outputs[0]}
-    export rightOutput=${outputs[1]}
+  # export leftOutput=${outputs[1]}
+  # export rightOutput=${outputs[2]}
+  export leftOutput="DP-4"
+  export rightOutput="DP-3"
 
-    swaymsg "
-      set \$leftOutput \"$leftOutput\"; set \$rightOutput \"$rightOutput\";
-      workspace \$ws1; move workspace to output \"$leftOutput\";
-      workspace \$ws6; move workspace to output \"$rightOutput\";
-      workspace \$ws1  output \"$leftOutput\";
-      workspace \$ws2  output \"$leftOutput\";
-      workspace \$ws3  output \"$leftOutput\";
-      workspace \$ws6  output \"$rightOutput\";
-      workspace \$ws7  output \"$rightOutput\";
-      workspace \$ws8  output \"$rightOutput\";
-      workspace \$ws9  output \"$rightOutput\";
-    "
+  swaymsg '
+    workspace 1; move workspace to output $leftOutput;
+    workspace 2; move workspace to output $leftOutput;
+    workspace 3; move workspace to output $leftOutput;
+    workspace 4; move workspace to output $rightOutput;
+    workspace 5; move workspace to output $leftOutput;
+    workspace 6; move workspace to output $rightOutput;
+    workspace 7; move workspace to output $rightOutput;
+    workspace 8; move workspace to output $rightOutput;
+    workspace 9; move workspace to output $rightOutput;
+  '
 #+end_src
 
 *** ~/bin/sway/sway-screen-menu
@@ -3538,5 +3538,5 @@ fi
 #+end_src
 ** late addition to .config/sway/config
 #+begin_src conf :tangle ~/.config/sway/config
-  exec_always sleep 1.5 && swaymsg workspace $ws1
+    exec_always sleep 1.5 && swaymsg workspace $ws1
 #+end_src

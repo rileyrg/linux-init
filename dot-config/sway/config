@@ -117,6 +117,8 @@ bindsym $mod+p focus parent
 
 bindsym $mod+Shift+s sticky toggle
 
+bindsym $mod+Control+w exec sway-workspace-move
+
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -133,9 +135,6 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "scratch"
-
-exec_always sway-screen-naming
-# Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1

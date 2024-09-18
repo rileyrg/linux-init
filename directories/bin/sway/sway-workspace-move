@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# outputs=(
+#     $(swaymsg -t get_outputs |   jq -r 'select(.active)| sort_by(.rect.x) | .[].name')
+# )
+
+# export leftOutput=${outputs[1]}
+# export rightOutput=${outputs[2]}
+export leftOutput="DP-4"
+export rightOutput="DP-3"
+
+swaymsg '
+  workspace 1; move workspace to output $leftOutput;
+  workspace 2; move workspace to output $leftOutput;
+  workspace 3; move workspace to output $leftOutput;
+  workspace 4; move workspace to output $rightOutput;
+  workspace 5; move workspace to output $leftOutput;
+  workspace 6; move workspace to output $rightOutput;
+  workspace 7; move workspace to output $rightOutput;
+  workspace 8; move workspace to output $rightOutput;
+  workspace 9; move workspace to output $rightOutput;
+'
