@@ -37,8 +37,8 @@ bindsym $mod+u exec sway-launcher-ulauncher
 
 # exec sway-lock
 # exec emacs --daemon
-exec sway-kanshi
 exec sway-idle
+exec_always  sleep 0.3 && sway-kanshi
 exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 exec sleep 2 && gpg-cache
 exec blueman-applet
@@ -283,7 +283,11 @@ for_window [class="steam_app.*"] fullscreen enable
 for_window [class="steam_app*"] inhibit_idle focus
 
 bar {
-swaybar_command waybar
+  swaybar_command waybar
+  position top
+  hidden_state hide
+  mode hide
+  modifier Mod4
 }
 bindsym $mod+Alt+b exec killall -SIGUSR1 waybar
 
@@ -291,5 +295,4 @@ for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] $ws3
 assign [title="STM32CubeIDE"] $ws3
 
-exec_always cat /proc/acpi/button/lid/LID/state | awk '{print $2}' | grep -q 'closed' && swaymsg output eDP-1 disable
-exec_always  sleep 0.5 && swaymsg workspace $ws1
+exec_always sleep 1.5 && swaymsg workspace $ws1
