@@ -682,6 +682,8 @@ Override in .profile.local
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
     
+    mouse_warping output
+    
     include /etc/sway/config-vars.d/*
     include config-vars.d/*
     
@@ -694,7 +696,7 @@ Override in .profile.local
     
     # Font  for window titles. Will also be used by the bar unless a different font
     # is used in the bar {} block below.
-    font pango: "JetBrainsMono Nerd Font 11"
+    font pango: "JetBrainsMono Nerd Font 6"
     #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
     
     # reload the configuration file
@@ -711,8 +713,8 @@ Override in .profile.local
 
     # exec sway-lock
     # exec emacs --daemon
-    exec sway-kanshi
     exec sway-idle
+    exec_always  sleep 0.3 && sway-kanshi
     exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
     exec sleep 2 && gpg-cache
     exec blueman-applet
@@ -834,25 +836,18 @@ I want a key to create and then toggle a terminal.
 
 ### navigation                                  :navigation
 
+    
     # change focus
     # bindsym $mod+h focus left
     # bindsym $mod+j focus down
     # bindsym $mod+k focus up
     # bindsym $mod+l focus right
     
-    bindsym $mod+o focus left
-    
     # alternatively, you can use the cursor keys:
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
-    
-    # move focused window
-    bindsym $mod+Shift+h move left
-    bindsym $mod+Shift+j move down
-    bindsym $mod+Shift+k move up
-    bindsym $mod+Shift+l move right
     
     # alternatively, you can use the cursor keys:
     bindsym $mod+Shift+Left move left
@@ -879,9 +874,7 @@ I want a key to create and then toggle a terminal.
     
     bindsym $mod+Shift+s sticky toggle
     
-    bindsym $mod+m move workspace to output left
-    bindsym $mod+Control+m exec sway-display-swap
-    bindsym $mod+Tab workspace back_and_forth
+    bindsym $mod+Control+w exec sway-workspace-move
     
     # focus the child container
     #bindsym $mod+d focus child
@@ -889,44 +882,45 @@ I want a key to create and then toggle a terminal.
     # Define names for default workspaces for which we configure key bindings later on.
     # We use variables to avoid repeating the names in multiple places.
     
-    set $ws1 1:edit
-    set $ws2 2:research
-    set $ws3 3:IDE
-    set $ws4 4:browse
-    set $ws5 5:dired
-    set $ws6 6:music
-    set $ws7 7:video
-    set $ws8 8:irc
-    set $ws9 9:steam
-    set $ws10 10
-    
-    exec_always sway-screen-naming
-    # Bindsym F12 exec sway-notify "left:$$leftOutput, right:$$rightOutput"
-    
+    set $ws1 "1"
+    set $ws2 "2"
+    set $ws3 "3"
+    set $ws4 "4"
+    set $ws5 "5"
+    set $ws6 "6"
+    set $ws7 "7"
+    set $ws8 "8"
+    set $ws9 "9"
+    set $ws10 "scratch"
     
     # switch to workspace
-    bindsym $mod+1 workspace number $ws1
-    bindsym $mod+2 workspace number $ws2
-    bindsym $mod+3 workspace number $ws3
-    bindsym $mod+4 workspace number $ws4
-    bindsym $mod+5 workspace number $ws5
-    bindsym $mod+6 workspace number $ws6
-    bindsym $mod+7 workspace number $ws7
-    bindsym $mod+8 workspace number $ws8
-    bindsym $mod+9 workspace number $ws9
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
     #  bindsym $mod+0 workspace number $ws10
     
+    bindsym $mod+m move workspace to output right
+    bindsym $mod+Control+m exec sway-display-swap
+    bindsym $mod+Tab workspace back_and_forth
+    
+    
     # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number $ws1
-    bindsym $mod+Shift+2 move container to workspace number $ws2
-    bindsym $mod+Shift+3 move container to workspace number $ws3
-    bindsym $mod+Shift+4 move container to workspace number $ws4
-    bindsym $mod+Shift+5 move container to workspace number $ws5
-    bindsym $mod+Shift+6 move container to workspace number $ws6
-    bindsym $mod+Shift+7 move container to workspace number $ws7
-    bindsym $mod+Shift+8 move container to workspace number $ws8
-    bindsym $mod+Shift+9 move container to workspace number $ws9
-    bindsym $mod+Shift+0 move container to workspace number $ws10
+    bindsym $mod+Shift+1 move container to workspace $ws1
+    bindsym $mod+Shift+2 move container to workspace $ws2
+    bindsym $mod+Shift+3 move container to workspace $ws3
+    bindsym $mod+Shift+4 move container to workspace $ws4
+    bindsym $mod+Shift+5 move container to workspace $ws5
+    bindsym $mod+Shift+6 move container to workspace $ws6
+    bindsym $mod+Shift+7 move container to workspace $ws7
+    bindsym $mod+Shift+8 move container to workspace $ws8
+    bindsym $mod+Shift+9 move container to workspace $ws9
+    bindsym $mod+Shift+0 move container to workspace $ws10
     
     bindsym $mod+Control+Shift+Right move workspace to output right
     bindsym $mod+Control+Shift+Left move workspace to output left
@@ -935,6 +929,7 @@ I want a key to create and then toggle a terminal.
     
     
     # resize window (you can also use the mouse for that)
+    bindsym $mod+r mode "resize"
     mode "resize" {
     # These bindings trigger as soon as you enter the resize mode
     
@@ -958,8 +953,6 @@ I want a key to create and then toggle a terminal.
     bindsym Escape mode "default"
     bindsym $mod+r mode "default"
     }
-    
-    bindsym $mod+r mode "resize"
 
 
 ### clipboard
@@ -1106,6 +1099,7 @@ I want a key to create and then toggle a terminal.
     assign [class="Emacs"] $ws1
     assign [class="Hexchat"] $ws8
     assign [app_id="whatsapp-for-linux"] $ws8
+    assign [app_id="telegram"] $ws8
     assign [class="discord"] $ws8
     assign [class="Steam"] $ws9
 
@@ -1166,17 +1160,23 @@ I want a key to create and then toggle a terminal.
     <https://github.com/Alexays/Waybar/wiki/Configuration>
     
         bar {
-        swaybar_command waybar
+          swaybar_command waybar
+          position top
+          hidden_state hide
+          mode hide
+          modifier Mod4
         }
         bindsym $mod+Alt+b exec killall -SIGUSR1 waybar
     
     1.  ~/.config/waybar/config
     
+            
             {
               "layer": "top",
-              "position": "bottom",
-              "height": 30,
-              "width": 1280,
+              "mode": "hide",
+              "position": "top",
+              "height": 22,
+              "width": 0,
             
               "modules-left": [
                 "sway/workspaces",
@@ -1213,14 +1213,33 @@ I want a key to create and then toggle a terminal.
             
             
               "sway/workspaces": {
+                "persistent_workspaces": {
+                    "1": ["DP-4"],
+                    "2": ["DP-4"],
+                    "3": [],
+                    "4": ["DP-3"],
+                    "5": [],
+                    "6": [],
+                    "7": [],
+                    "8": [],
+                    "9": [],
+                    "10": []
+                },
                 "disable-scroll": true,
-                "all-outputs": true,
-                "format": "{name}",
+                "all-outputs": false,
+                "format": "({name}){icon}",
                 "format-icons": {
-                  "urgent": "<span color='#e85c5c'></span>",
-                  "focused": "<span color='#8af0f0'></span>",
-                  "default": "<span color='#b8b8b8'></span>"
-                }
+                  "1": "⌨ Edit",
+                  "2": "🔍 Research",
+                  "3": "👷 IDE",
+                  "4": "🪲 Debug",
+                  "5": "📁 Files",
+                  "6": "🎧 Music",
+                  "7": "⏵ Video",
+                  "8": "🗨 IRC",
+                  "9": "Steam",
+                  "10":"Scratch",
+                },
               },
             
               "sway/mode": {
@@ -1409,7 +1428,7 @@ I want a key to create and then toggle a terminal.
             #workspaces button {
                 padding: 0 5px;
                 /*	background: rgba(28, 28, 28, 0.9);*/
-                color: #b8b8b8;
+                color: #888888;
                 /*	margin: 0 1px;*/
             }
             #workspaces button:hover {
@@ -1418,12 +1437,20 @@ I want a key to create and then toggle a terminal.
             
             }
             
-            #workspaces button.focused {
+            #workspaces button.visible {
                 padding: 0 5px;
                 border-radius: 10px;
-                /*	background: #00afd7;*/
-                color: #8af0f0;
+                color: #ff0000;
                 margin: 0 0px;
+            }
+            
+            #workspaces button.focused {
+                color: #00ff00;
+            
+            }
+            #workspaces button.urgent {
+                background: #5555ff;
+            
             }
             
             #workspaces button.urgent {
@@ -1845,7 +1872,7 @@ Load a host specific kanshi file if it exists
     #!/usr/bin/env bash
     #Maintained in linux-config.org
     # pidof kanshi && echo "kanshi process $(pidof kanshi) already running. Exiting." && exit 0
-    killall -9 kanshi &>/dev/null
+    pkill kanshi
     config="${HOME}/.config/kanshi/config-$(hostname)"
     if [ -f  "$config" ]; then
         echo  "kanshi -c $config"
@@ -1891,8 +1918,8 @@ Load a host specific kanshi file if it exists
         
         
         {
-        output DP-4 enable mode 25640x1440  position 0,0
-        output DP-5 enable mode 1920x1080   position 2560,0
+        output DP-4 enable mode 2560x1440  position 0,0
+        output DP-3 enable mode 1920x1080   position 2560,0
         output eDP-1 disable mode 1920x1080 position 4540,0
         }
 
@@ -2065,7 +2092,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org354a2c5"></a>
+<a id="orgcc0111a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2082,36 +2109,39 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     (sleep 2 && sway-notify "${m}:${c}") &
 
 
-### ~/bin/sway/sway-screen-naming
+### ~/bin/sway/sway-workspace-move
 
 See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3>
 
     #!/usr/bin/env bash
     
     outputs=(
-        $(swaymsg -t get_outputs | jq -r 'sort_by(.rect.x) | .[].name')
+        $(swaymsg -t get_outputs |   jq -r 'sort_by(.rect.x) | .[].name')
     )
     
-    export leftOutput=${outputs[0]}
-    export rightOutput=${outputs[1]}
+    # leftOutput=${outputs[0]}
+    # rightOutput=${outputs[2]}
+    # sway-notify $leftOutput
+    # sway-notify $rightOutput
+    export leftOutput="DP-4"
+    export rightOutput="DP-3"
     
     swaymsg "
-      set \$leftOutput \"$leftOutput\"; set \$rightOutput \"$rightOutput\";
-      workspace \$ws1; move workspace to output \"$leftOutput\";
-      workspace \$ws6; move workspace to output \"$rightOutput\";
-      workspace \$ws1  output \"$leftOutput\";
-      workspace \$ws2  output \"$leftOutput\";
-      workspace \$ws3  output \"$leftOutput\";
-      workspace \$ws6  output \"$rightOutput\";
-      workspace \$ws7  output \"$rightOutput\";
-      workspace \$ws8  output \"$rightOutput\";
-      workspace \$ws9  output \"$rightOutput\";
+      workspace 1; move workspace to output $leftOutput;
+      workspace 2; move workspace to output $leftOutput;
+      workspace 3; move workspace to output $leftOutput;
+      workspace 4; move workspace to output $rightOutput;
+      workspace 5; move workspace to output $leftOutput;
+      workspace 6; move workspace to output $rightOutput;
+      workspace 7; move workspace to output $rightOutput;
+      workspace 8; move workspace to output $rightOutput;
+      workspace 9; move workspace to output $rightOutput;
     "
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org354a2c5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc0111a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2277,8 +2307,8 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
-    #google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
-    sway-firefox "$1"
+    google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+    # sway-firefox "$1"
 
 
 ### ~/bin/sway/sway-email
@@ -3367,5 +3397,6 @@ out of date
 
 ## late addition to .config/sway/config
 
-    exec "sleep 0.5 && swaymsg workspace $ws1;"
+    # exec_always sleep 1 && sway-workspace-move
+    exec_always sleep 1.5 && swaymsg workspace $ws1
 
