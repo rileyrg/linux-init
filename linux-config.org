@@ -1399,10 +1399,10 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
     "sway/workspaces": {
       "persistent_workspaces": {
-          "1": [],
-          "2": [],
+          "1": ["DP-4"],
+          "2": ["DP-4"],
           "3": [],
-          "4": [],
+          "4": ["DP-3"],
           "5": [],
           "6": [],
           "7": [],
