@@ -891,8 +891,9 @@ Override in .profile.local
 #+begin_src conf
   # exec sway-lock
   # exec emacs --daemon
-  exec sway-idle
-  exec_always  sleep 0.3 && sway-kanshi
+  exec_always sway-idle
+  exec_always sleep 0.3 && sway-kanshi
+  exec_always sway-bluetooth-controls
   exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
   exec sleep 2 && gpg-cache
   exec blueman-applet
@@ -1985,6 +1986,15 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
   # Maintained in linux-config.org
   sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 #+end_src
+*** ~/bin/sway/sway-bluetooth-controls
+:PROPERTIES:
+:END:
+#+begin_src bash :tangle "~/bin/sway/sway-bluetooth-controls"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  pkill mpris-proxy
+  mpris-proxy
+#+end_src
 *** ~/bin/sway/sway-bluetooth
 :PROPERTIES:
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
@@ -2230,7 +2240,7 @@ Just a gathering place of locky/suspendy type things...
 #+begin_src bash :tangle "~/bin/sway/sway-idle"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  pidof swayidle  && killall -9 swayidle
+  pkill swayidle
   exec swayidle -w \
        timeout 1 '' \
        resume 'sway-lock-utils unblank' \

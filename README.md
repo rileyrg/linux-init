@@ -713,8 +713,9 @@ Override in .profile.local
 
     # exec sway-lock
     # exec emacs --daemon
-    exec sway-idle
-    exec_always  sleep 0.3 && sway-kanshi
+    exec_always sway-idle
+    exec_always sleep 0.3 && sway-kanshi
+    exec_always sway-bluetooth-controls
     exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
     exec sleep 2 && gpg-cache
     exec blueman-applet
@@ -1802,6 +1803,14 @@ I want a key to create and then toggle a terminal.
     sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 
 
+### ~/bin/sway/sway-bluetooth-controls
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    pkill mpris-proxy
+    mpris-proxy
+
+
 ### ~/bin/sway/sway-bluetooth
 
     #!/usr/bin/env bash
@@ -2038,7 +2047,7 @@ Just a gathering place of locky/suspendy type things&#x2026;
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    pidof swayidle  && killall -9 swayidle
+    pkill swayidle
     exec swayidle -w \
          timeout 1 '' \
          resume 'sway-lock-utils unblank' \
@@ -2092,7 +2101,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcc0111a"></a>
+<a id="org7c71a8c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2141,7 +2150,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc0111a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org7c71a8c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
