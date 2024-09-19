@@ -1789,6 +1789,13 @@ I want a key to create and then toggle a terminal.
     swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length'
 
 
+### ~/bin/sway/sway-active-monitor-names
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) | .name ]'
+
+
 ### ~/bin/sway/sway-autostart
 
     #!/usr/bin/env bash
@@ -2101,7 +2108,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd3de2cb"></a>
+<a id="orgd725c27"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2125,18 +2132,16 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
     #!/usr/bin/env bash
     
     outputs=(
-        $(swaymsg -t get_outputs |   jq -r 'sort_by(.rect.x) | .[].name')
+        $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select (.active and .dpms) | .name')
     )
     
-    # leftOutput=${outputs[0]}
-    # rightOutput=${outputs[2]}
-    # sway-notify $leftOutput
-    # sway-notify $rightOutput
-    export leftOutput="DP-4"
-    export rightOutput="DP-3"
+    export leftOutput="${outputs[0]}"
+    export rightOutput="${outputs[1]}"
+    
+    echo $leftOutput
+    echo $rightOutput
     
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
-    
     
     swaymsg "
       workspace 1; move workspace to output $leftOutput;
@@ -2154,7 +2159,7 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd3de2cb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd725c27).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
