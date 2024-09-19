@@ -2329,6 +2329,9 @@ See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
   export leftOutput="DP-4"
   export rightOutput="DP-3"
 
+  curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
+
+
   swaymsg "
     workspace 1; move workspace to output $leftOutput;
     workspace 2; move workspace to output $leftOutput;
@@ -2339,6 +2342,7 @@ See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
     workspace 7; move workspace to output $rightOutput;
     workspace 8; move workspace to output $rightOutput;
     workspace 9; move workspace to output $rightOutput;
+    workspace $curr;
   "
 #+end_src
 

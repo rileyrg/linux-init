@@ -2101,7 +2101,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org7c71a8c"></a>
+<a id="orgd3de2cb"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2135,6 +2135,9 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
     export leftOutput="DP-4"
     export rightOutput="DP-3"
     
+    curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
+    
+    
     swaymsg "
       workspace 1; move workspace to output $leftOutput;
       workspace 2; move workspace to output $leftOutput;
@@ -2145,12 +2148,13 @@ See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
       workspace 7; move workspace to output $rightOutput;
       workspace 8; move workspace to output $rightOutput;
       workspace 9; move workspace to output $rightOutput;
+      workspace $curr;
     "
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org7c71a8c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd3de2cb).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
