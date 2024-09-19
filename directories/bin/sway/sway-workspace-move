@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 
 outputs=(
-    $(swaymsg -t get_outputs |   jq -r 'sort_by(.rect.x) | .[].name')
+    $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select (.active and .dpms) | .name')
 )
 
-# leftOutput=${outputs[0]}
-# rightOutput=${outputs[2]}
-# sway-notify $leftOutput
-# sway-notify $rightOutput
-export leftOutput="DP-4"
-export rightOutput="DP-3"
+export leftOutput="${outputs[0]}"
+export rightOutput="${outputs[1]}"
+
+echo $leftOutput
+echo $rightOutput
 
 curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
-
 
 swaymsg "
   workspace 1; move workspace to output $leftOutput;

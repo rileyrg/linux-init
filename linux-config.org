@@ -1974,6 +1974,13 @@ Thank you https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/blu
   # Maintained in linux-config.org
   swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length'
 #+end_src
+*** ~/bin/sway/sway-active-monitor-names
+#+begin_src bash :tangle ~/bin/sway/sway-active-monitor-names
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) | .name ]'
+#+end_src
+
 *** ~/bin/sway/sway-autostart
 #+begin_src bash :tangle "~/bin/sway/sway-autostart"
   #!/usr/bin/env bash
@@ -2319,18 +2326,16 @@ See https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3
   #!/usr/bin/env bash
 
   outputs=(
-      $(swaymsg -t get_outputs |   jq -r 'sort_by(.rect.x) | .[].name')
+      $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select (.active and .dpms) | .name')
   )
 
-  # leftOutput=${outputs[0]}
-  # rightOutput=${outputs[2]}
-  # sway-notify $leftOutput
-  # sway-notify $rightOutput
-  export leftOutput="DP-4"
-  export rightOutput="DP-3"
+  export leftOutput="${outputs[0]}"
+  export rightOutput="${outputs[1]}"
+
+  echo $leftOutput
+  echo $rightOutput
 
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
-
 
   swaymsg "
     workspace 1; move workspace to output $leftOutput;
