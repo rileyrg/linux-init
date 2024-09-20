@@ -1913,31 +1913,14 @@ Load a host specific kanshi file if it exists
 
 3.  config-t14s
 
-        {
-        output eDP-1 enable mode 1920x1080  position 0,0
+        profile laptop {
+          output eDP-1 mode 1920x1080 position 0,0
         }
-        
-        {
-        output eDP-1 enable mode 1920x1080 position 2560,0
-        output HDMI-A-1  enable mode 2560x1440 position 0,0
-        }
-        
-        {
-        output eDP-1 enable mode 1920x1080 position 2560,0
-        output DP-1  enable mode 2560x1440 position 0,0
-        }
-        
-        {
-        output eDP-1 enable mode 1920x1080 position 2560,0
-        output DP-2  enable mode 2560x1440 position 0,0
-        }
-        
-        
-        {
-        output DP-4 enable mode 2560x1440  position 0,0
-        output DP-3 enable mode 1920x1080   position 2560,0
-        output eDP-1 disable mode 1920x1080 position 4540,0
-        }
+        profile home{
+         output DP-4  mode 2560x1440  position 0,0
+         output DP-5  mode 1920x1080   position 2560,0
+         output eDP-1 mode 1920x1080 position 4480,0
+         }
 
 4.  config-xmgneo
 
@@ -2108,7 +2091,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd725c27"></a>
+<a id="org3e2ad26"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2127,39 +2110,37 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-workspace-move
 
-See <https://www.reddit.com/r/swaywm/comments/10ys0oy/comment/j80lu88/?context=3>
-
     #!/usr/bin/env bash
     
     outputs=(
-        $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select (.active and .dpms) | .name')
+        $(swaymsg -t get_outputs | jq  -r '.[] | select(.dpms and .active).name')
     )
     
-    export leftOutput="${outputs[0]}"
-    export rightOutput="${outputs[1]}"
+    leftOutput="${outputs[0]}"
+    rightOutput="${outputs[1]:-${leftOutput}}"
+    rightMostOutput="${outputs[2]:-${rightOutput}}"
     
-    echo $leftOutput
-    echo $rightOutput
+    sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
     swaymsg "
       workspace 1; move workspace to output $leftOutput;
-      workspace 2; move workspace to output $leftOutput;
+      workspace 2; move workspace to output $rightOutput;
       workspace 3; move workspace to output $leftOutput;
       workspace 4; move workspace to output $rightOutput;
       workspace 5; move workspace to output $leftOutput;
-      workspace 6; move workspace to output $rightOutput;
-      workspace 7; move workspace to output $rightOutput;
-      workspace 8; move workspace to output $rightOutput;
-      workspace 9; move workspace to output $rightOutput;
+      workspace 6; move workspace to output $rightMostOutput;
+      workspace 7; move workspace to output $rightMostOutput;
+      workspace 8; move workspace to output $rightMostOutput;
+      workspace 9; move workspace to output $rightMostOutput;
       workspace $curr;
     "
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd725c27).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3e2ad26).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

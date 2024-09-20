@@ -1,25 +1,8 @@
-{
-output eDP-1 enable mode 1920x1080  position 0,0
+profile laptop {
+  output eDP-1 mode 1920x1080 position 0,0
 }
-
-{
-output eDP-1 enable mode 1920x1080 position 2560,0
-output HDMI-A-1  enable mode 2560x1440 position 0,0
-}
-
-{
-output eDP-1 enable mode 1920x1080 position 2560,0
-output DP-1  enable mode 2560x1440 position 0,0
-}
-
-{
-output eDP-1 enable mode 1920x1080 position 2560,0
-output DP-2  enable mode 2560x1440 position 0,0
-}
-
-
-{
-output DP-4 enable mode 2560x1440  position 0,0
-output DP-3 enable mode 1920x1080   position 2560,0
-output eDP-1 disable mode 1920x1080 position 4540,0
-}
+profile home{
+ output DP-4  mode 2560x1440  position 0,0
+ output DP-5  mode 1920x1080   position 2560,0
+ output eDP-1 mode 1920x1080 position 4480,0
+ }
