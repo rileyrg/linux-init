@@ -1051,6 +1051,7 @@ I want a key to create and then toggle a terminal.
 
         
         bindsym XF86AudioMute exec  sway-volume-notify "0"
+        bindsym $mod+XF86AudioMute exec  pavucontrol
         bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
         bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
         # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
@@ -1917,9 +1918,9 @@ Load a host specific kanshi file if it exists
           output eDP-1 mode 1920x1080 position 0,0
         }
         profile home{
-         output DP-4  mode 2560x1440  position 0,0
-         output DP-5  mode 1920x1080   position 2560,0
-         output eDP-1 mode 1920x1080 position 4480,0
+         output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 4480,0
          }
 
 4.  config-xmgneo
@@ -2091,7 +2092,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3e2ad26"></a>
+<a id="org3dabb05"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2113,7 +2114,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     #!/usr/bin/env bash
     
     outputs=(
-        $(swaymsg -t get_outputs | jq  -r '.[] | select(.dpms and .active).name')
+        $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active).name')
     )
     
     leftOutput="${outputs[0]}"
@@ -2140,7 +2141,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3e2ad26).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3dabb05).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

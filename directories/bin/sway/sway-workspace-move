@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 outputs=(
-    $(swaymsg -t get_outputs | jq  -r '.[] | select(.dpms and .active).name')
+    $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active).name')
 )
 
 leftOutput="${outputs[0]}"
