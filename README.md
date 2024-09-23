@@ -1920,7 +1920,7 @@ Load a host specific kanshi file if it exists
         profile home{
          output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
          output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
-         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 4480,0
+         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
          }
 
 4.  config-xmgneo
@@ -2092,7 +2092,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3dabb05"></a>
+<a id="orgb88d493"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2141,7 +2141,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3dabb05).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb88d493).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
