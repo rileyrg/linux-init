@@ -2092,7 +2092,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb88d493"></a>
+<a id="orgcc20a8e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2133,7 +2133,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
       workspace 5; move workspace to output $leftOutput;
       workspace 6; move workspace to output $rightMostOutput;
       workspace 7; move workspace to output $rightMostOutput;
-      workspace 8; move workspace to output $rightMostOutput;
+      workspace 8; move workspace to output $rightOutput;
       workspace 9; move workspace to output $rightMostOutput;
       workspace $curr;
     "
@@ -2141,7 +2141,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb88d493).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc20a8e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

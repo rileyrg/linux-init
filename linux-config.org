@@ -2327,7 +2327,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     workspace 5; move workspace to output $leftOutput;
     workspace 6; move workspace to output $rightMostOutput;
     workspace 7; move workspace to output $rightMostOutput;
-    workspace 8; move workspace to output $rightMostOutput;
+    workspace 8; move workspace to output $rightOutput;
     workspace 9; move workspace to output $rightMostOutput;
     workspace $curr;
   "
