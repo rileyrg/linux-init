@@ -1,218 +1,218 @@
 {
-  "layer": "top",
-  "mode": "hide",
-  "position": "top",
-  "height": 22,
-  "width": 0,
+    "layer": "top",
+    "mode": "hide",
+    "position": "top",
+    "height": 22,
+    "width": 0,
 
-  "modules-left": [
-    "sway/workspaces",
-    "cpu",
-    "temperature",
-    "memory"
-  ],
+    "modules-left": [
+        "sway/workspaces",
+        "cpu",
+        "temperature",
+        "memory"
+    ],
 
-  "modules-center": [
-    "custom/weather",
-    "custom/clock",
-    "idle_inhibitor",
-    "custom/monitors"
-  ],
+    "modules-center": [
+        "custom/weather",
+        "custom/clock",
+        "idle_inhibitor",
+        "custom/monitors"
+    ],
 
-  "modules-right": [
-    "pulseaudio",
-    "backlight",
-    "battery",
-    "custom/power-draw",
-    "wlr/taskbar",
-    "tray"
-  ],
+    "modules-right": [
+        "pulseaudio",
+        "backlight",
+        "battery",
+        "custom/power-draw",
+        "wlr/taskbar",
+        "tray"
+    ],
 
-  "network": {
-    "format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
-    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": " ",
-    "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
-    "interval": 60,
-    "tooltip-format": "{ifname}  {ipaddr}"
-  },
-
-
-  "sway/workspaces": {
-    "persistent_workspaces": {
-        "1": ["DP-4"],
-        "2": ["DP-4"],
-        "3": [],
-        "4": ["DP-3"],
-        "5": [],
-        "6": [],
-        "7": [],
-        "8": [],
-        "9": [],
-        "10": []
+    "network": {
+        "format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": " ",
+        "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
+        "interval": 60,
+        "tooltip-format": "{ifname}  {ipaddr}"
     },
-    "disable-scroll": true,
-    "all-outputs": false,
-    "format": "({name}){icon}",
-    "format-icons": {
-      "1": "⌨ Edit",
-      "2": "🔍 Research",
-      "3": "👷 IDE",
-      "4": "🪲 Debug",
-      "5": "📁 Files",
-      "6": "🎧 Music",
-      "7": "⏵ Video",
-      "8": "🗨 IRC",
-      "9": "Steam",
-      "10":"Scratch",
+
+
+    "sway/workspaces": {
+        "persistent_workspaces": {
+            "1": ["DP-4"],
+            "2": ["DP-4"],
+            "3": [],
+            "4": ["DP-3"],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+        },
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "({name}){icon}",
+        "format-icons": {
+            "1": "⌨ Edit",
+            "2": "🔍 Research",
+            "3": "👷 IDE",
+            "4": "🪲 Debug",
+            "5": "📁 Files",
+            "6": "🎧 Music",
+            "7": "⏵ Video",
+            "8": "🗨 IRC",
+            "9": "Steam",
+            "10":"Scratch",
+        },
     },
-  },
 
-  "sway/mode": {
-    "format": "{}"
-  },
-
-  "backlight": {
-    //		"device": "acpi_video1",
-    "format": "{icon} {percent}%",
-    "format-icons": ["🔅", "🔆"]
-  },
-
-  "battery": {
-    "states": {
-      // "good": 95,
-      "warning": 20,
-      "critical": 10
+    "sway/mode": {
+        "format": "{}"
     },
-    "format": "<span color='gold'>{icon}</span> {capacity}%",
 
-    "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
-    "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
-    //		"format-good": "", // An empty format will hide the module
-    "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
-    "format-icons": ["", "", "", "", ""],
-    "on-click" : "sway-htop"
-  },
-
-  "custom/clock": {
-    "interval": 60,
-    "exec": "date +'%a, %d %b: %H:%M'",
-    "format": "{} ",
-    "max-length": 25
-  },
-
-  "cpu": {
-    "interval": 5,
-    "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
-    "states": {
-      "warning": 70,
-      "critical": 90
+    "backlight": {
+        //		"device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": ["🔅", "🔆"]
     },
-    "on-click" : "hardinfo"
-  },
 
-  "idle_inhibitor": {
-    "format": "<span color='GOLD'>{icon}</span>",
-    "format-icons": {
-      "activated": "📀ﰌ",
-      "deactivated": "😴"
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "<span color='gold'>{icon}</span> {capacity}%",
+
+        "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
+        "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
+        //		"format-good": "", // An empty format will hide the module
+        "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
+        "format-icons": ["", "", "", "", ""],
+        "on-click" : "sway-htop"
     },
-    "on-click-right": "sway-lock"
-  },
-  "pulseaudio": {
-    "format": "{icon} {volume}% {format_source}",
-    "format-muted": "🔇 {format_source}",
-    "format-bluetooth": "{icon} {volume}% {format_source}",
-    "format-bluetooth-muted": "🔇 {format_source}",
 
-    "format-source": " {volume}%",
-    "format-source-muted": "",
-
-    "format-icons": {
-      "headphones": "",
-      "handsfree": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["🔈", "🔉", "🔊"]
+    "custom/clock": {
+        "interval": 60,
+        "exec": "date +'%a, %d %b: %H:%M'",
+        "format": "{} ",
+        "max-length": 25
     },
-    "on-click": "pulse-volume toggle",
-    "on-click-right": "pavucontrol"
-  },
 
-  "tray": {
-    "icon-size": 21,
-    "spacing": 5
-  },
+    "cpu": {
+        "interval": 5,
+        "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click" : "hardinfo"
+    },
 
-  "custom/weather": {
-    "format": "{} ",
-    "tooltip": true,
-    "interval": 3600,
-    "exec": "waybar-weather-json",
-    "return-type": "json"
-  },
+    "idle_inhibitor": {
+        "format": "<span color='GOLD'>{icon}</span>",
+        "format-icons": {
+            "activated": "📀ﰌ",
+            "deactivated": "😴"
+        },
+        "on-click-right": "sway-lock"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}% {format_source}",
+        "format-muted": "🔇 {format_source}",
+        "format-bluetooth": "{icon} {volume}% {format_source}",
+        "format-bluetooth-muted": "🔇 {format_source}",
 
-  "custom/uptime": {
-    "format": "<span color='white'>⌛{}</span>",
-    "interval": 60,
-    "exec": "uptime -p"
-  },
+        "format-source": " {volume}%",
+        "format-source-muted": "",
 
-  "custom/dropbox": {
-    "format": "<span color='gold'>{}</span>",
-    "return-type" : "json",
-    "interval": 5,
-    "exec": "waybar-dropbox-json",
-    "tooltip": "true",
-    "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
-    "on-click-right": "sway-www https://www.dropbox.com/h"
-  },
-  "custom/monitors": {
-    "format": "<span color='gold'>{}</span>",
-    "return-type" : "json",
-    "interval": 10,
-    "exec": "waybar-monitors",
-    "tooltip": "true",
-    "on-click": "sway-screen-menu"
-  },
-  "custom/bluetooth": {
-    "format": "<span color='blue'>{}</span>",
-    "interval": 30,
-    "exec": "waybar-bluetooth",
-    "tooltip": "false",
-    "on-click": "sway-bluetooth"
-  },
-  "custom/power-draw": {
-    "format": "<span color='gold'>⚡{}🔋</span>",
-    "interval": 5,
-    "exec": "waybar-power-draw",
-    "tooltip": "false"
-  },
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["🔈", "🔉", "🔊"]
+        },
+        "on-click": "pulse-volume toggle",
+        "on-click-right": "pavucontrol"
+    },
 
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "icon-size": 14,
-    "icon-theme": "Numix-Circle",
-    "tooltip-format": "{title}",
-    "on-click": "activate",
-    "on-click-middle": "close"
-  },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 5
+    },
 
-  "custom/mynetwork": {
-    "format":  "{}",
-    "format-wifi":  "📶{ssid}",
-    "format-ipaddr": "{ipaddr}",
-    "format-ssid": "xx{ssid}xx",
-    "format-alt": "{alt}:{}",
-    "exec": "waybar-ip-info-json",
-    "return-type": "json",
-    "interval": 60,
-    "on-click-right": "sway-wifi",
-    "tooltip-format": "{ssid}",
-    "tooltip": "true"
-  }
+    "custom/weather": {
+        "format": "{} ",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "waybar-weather-json",
+        "return-type": "json"
+    },
+
+    "custom/uptime": {
+        "format": "<span color='white'>⌛{}</span>",
+        "interval": 60,
+        "exec": "uptime -p"
+    },
+
+    "custom/dropbox": {
+        "format": "<span color='gold'>{}</span>",
+        "return-type" : "json",
+        "interval": 5,
+        "exec": "waybar-dropbox-json",
+        "tooltip": "true",
+        "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
+        "on-click-right": "sway-www https://www.dropbox.com/h"
+    },
+    "custom/monitors": {
+        "format": "<span color='gold'>{}</span>",
+        "return-type" : "json",
+        "interval": 10,
+        "exec": "waybar-monitors",
+        "tooltip": "true",
+        "on-click": "sway-screen-menu"
+    },
+    "custom/bluetooth": {
+        "format": "<span color='blue'>{}</span>",
+        "interval": 30,
+        "exec": "waybar-bluetooth",
+        "tooltip": "false",
+        "on-click": "sway-bluetooth"
+    },
+    "custom/power-draw": {
+        "format": "<span color='gold'>⚡{}🔋</span>",
+        "interval": 5,
+        "exec": "waybar-power-draw",
+        "tooltip": "false"
+    },
+
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 14,
+        "icon-theme": "Numix-Circle",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+
+    "custom/mynetwork": {
+        "format":  "{}",
+        "format-wifi":  "📶{ssid}",
+        "format-ipaddr": "{ipaddr}",
+        "format-ssid": "xx{ssid}xx",
+        "format-alt": "{alt}:{}",
+        "exec": "waybar-ip-info-json",
+        "return-type": "json",
+        "interval": 60,
+        "on-click-right": "sway-wifi",
+        "tooltip-format": "{ssid}",
+        "tooltip": "true"
+    }
 
 }

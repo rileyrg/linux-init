@@ -1,6 +1,3 @@
-profile laptop {
-  output eDP-1 mode 1920x1080 position 0,0
-}
 profile home{
  output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
  output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0

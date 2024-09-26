@@ -666,6 +666,364 @@ Override in .profile.local
     export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 
+## waybar config
+
+    
+    {
+        "layer": "top",
+        "mode": "hide",
+        "position": "top",
+        "height": 22,
+        "width": 0,
+    
+        "modules-left": [
+            "sway/workspaces",
+            "cpu",
+            "temperature",
+            "memory"
+        ],
+    
+        "modules-center": [
+            "custom/weather",
+            "custom/clock",
+            "idle_inhibitor",
+            "custom/monitors"
+        ],
+    
+        "modules-right": [
+            "pulseaudio",
+            "backlight",
+            "battery",
+            "custom/power-draw",
+            "wlr/taskbar",
+            "tray"
+        ],
+    
+        "network": {
+            "format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
+            "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+            "format-linked": "{ifname} (No IP) ",
+            "format-disconnected": " ",
+            "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
+            "interval": 60,
+            "tooltip-format": "{ifname}  {ipaddr}"
+        },
+    
+    
+        "sway/workspaces": {
+            "persistent_workspaces": {
+                "1": ["DP-4"],
+                "2": ["DP-4"],
+                "3": [],
+                "4": ["DP-3"],
+                "5": [],
+                "6": [],
+                "7": [],
+                "8": [],
+                "9": [],
+                "10": []
+            },
+            "disable-scroll": true,
+            "all-outputs": false,
+            "format": "({name}){icon}",
+            "format-icons": {
+                "1": "⌨ Edit",
+                "2": "🔍 Research",
+                "3": "👷 IDE",
+                "4": "🪲 Debug",
+                "5": "📁 Files",
+                "6": "🎧 Music",
+                "7": "⏵ Video",
+                "8": "🗨 IRC",
+                "9": "Steam",
+                "10":"Scratch",
+            },
+        },
+    
+        "sway/mode": {
+            "format": "{}"
+        },
+    
+        "backlight": {
+            //		"device": "acpi_video1",
+            "format": "{icon} {percent}%",
+            "format-icons": ["🔅", "🔆"]
+        },
+    
+        "battery": {
+            "states": {
+                // "good": 95,
+                "warning": 20,
+                "critical": 10
+            },
+            "format": "<span color='gold'>{icon}</span> {capacity}%",
+    
+            "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
+            "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
+            //		"format-good": "", // An empty format will hide the module
+            "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
+            "format-icons": ["", "", "", "", ""],
+            "on-click" : "sway-htop"
+        },
+    
+        "custom/clock": {
+            "interval": 60,
+            "exec": "date +'%a, %d %b: %H:%M'",
+            "format": "{} ",
+            "max-length": 25
+        },
+    
+        "cpu": {
+            "interval": 5,
+            "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
+            "states": {
+                "warning": 70,
+                "critical": 90
+            },
+            "on-click" : "hardinfo"
+        },
+    
+        "idle_inhibitor": {
+            "format": "<span color='GOLD'>{icon}</span>",
+            "format-icons": {
+                "activated": "📀ﰌ",
+                "deactivated": "😴"
+            },
+            "on-click-right": "sway-lock"
+        },
+        "pulseaudio": {
+            "format": "{icon} {volume}% {format_source}",
+            "format-muted": "🔇 {format_source}",
+            "format-bluetooth": "{icon} {volume}% {format_source}",
+            "format-bluetooth-muted": "🔇 {format_source}",
+    
+            "format-source": " {volume}%",
+            "format-source-muted": "",
+    
+            "format-icons": {
+                "headphones": "",
+                "handsfree": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": ["🔈", "🔉", "🔊"]
+            },
+            "on-click": "pulse-volume toggle",
+            "on-click-right": "pavucontrol"
+        },
+    
+        "tray": {
+            "icon-size": 21,
+            "spacing": 5
+        },
+    
+        "custom/weather": {
+            "format": "{} ",
+            "tooltip": true,
+            "interval": 3600,
+            "exec": "waybar-weather-json",
+            "return-type": "json"
+        },
+    
+        "custom/uptime": {
+            "format": "<span color='white'>⌛{}</span>",
+            "interval": 60,
+            "exec": "uptime -p"
+        },
+    
+        "custom/dropbox": {
+            "format": "<span color='gold'>{}</span>",
+            "return-type" : "json",
+            "interval": 5,
+            "exec": "waybar-dropbox-json",
+            "tooltip": "true",
+            "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
+            "on-click-right": "sway-www https://www.dropbox.com/h"
+        },
+        "custom/monitors": {
+            "format": "<span color='gold'>{}</span>",
+            "return-type" : "json",
+            "interval": 10,
+            "exec": "waybar-monitors",
+            "tooltip": "true",
+            "on-click": "sway-screen-menu"
+        },
+        "custom/bluetooth": {
+            "format": "<span color='blue'>{}</span>",
+            "interval": 30,
+            "exec": "waybar-bluetooth",
+            "tooltip": "false",
+            "on-click": "sway-bluetooth"
+        },
+        "custom/power-draw": {
+            "format": "<span color='gold'>⚡{}🔋</span>",
+            "interval": 5,
+            "exec": "waybar-power-draw",
+            "tooltip": "false"
+        },
+    
+        "wlr/taskbar": {
+            "format": "{icon}",
+            "icon-size": 14,
+            "icon-theme": "Numix-Circle",
+            "tooltip-format": "{title}",
+            "on-click": "activate",
+            "on-click-middle": "close"
+        },
+    
+        "custom/mynetwork": {
+            "format":  "{}",
+            "format-wifi":  "📶{ssid}",
+            "format-ipaddr": "{ipaddr}",
+            "format-ssid": "xx{ssid}xx",
+            "format-alt": "{alt}:{}",
+            "exec": "waybar-ip-info-json",
+            "return-type": "json",
+            "interval": 60,
+            "on-click-right": "sway-wifi",
+            "tooltip-format": "{ssid}",
+            "tooltip": "true"
+        }
+    
+    }
+
+1.  ~/.config/waybar/style.css
+
+        *{
+            border: none;
+            background: rgba(28, 28, 28, 0.6);
+            border-radius: 0;
+            font-family: "JetBrainsMono Nerd Font";
+            font-size: 10pt;
+            min-height: 0;
+        }
+        
+        #waybar {
+            background: rgba(28, 28, 28, 0.6);
+            color: #e4e4e4;
+        }
+        
+        #window {
+            color: #e4e4e4;
+            font-weight: bold;
+        }
+        
+        #workspaces {
+            font-size: 8px;
+            /*	padding: 0 2px;*/
+            margin-left: 8px;
+            margin-right: 8px;
+            padding-left: 0px;
+            padding-right: 0px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background: rgba(28, 28, 28, 0.6);
+        }
+        
+        #workspaces button {
+            padding: 0 5px;
+            /*	background: rgba(28, 28, 28, 0.9);*/
+            color: #888888;
+            /*	margin: 0 1px;*/
+        }
+        #workspaces button:hover {
+            box-shadow: inherit;
+            text-shadow: inherit;
+        
+        }
+        
+        #workspaces button.visible {
+            padding: 0 5px;
+            border-radius: 10px;
+            color: #ff0000;
+            margin: 0 0px;
+        }
+        
+        #workspaces button.focused {
+            color: #00ff00;
+        
+        }
+        #workspaces button.urgent {
+            background: #5555ff;
+        
+        }
+        
+        #workspaces button.urgent {
+            background: #af005f;
+            color: #1b1d1e;
+        }
+        
+        #mode {
+            background: #af005f;
+        }
+        
+        #custom-bluetooth,#custom-power-draw,#custom-dropbox,#clock, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
+            padding: 0 3px;
+        }
+        
+        #idle_inhibitor{
+            font-size:16px
+        }
+        
+        #clock {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        
+        @keyframes blink {
+            to {
+                background-color: darkred;
+            }
+        }
+        
+        #battery.warning:not(.charging) {
+            background-color: #ff8700;
+            color: #1b1d1e;
+        }
+        #battery.critical:not(.charging) {
+            color: white;
+            animation-name: blink;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+        #battery,#battery_icon,#battery.charging {
+            color:gold
+        }
+        
+        
+        #cpu {
+        }
+        
+        #memory {
+        }
+        
+        #network {
+        }
+        
+        #network.disconnected {
+            background: #f53c3c;
+        }
+        
+        #pulseaudio {
+        }
+        
+        #pulseaudio.muted {
+        }
+        
+        #custom-weather {
+            font-size:12px;
+        }
+        
+        #tray {
+            margin-left: 1px;
+        }
+
+
 ## Sway config
 
 
@@ -673,59 +1031,204 @@ Override in .profile.local
 
     # Maintained in linux-config.org
     
-    # xwayland disable
+    include /etc/sway/config.d/*
+    include config-vars.d/*
     
-    
+    # Logo key. Use Mod1 for Alt.
     set $mod Mod4
-    set $term 'xterm'
+    
+    # Home row direction keys, like vim
+    set $left h
+    set $down j
+    set $up k
+    set $right l
+    
+    
+    set $term 'alacritty'
     set $menu 'sway-launcher-fzf'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
-    
-    mouse_warping output
-    
-    include /etc/sway/config-vars.d/*
-    include config-vars.d/*
-    
-    # start a terminal
-    # Use Mouse+$mod to drag floating windows to their wanted position
-    floating_modifier $mod
-    # kill focused window
-    bindsym $mod+q kill
-    bindsym $mod+0 kill
     
     # Font  for window titles. Will also be used by the bar unless a different font
     # is used in the bar {} block below.
     font pango: "JetBrainsMono Nerd Font 6"
     #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
     
-    # reload the configuration file
-    bindsym $mod+Shift+c reload
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    Bindsym $mod+Shift+r restart
+    mouse_warping output
     
-    bindsym $mod+Shift+e exec $editor
+    bar {
+    swaybar_command waybar
+    position top
+    hidden_state hide
+    mode hide
+    modifier Mod4
+    }
+    bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
+    
+    
+    set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+    mode "$mode_system" {
+    bindsym b exec sway-lock-utils blank, mode "default"
+    bindsym l exec sway-lock-utils lock, mode "default"
+    bindsym e exec sway-lock-utils logout, mode "default"
+    bindsym s exec sway-lock-utils suspend, mode "default"
+    bindsym h exec sway-lock-utils hibernate, mode "default"
+    bindsym r exec sway-lock-utils reboot, mode "default"
+    bindsym Shift+s exec sway-lock-utils shutdown, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    }
+    
+    bindsym $mod+Control+q mode "$mode_system"
+    
+      #
+    # Resizing containers:
+    #
+    mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    }
+    
+    bindsym $mod+r mode "resize"
+    
+    ### Key bindings
+    #
+    # Basics:
+    #
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
+    
+    # Start your launcher
     bindsym $mod+d exec $menu
-    bindsym $mod+u exec sway-launcher-ulauncher
-
-
-### autostart     :autostart:
-
-    # exec sway-lock
-    # exec emacs --daemon
-    exec_always sway-idle
-    exec_always sleep 0.3 && sway-kanshi
-    exec_always sway-bluetooth-controls
-    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
-    exec sleep 2 && gpg-cache
-    exec blueman-applet
-    exec nm-applet --indicator
-    # exec  systemctl --user restart wireplumber
-
-
-### library include
-
-    include /etc/sway/config.d/*
+    
+    # Start your editor
+    bindsym $mod+Shift+e exec $editor
+    
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+    
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+    
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    
+    #
+    # Moving around:
+    #
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+    
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+    #
+    # Workspaces:
+    #
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+    
+    bindsym $mod+m move workspace to output right
+    bindsym $mod+Control+m exec sway-display-swap
+    bindsym $mod+Tab workspace back_and_forth
+    
+    #
+    # Layout stuff:
+    
+    #
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+    
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+    
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+    
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+    
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+    
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+    
+    #
+    # Scratchpad:
+    #
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+    bindsym $mod+Return exec sway-scratch-terminal
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
 
 
 ### host specific     :scale:scaling:
@@ -745,21 +1248,6 @@ Override in .profile.local
     
             #Maintained in linux-config.org
             output eDP-1 mode 2560x1440@165hz scale 1.15
-
-
-### mbsync
-
-I do this here because the user systemd service wont start with an encrypted HOMEDIR. Normally I'd kick this
-off in the **.profile** or something.
-
-    exec systemctl start --user mbsync.service
-
-
-### mako
-
-done by linux systemd
-
-    # exec mako
 
 
 ### launcher
@@ -796,22 +1284,11 @@ done by linux systemd
         gaps inner  1
         gaps outer  0
 
-6.  all apps
-
-    Borrowed from: <https://github.com/swaywm/sway/issues/4121>
-    
-        bindsym $mod+a exec swaymsg \[con_id=$(swaymsg -t get_tree | jq -r '.nodes | .[] | .nodes | . [] | select(.nodes != null) | .nodes | .[] | select(.name != null) | "\(.id?) \(.name?)"' | rofi -dmenu -i | awk '{print $1}')] focus
-
 
 ### scratchpad terminal
 
-I want a key to create and then toggle a terminal.
+$term is set to "sway-scratch-terminal
 
-    
-    bindsym $mod+Shift+minus move scratchpad
-    bindsym $mod+minus scratchpad show
-    bindsym $mod+Return exec sway-scratch-terminal
-    
     for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
 
 1.  ~/bin/sway/sway-autostart
@@ -837,124 +1314,6 @@ I want a key to create and then toggle a terminal.
 
 ### navigation                                  :navigation
 
-    
-    # change focus
-    # bindsym $mod+h focus left
-    # bindsym $mod+j focus down
-    # bindsym $mod+k focus up
-    # bindsym $mod+l focus right
-    
-    # alternatively, you can use the cursor keys:
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-    
-    # alternatively, you can use the cursor keys:
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-    
-    # split in horizontal orientation
-    bindsym $mod+h splith
-    # split in vertical orientation
-    bindsym $mod+v splitv
-    
-    bindsym $mod+f fullscreen toggle
-    
-    bindsym $mod+s layout stacking
-    bindsym $mod+t layout tabbed
-    bindsym $mod+e layout toggle split
-    
-    bindsym $mod+Shift+space floating toggle
-    bindsym $mod+space focus mode_toggle
-    
-    # focus the parent container
-    bindsym $mod+p focus parent
-    
-    bindsym $mod+Shift+s sticky toggle
-    
-    bindsym $mod+Control+w exec sway-workspace-move
-    
-    # focus the child container
-    #bindsym $mod+d focus child
-    
-    # Define names for default workspaces for which we configure key bindings later on.
-    # We use variables to avoid repeating the names in multiple places.
-    
-    set $ws1 "1"
-    set $ws2 "2"
-    set $ws3 "3"
-    set $ws4 "4"
-    set $ws5 "5"
-    set $ws6 "6"
-    set $ws7 "7"
-    set $ws8 "8"
-    set $ws9 "9"
-    set $ws10 "scratch"
-    
-    # switch to workspace
-    bindsym $mod+1 workspace $ws1
-    bindsym $mod+2 workspace $ws2
-    bindsym $mod+3 workspace $ws3
-    bindsym $mod+4 workspace $ws4
-    bindsym $mod+5 workspace $ws5
-    bindsym $mod+6 workspace $ws6
-    bindsym $mod+7 workspace $ws7
-    bindsym $mod+8 workspace $ws8
-    bindsym $mod+9 workspace $ws9
-    #  bindsym $mod+0 workspace number $ws10
-    
-    bindsym $mod+m move workspace to output right
-    bindsym $mod+Control+m exec sway-display-swap
-    bindsym $mod+Tab workspace back_and_forth
-    
-    
-    # move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace $ws1
-    bindsym $mod+Shift+2 move container to workspace $ws2
-    bindsym $mod+Shift+3 move container to workspace $ws3
-    bindsym $mod+Shift+4 move container to workspace $ws4
-    bindsym $mod+Shift+5 move container to workspace $ws5
-    bindsym $mod+Shift+6 move container to workspace $ws6
-    bindsym $mod+Shift+7 move container to workspace $ws7
-    bindsym $mod+Shift+8 move container to workspace $ws8
-    bindsym $mod+Shift+9 move container to workspace $ws9
-    bindsym $mod+Shift+0 move container to workspace $ws10
-    
-    bindsym $mod+Control+Shift+Right move workspace to output right
-    bindsym $mod+Control+Shift+Left move workspace to output left
-    bindsym $mod+Control+Shift+Down move workspace to output down
-    bindsym $mod+Control+Shift+Up move workspace to output up
-    
-    
-    # resize window (you can also use the mouse for that)
-    bindsym $mod+r mode "resize"
-    mode "resize" {
-    # These bindings trigger as soon as you enter the resize mode
-    
-    # Pressing left will shrink the window’s width.
-    # Pressing right will grow the window’s width.
-    # Pressing up will shrink the window’s height.
-    # Pressing down will grow the window’s height.
-    bindsym j resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym odiaeresis resize grow width 10 px or 10 ppt
-    
-    # same bindings, but for the arrow keys
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
-    
-    # back to normal: Enter or Escape or $mod+r
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
-    }
-
 
 ### clipboard
 
@@ -963,7 +1322,8 @@ I want a key to create and then toggle a terminal.
     A basic [clipboard manager](https://github.com/yory8/clipman) for Wayland, with support for persisting copy buffers after an application exits.
     
         set $clipboard "~/.local/share/clipman.json"
-        exec wl-paste -t text --watch clipman store --max-items 1024
+        exec wl-paste -t text --watch clipman store
+        exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
         bindsym $mod+y exec sway-clipboard-history-select
         bindsym $mod+Control+y exec sway-clipboard-history-clear
     
@@ -1069,51 +1429,25 @@ I want a key to create and then toggle a terminal.
     bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wifi)."
 
 
-### exit, quit, restart, reboot, lock, hibernate, blank, suspend     :hibernate:lock:sleep:blank:blank:restart:exit:reboot:
-
-    
-    set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-    mode "$mode_system" {
-    bindsym b exec sway-lock-utils blank, mode "default"
-    bindsym l exec sway-lock-utils lock, mode "default"
-    bindsym e exec sway-lock-utils logout, mode "default"
-    bindsym s exec sway-lock-utils suspend, mode "default"
-    bindsym h exec sway-lock-utils hibernate, mode "default"
-    bindsym r exec sway-lock-utils reboot, mode "default"
-    bindsym Shift+s exec sway-lock-utils shutdown, mode "default"
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    }
-    bindsym $mod+Control+q mode "$mode_system"
-
-
 ### apps default workspace
 
-    # assign [title="dbg:"] $ws3
-    #assign [app_id="Alacritty"] $ws1
-    #assign [class="Ardour"] $ws6
-    assign [class="Code"] $ws3
-    # assign [app_id="firefox"] $ws2
-    assign [class="Signal"] $ws8
-    assign [class="jetbrains-studio"] $ws3
-    assign [app_id="emacs"] $ws1
-    assign [class="Emacs"] $ws1
-    assign [class="Hexchat"] $ws8
-    assign [app_id="whatsapp-for-linux"] $ws8
-    assign [app_id="telegram"] $ws8
-    assign [class="discord"] $ws8
-    assign [class="Steam"] $ws9
+    # assign [title="dbg:"] 3
+    #assign [app_id="Alacritty"] 1
+    #assign [class="Ardour"] 6
+    assign [class="Code"] 3
+    assign [class="Signal"] 8
+    assign [class="jetbrains-studio"] 3
+    assign [app_id="emacs"] 1
+    assign [class="Emacs"] 1
+    assign [class="Hexchat"] 8
+    assign [app_id="telegram"] 8
+    assign [class="discord"] 8
+    assign [class="Steam"] 9
 
 
 ### apps default appearance
 
-    for_window [class="feh"] floating enable
-    for_window [class="1Password"] floating enable
-    for_window [class="Conky"] floating enable
-    for_window [app_id="zenity"] floating enable
     for_window [title="wifi"] floating enable
-    # for_window [title="Emulator"] floating enable
     for_window [title="bluetoothctl"] floating enable
 
 
@@ -1130,654 +1464,37 @@ I want a key to create and then toggle a terminal.
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
-    #bindsym $mod+Control+s exec sway-do-tool "Signal" "signal-desktop"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Shift+w exec sway-do-tool "WhatsApp" "whatsapp-for-linux"
     bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
     bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
-    bindsym $mod+Control+e exec lldb-ui "/home/rgr/development/projects/emacs/emacs/src" "emacs"; workspace $ws3
-    bindsym $mod+Control+u exec lldb-ui "/home/rgr/development/education/Udemy/UdemyCpp/Computerspiel1/" "udemy"; workspace $ws3
-    bindsym $mod+Control+g exec sway-oneterminal "lldb"
-    bindsym $mod+Control+o exec xmg-neo-rgb-kbd-lights toggle && x-backlight-persist restore
     bindsym $mod+Control+p exec sway-htop
-    bindsym $mod+Control+s exec alacritty -e syncrclone-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && xterm
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
+    bindsym $mod+Control+w exec sway-workspace-move
 
 
-### gaming     :gaming:
+### mbsync
 
-1.  steam     :steam:
+I do this here because the user systemd service wont start with an encrypted HOMEDIR. Normally I'd kick this
+off in the **.profile** or something.
 
-        for_window [class="steam_app.*"] fullscreen enable
-        for_window [class="steam_app*"] inhibit_idle focus
+    exec systemctl start --user mbsync.service
 
 
-### status bar
+### services
 
-1.  waybar     :waybar:
-
-    <https://github.com/Alexays/Waybar/wiki/Configuration>
-    
-        bar {
-          swaybar_command waybar
-          position top
-          hidden_state hide
-          mode hide
-          modifier Mod4
-        }
-        bindsym $mod+Alt+b exec killall -SIGUSR1 waybar
-    
-    1.  ~/.config/waybar/config
-    
-            
-            {
-              "layer": "top",
-              "mode": "hide",
-              "position": "top",
-              "height": 22,
-              "width": 0,
-            
-              "modules-left": [
-                "sway/workspaces",
-                "cpu",
-                "temperature",
-                "memory"
-              ],
-            
-              "modules-center": [
-                "custom/weather",
-                "custom/clock",
-                "idle_inhibitor",
-                "custom/monitors"
-              ],
-            
-              "modules-right": [
-                "pulseaudio",
-                "backlight",
-                "battery",
-                "custom/power-draw",
-                "wlr/taskbar",
-                "tray"
-              ],
-            
-              "network": {
-                "format-wifi": "<span color='#589df6'></span> <span color='gray'>{signalStrength}%</span>" ,
-                "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-                "format-linked": "{ifname} (No IP) ",
-                "format-disconnected": " ",
-                "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
-                "interval": 60,
-                "tooltip-format": "{ifname}  {ipaddr}"
-              },
-            
-            
-              "sway/workspaces": {
-                "persistent_workspaces": {
-                    "1": ["DP-4"],
-                    "2": ["DP-4"],
-                    "3": [],
-                    "4": ["DP-3"],
-                    "5": [],
-                    "6": [],
-                    "7": [],
-                    "8": [],
-                    "9": [],
-                    "10": []
-                },
-                "disable-scroll": true,
-                "all-outputs": false,
-                "format": "({name}){icon}",
-                "format-icons": {
-                  "1": "⌨ Edit",
-                  "2": "🔍 Research",
-                  "3": "👷 IDE",
-                  "4": "🪲 Debug",
-                  "5": "📁 Files",
-                  "6": "🎧 Music",
-                  "7": "⏵ Video",
-                  "8": "🗨 IRC",
-                  "9": "Steam",
-                  "10":"Scratch",
-                },
-              },
-            
-              "sway/mode": {
-                "format": "{}"
-              },
-            
-              "backlight": {
-                //		"device": "acpi_video1",
-                "format": "{icon} {percent}%",
-                "format-icons": ["🔅", "🔆"]
-              },
-            
-              "battery": {
-                "states": {
-                  // "good": 95,
-                  "warning": 20,
-                  "critical": 10
-                },
-                "format": "<span color='gold'>{icon}</span> {capacity}%",
-            
-                "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
-                "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
-                //		"format-good": "", // An empty format will hide the module
-                "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
-                "format-icons": ["", "", "", "", ""],
-                "on-click" : "sway-htop"
-              },
-            
-              "custom/clock": {
-                "interval": 60,
-                "exec": "date +'%a, %d %b: %H:%M'",
-                "format": "{} ",
-                "max-length": 25
-              },
-            
-              "cpu": {
-                "interval": 5,
-                "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
-                "states": {
-                  "warning": 70,
-                  "critical": 90
-                },
-                "on-click" : "hardinfo"
-              },
-            
-              "idle_inhibitor": {
-                "format": "<span color='GOLD'>{icon}</span>",
-                "format-icons": {
-                  "activated": "📀ﰌ",
-                  "deactivated": "😴"
-                },
-                "on-click-right": "sway-lock"
-              },
-              "pulseaudio": {
-                "format": "{icon} {volume}% {format_source}",
-                "format-muted": "🔇 {format_source}",
-                "format-bluetooth": "{icon} {volume}% {format_source}",
-                "format-bluetooth-muted": "🔇 {format_source}",
-            
-                "format-source": " {volume}%",
-                "format-source-muted": "",
-            
-                "format-icons": {
-                  "headphones": "",
-                  "handsfree": "",
-                  "headset": "",
-                  "phone": "",
-                  "portable": "",
-                  "car": "",
-                  "default": ["🔈", "🔉", "🔊"]
-                },
-                "on-click": "pulse-volume toggle",
-                "on-click-right": "pavucontrol"
-              },
-            
-              "tray": {
-                "icon-size": 21,
-                "spacing": 5
-              },
-            
-              "custom/weather": {
-                "format": "{} ",
-                "tooltip": true,
-                "interval": 3600,
-                "exec": "waybar-weather-json",
-                "return-type": "json"
-              },
-            
-              "custom/uptime": {
-                "format": "<span color='white'>⌛{}</span>",
-                "interval": 60,
-                "exec": "uptime -p"
-              },
-            
-              "custom/dropbox": {
-                "format": "<span color='gold'>{}</span>",
-                "return-type" : "json",
-                "interval": 5,
-                "exec": "waybar-dropbox-json",
-                "tooltip": "true",
-                "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
-                "on-click-right": "sway-www https://www.dropbox.com/h"
-              },
-              "custom/monitors": {
-                "format": "<span color='gold'>{}</span>",
-                "return-type" : "json",
-                "interval": 10,
-                "exec": "waybar-monitors",
-                "tooltip": "true",
-                "on-click": "sway-screen-menu"
-              },
-              "custom/bluetooth": {
-                "format": "<span color='blue'>{}</span>",
-                "interval": 30,
-                "exec": "waybar-bluetooth",
-                "tooltip": "false",
-                "on-click": "sway-bluetooth"
-              },
-              "custom/power-draw": {
-                "format": "<span color='gold'>⚡{}🔋</span>",
-                "interval": 5,
-                "exec": "waybar-power-draw",
-                "tooltip": "false"
-              },
-            
-              "wlr/taskbar": {
-                "format": "{icon}",
-                "icon-size": 14,
-                "icon-theme": "Numix-Circle",
-                "tooltip-format": "{title}",
-                "on-click": "activate",
-                "on-click-middle": "close"
-              },
-            
-              "custom/mynetwork": {
-                "format":  "{}",
-                "format-wifi":  "📶{ssid}",
-                "format-ipaddr": "{ipaddr}",
-                "format-ssid": "xx{ssid}xx",
-                "format-alt": "{alt}:{}",
-                "exec": "waybar-ip-info-json",
-                "return-type": "json",
-                "interval": 60,
-                "on-click-right": "sway-wifi",
-                "tooltip-format": "{ssid}",
-                "tooltip": "true"
-              }
-            
-            }
-    
-    2.  ~/.config/waybar/style.css
-    
-            * {
-                border: none;
-                background: rgba(28, 28, 28, 0.6);
-                border-radius: 0;
-                font-family: "JetBrainsMono Nerd Font";
-                font-size: 10pt;
-                min-height: 0;
-            }
-            
-            #waybar {
-                background: rgba(28, 28, 28, 0.6);
-                color: #e4e4e4;
-            }
-            
-            #window {
-                color: #e4e4e4;
-                font-weight: bold;
-            }
-            
-            #workspaces {
-                font-size: 8px;
-                /*	padding: 0 2px;*/
-                margin-left: 8px;
-                margin-right: 8px;
-                padding-left: 0px;
-                padding-right: 0px;
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px;
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
-                background: rgba(28, 28, 28, 0.6);
-            }
-            
-            #workspaces button {
-                padding: 0 5px;
-                /*	background: rgba(28, 28, 28, 0.9);*/
-                color: #888888;
-                /*	margin: 0 1px;*/
-            }
-            #workspaces button:hover {
-                box-shadow: inherit;
-                text-shadow: inherit;
-            
-            }
-            
-            #workspaces button.visible {
-                padding: 0 5px;
-                border-radius: 10px;
-                color: #ff0000;
-                margin: 0 0px;
-            }
-            
-            #workspaces button.focused {
-                color: #00ff00;
-            
-            }
-            #workspaces button.urgent {
-                background: #5555ff;
-            
-            }
-            
-            #workspaces button.urgent {
-                background: #af005f;
-                color: #1b1d1e;
-            }
-            
-            #mode {
-                background: #af005f;
-            }
-            
-            #custom-bluetooth,#custom-power-draw,#custom-dropbox,#clock, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
-                padding: 0 3px;
-            }
-            
-            #idle_inhibitor{
-                font-size:16px
-            }
-            
-            #clock {
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px;
-            }
-            
-            @keyframes blink {
-                to {
-                    background-color: darkred;
-                }
-            }
-            
-            #battery.warning:not(.charging) {
-                background-color: #ff8700;
-                color: #1b1d1e;
-            }
-            #battery.critical:not(.charging) {
-                color: white;
-                animation-name: blink;
-                animation-duration: 0.5s;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
-            }
-            #battery,#battery_icon,#battery.charging {
-                color:gold
-            }
-            
-            
-            #cpu {
-            }
-            
-            #memory {
-            }
-            
-            #network {
-            }
-            
-            #network.disconnected {
-                background: #f53c3c;
-            }
-            
-            #pulseaudio {
-            }
-            
-            #pulseaudio.muted {
-            }
-            
-            #custom-weather {
-                font-size:12px;
-            }
-            
-            #tray {
-                margin-left: 1px;
-            }
-    
-    3.  scripts
-    
-        1.  ~/bin/sway/waybar-bluetooth
-        
-            Thank you <https://github.com/deanproxy/dotfiles/blob/master/linux/i3/scripts/bluetooth>
-            
-                #!/usr/bin/env bash
-                # Maintained in linux-config.org
-                
-                get_from_file() {
-                    dev=$1
-                    name=
-                    if [ ! -f /tmp/bt-devices.txt ]; then
-                        touch /tmp/bt-devices.txt
-                        echo ""
-                        return
-                    fi
-                    for i in `cat /tmp/bt-devices.txt`; do
-                        d=`echo $i | awk -F:: '{print $1}'`
-                        if [ $d = $dev ]; then
-                            name=`echo $i | awk -F:: '{print $2}'`
-                        fi
-                    done
-                    echo "${name}"
-                }
-                
-                store_file() {
-                    dev=$1
-                    name="${2}"
-                    echo "$dev::${name}" >> /tmp/bt-devices.txt
-                }
-                
-                connections=`hcitool con | sed -n 2p`
-                if [ ! -z "$connections" ]; then
-                    # We have a connection, we want to get the name from a file if we've had
-                    # it from there before because getting the name of the device connected
-                    # is very slow and costly.
-                    dev=`echo $connections | awk '{print $3}'`
-                    name=`get_from_file $dev`
-                    if [ -z "$name" ]; then
-                        name=`hcitool name $dev | awk '{print $1}'`
-                        if [ ! -z "${name}" ]; then
-                            store_file $dev "${name}"
-                        fi
-                    fi
-                    echo "💡$name"
-                else
-                    echo "🔌"
-                fi
-        
-        2.  ~/bin/sway/waybar-power-draw
-        
-                #!/usr/bin/env bash
-                # Maintained in linux-config.org
-                awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now
-        
-        3.  ~/bin/sway/waybar-dropbox-json
-        
-                #!/usr/bin/env bash
-                # Maintained in linux-config.org
-                if ( ! dropbox running ); then
-                    fullstat="$(dropbox status)"
-                    stat="$(sed -n 1p <<< $fullstat)"
-                else
-                    fullstat=""
-                    if [ -f "${HOME}/.RESTART_DROPBOX" ];then
-                        stat="Restarting Dropbox.."
-                        sway-notify "$stat"
-                        dropbox start &> /dev/null
-                    else
-                        stat="click to restart DB"
-                    fi
-                fi
-                
-                jq --unbuffered --compact-output -n \
-                   --arg text "$stat" \
-                   --arg tooltip "$fullstat" \
-                   --arg class "dropbox-status" \
-                   '{text: $text, tooltip: $tooltip, class: $class}'
-        
-        4.  ~/bin/sway/waybar-ip-info-json
-        
-                ifname="${1:-$(printf '%s' /sys/class/net/*/wireless | cut -d/ -f5)}"
-                [ -z "$ifname" ] && exit 1
-                pubip="$(curl -s -m 1 ipinfo.io/ip)"
-                pubip="$([ -z "$pubip" ] && echo "Offline" || echo "$pubip")"
-                lip=$(ip -j address | jq -r '.[] | select (.ifname=='\"$ifname\"').addr_info[] | select(.family=="inet").local')
-                lip="$([ -z "$lip" ] && echo -n "Offline" || echo -n "$lip")"
-                ssid="$(/sbin/iwconfig $ifname | grep 'ESSID:' | awk '{print $4}' | sed 's/ESSID://g' | sed 's/"//g')"
-                jq --unbuffered --compact-output -n \
-                   --arg text "📶 $ssid" \
-                   --arg alt "$ifname:🌎$pubip,🔌$lip" \
-                   --arg tooltip "$ifname:🌎$pubip,🔌$lip" \
-                   --arg class "" \
-                   --arg percentage "1" \
-                   --arg ifname "$ifname" \
-                   --arg ssid "$ssid" \
-                   --arg public_ip "$pubip" \
-                   --arg ippadr "$lip" \
-                   '{text: $text, alt: $alt, tooltip: $tooltip, class: $class, percentage: $percentage, ifname: $ifname, ssid: $ssid, public_ip: $public_ip, ipaddr: $ippadr}'
-        
-        5.  ~/bin/sway/waybar-monitors
-        
-                #!/usr/bin/env bash
-                #Maintained in linux-config.org
-                l=$(swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length')
-                o=$(swaymsg -t get_outputs | jq  -r '. | map(.name) | join(",")')
-                t=""
-                for i in `seq $l`; do t="${t}🖵";done
-                text="{\"text\":\""$t"\",\"tooltip\":\""$o"\"}"
-                echo $text
-        
-        6.  ~/bin/sway/waybar-wttr
-        
-                #!/usr/bin/env python
-                # Maintained in linux-config.org
-                
-                import json
-                import os
-                import requests
-                from datetime import datetime
-                
-                WEATHER_CODES = {
-                    '113': '☀️',
-                    '116': '⛅️',
-                    '119': '☁️',
-                    '122': '☁️',
-                    '143': '🌫',
-                    '176': '🌦',
-                    '179': '🌧',
-                    '182': '🌧',
-                    '185': '🌧',
-                    '200': '⛈',
-                    '227': '🌨',
-                    '230': '❄️',
-                    '248': '🌫',
-                    '260': '🌫',
-                    '263': '🌦',
-                    '266': '🌦',
-                    '281': '🌧',
-                    '284': '🌧',
-                    '293': '🌦',
-                    '296': '🌦',
-                    '299': '🌧',
-                    '302': '🌧',
-                    '305': '🌧',
-                    '308': '🌧',
-                    '311': '🌧',
-                    '314': '🌧',
-                    '317': '🌧',
-                    '320': '🌨',
-                    '323': '🌨',
-                    '326': '🌨',
-                    '329': '❄️',
-                    '332': '❄️',
-                    '335': '❄️',
-                    '338': '❄️',
-                    '350': '🌧',
-                    '353': '🌦',
-                    '356': '🌧',
-                    '359': '🌧',
-                    '362': '🌧',
-                    '365': '🌧',
-                    '368': '🌨',
-                    '371': '❄️',
-                    '374': '🌧',
-                    '377': '🌧',
-                    '386': '⛈',
-                    '389': '🌩',
-                    '392': '⛈',
-                    '395': '❄️'
-                }
-                
-                data = {}
-                location = os.getenv('WTTR_LOCATION',"")
-                
-                weather = requests.get("https://wttr.in/" + location + "?format=j1").json()
-                
-                def format_time(time):
-                    return time.replace("00", "").zfill(2)
-                
-                
-                def format_temp(temp):
-                    return (hour['FeelsLikeC']+"°").ljust(3)
-                
-                
-                def format_chances(hour):
-                    chances = {
-                        "chanceoffog": "Fog",
-                        "chanceoffrost": "Frost",
-                        "chanceofovercast": "Overcast",
-                        "chanceofrain": "Rain",
-                        "chanceofsnow": "Snow",
-                        "chanceofsunshine": "Sunshine",
-                        "chanceofthunder": "Thunder",
-                        "chanceofwindy": "Wind"
-                    }
-                
-                    conditions = []
-                    for event in chances.keys():
-                        if int(hour[event]) > 0:
-                            conditions.append(chances[event]+" "+hour[event]+"%")
-                    return ", ".join(conditions)
-                
-                
-                data['text'] = location+":"+WEATHER_CODES[weather['current_condition'][0]['weatherCode']] + \
-                    " "+weather['current_condition'][0]['FeelsLikeC']+"°"
-                
-                data['tooltip'] = f"<b>{location}</b>\n"
-                data['tooltip'] += f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0]['temp_C']}°</b>\n"
-                data['tooltip'] += f"Feels like: {weather['current_condition'][0]['FeelsLikeC']}°\n"
-                data['tooltip'] += f"Wind: {weather['current_condition'][0]['windspeedKmph']}Km/h\n"
-                data['tooltip'] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
-                for i, day in enumerate(weather['weather']):
-                    data['tooltip'] += f"\n<b>"
-                    if i == 0:
-                        data['tooltip'] += "Today, "
-                    if i == 1:
-                        data['tooltip'] += "Tomorrow, "
-                    data['tooltip'] += f"{day['date']}</b>\n"
-                    data['tooltip'] += f"⬆️ {day['maxtempC']}° ⬇️ {day['mintempC']}° "
-                    data['tooltip'] += f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
-                    for hour in day['hourly']:
-                        if i == 0:
-                            if int(format_time(hour['time'])) < datetime.now().hour-2:
-                                continue
-                        data['tooltip'] += f"{format_time(hour['time'])} {WEATHER_CODES[hour['weatherCode']]} {format_temp(hour['FeelsLikeC'])} {hour['weatherDesc'][0]['value']}, {format_chances(hour)}\n"
-                
-                
-                print(json.dumps(data))
-        
-        7.  ~/bin/sway/waybar-weather-json
-        
-                #!/usr/bin/env bash
-                # Maintained in linux-config.org
-                sleep 5
-                WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
-        
-        8.  ~/bin/sway/waybar-dropbox-status
-        
-                #!/usr/bin/env bash
-                #Maintained in linux-config.org
-                if pidof dropbox &> /dev/null ; then
-                    stat=$(dropbox status | sed -n 1p)
-                    echo "${stat}"; echo "";
-                else
-                    if command -v dropbox > /dev/null; then
-                        echo "⇄Restarting Dropbox.."
-                        dropbox start &> /dev/null &
-                    fi
-                fi
+    exec sway-idle
+    exec sway-bluetooth-controls
+    exec blueman-applet
+    exec sleep 2 && gpg-cache
+    exec nm-applet --indicator
+    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec mako
+    exec sway-kanshi
+    exec sleep 1 && sway-workspace-move
+    exec sleep 1.5 && swaymsg workspace 1
 
 
 ## bin,scripts     :sway:wayland:
@@ -1812,6 +1529,8 @@ I want a key to create and then toggle a terminal.
 
 
 ### ~/bin/sway/sway-bluetooth-controls
+
+Enable bluetooth multimedia pause/ play
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -1914,9 +1633,6 @@ Load a host specific kanshi file if it exists
 
 3.  config-t14s
 
-        profile laptop {
-          output eDP-1 mode 1920x1080 position 0,0
-        }
         profile home{
          output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
          output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
@@ -2092,7 +1808,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcc20a8e"></a>
+<a id="orgf83c7a8"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2141,7 +1857,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc20a8e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf83c7a8).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2679,8 +2395,8 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     1.  sway
     
             for_window [class="STM32CubeIDE"] floating enable
-            assign [class="STM32CubeIDE"] $ws3
-            assign [title="STM32CubeIDE"] $ws3
+            assign [class="STM32CubeIDE"] 3
+            assign [title="STM32CubeIDE"] 3
 
 4.  launcher for X11 compatability
 
@@ -3393,10 +3109,4 @@ out of date
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
-
-
-## late addition to .config/sway/config
-
-    # exec_always sleep 1 && sway-workspace-move
-    exec_always sleep 1.5 && swaymsg workspace $ws1
 
