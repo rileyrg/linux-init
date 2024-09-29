@@ -692,11 +692,13 @@ Override in .profile.local
     
         "modules-right": [
             "pulseaudio",
+            "custom/bluetooth",
             "backlight",
             "battery",
             "custom/power-draw",
             "wlr/taskbar",
-            "tray"
+            "tray",
+            "custom/mynetwork"
         ],
     
         "network": {
@@ -706,7 +708,8 @@ Override in .profile.local
             "format-disconnected": " ",
             "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
             "interval": 60,
-            "tooltip-format": "{ifname}  {ipaddr}"
+            "tooltip-format": "{ifname}  {ipaddr}",
+            "on-click": "sway-wifi"
         },
     
     
@@ -832,15 +835,6 @@ Override in .profile.local
             "exec": "uptime -p"
         },
     
-        "custom/dropbox": {
-            "format": "<span color='gold'>{}</span>",
-            "return-type" : "json",
-            "interval": 5,
-            "exec": "waybar-dropbox-json",
-            "tooltip": "true",
-            "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
-            "on-click-right": "sway-www https://www.dropbox.com/h"
-        },
         "custom/monitors": {
             "format": "<span color='gold'>{}</span>",
             "return-type" : "json",
@@ -850,11 +844,11 @@ Override in .profile.local
             "on-click": "sway-screen-menu"
         },
         "custom/bluetooth": {
-            "format": "<span color='blue'>{}</span>",
+            "format": "<span color='white'>  </span>",
             "interval": 30,
             "exec": "waybar-bluetooth",
             "tooltip": "false",
-            "on-click": "sway-bluetooth"
+            "on-click": "blueman-manager"
         },
         "custom/power-draw": {
             "format": "<span color='gold'>⚡{}🔋</span>",
@@ -1487,14 +1481,12 @@ off in the **.profile** or something.
 
     exec sway-idle
     exec sway-bluetooth-controls
-    exec blueman-applet
     exec sleep 2 && gpg-cache
-    exec nm-applet --indicator
-    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
     exec mako
     exec sway-kanshi
     exec sleep 1 && sway-workspace-move
     exec sleep 1.5 && swaymsg workspace 1
+    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 
 ## bin,scripts     :sway:wayland:
@@ -1808,7 +1800,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf83c7a8"></a>
+<a id="org6cb9f53"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1857,7 +1849,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf83c7a8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6cb9f53).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

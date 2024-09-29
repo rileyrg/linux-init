@@ -283,14 +283,12 @@ exec systemctl start --user mbsync.service
 
 exec sway-idle
 exec sway-bluetooth-controls
-exec blueman-applet
 exec sleep 2 && gpg-cache
-exec nm-applet --indicator
-exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 exec mako
 exec sway-kanshi
 exec sleep 1 && sway-workspace-move
 exec sleep 1.5 && swaymsg workspace 1
+exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

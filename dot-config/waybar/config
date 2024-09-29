@@ -21,11 +21,13 @@
 
     "modules-right": [
         "pulseaudio",
+        "custom/bluetooth",
         "backlight",
         "battery",
         "custom/power-draw",
         "wlr/taskbar",
-        "tray"
+        "tray",
+        "custom/mynetwork"
     ],
 
     "network": {
@@ -35,7 +37,8 @@
         "format-disconnected": " ",
         "format-alt": "<span color='gray'>{essid}</span> <span color='green'>⬇</span>{bandwidthDownBits} <span color='green'>⬆</span>{bandwidthUpBits}",
         "interval": 60,
-        "tooltip-format": "{ifname}  {ipaddr}"
+        "tooltip-format": "{ifname}  {ipaddr}",
+        "on-click": "sway-wifi"
     },
 
 
@@ -161,15 +164,6 @@
         "exec": "uptime -p"
     },
 
-    "custom/dropbox": {
-        "format": "<span color='gold'>{}</span>",
-        "return-type" : "json",
-        "interval": 5,
-        "exec": "waybar-dropbox-json",
-        "tooltip": "true",
-        "on-click": "dropbox start && sway-notify 'Restarting Dropbox.'",
-        "on-click-right": "sway-www https://www.dropbox.com/h"
-    },
     "custom/monitors": {
         "format": "<span color='gold'>{}</span>",
         "return-type" : "json",
@@ -179,11 +173,11 @@
         "on-click": "sway-screen-menu"
     },
     "custom/bluetooth": {
-        "format": "<span color='blue'>{}</span>",
+        "format": "<span color='white'>  </span>",
         "interval": 30,
         "exec": "waybar-bluetooth",
         "tooltip": "false",
-        "on-click": "sway-bluetooth"
+        "on-click": "blueman-manager"
     },
     "custom/power-draw": {
         "format": "<span color='gold'>⚡{}🔋</span>",
