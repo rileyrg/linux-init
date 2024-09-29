@@ -287,6 +287,7 @@ exec sleep 2 && gpg-cache
 exec mako
 exec sway-kanshi
 exec sleep 1 && sway-workspace-move
+# include "~/bin/sway/sway-workspace-populate"
 exec sleep 1.5 && swaymsg workspace 1
 exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 

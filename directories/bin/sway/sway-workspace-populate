@@ -1,0 +1,8 @@
+workspace 1; exec emacsclient -c "~/cloud/homefiles/linux-config.org" && sleep 1;
+workspace 2; exec google-chrome --new-window "google.com"  && sleep 1;
+workspace 3; exec google-chrome --new-window "react.dev"  && sleep 1;
+workspace 4; exec google-chrome --new-window "file:"  && sleep 1;
+workspace 5; exec pcmanfm   && sleep 1;
+workspace 7; exec google-chrome --new-window "youtube.com"  && sleep 1;
+workspace 8; exec google-chrome --new-window "https://web.whatsapp.com/"  && sleep 1;
+workspace 1;

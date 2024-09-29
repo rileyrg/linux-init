@@ -1485,6 +1485,7 @@ off in the **.profile** or something.
     exec mako
     exec sway-kanshi
     exec sleep 1 && sway-workspace-move
+    # include "~/bin/sway/sway-workspace-populate"
     exec sleep 1.5 && swaymsg workspace 1
     exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
@@ -1800,7 +1801,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org6cb9f53"></a>
+<a id="org5ae88ba"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1847,9 +1848,21 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     "
 
 
+### ~/bin/sway/sway-workspace-populate
+
+    workspace 1; exec emacsclient -c "~/cloud/homefiles/linux-config.org" && sleep 1;
+    workspace 2; exec google-chrome --new-window "google.com"  && sleep 1;
+    workspace 3; exec google-chrome --new-window "react.dev"  && sleep 1;
+    workspace 4; exec google-chrome --new-window "file:"  && sleep 1;
+    workspace 5; exec pcmanfm   && sleep 1;
+    workspace 7; exec google-chrome --new-window "youtube.com"  && sleep 1;
+    workspace 8; exec google-chrome --new-window "https://web.whatsapp.com/"  && sleep 1;
+    workspace 1;
+
+
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6cb9f53).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5ae88ba).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
