@@ -1677,8 +1677,8 @@ exec systemctl start --user mbsync.service
   exec sleep 2 && gpg-cache
   exec mako
   exec sway-kanshi
-  exec sleep 1 && sway-workspace-move
-  # include "~/bin/sway/sway-workspace-populate"
+  exec sleep 1 && sway-workspace-populate
+  exec sleep 15 && sway-workspace-move
   exec sleep 1.5 && swaymsg workspace 1
   exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 #+end_src
@@ -2046,15 +2046,27 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   "
 #+end_src
 *** ~/bin/sway/sway-workspace-populate
-#+begin_src conf :tangle "~/bin/sway/sway-workspace-populate"
-  workspace 1; exec emacsclient -c "~/cloud/homefiles/linux-config.org" && sleep 1;
-  workspace 2; exec google-chrome --new-window "google.com"  && sleep 1;
-  workspace 3; exec google-chrome --new-window "react.dev"  && sleep 1;
-  workspace 4; exec google-chrome --new-window "file:"  && sleep 1;
-  workspace 5; exec pcmanfm   && sleep 1;
-  workspace 7; exec google-chrome --new-window "youtube.com"  && sleep 1;
-  workspace 8; exec google-chrome --new-window "https://web.whatsapp.com/"  && sleep 1;
-  workspace 1;
+#+begin_src bash :tangle "~/bin/sway/sway-workspace-populate"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  swaymsg "workspace 5; exec pcmanfm"
+  sleep 0.75
+  swaymsg "workspace 1; exec emacsclient -c '~/cloud/homefiles/linux-config.org'"
+  sleep 0.75
+  swaymsg "workspace 2; exec google-chrome --new-window 'google.com'"
+  sleep 0.75
+  swaymsg "workspace 3; exec google-chrome --new-window 'react.dev'"
+  sleep 0.75
+  swaymsg "workspace 4; exec google-chrome --new-window 'file:'"
+  sleep 0.75
+  swaymsg "workspace 7; exec google-chrome --new-window 'youtube.com'"
+  sleep 0.75
+  swaymsg "workspace 8; layout stacking;"
+  swaymsg "exec google-chrome --new-window 'https://web.whatsapp.com/'"
+  swaymsg "exec google-chrome --new-window 'https://web.telegram.org/k/'"
+  swaymsg "exec google-chrome --new-window 'https://mail.google.com/mail/u/0/#inbox'"
+  sleep 1
+  swaymsg "workspace 1;"
   #+end_src
 *** ~/bin/sway/sway-screen-menu
 Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-44ac-9ce8-530f9fd9e3c4][~/bin/sway/sway-screen]].
