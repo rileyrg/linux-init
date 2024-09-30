@@ -1129,6 +1129,8 @@ Override in .profile.local
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
     
+    bindcode 133 exec "sway-lock"
+    
     #
     # Moving around:
     #
@@ -1801,7 +1803,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org7308747"></a>
+<a id="orgb4b0fe8"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1874,7 +1876,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org7308747).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb4b0fe8).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
