@@ -55,6 +55,8 @@ export XDG_SESSION_DESKTOP=sway
 
 export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
+systemctl start --user mbsync.timer
+
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
 #homebrew

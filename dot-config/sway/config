@@ -281,17 +281,15 @@ bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
 bindsym $mod+Control+w exec sway-workspace-move
 
-exec systemctl start --user mbsync.service
-
+exec sway-kanshi
 exec sway-idle
 exec sway-bluetooth-controls
-exec sleep 2 && gpg-cache
 exec mako
-exec sway-kanshi
-exec sleep 1 && sway-workspace-populate
-exec sleep 15 && sway-workspace-move
-exec sleep 1.5 && swaymsg workspace 1
+# exec gpg-cache
+exec sleep 2 && sway-workspace-populate
 exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+exec sleep 10 && sway-workspace-move
+exec sleep 12 && swaymsg workspace 1
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

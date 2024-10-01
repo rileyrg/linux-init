@@ -140,6 +140,8 @@ NB - NOT Exported as lots of things want to update it
     
     export GRIM_DEFAULT_DIR="${HOME}/tmp"
     
+    systemctl start --user mbsync.timer
+    
     [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
     
     #homebrew
@@ -1474,25 +1476,17 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+w exec sway-workspace-move
 
 
-### mbsync
-
-I do this here because the user systemd service wont start with an encrypted HOMEDIR. Normally I'd kick this
-off in the **.profile** or something.
-
-    exec systemctl start --user mbsync.service
-
-
 ### services
 
+    exec sway-kanshi
     exec sway-idle
     exec sway-bluetooth-controls
-    exec sleep 2 && gpg-cache
     exec mako
-    exec sway-kanshi
-    exec sleep 1 && sway-workspace-populate
-    exec sleep 15 && sway-workspace-move
-    exec sleep 1.5 && swaymsg workspace 1
+    # exec gpg-cache
+    exec sleep 2 && sway-workspace-populate
     exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec sleep 10 && sway-workspace-move
+    exec sleep 12 && swaymsg workspace 1
 
 
 ## bin,scripts     :sway:wayland:
@@ -1813,7 +1807,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9d06ed2"></a>
+<a id="org3d30fd1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1861,8 +1855,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
       workspace 5; move workspace to output $leftOutput;
       workspace 6; move workspace to output $rightMostOutput;
       workspace 7; move workspace to output $rightMostOutput;
-      workspace 8; move workspace to output $rightOutput;
-      workspace 9; move workspace to output $rightMostOutput;
       workspace $curr;
     "
 
@@ -1871,29 +1863,29 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    swaymsg "workspace 5; exec pcmanfm"
-    sleep 0.75
     swaymsg "workspace 1; exec emacsclient -c '~/cloud/homefiles/linux-config.org'"
-    sleep 0.75
-    swaymsg "workspace 2; exec google-chrome --new-window 'google.com'"
-    sleep 0.75
-    swaymsg "workspace 3; exec google-chrome --new-window 'react.dev'"
-    sleep 0.75
+    swaymsg "workspace 2; exec google-chrome --new-window 'https://google.com'"
+    sleep 1
+    swaymsg "workspace 3; exec google-chrome --new-window 'https://react.dev'"
+    sleep 1
     swaymsg "workspace 4; exec google-chrome --new-window 'file:'"
-    sleep 0.75
-    swaymsg "workspace 7; exec google-chrome --new-window 'youtube.com'"
-    sleep 0.75
+    sleep 1
+    swaymsg "workspace 5; exec pcmanfm"
+    sleep 1
+    swaymsg "workspace 6; exec google-chrome --new-window 'https://music.youtube.com/'"
+    sleep 1
+    swaymsg "workspace 7; exec google-chrome --new-window 'https://youtube.com'"
+    sleep 1
     swaymsg "workspace 8; layout stacking;"
     swaymsg "exec google-chrome --new-window 'https://web.whatsapp.com/'"
     swaymsg "exec google-chrome --new-window 'https://web.telegram.org/k/'"
     swaymsg "exec google-chrome --new-window 'https://mail.google.com/mail/u/0/#inbox'"
     sleep 1
-    swaymsg "workspace 1;"
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d06ed2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3d30fd1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
