@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 
-outputs=(
-    $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active).name')
-)
+# outputs=$(sway-active-monitor-names)
 
-leftOutput="${outputs[0]}"
-rightOutput="${outputs[1]:-${leftOutput}}"
-rightMostOutput="${outputs[2]:-${rightOutput}}"
+# leftOutput=$(echo $outputs | sed -n "1 p")
+# rightOutput=$(echo $outputs | sed -n "2 p")
+# rightMostOutput=$(echo $outputs | sed -n "3 p")
+
+outputs=($(sway-active-monitor-ids)
+)
+leftOutput=${outputs[0]}
+rightOutput=${outputs[1]}
+rightMostOutput=${outputs[2]}
+
+rightOutput="${rightOutput:-${leftOutput}}"
+rightMostOutput="${rightMostOutput:-${rightOutput}}"
 
 sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
 

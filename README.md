@@ -668,8 +668,11 @@ Override in .profile.local
 
 ## waybar config
 
+<https://github.com/Alexays/Waybar/wiki/Configuration>
+
     
     {
+        "output" : ["ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB","eDP-1"],
         "layer": "top",
         "mode": "hide",
         "position": "top",
@@ -1129,7 +1132,7 @@ Override in .profile.local
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
     
-    bindcode 133 exec "sway-lock"
+    # bindcode 133 exec "sway-lock"
     
     #
     # Moving around:
@@ -1502,11 +1505,18 @@ off in the **.profile** or something.
     swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length'
 
 
+### ~/bin/sway/sway-active-monitor-ids
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.dpms and .active) | .name'
+
+
 ### ~/bin/sway/sway-active-monitor-names
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) | .name ]'
+     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active)|(.make + " " + .model + " " + .serial)'
 
 
 ### ~/bin/sway/sway-autostart
@@ -1803,7 +1813,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb4b0fe8"></a>
+<a id="org9d06ed2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1824,13 +1834,20 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
     #!/usr/bin/env bash
     
-    outputs=(
-        $(swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active).name')
-    )
+    # outputs=$(sway-active-monitor-names)
     
-    leftOutput="${outputs[0]}"
-    rightOutput="${outputs[1]:-${leftOutput}}"
-    rightMostOutput="${outputs[2]:-${rightOutput}}"
+    # leftOutput=$(echo $outputs | sed -n "1 p")
+    # rightOutput=$(echo $outputs | sed -n "2 p")
+    # rightMostOutput=$(echo $outputs | sed -n "3 p")
+    
+    outputs=($(sway-active-monitor-ids)
+    )
+    leftOutput=${outputs[0]}
+    rightOutput=${outputs[1]}
+    rightMostOutput=${outputs[2]}
+    
+    rightOutput="${rightOutput:-${leftOutput}}"
+    rightMostOutput="${rightMostOutput:-${rightOutput}}"
     
     sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     
@@ -1876,7 +1893,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb4b0fe8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d06ed2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
