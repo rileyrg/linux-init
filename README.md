@@ -674,7 +674,6 @@ Override in .profile.local
 
     
     {
-        "output" : ["ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB","eDP-1"],
         "layer": "top",
         "mode": "hide",
         "position": "top",
@@ -1807,7 +1806,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3d30fd1"></a>
+<a id="orge203f3d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1885,7 +1884,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3d30fd1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge203f3d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
