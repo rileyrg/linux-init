@@ -668,6 +668,474 @@ Override in .profile.local
     export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 
+## SwayWM config
+
+
+### general
+
+    # Maintained in linux-config.org
+    
+    include /etc/sway/config.d/*
+    include config-vars.d/*
+    
+    # Logo key. Use Mod1 for Alt.
+    set $mod Mod4
+    set $super Mod4
+    
+    # Home row direction keys, like vim
+    set $left h
+    set $down j
+    set $up k
+    set $right l
+    
+    
+    set $term 'alacritty'
+    set $menu 'sway-launcher-fzf'
+    set $editor 'sway-editor'
+    set $wallpaper '~/Pictures/Wallpapers/current'
+    
+    # Font  for window titles. Will also be used by the bar unless a different font
+    # is used in the bar {} block below.
+    font pango: "JetBrainsMono Nerd Font 6"
+    #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+    
+    mouse_warping output
+    
+    bar {
+    swaybar_command waybar
+    position top
+    hidden_state hide
+    mode hide
+    modifier Mod4
+    }
+    bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
+    
+    
+    set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+    mode "$mode_system" {
+    bindsym b exec sway-lock-utils blank, mode "default"
+    bindsym l exec sway-lock-utils lock, mode "default"
+    bindsym e exec sway-lock-utils logout, mode "default"
+    bindsym s exec sway-lock-utils suspend, mode "default"
+    bindsym h exec sway-lock-utils hibernate, mode "default"
+    bindsym r exec sway-lock-utils reboot, mode "default"
+    bindsym Shift+s exec sway-lock-utils shutdown, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    }
+    
+    bindsym $mod+Control+q mode "$mode_system"
+    bindsym --release $super+L exec "sway-lock-utils lock"
+    bindsym $mod+b exec sway-lock-utils blank
+    bindsym $mod+l exec sway-lock-utils lock
+    
+    
+      #
+    # Resizing containers:
+    #
+    mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    }
+    
+    bindsym $mod+r mode "resize"
+    
+    ### Key bindings
+    #
+    # Basics:
+    #
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
+    
+    # Start your launcher
+    bindsym $mod+d exec $menu
+    
+    # Start your editor
+    bindsym $mod+Shift+e exec $editor
+    
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+    
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+    
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    
+    #
+    # Moving around:
+    #
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+    
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+    #
+    # Workspaces:
+    #
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+    
+    bindsym $mod+m move workspace to output right
+    bindsym $mod+Control+m exec sway-display-swap
+    bindsym $mod+Tab workspace back_and_forth
+    
+    #
+    # Layout stuff:
+    
+    #
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+    
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+    
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+    
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+    
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+    
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+    
+    #
+    # Scratchpad:
+    #
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+    bindsym $mod+Return exec sway-scratch-terminal
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+
+
+### host specific     :scale:scaling:
+
+    include "${HOME}/.config/sway/host-config-$(hostname)"
+
+1.  Thinkpad T14s
+
+    1.  scaling
+    
+            #Maintained in linux-config.org
+            output eDP-1 mode 1920x1080@60hz scale 1.0
+
+2.  XMG Neo
+
+    1.  scaling
+    
+            #Maintained in linux-config.org
+            output eDP-1 mode 2560x1440@165hz scale 1.15
+
+
+### launcher
+
+    for_window [title="sway-launcher"] floating enable
+
+
+### display
+
+1.  wallpaper
+
+        output * bg  $wallpaper fill
+
+2.  transparency
+
+        set $trans 0.7
+        set $alphamark "α"
+        for_window [con_mark=$alphamark] opacity set $trans
+        bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
+
+3.  lid     :lid:clamshell:
+
+        set $laptop-id `sway-laptop-id`
+        bindswitch lid:on exec "sway-screen disable $laptop-id"
+        bindswitch lid:off exec "sway-screen enable $laptop-id"
+
+4.  brightness     :brightness:
+
+        bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
+        bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
+
+5.  gaps
+
+        gaps inner  1
+        gaps outer  0
+
+
+### scratchpad terminal
+
+$term is set to "sway-scratch-terminal
+
+    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
+
+1.  ~/bin/sway/sway-autostart
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
+            if [ $(tty) = /dev/tty1 ];then
+                if  [ $(hostname) = "xmgneo" ];then
+                    sway --my-next-gpu-wont-be-nvidia &
+                else
+                    sway &
+                fi
+            fi
+        fi
+
+2.  ~/bin/sway/sway-scratch-terminal
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s ScratchTerminal)
+
+
+### navigation                                  :navigation
+
+
+### clipboard
+
+1.  clipman and wofi
+
+    A basic [clipboard manager](https://github.com/yory8/clipman) for Wayland, with support for persisting copy buffers after an application exits.
+    
+        set $clipboard "~/.local/share/clipman.json"
+        exec wl-paste -t text --watch clipman store
+        exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
+        bindsym $mod+y exec sway-clipboard-history-select
+        bindsym $mod+Control+y exec sway-clipboard-history-clear
+    
+    1.  sway-clipboard-history-select
+    
+            #!/usr/bin/env bash
+            # Maintained in linux-config.org
+            if ! (clipman pick --tool="wofi" --max-items=30); then
+                sway-notify "Clipboard History Is Empty"
+                exit 1
+            else
+                exit 0
+            fi
+    
+    2.  sway-clipboard-history-clear
+    
+            #!/usr/bin/env bash
+            # Maintained in linux-config.org
+            clipman clear -a
+            sway-notify "Clipboard history cleared."
+    
+    3.  Wofi Config
+    
+    4.  ~/.config/wofi/config
+    
+        [Configuration](http://manpages.ubuntu.com/manpages/impish/man5/wofi.5.html) file
+        
+            # Maintained in linux-config.org
+            dynamic_lines=true
+            gtk_dark=true
+            terminal=alacritty
+    
+    5.  ~/.config/wofi/style.css
+    
+            /* Maintained in linux-config.org */
+            window {
+                margin: 0px;
+                border: 1px solid #c0c0c0;
+                background-color: #282a36;
+            }
+            
+            #input {
+                margin: 2 px;
+                border: none;
+                color: #222222;
+                background-color: #eeeeee;
+            }
+            
+            #inner-box {
+                margin: 2px;
+                border: none;
+                background-color: #282a36;
+            }
+            
+            #outer-box {
+                margin: 2px;
+                border: none;
+                background-color: #282a36;
+            }
+            
+            #scroll {
+                margin: 0px;
+                border: none;
+            }
+            
+            #text {
+                margin: 2px;
+                border: none;
+                color: #f8f8f2;
+            }
+            
+            #entry:selected {
+                background-color: #44475a;
+            }
+            #entry {
+                border-bottom-style: solid;
+                border-width: 1px;
+                border-color: #d4af37;
+            }
+
+
+### audio     :audio:
+
+1.  volume     :volume:
+
+        
+        bindsym XF86AudioMute exec  sway-volume-notify "0"
+        bindsym $mod+XF86AudioMute exec  pavucontrol
+        bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
+        bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
+        # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
+        # bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
+        bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
+
+2.  pavucontrol
+
+        for_window [app_id="pavucontrol"] floating enable
+        bindsym $mod+Control+Shift+a exec pulse-restart
+
+
+### wifi     :wifi:
+
+    bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wifi)."
+
+
+### apps default workspace
+
+    # assign [title="dbg:"] 3
+    #assign [app_id="Alacritty"] 1
+    #assign [class="Ardour"] 6
+    assign [class="Code"] 3
+    assign [class="Signal"] 8
+    assign [class="jetbrains-studio"] 3
+    assign [app_id="emacs"] 1
+    assign [class="Emacs"] 1
+    assign [class="Hexchat"] 8
+    assign [app_id="telegram"] 8
+    assign [class="discord"] 8
+    assign [class="Steam"] 9
+
+
+### apps default appearance
+
+    for_window [title="wifi"] floating enable
+    for_window [title="bluetoothctl"] floating enable
+
+
+### apps keybindings
+
+    
+    bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+    
+    bindsym $mod+Print exec sway-screenshot -i
+    bindsym $mod+Control+Print exec sway-screen-recorder
+    
+    bindsym $mod+Shift+f exec "sway-www"
+    bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
+    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
+    bindsym $mod+Control+c exec conky
+    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
+    bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
+    bindsym $mod+Control+Shift+d exec sway-screen-menu
+    bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
+    bindsym $mod+Control+p exec sway-htop
+    bindsym $mod+Control+Shift+p exec htop-regexp
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
+    bindsym $mod+Control+w exec sway-workspace-move
+
+
+### sway startup processes
+
+    exec sway-kanshi
+    exec sway-idle
+    exec sway-bluetooth-controls
+    exec mako
+    # exec gpg-cache
+    exec sleep 2 && sway-workspace-populate
+    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec sleep 10 && sway-workspace-move
+    exec sleep 12 && swaymsg workspace 1
+
+
 ## waybar config
 
 <https://github.com/Alexays/Waybar/wiki/Configuration>
@@ -1022,474 +1490,7 @@ Override in .profile.local
         }
 
 
-## Sway config
-
-
-### general
-
-    # Maintained in linux-config.org
-    
-    include /etc/sway/config.d/*
-    include config-vars.d/*
-    
-    # Logo key. Use Mod1 for Alt.
-    set $mod Mod4
-    set $super Mod4
-    
-    # Home row direction keys, like vim
-    set $left h
-    set $down j
-    set $up k
-    set $right l
-    
-    
-    set $term 'alacritty'
-    set $menu 'sway-launcher-fzf'
-    set $editor 'sway-editor'
-    set $wallpaper '~/Pictures/Wallpapers/current'
-    
-    # Font  for window titles. Will also be used by the bar unless a different font
-    # is used in the bar {} block below.
-    font pango: "JetBrainsMono Nerd Font 6"
-    #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
-    
-    mouse_warping output
-    
-    bar {
-    swaybar_command waybar
-    position top
-    hidden_state hide
-    mode hide
-    modifier Mod4
-    }
-    bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
-    
-    
-    set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
-    mode "$mode_system" {
-    bindsym b exec sway-lock-utils blank, mode "default"
-    bindsym l exec sway-lock-utils lock, mode "default"
-    bindsym e exec sway-lock-utils logout, mode "default"
-    bindsym s exec sway-lock-utils suspend, mode "default"
-    bindsym h exec sway-lock-utils hibernate, mode "default"
-    bindsym r exec sway-lock-utils reboot, mode "default"
-    bindsym Shift+s exec sway-lock-utils shutdown, mode "default"
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    }
-    
-    bindsym $mod+Control+q mode "$mode_system"
-    
-      #
-    # Resizing containers:
-    #
-    mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-    
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    }
-    
-    bindsym $mod+r mode "resize"
-    
-    ### Key bindings
-    #
-    # Basics:
-    #
-    # Kill focused window
-    bindsym $mod+Shift+q kill
-    bindsym $mod+q kill
-    
-    # Start your launcher
-    bindsym $mod+d exec $menu
-    
-    # Start your editor
-    bindsym $mod+Shift+e exec $editor
-    
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
-    
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
-    
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-    
-    bindsym --release $super+L exec "sway-lock"
-    
-    #
-    # Moving around:
-    #
-    # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-    
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-    #
-    # Workspaces:
-    #
-    # Switch to workspace
-    bindsym $mod+1 workspace number 1
-    bindsym $mod+2 workspace number 2
-    bindsym $mod+3 workspace number 3
-    bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
-    bindsym $mod+6 workspace number 6
-    bindsym $mod+7 workspace number 7
-    bindsym $mod+8 workspace number 8
-    bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1
-    bindsym $mod+Shift+2 move container to workspace number 2
-    bindsym $mod+Shift+3 move container to workspace number 3
-    bindsym $mod+Shift+4 move container to workspace number 4
-    bindsym $mod+Shift+5 move container to workspace number 5
-    bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
-    bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-    
-    bindsym $mod+m move workspace to output right
-    bindsym $mod+Control+m exec sway-display-swap
-    bindsym $mod+Tab workspace back_and_forth
-    
-    #
-    # Layout stuff:
-    
-    #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
-    
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
-    
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
-    
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
-    
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-    
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-    
-    #
-    # Scratchpad:
-    #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-    bindsym $mod+Return exec sway-scratch-terminal
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-
-
-### host specific     :scale:scaling:
-
-    include "${HOME}/.config/sway/host-config-$(hostname)"
-
-1.  Thinkpad T14s
-
-    1.  scaling
-    
-            #Maintained in linux-config.org
-            output eDP-1 mode 1920x1080@60hz scale 1.0
-
-2.  XMG Neo
-
-    1.  scaling
-    
-            #Maintained in linux-config.org
-            output eDP-1 mode 2560x1440@165hz scale 1.15
-
-
-### launcher
-
-    for_window [title="sway-launcher"] floating enable
-
-
-### display
-
-1.  wallpaper
-
-        output * bg  $wallpaper fill
-
-2.  transparency
-
-        set $trans 0.7
-        set $alphamark "α"
-        for_window [con_mark=$alphamark] opacity set $trans
-        bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
-
-3.  lid     :lid:clamshell:
-
-        set $laptop-id `sway-laptop-id`
-        bindswitch lid:on exec "sway-screen disable $laptop-id"
-        bindswitch lid:off exec "sway-screen enable $laptop-id"
-
-4.  brightness     :brightness:
-
-        bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
-        bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
-
-5.  gaps
-
-        gaps inner  1
-        gaps outer  0
-
-
-### scratchpad terminal
-
-$term is set to "sway-scratch-terminal
-
-    for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
-
-1.  ~/bin/sway/sway-autostart
-
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
-            if [ $(tty) = /dev/tty1 ];then
-                if  [ $(hostname) = "xmgneo" ];then
-                    sway --my-next-gpu-wont-be-nvidia &
-                else
-                    sway &
-                fi
-            fi
-        fi
-
-2.  ~/bin/sway/sway-scratch-terminal
-
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s ScratchTerminal)
-
-
-### navigation                                  :navigation
-
-
-### clipboard
-
-1.  clipman and wofi
-
-    A basic [clipboard manager](https://github.com/yory8/clipman) for Wayland, with support for persisting copy buffers after an application exits.
-    
-        set $clipboard "~/.local/share/clipman.json"
-        exec wl-paste -t text --watch clipman store
-        exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
-        bindsym $mod+y exec sway-clipboard-history-select
-        bindsym $mod+Control+y exec sway-clipboard-history-clear
-    
-    1.  sway-clipboard-history-select
-    
-            #!/usr/bin/env bash
-            # Maintained in linux-config.org
-            if ! (clipman pick --tool="wofi" --max-items=30); then
-                sway-notify "Clipboard History Is Empty"
-                exit 1
-            else
-                exit 0
-            fi
-    
-    2.  sway-clipboard-history-clear
-    
-            #!/usr/bin/env bash
-            # Maintained in linux-config.org
-            clipman clear -a
-            sway-notify "Clipboard history cleared."
-    
-    3.  Wofi Config
-    
-    4.  ~/.config/wofi/config
-    
-        [Configuration](http://manpages.ubuntu.com/manpages/impish/man5/wofi.5.html) file
-        
-            # Maintained in linux-config.org
-            dynamic_lines=true
-            gtk_dark=true
-            terminal=alacritty
-    
-    5.  ~/.config/wofi/style.css
-    
-            /* Maintained in linux-config.org */
-            window {
-                margin: 0px;
-                border: 1px solid #c0c0c0;
-                background-color: #282a36;
-            }
-            
-            #input {
-                margin: 2 px;
-                border: none;
-                color: #222222;
-                background-color: #eeeeee;
-            }
-            
-            #inner-box {
-                margin: 2px;
-                border: none;
-                background-color: #282a36;
-            }
-            
-            #outer-box {
-                margin: 2px;
-                border: none;
-                background-color: #282a36;
-            }
-            
-            #scroll {
-                margin: 0px;
-                border: none;
-            }
-            
-            #text {
-                margin: 2px;
-                border: none;
-                color: #f8f8f2;
-            }
-            
-            #entry:selected {
-                background-color: #44475a;
-            }
-            #entry {
-                border-bottom-style: solid;
-                border-width: 1px;
-                border-color: #d4af37;
-            }
-
-
-### audio     :audio:
-
-1.  volume     :volume:
-
-        
-        bindsym XF86AudioMute exec  sway-volume-notify "0"
-        bindsym $mod+XF86AudioMute exec  pavucontrol
-        bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
-        bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
-        # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
-        # bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
-        bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
-
-2.  pavucontrol
-
-        for_window [app_id="pavucontrol"] floating enable
-        bindsym $mod+Control+Shift+a exec pulse-restart
-
-
-### wifi     :wifi:
-
-    bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wifi)."
-
-
-### apps default workspace
-
-    # assign [title="dbg:"] 3
-    #assign [app_id="Alacritty"] 1
-    #assign [class="Ardour"] 6
-    assign [class="Code"] 3
-    assign [class="Signal"] 8
-    assign [class="jetbrains-studio"] 3
-    assign [app_id="emacs"] 1
-    assign [class="Emacs"] 1
-    assign [class="Hexchat"] 8
-    assign [app_id="telegram"] 8
-    assign [class="discord"] 8
-    assign [class="Steam"] 9
-
-
-### apps default appearance
-
-    for_window [title="wifi"] floating enable
-    for_window [title="bluetoothctl"] floating enable
-
-
-### apps keybindings
-
-    
-    bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
-    bindsym $mod+Control+b exec sway-lock-utils blank
-    
-    bindsym $mod+Print exec sway-screenshot -i
-    bindsym $mod+Control+Print exec sway-screen-recorder
-    
-    bindsym $mod+Shift+f exec "sway-www"
-    bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
-    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-    bindsym $mod+Control+c exec conky
-    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
-    bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
-    bindsym $mod+Control+Shift+d exec sway-screen-menu
-    bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
-    bindsym $mod+Control+p exec sway-htop
-    bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
-    bindsym $mod+Control+w exec sway-workspace-move
-
-
-### services
-
-    exec sway-kanshi
-    exec sway-idle
-    exec sway-bluetooth-controls
-    exec mako
-    # exec gpg-cache
-    exec sleep 2 && sway-workspace-populate
-    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
-    exec sleep 10 && sway-workspace-move
-    exec sleep 12 && swaymsg workspace 1
-
-
-## bin,scripts     :sway:wayland:
+## swaywm scripts     :sway:wayland:
 
 
 ### ~/bin/sway-sway-active-monitors-count
@@ -1800,6 +1801,13 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     sway-lock-utils lock
 
 
+### ~/bin/sway/sway-blank
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    sway-lock-utils blank
+
+
 ### ~/bin/sway/sway-notify
 
     #!/usr/bin/env bash
@@ -1807,7 +1815,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org52eed88"></a>
+<a id="orga597179"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1885,7 +1893,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org52eed88).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga597179).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
