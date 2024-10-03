@@ -56,6 +56,7 @@ export XDG_SESSION_DESKTOP=sway
 export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
 systemctl start --user mbsync.timer
+nohup bluetooth-headphone-controls > /dev/null 2>&1 &
 
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 

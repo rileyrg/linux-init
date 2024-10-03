@@ -141,6 +141,7 @@ NB - NOT Exported as lots of things want to update it
     export GRIM_DEFAULT_DIR="${HOME}/tmp"
     
     systemctl start --user mbsync.timer
+    nohup bluetooth-headphone-controls > /dev/null 2>&1 &
     
     [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
     
@@ -726,12 +727,13 @@ Override in .profile.local
     }
     
     bindsym $mod+Control+q mode "$mode_system"
-    bindsym --release $super+L exec "sway-lock-utils lock"
-    bindsym $mod+b exec sway-lock-utils blank
-    bindsym $mod+l exec sway-lock-utils lock
     
+    bindsym $mod+control+b exec sway-lock-utils blank
     
-      #
+    bindsym $mod+control+l exec sway-lock-utils lock
+    bindsym --release $mod+L exec sway-lock-utils lock
+    
+    #
     # Resizing containers:
     #
     mode "resize" {
@@ -1125,15 +1127,14 @@ $term is set to "sway-scratch-terminal
 
 ### sway startup processes
 
-    exec sway-kanshi
-    exec sway-idle
-    exec sway-bluetooth-controls
     exec mako
+    exec sway-bluetooth-controls
+    exec sway-idle
+    exec sway-kanshi
+    exec blueman-applet
     # exec gpg-cache
-    exec sleep 2 && sway-workspace-populate
+    exec "sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;"
     exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
-    exec sleep 10 && sway-workspace-move
-    exec sleep 12 && swaymsg workspace 1
 
 
 ## waybar config
@@ -1164,7 +1165,6 @@ $term is set to "sway-scratch-terminal
     
         "modules-right": [
             "pulseaudio",
-            "custom/bluetooth",
             "backlight",
             "battery",
             "custom/power-draw",
@@ -1528,16 +1528,6 @@ $term is set to "sway-scratch-terminal
     sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 
 
-### ~/bin/sway/sway-bluetooth-controls
-
-Enable bluetooth multimedia pause/ play
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    pkill mpris-proxy
-    mpris-proxy
-
-
 ### ~/bin/sway/sway-bluetooth
 
     #!/usr/bin/env bash
@@ -1570,6 +1560,24 @@ Enable bluetooth multimedia pause/ play
                     exit 1
                 fi
             fi
+        fi
+    fi
+    exit 0
+
+
+### ~/bin/sway/sway-oneterminal
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    
+    sessionname="${1:-`pwd`}"
+    title="${ONETERM_TITLE:-${sessionname}}"
+    script="${2}"
+    if ! sway-do-tool "$title"; then
+        alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
+    else
+        if ! tmux has-session -t  "${sessionname}"; then
+            tmux attach -t "${sessionname}"
         fi
     fi
     exit 0
@@ -1815,7 +1823,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga597179"></a>
+<a id="orgb96f91d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1842,27 +1850,27 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     # rightOutput=$(echo $outputs | sed -n "2 p")
     # rightMostOutput=$(echo $outputs | sed -n "3 p")
     
-    outputs=($(sway-active-monitor-ids)
-    )
+    mapfile -t outputs  < <( sway-active-monitor-ids )
     leftOutput=${outputs[0]}
     rightOutput=${outputs[1]}
     rightMostOutput=${outputs[2]}
     
-    rightOutput="${rightOutput:-${leftOutput}}"
-    rightMostOutput="${rightMostOutput:-${rightOutput}}"
+    rightOutput=${rightOutput:-${leftOutput}}
+    rightMostOutput=${rightMostOutput:-${rightOutput}}
     
     sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
     swaymsg "
-      workspace 1; move workspace to output $leftOutput;
-      workspace 2; move workspace to output $rightOutput;
       workspace 3; move workspace to output $leftOutput;
+      workspace 1; move workspace to output $leftOutput;
+      workspace 5; move workspace to output $rightOutput;
       workspace 4; move workspace to output $rightOutput;
-      workspace 5; move workspace to output $leftOutput;
+      workspace 2; move workspace to output $rightOutput;
       workspace 6; move workspace to output $rightMostOutput;
       workspace 7; move workspace to output $rightMostOutput;
+      workspace 8; move workspace to output $rightMostOutput;
       workspace $curr;
     "
 
@@ -1872,6 +1880,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     swaymsg "workspace 1; exec emacsclient -c '~/cloud/homefiles/linux-config.org'"
+    sleep 1
     swaymsg "workspace 2; exec google-chrome --new-window 'https://google.com'"
     sleep 1
     swaymsg "workspace 3; exec google-chrome --new-window 'https://react.dev'"
@@ -1893,7 +1902,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga597179).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb96f91d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2689,22 +2698,14 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 # bin
 
 
-## ~/bin/sway/sway-oneterminal
+## ~/bin/bluetooth-headphone-controls
+
+Enable bluetooth multimedia pause/ play
 
     #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    
-    sessionname="${1:-`pwd`}"
-    title="${ONETERM_TITLE:-${sessionname}}"
-    script="${2}"
-    if ! sway-do-tool "$title"; then
-        alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
-    else
-        if ! tmux has-session -t  "${sessionname}"; then
-            tmux attach -t "${sessionname}"
-        fi
-    fi
-    exit 0
+    # Maintained in linux-config.org
+    pkill mpris-proxy
+    mpris-proxy
 
 
 ## ~/bin/edit

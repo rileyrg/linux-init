@@ -51,12 +51,13 @@ bindsym Escape mode "default"
 }
 
 bindsym $mod+Control+q mode "$mode_system"
-bindsym --release $super+L exec "sway-lock-utils lock"
-bindsym $mod+b exec sway-lock-utils blank
-bindsym $mod+l exec sway-lock-utils lock
 
+bindsym $mod+control+b exec sway-lock-utils blank
 
-  #
+bindsym $mod+control+l exec sway-lock-utils lock
+bindsym --release $mod+L exec sway-lock-utils lock
+
+#
 # Resizing containers:
 #
 mode "resize" {
@@ -283,15 +284,14 @@ bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
 bindsym $mod+Control+w exec sway-workspace-move
 
-exec sway-kanshi
-exec sway-idle
-exec sway-bluetooth-controls
 exec mako
+exec sway-bluetooth-controls
+exec sway-idle
+exec sway-kanshi
+exec blueman-applet
 # exec gpg-cache
-exec sleep 2 && sway-workspace-populate
+exec "sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;"
 exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
-exec sleep 10 && sway-workspace-move
-exec sleep 12 && swaymsg workspace 1
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

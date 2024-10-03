@@ -117,6 +117,7 @@
 !/directories/bin/AIScatcher
 !/directories/bin/AIScheck
 !/directories/bin/build-emacs
+!/directories/bin/bluetooth-headphone-controls
 !/directories/bin/edit
 !/directories/bin/eman
 !/directories/bin/emacs-same-frame

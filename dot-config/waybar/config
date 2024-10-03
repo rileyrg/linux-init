@@ -21,7 +21,6 @@
 
     "modules-right": [
         "pulseaudio",
-        "custom/bluetooth",
         "backlight",
         "battery",
         "custom/power-draw",

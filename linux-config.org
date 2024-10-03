@@ -207,6 +207,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
   systemctl start --user mbsync.timer
+  nohup bluetooth-headphone-controls > /dev/null 2>&1 &
 
   [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
@@ -904,12 +905,13 @@ Override in .profile.local
   }
 
   bindsym $mod+Control+q mode "$mode_system"
-  bindsym --release $super+L exec "sway-lock-utils lock"
-  bindsym $mod+b exec sway-lock-utils blank
-  bindsym $mod+l exec sway-lock-utils lock
 
+  bindsym $mod+control+b exec sway-lock-utils blank
 
-    #
+  bindsym $mod+control+l exec sway-lock-utils lock
+  bindsym --release $mod+L exec sway-lock-utils lock
+
+  #
   # Resizing containers:
   #
   mode "resize" {
@@ -1311,15 +1313,14 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+end_src
 *** sway startup processes
 #+begin_src  conf
-  exec sway-kanshi
-  exec sway-idle
-  exec sway-bluetooth-controls
   exec mako
+  exec sway-bluetooth-controls
+  exec sway-idle
+  exec sway-kanshi
+  exec blueman-applet
   # exec gpg-cache
-  exec sleep 2 && sway-workspace-populate
+  exec "sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;"
   exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
-  exec sleep 10 && sway-workspace-move
-  exec sleep 12 && swaymsg workspace 1
 #+end_src
 
 ** waybar config
@@ -1352,7 +1353,6 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
       "modules-right": [
           "pulseaudio",
-          "custom/bluetooth",
           "backlight",
           "battery",
           "custom/power-draw",
@@ -1713,16 +1713,6 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   # Maintained in linux-config.org
   sway-notify "🔆:$(printf "%.0f" `brightnessctl g`)"
 #+end_src
-*** ~/bin/sway/sway-bluetooth-controls
-Enable bluetooth multimedia pause/ play
-:PROPERTIES:
-:END:
-#+begin_src bash :tangle "~/bin/sway/sway-bluetooth-controls"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  pkill mpris-proxy
-  mpris-proxy
-#+end_src
 *** ~/bin/sway/sway-bluetooth
 :PROPERTIES:
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
@@ -1760,6 +1750,24 @@ Enable bluetooth multimedia pause/ play
       fi
   fi
   exit 0
+#+end_src
+*** ~/bin/sway/sway-oneterminal
+#+begin_src bash :tangle "~/bin/sway/sway-oneterminal"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+
+  sessionname="${1:-`pwd`}"
+  title="${ONETERM_TITLE:-${sessionname}}"
+  script="${2}"
+  if ! sway-do-tool "$title"; then
+      alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
+  else
+      if ! tmux has-session -t  "${sessionname}"; then
+          tmux attach -t "${sessionname}"
+      fi
+  fi
+  exit 0
+
 #+end_src
 *** ~/bin/sway/sway-dpms
 #+begin_src bash :tangle "~/bin/sway/sway-dpms"
@@ -2039,27 +2047,27 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   # rightOutput=$(echo $outputs | sed -n "2 p")
   # rightMostOutput=$(echo $outputs | sed -n "3 p")
 
-  outputs=($(sway-active-monitor-ids)
-  )
+  mapfile -t outputs  < <( sway-active-monitor-ids )
   leftOutput=${outputs[0]}
   rightOutput=${outputs[1]}
   rightMostOutput=${outputs[2]}
 
-  rightOutput="${rightOutput:-${leftOutput}}"
-  rightMostOutput="${rightMostOutput:-${rightOutput}}"
+  rightOutput=${rightOutput:-${leftOutput}}
+  rightMostOutput=${rightMostOutput:-${rightOutput}}
 
   sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
 
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
   swaymsg "
-    workspace 1; move workspace to output $leftOutput;
-    workspace 2; move workspace to output $rightOutput;
     workspace 3; move workspace to output $leftOutput;
+    workspace 1; move workspace to output $leftOutput;
+    workspace 5; move workspace to output $rightOutput;
     workspace 4; move workspace to output $rightOutput;
-    workspace 5; move workspace to output $leftOutput;
+    workspace 2; move workspace to output $rightOutput;
     workspace 6; move workspace to output $rightMostOutput;
     workspace 7; move workspace to output $rightMostOutput;
+    workspace 8; move workspace to output $rightMostOutput;
     workspace $curr;
   "
 #+end_src
@@ -2068,6 +2076,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   swaymsg "workspace 1; exec emacsclient -c '~/cloud/homefiles/linux-config.org'"
+  sleep 1
   swaymsg "workspace 2; exec google-chrome --new-window 'https://google.com'"
   sleep 1
   swaymsg "workspace 3; exec google-chrome --new-window 'https://react.dev'"
@@ -2085,7 +2094,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   swaymsg "exec google-chrome --new-window 'https://web.telegram.org/k/'"
   swaymsg "exec google-chrome --new-window 'https://mail.google.com/mail/u/0/#inbox'"
   sleep 1
-  #+end_src
+#+end_src
 *** ~/bin/sway/sway-screen-menu
 Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-44ac-9ce8-530f9fd9e3c4][~/bin/sway/sway-screen]].
 :PROPERTIES:
@@ -2848,23 +2857,15 @@ and activate them
   pidof mu &> /dev/null || mu index
 #+end_src
 * bin
-** ~/bin/sway/sway-oneterminal
-#+begin_src bash :tangle "~/bin/sway/sway-oneterminal"
+** ~/bin/bluetooth-headphone-controls
+Enable bluetooth multimedia pause/ play
+:PROPERTIES:
+:END:
+#+begin_src bash :tangle "~/bin/bluetooth-headphone-controls"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
-
-  sessionname="${1:-`pwd`}"
-  title="${ONETERM_TITLE:-${sessionname}}"
-  script="${2}"
-  if ! sway-do-tool "$title"; then
-      alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
-  else
-      if ! tmux has-session -t  "${sessionname}"; then
-          tmux attach -t "${sessionname}"
-      fi
-  fi
-  exit 0
-
+  # Maintained in linux-config.org
+  pkill mpris-proxy
+  mpris-proxy
 #+end_src
 ** ~/bin/edit
 #+begin_src bash :tangle "~/bin/edit"
