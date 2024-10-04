@@ -2075,24 +2075,31 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-populate"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  swaymsg "workspace 1; exec emacsclient -c '~/cloud/homefiles/linux-config.org'"
+  swaymsg "workspace 1"
+  emacsclient -c ~/cloud/homefiles/linux-config.org &
   sleep 1
-  swaymsg "workspace 2; exec google-chrome --new-window 'https://google.com'"
+  swaymsg "workspace 2"
+  google-chrome --new-window "https://google.com" &
   sleep 1
-  swaymsg "workspace 3; exec google-chrome --new-window 'https://react.dev'"
+  swaymsg "workspace 3"
+  google-chrome --new-window "https://react.dev"
   sleep 1
-  swaymsg "workspace 4; exec google-chrome --new-window 'file:'"
+  swaymsg "workspace 4"
+  google-chrome --new-window "file'"
   sleep 1
-  swaymsg "workspace 5; exec pcmanfm"
+  swaymsg "workspace 5"
+  pcmanfm &
   sleep 1
-  swaymsg "workspace 6; exec google-chrome --new-window 'https://music.youtube.com/'"
+  swaymsg "workspace 6"
+  google-chrome --new-window "https://music.youtube.com/" &
   sleep 1
-  swaymsg "workspace 7; exec google-chrome --new-window 'https://youtube.com'"
+  swaymsg "workspace 7"
+  google-chrome --new-window "https://youtube.com"
   sleep 1
   swaymsg "workspace 8; layout stacking;"
-  swaymsg "exec google-chrome --new-window 'https://web.whatsapp.com/'"
-  swaymsg "exec google-chrome --new-window 'https://web.telegram.org/k/'"
-  swaymsg "exec google-chrome --new-window 'https://mail.google.com/mail/u/0/#inbox'"
+  google-chrome --new-window "https://web.whatsapp.com/"
+  google-chrome --new-window "https://web.telegram.org/k/"
+  google-chrome --new-window "https://mail.google.com/mail/u/0/#inbox"
   sleep 1
 #+end_src
 *** ~/bin/sway/sway-screen-menu
