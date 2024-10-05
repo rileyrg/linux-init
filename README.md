@@ -1133,8 +1133,7 @@ $term is set to "sway-scratch-terminal
     exec sway-kanshi
     exec blueman-applet
     # exec gpg-cache
-    exec "sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;"
-    exec '[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec 'sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 
 ## waybar config
@@ -1823,7 +1822,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3b1d8b8"></a>
+<a id="org0cdf01f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1909,7 +1908,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3b1d8b8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0cdf01f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
