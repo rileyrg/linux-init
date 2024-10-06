@@ -8,7 +8,7 @@ settings set interpreter.prompt-on-quit false
 settings set target.x86-disassembly-flavor intel
 
 command alias bfl breakpoint set -f %1 -l %2
-command alias lv command script import "/home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py"
+command alias lv command script import "~/bin/thirdparty/pyenv/versions/3.9.2/lib/python3.9/site-packages/voltron/entry.py"
 command alias sl source list -a $rip
 command alias so thread step-out
 #auto breaks  - annotate code with labels eg debug_inspect__var_of_interest

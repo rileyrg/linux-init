@@ -1121,7 +1121,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && $term
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
     bindsym $mod+Control+w exec sway-workspace-move
 
 
@@ -1640,11 +1640,16 @@ Load a host specific kanshi file if it exists
 
 3.  config-t14s
 
-        profile home{
-         output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
-         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
-         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
-         }
+        profile home-dp{
+        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+        output 'Synaptics Inc Non-PnP 0x00BC614E' mode 1920x1080 position 2560,0
+        output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
+        }
+        profile home-hdmi{
+        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+        output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+        output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
+        }
 
 4.  config-xmgneo
 
@@ -1822,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9bcd8f0"></a>
+<a id="org2341314"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1908,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9bcd8f0).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2341314).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2143,7 +2148,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
         settings set target.x86-disassembly-flavor intel
         
         command alias bfl breakpoint set -f %1 -l %2
-        command alias lv command script import "/home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py"
+        command alias lv command script import "~/bin/thirdparty/pyenv/versions/3.9.2/lib/python3.9/site-packages/voltron/entry.py"
         command alias sl source list -a $rip
         command alias so thread step-out
         #auto breaks  - annotate code with labels eg debug_inspect__var_of_interest

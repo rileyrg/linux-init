@@ -20,8 +20,6 @@ end
 
 pretty
 
-source ~/.gef-2024.06.py
-
 define lsource
 list *$rip
 end
@@ -71,7 +69,7 @@ end
 
 #### Initialise Voltron Session
 define voltron-init
-source /home/rgr/.local/lib/python3.9/site-packages/voltron/entry.py
+source ~/bin/thirdparty/pyenv/versions/3.9.2/lib/python3.9/site-packages/voltron/entry.py
 
 alias vtty = shell tmux-pane-tty voltron 4
 
