@@ -6,4 +6,7 @@ if [[ -z $DOT_PROFILE_SOURCED ]]; then
         emulate sh -c '. ~/.profile'
     fi
 fi
-sway-autostart
+if [ "$(tty)" = "/dev/tty1" ];then
+    chuck
+    sway-autostart
+fi

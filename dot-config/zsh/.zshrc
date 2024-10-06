@@ -123,7 +123,6 @@ command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 # xhost +local  > /dev/null 2>&1
-chuck
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

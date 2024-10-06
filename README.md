@@ -347,7 +347,6 @@ NB - NOT Exported as lots of things want to update it
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
     
     # xhost +local  > /dev/null 2>&1
-    chuck
 
 
 ### ~/.config/zsh/.zlogin
@@ -360,7 +359,10 @@ NB - NOT Exported as lots of things want to update it
             emulate sh -c '. ~/.profile'
         fi
     fi
-    sway-autostart
+    if [ "$(tty)" = "/dev/tty1" ];then
+        chuck
+        sway-autostart
+    fi
 
 
 ### zprofile
@@ -947,12 +949,10 @@ $term is set to "sway-scratch-terminal
         #!/usr/bin/env bash
         #Maintained in linux-config.org
         if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
-            if [ $(tty) = /dev/tty1 ];then
-                if  [ $(hostname) = "xmgneo" ];then
-                    sway --my-next-gpu-wont-be-nvidia &
-                else
-                    sway &
-                fi
+            if  [ "$(hostname)" = "xmgneo" ];then
+                sway --my-next-gpu-wont-be-nvidia &
+            else
+                sway &
             fi
         fi
 
@@ -1827,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2341314"></a>
+<a id="orgb96b628"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1913,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2341314).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb96b628).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
