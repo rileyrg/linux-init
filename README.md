@@ -1121,7 +1121,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
     bindsym $mod+Control+w exec sway-workspace-move
 
 
@@ -1827,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb96b628"></a>
+<a id="org40b6bb8"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1913,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb96b628).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org40b6bb8).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

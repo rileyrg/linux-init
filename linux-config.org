@@ -1309,7 +1309,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
   bindsym $mod+Control+p exec sway-htop
   bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
+  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
   bindsym $mod+Control+w exec sway-workspace-move
 #+end_src
 *** sway startup processes
