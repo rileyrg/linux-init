@@ -225,7 +225,7 @@ NB - NOT Exported as lots of things want to update it
     # Maintained in linux-config.org
     logger -t "startup-initfile"  ZSHRC
     [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-    export TERM="alacritty"
+    export TERM="kitty"
     # Path to your oh-my-zsh installation.
     export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
     
@@ -692,7 +692,7 @@ Override in .profile.local
     set $right l
     
     
-    set $term 'alacritty'
+    set $term 'kitty'
     set $menu 'sway-launcher-fzf'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
@@ -960,7 +960,7 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s ScratchTerminal)
+        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
 
 
 ### navigation                                  :navigation
@@ -1005,7 +1005,7 @@ $term is set to "sway-scratch-terminal
             # Maintained in linux-config.org
             dynamic_lines=true
             gtk_dark=true
-            terminal=alacritty
+            terminal=kitty
     
     5.  ~/.config/wofi/style.css
     
@@ -1121,7 +1121,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-move
 
 
@@ -1573,7 +1573,7 @@ $term is set to "sway-scratch-terminal
     title="${ONETERM_TITLE:-${sessionname}}"
     script="${2}"
     if ! sway-do-tool "$title"; then
-        alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
+        kitty --title "${title}" -e tmux new-session -A -s ${sessionname} ${script} &
     else
         if ! tmux has-session -t  "${sessionname}"; then
             tmux attach -t "${sessionname}"
@@ -1827,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org40b6bb8"></a>
+<a id="org8fedc92"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1913,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org40b6bb8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8fedc92).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -1968,7 +1968,7 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    exec alacritty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
+    exec kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
 
 
 ### ~/bin/sway/sway-launcher-ulauncher
