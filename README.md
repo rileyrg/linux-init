@@ -1822,7 +1822,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0cdf01f"></a>
+<a id="org9bcd8f0"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1882,33 +1882,33 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     emacsclient -c ~/cloud/homefiles/linux-config.org &
     sleep 1
     swaymsg "workspace 2"
-    google-chrome --new-window "https://google.com" &
+    sway-www "https://google.com" &
     sleep 1
     swaymsg "workspace 3"
-    google-chrome --new-window "https://react.dev"
+    sway-www "https://react.dev"
     sleep 1
     swaymsg "workspace 4"
-    google-chrome --new-window "file'"
+    sway-www "file'"
     sleep 1
     swaymsg "workspace 5"
     pcmanfm &
     sleep 1
     swaymsg "workspace 6"
-    google-chrome --new-window "https://music.youtube.com/" &
+    sway-www "https://music.youtube.com/" &
     sleep 1
     swaymsg "workspace 7"
-    google-chrome --new-window "https://youtube.com"
+    sway-www "https://youtube.com"
     sleep 1
     swaymsg "workspace 8; layout stacking;"
-    google-chrome --new-window "https://web.whatsapp.com/"
-    google-chrome --new-window "https://web.telegram.org/k/"
-    google-chrome --new-window "https://mail.google.com/mail/u/0/#inbox"
+    sway-www "https://web.whatsapp.com/"
+    sway-www "https://web.telegram.org/k/"
+    sway-www "https://mail.google.com/mail/u/0/#inbox"
     sleep 1
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0cdf01f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9bcd8f0).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2074,7 +2074,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     # google-chrome   "$@" &> /dev/null &
-    google-chrome  -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+    google-chrome  --hide-crash-restore-bubble --new-window -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
     # sway-firefox "$1"
 
 

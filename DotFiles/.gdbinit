@@ -20,6 +20,8 @@ end
 
 pretty
 
+source ~/.gef-2024.06.py
+
 define lsource
 list *$rip
 end
