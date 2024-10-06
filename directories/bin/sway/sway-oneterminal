@@ -5,7 +5,7 @@ sessionname="${1:-`pwd`}"
 title="${ONETERM_TITLE:-${sessionname}}"
 script="${2}"
 if ! sway-do-tool "$title"; then
-    alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
+    kitty --title "${title}" -e tmux new-session -A -s ${sessionname} ${script} &
 else
     if ! tmux has-session -t  "${sessionname}"; then
         tmux attach -t "${sessionname}"

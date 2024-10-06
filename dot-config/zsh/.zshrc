@@ -1,7 +1,7 @@
 # Maintained in linux-config.org
 logger -t "startup-initfile"  ZSHRC
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-export TERM="alacritty"
+export TERM="kitty"
 # Path to your oh-my-zsh installation.
 export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
 

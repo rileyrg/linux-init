@@ -14,7 +14,7 @@ set $up k
 set $right l
 
 
-set $term 'alacritty'
+set $term 'kitty'
 set $menu 'sway-launcher-fzf'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current'
@@ -281,7 +281,7 @@ bindsym $mod+Control+Shift+d exec sway-screen-menu
 bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
 bindsym $mod+Control+p exec sway-htop
 bindsym $mod+Control+Shift+p exec htop-regexp
-bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
+bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty -a tmux new
 bindsym $mod+Control+w exec sway-workspace-move
 
 exec mako

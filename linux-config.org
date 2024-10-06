@@ -294,7 +294,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   # Maintained in linux-config.org
   logger -t "startup-initfile"  ZSHRC
   [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
-  export TERM="alacritty"
+  export TERM="kitty"
   # Path to your oh-my-zsh installation.
   export ZSH="${XDG_CONFIG_HOME}/zsh/oh-my-zsh"
 
@@ -871,7 +871,7 @@ Override in .profile.local
   set $right l
 
 
-  set $term 'alacritty'
+  set $term 'kitty'
   set $menu 'sway-launcher-fzf'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
@@ -1154,7 +1154,7 @@ $term is set to "sway-scratch-terminal
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && alacritty --title "ScratchTerminal" --command tmux new-session -A -s ScratchTerminal)
+  swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
 #+end_src
 *** navigation                                  :navigation
 #+begin_src conf
@@ -1196,7 +1196,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   # Maintained in linux-config.org
   dynamic_lines=true
   gtk_dark=true
-  terminal=alacritty
+  terminal=kitty
 #+end_src
 ***** ~/.config/wofi/style.css
 #+begin_src css :tangle ~/.config/wofi/style.css
@@ -1309,7 +1309,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
   bindsym $mod+Control+p exec sway-htop
   bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && alacritty --command tmux new
+  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty -a tmux new
   bindsym $mod+Control+w exec sway-workspace-move
 #+end_src
 *** sway startup processes
@@ -1760,7 +1760,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   title="${ONETERM_TITLE:-${sessionname}}"
   script="${2}"
   if ! sway-do-tool "$title"; then
-      alacritty --title "${title}" --command tmux new-session -A -s ${sessionname} ${script} &
+      kitty --title "${title}" -e tmux new-session -A -s ${sessionname} ${script} &
   else
       if ! tmux has-session -t  "${sessionname}"; then
           tmux attach -t "${sessionname}"
@@ -2159,7 +2159,7 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-fzf
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  exec alacritty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
+  exec kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
 #+end_src
 *** ~/bin/sway/sway-launcher-ulauncher
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-ulauncher
