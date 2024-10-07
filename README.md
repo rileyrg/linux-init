@@ -141,7 +141,6 @@ NB - NOT Exported as lots of things want to update it
     export GRIM_DEFAULT_DIR="${HOME}/tmp"
     
     systemctl start --user mbsync.timer
-    nohup bluetooth-headphone-controls > /dev/null 2>&1 &
     
     [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
     
@@ -1121,14 +1120,15 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty tmux new
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-move
 
 
 ### sway startup processes
 
     exec mako
-    exec sway-bluetooth-controls
+    exec bluetooth-controls
     exec sway-idle
     exec sway-kanshi
     exec blueman-applet
@@ -1827,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org8fedc92"></a>
+<a id="orge0c454b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1913,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8fedc92).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge0c454b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

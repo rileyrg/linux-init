@@ -207,7 +207,6 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
   systemctl start --user mbsync.timer
-  nohup bluetooth-headphone-controls > /dev/null 2>&1 &
 
   [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
@@ -1309,13 +1308,14 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
   bindsym $mod+Control+p exec sway-htop
   bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty tmux new
+  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
+  bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
   bindsym $mod+Control+w exec sway-workspace-move
 #+end_src
 *** sway startup processes
 #+begin_src  conf
   exec mako
-  exec sway-bluetooth-controls
+  exec bluetooth-controls
   exec sway-idle
   exec sway-kanshi
   exec blueman-applet
