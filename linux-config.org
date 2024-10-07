@@ -994,31 +994,33 @@ Override in .profile.local
   # Workspaces:
   #
   # Switch to workspace
-  bindsym $mod+1 workspace number 1
-  bindsym $mod+2 workspace number 2
-  bindsym $mod+3 workspace number 3
-  bindsym $mod+4 workspace number 4
-  bindsym $mod+5 workspace number 5
-  bindsym $mod+6 workspace number 6
-  bindsym $mod+7 workspace number 7
-  bindsym $mod+8 workspace number 8
-  bindsym $mod+9 workspace number 9
-  bindsym $mod+0 workspace number 10
+  bindsym $mod+1 workspace 1
+  bindsym $mod+2 workspace 2
+  bindsym $mod+3 workspace 3
+  bindsym $mod+4 workspace 4
+  bindsym $mod+5 workspace 5
+  bindsym $mod+6 workspace 6
+  bindsym $mod+7 workspace 7
+  bindsym $mod+8 workspace 8
+  bindsym $mod+9 workspace 9
+  bindsym $mod+0 workspace 10
   # Move focused container to workspace
-  bindsym $mod+Shift+1 move container to workspace number 1
-  bindsym $mod+Shift+2 move container to workspace number 2
-  bindsym $mod+Shift+3 move container to workspace number 3
-  bindsym $mod+Shift+4 move container to workspace number 4
-  bindsym $mod+Shift+5 move container to workspace number 5
-  bindsym $mod+Shift+6 move container to workspace number 6
-  bindsym $mod+Shift+7 move container to workspace number 7
-  bindsym $mod+Shift+8 move container to workspace number 8
-  bindsym $mod+Shift+9 move container to workspace number 9
-  bindsym $mod+Shift+0 move container to workspace number 10
+  bindsym $mod+Shift+1 move container to workspace 1
+  bindsym $mod+Shift+2 move container to workspace 2
+  bindsym $mod+Shift+3 move container to workspace 3
+  bindsym $mod+Shift+4 move container to workspace 4
+  bindsym $mod+Shift+5 move container to workspace 5
+  bindsym $mod+Shift+6 move container to workspace 6
+  bindsym $mod+Shift+7 move container to workspace 7
+  bindsym $mod+Shift+8 move container to workspace 8
+  bindsym $mod+Shift+9 move container to workspace 9
+  bindsym $mod+Shift+0 move container to workspace 10
   # Note: workspaces can have any name you want, not just numbers.
   # We just use 1-10 as the default.
 
-  bindsym $mod+m move workspace to output right
+  bindsym $mod+control+shift+right move workspace to output right
+  bindsym $mod+control+shift+left move workspace to output left
+
   bindsym $mod+Control+m exec sway-display-swap
   bindsym $mod+Tab workspace back_and_forth
 
@@ -1287,6 +1289,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+begin_src conf
   for_window [title="wifi"] floating enable
   for_window [title="bluetoothctl"] floating enable
+  # for_window [title="YouTube"] move container to workspace  7
 #+end_src
 
 *** apps keybindings
@@ -2270,7 +2273,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # google-chrome   "$@" &> /dev/null &
-  google-chrome  --hide-crash-restore-bubble --new-window -enable-features=UseOzonePlatform -ozone-platform=wayland "$@" &> /dev/null &
+  google-chrome  --hide-crash-restore-bubble --new-window "$@" &> /dev/null &
   # sway-firefox "$1"
 #+end_src
 *** ~/bin/sway/sway-email
