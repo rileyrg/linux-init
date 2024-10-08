@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
+killall chrome
 swaymsg "workspace 1"
 emacsclient -c ~/cloud/homefiles/linux-config.org &
 sleep 1
@@ -12,9 +13,6 @@ sleep 1
 swaymsg "workspace 4"
 sway-www "file'"
 sleep 1
-swaymsg "workspace 5"
-pcmanfm &
-sleep 1
 swaymsg "workspace 6"
 sway-www "https://music.youtube.com/" &
 sleep 1
@@ -25,4 +23,5 @@ swaymsg "workspace 8; layout stacking;"
 sway-www "https://web.whatsapp.com/"
 sway-www "https://web.telegram.org/k/"
 sway-www "https://mail.google.com/mail/u/0/#inbox"
-sleep 1
+sleep 2
+sway-workspace-move

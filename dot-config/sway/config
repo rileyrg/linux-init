@@ -52,9 +52,6 @@ bindsym Escape mode "default"
 
 bindsym $mod+Control+q mode "$mode_system"
 
-bindsym $mod+control+b exec sway-lock-utils blank
-
-bindsym $mod+control+l exec sway-lock-utils lock
 bindsym --release $mod+L exec sway-lock-utils lock
 
 #
@@ -65,18 +62,18 @@ mode "resize" {
 # right will grow the containers width
 # up will shrink the containers height
 # down will grow the containers height
-bindsym $left resize shrink width 10px
-bindsym $down resize grow height 10px
-bindsym $up resize shrink height 10px
-bindsym $right resize grow width 10px
+# bindsym $left resize shrink width 10px
+# bindsym $down resize grow height 10px
+# bindsym $up resize shrink height 10px
+# bindsym $right resize grow width 10px
 
 # Ditto, with arrow keys
 bindsym Left resize shrink width 10px
 bindsym Down resize grow height 10px
-
 bindsym Up resize shrink height 10px
 bindsym Right resize grow width 10px
-# Return to default mode
+
+# # Return to default mode
 bindsym Return mode "default"
 bindsym Escape mode "default"
 }
@@ -114,28 +111,28 @@ bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut
 # Moving around:
 #
 # Move your focus around
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-# Or use $mod+[up|down|left|right]
+# bindsym $mod+$left focus left
+# bindsym $mod+$down focus down
+# bindsym $mod+$up focus up
+# bindsym $mod+$right focus right
+# # Or use $mod+[up|down|left|right]
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+# Move the focused window
+# bindsym $mod+Shift+$right move right
+# bindsym $mod+Shift+$left move left
+# bindsym $mod+Shift+$down move down
+# bindsym $mod+Shift+$up move up
 # Ditto, with arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-#
-# Workspaces:
+# #
+# # Workspaces:
 #
 # Switch to workspace
 bindsym $mod+1 workspace 1
@@ -162,8 +159,14 @@ bindsym $mod+Shift+0 move container to workspace 10
 # Note: workspaces can have any name you want, not just numbers.
 # We just use 1-10 as the default.
 
-bindsym $mod+control+shift+right move workspace to output right
-bindsym $mod+control+shift+left move workspace to output left
+# bindsym $mod+control+shift+$right move workspace to output right
+# bindsym $mod+control+shift+$left move workspace to output left
+# bindsym $mod+control+$right move container to output right
+# bindsym $mod+control+$left move container to output left
+bindsym $mod+control+shift+right move workspace to output right; focus output right;
+bindsym $mod+control+shift+left move workspace to output left; focus output left;
+bindsym $mod+control+right move container to output right;
+bindsym $mod+control+left move container to output left;
 
 bindsym $mod+Control+m exec sway-display-swap
 bindsym $mod+Tab workspace back_and_forth
@@ -286,7 +289,8 @@ bindsym $mod+Control+p exec sway-htop
 bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
 bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-bindsym $mod+Control+w exec sway-workspace-move
+bindsym $mod+Control+shift+w exec sway-workspace-move
+bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 exec mako
 exec bluetooth-controls
@@ -294,7 +298,7 @@ exec sway-idle
 exec sway-kanshi
 exec blueman-applet
 # exec gpg-cache
-exec 'sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+exec 'sway-workspace-populate; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

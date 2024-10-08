@@ -908,9 +908,6 @@ Override in .profile.local
 
   bindsym $mod+Control+q mode "$mode_system"
 
-  bindsym $mod+control+b exec sway-lock-utils blank
-
-  bindsym $mod+control+l exec sway-lock-utils lock
   bindsym --release $mod+L exec sway-lock-utils lock
 
   #
@@ -921,18 +918,18 @@ Override in .profile.local
   # right will grow the containers width
   # up will shrink the containers height
   # down will grow the containers height
-  bindsym $left resize shrink width 10px
-  bindsym $down resize grow height 10px
-  bindsym $up resize shrink height 10px
-  bindsym $right resize grow width 10px
+  # bindsym $left resize shrink width 10px
+  # bindsym $down resize grow height 10px
+  # bindsym $up resize shrink height 10px
+  # bindsym $right resize grow width 10px
 
   # Ditto, with arrow keys
   bindsym Left resize shrink width 10px
   bindsym Down resize grow height 10px
-
   bindsym Up resize shrink height 10px
   bindsym Right resize grow width 10px
-  # Return to default mode
+
+  # # Return to default mode
   bindsym Return mode "default"
   bindsym Escape mode "default"
   }
@@ -970,28 +967,28 @@ Override in .profile.local
   # Moving around:
   #
   # Move your focus around
-  bindsym $mod+$left focus left
-  bindsym $mod+$down focus down
-  bindsym $mod+$up focus up
-  bindsym $mod+$right focus right
-  # Or use $mod+[up|down|left|right]
+  # bindsym $mod+$left focus left
+  # bindsym $mod+$down focus down
+  # bindsym $mod+$up focus up
+  # bindsym $mod+$right focus right
+  # # Or use $mod+[up|down|left|right]
   bindsym $mod+Left focus left
   bindsym $mod+Down focus down
   bindsym $mod+Up focus up
   bindsym $mod+Right focus right
 
-  # Move the focused window with the same, but add Shift
-  bindsym $mod+Shift+$left move left
-  bindsym $mod+Shift+$down move down
-  bindsym $mod+Shift+$up move up
-  bindsym $mod+Shift+$right move right
+  # Move the focused window
+  # bindsym $mod+Shift+$right move right
+  # bindsym $mod+Shift+$left move left
+  # bindsym $mod+Shift+$down move down
+  # bindsym $mod+Shift+$up move up
   # Ditto, with arrow keys
   bindsym $mod+Shift+Left move left
   bindsym $mod+Shift+Down move down
   bindsym $mod+Shift+Up move up
   bindsym $mod+Shift+Right move right
-  #
-  # Workspaces:
+  # #
+  # # Workspaces:
   #
   # Switch to workspace
   bindsym $mod+1 workspace 1
@@ -1018,8 +1015,14 @@ Override in .profile.local
   # Note: workspaces can have any name you want, not just numbers.
   # We just use 1-10 as the default.
 
-  bindsym $mod+control+shift+right move workspace to output right
-  bindsym $mod+control+shift+left move workspace to output left
+  # bindsym $mod+control+shift+$right move workspace to output right
+  # bindsym $mod+control+shift+$left move workspace to output left
+  # bindsym $mod+control+$right move container to output right
+  # bindsym $mod+control+$left move container to output left
+  bindsym $mod+control+shift+right move workspace to output right; focus output right;
+  bindsym $mod+control+shift+left move workspace to output left; focus output left;
+  bindsym $mod+control+right move container to output right;
+  bindsym $mod+control+left move container to output left;
 
   bindsym $mod+Control+m exec sway-display-swap
   bindsym $mod+Tab workspace back_and_forth
@@ -1313,7 +1316,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+Shift+p exec htop-regexp
   bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
   bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-  bindsym $mod+Control+w exec sway-workspace-move
+  bindsym $mod+Control+shift+w exec sway-workspace-move
+  bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
 *** sway startup processes
 #+begin_src  conf
@@ -1323,7 +1327,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   exec sway-kanshi
   exec blueman-applet
   # exec gpg-cache
-  exec 'sway-workspace-populate;sleep 2; sway-workspace-move; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+  exec 'sway-workspace-populate; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 #+end_src
 
 ** waybar config
@@ -2083,6 +2087,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-populate"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
+  killall chrome
   swaymsg "workspace 1"
   emacsclient -c ~/cloud/homefiles/linux-config.org &
   sleep 1
@@ -2095,9 +2100,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   swaymsg "workspace 4"
   sway-www "file'"
   sleep 1
-  swaymsg "workspace 5"
-  pcmanfm &
-  sleep 1
   swaymsg "workspace 6"
   sway-www "https://music.youtube.com/" &
   sleep 1
@@ -2108,7 +2110,8 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   sway-www "https://web.whatsapp.com/"
   sway-www "https://web.telegram.org/k/"
   sway-www "https://mail.google.com/mail/u/0/#inbox"
-  sleep 1
+  sleep 2
+  sway-workspace-move
 #+end_src
 *** ~/bin/sway/sway-screen-menu
 Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-44ac-9ce8-530f9fd9e3c4][~/bin/sway/sway-screen]].
