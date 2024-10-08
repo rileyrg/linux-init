@@ -52,7 +52,7 @@ bindsym Escape mode "default"
 
 bindsym $mod+Control+q mode "$mode_system"
 
-bindsym --release $mod+L exec sway-lock-utils lock
+bindsym --release $mod+L exec sway-lock-utils suspend
 
 #
 # Resizing containers:
@@ -293,7 +293,7 @@ bindsym $mod+Control+shift+w exec sway-workspace-move
 bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 exec mako
-exec bluetooth-controls
+exec bluetooth-headphone-controls
 exec sway-idle
 exec sway-kanshi
 exec blueman-applet

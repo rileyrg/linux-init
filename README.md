@@ -729,7 +729,7 @@ Override in .profile.local
     
     bindsym $mod+Control+q mode "$mode_system"
     
-    bindsym --release $mod+L exec sway-lock-utils lock
+    bindsym --release $mod+L exec sway-lock-utils suspend
     
     #
     # Resizing containers:
@@ -1135,7 +1135,7 @@ $term is set to "sway-scratch-terminal
 ### sway startup processes
 
     exec mako
-    exec bluetooth-controls
+    exec bluetooth-headphone-controls
     exec sway-idle
     exec sway-kanshi
     exec blueman-applet
@@ -1834,7 +1834,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga4e287e"></a>
+<a id="orga07b7b7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1901,7 +1901,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     sway-www "https://react.dev"
     sleep 1
     swaymsg "workspace 4"
-    sway-www "file'"
+    sway-www "file:///home/rgr/development/projects/"
     sleep 1
     swaymsg "workspace 6"
     sway-www "https://music.youtube.com/" &
@@ -1919,7 +1919,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4e287e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga07b7b7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -34,8 +34,8 @@ end
 
 
 define hook-quit
-shell tmux kill-session -t "$(voltron-session)" &> /dev/null
-shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
+#shell tmux kill-session -t "$(voltron-session)" &> /dev/null
+#shell tmux kill-session -t "$(tmux-current-session)" &> /dev/null
 end
 
 #### Initialise GEF Session

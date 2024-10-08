@@ -11,7 +11,7 @@ swaymsg "workspace 3"
 sway-www "https://react.dev"
 sleep 1
 swaymsg "workspace 4"
-sway-www "file'"
+sway-www "file:///home/rgr/development/projects/"
 sleep 1
 swaymsg "workspace 6"
 sway-www "https://music.youtube.com/" &

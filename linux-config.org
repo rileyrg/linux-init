@@ -908,7 +908,7 @@ Override in .profile.local
 
   bindsym $mod+Control+q mode "$mode_system"
 
-  bindsym --release $mod+L exec sway-lock-utils lock
+  bindsym --release $mod+L exec sway-lock-utils suspend
 
   #
   # Resizing containers:
@@ -1322,7 +1322,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 *** sway startup processes
 #+begin_src  conf
   exec mako
-  exec bluetooth-controls
+  exec bluetooth-headphone-controls
   exec sway-idle
   exec sway-kanshi
   exec blueman-applet
@@ -2098,7 +2098,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   sway-www "https://react.dev"
   sleep 1
   swaymsg "workspace 4"
-  sway-www "file'"
+  sway-www "file:///home/rgr/development/projects/"
   sleep 1
   swaymsg "workspace 6"
   sway-www "https://music.youtube.com/" &
