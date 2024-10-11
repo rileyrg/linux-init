@@ -1316,7 +1316,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+Shift+p exec htop-regexp
   bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
   bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-  bindsym $mod+Control+shift+w exec sway-workspace-move
+  bindsym $mod+Control+w exec sway-workspace-move
   bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
 *** sway startup processes
@@ -1842,6 +1842,10 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
   output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
   output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
   }
+  profile home-no-lap{
+  output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+  output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+  }
 #+end_src
 **** config-xmgneo
 #+begin_src conf :tangle "dot-config/kanshi/config-xmgneo"
@@ -2106,7 +2110,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   swaymsg "workspace 7"
   sway-www "https://youtube.com"
   sleep 1
-  swaymsg "workspace 8; layout stacking;"
+  swaymsg "workspace 8; layout stacking;exec hexchat;"
   sway-www "https://web.whatsapp.com/"
   sway-www "https://web.telegram.org/k/"
   sway-www "https://mail.google.com/mail/u/0/#inbox"

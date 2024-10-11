@@ -119,9 +119,8 @@ DEFAULT_USER=$USER
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
 
-export EAT_SHELL_INTEGRATION_DIR="${HOME}/.emacs.d/straight/repos/eat/integration"
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
-    source ${EAT_SHELL_INTEGRATION_DIR/zsh}
+    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
 # xhost +local  > /dev/null 2>&1
 

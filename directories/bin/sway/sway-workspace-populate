@@ -19,7 +19,7 @@ sleep 1
 swaymsg "workspace 7"
 sway-www "https://youtube.com"
 sleep 1
-swaymsg "workspace 8; layout stacking;"
+swaymsg "workspace 8; layout stacking;exec hexchat;"
 sway-www "https://web.whatsapp.com/"
 sway-www "https://web.telegram.org/k/"
 sway-www "https://mail.google.com/mail/u/0/#inbox"

@@ -1128,7 +1128,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+Shift+p exec htop-regexp
     bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
     bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-    bindsym $mod+Control+shift+w exec sway-workspace-move
+    bindsym $mod+Control+w exec sway-workspace-move
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 
@@ -1657,6 +1657,10 @@ Load a host specific kanshi file if it exists
         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
         }
+        profile home-no-lap{
+        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+        output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+        }
 
 4.  config-xmgneo
 
@@ -1834,7 +1838,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga07b7b7"></a>
+<a id="org4214780"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1909,7 +1913,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     swaymsg "workspace 7"
     sway-www "https://youtube.com"
     sleep 1
-    swaymsg "workspace 8; layout stacking;"
+    swaymsg "workspace 8; layout stacking;exec hexchat;"
     sway-www "https://web.whatsapp.com/"
     sway-www "https://web.telegram.org/k/"
     sway-www "https://mail.google.com/mail/u/0/#inbox"
@@ -1919,7 +1923,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga07b7b7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4214780).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
