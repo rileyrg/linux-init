@@ -1838,7 +1838,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4214780"></a>
+<a id="org24992e7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1898,32 +1898,35 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     swaymsg "workspace 1"
     emacsclient -c ~/cloud/homefiles/linux-config.org &
     sleep 1
-    swaymsg "workspace 2"
-    sway-www "https://google.com" &
-    sleep 1
-    swaymsg "workspace 3"
-    sway-www "https://react.dev"
-    sleep 1
-    swaymsg "workspace 4"
-    sway-www "file:///home/rgr/development/projects/"
-    sleep 1
-    swaymsg "workspace 6"
-    sway-www "https://music.youtube.com/" &
-    sleep 1
-    swaymsg "workspace 7"
-    sway-www "https://youtube.com"
-    sleep 1
-    swaymsg "workspace 8; layout stacking;exec hexchat;"
-    sway-www "https://web.whatsapp.com/"
-    sway-www "https://web.telegram.org/k/"
-    sway-www "https://mail.google.com/mail/u/0/#inbox"
-    sleep 2
-    sway-workspace-move
+    monitors=$(sway-active-monitors-count)
+    if [ "$monitors" -gt 1 ]; then
+        swaymsg "workspace 2"
+        sway-www "https://google.com" &
+        sleep 1
+        swaymsg "workspace 3"
+        sway-www "https://react.dev"
+        sleep 1
+        swaymsg "workspace 4"
+        sway-www "file:///home/rgr/development/projects/"
+        sleep 1
+        swaymsg "workspace 6"
+        sway-www "https://music.youtube.com/" &
+        sleep 1
+        swaymsg "workspace 7"
+        sway-www "https://youtube.com"
+        sleep 1
+        swaymsg "workspace 8; layout stacking;exec hexchat;"
+        sway-www "https://web.whatsapp.com/"
+        sway-www "https://web.telegram.org/k/"
+        sway-www "https://mail.google.com/mail/u/0/#inbox"
+        sleep 2
+        sway-workspace-move
+    fi
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4214780).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org24992e7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
