@@ -44,7 +44,8 @@ stty -ixon
 
 GPG_TTY=$(tty)
 export GPG_TTY
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 if [ -f "${HOME}/bin/thirdparty/bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=1

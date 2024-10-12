@@ -15,7 +15,7 @@ set $right l
 
 
 set $term 'kitty'
-set $menu 'sway-launcher-fzf'
+set $menu 'sway-launcher'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current'
 

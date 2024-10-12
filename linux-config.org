@@ -278,7 +278,8 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
   GPG_TTY=$(tty)
   export GPG_TTY
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+  # Set up fzf key bindings and fuzzy completion
+  eval "$(fzf --bash)"
 #+end_src
 **** bash git prompt
 #+begin_src bash :tangle "DotFiles/.bashrc"
@@ -408,7 +409,8 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
   # DEFAULT_USER means we dont show user and host in normal shell prompt
   DEFAULT_USER=$USER
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  # Set up fzf key bindings and fuzzy completion
+  source <(fzf --zsh)
   command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
 
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
@@ -871,7 +873,7 @@ Override in .profile.local
 
 
   set $term 'kitty'
-  set $menu 'sway-launcher-fzf'
+  set $menu 'sway-launcher'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current'
 
@@ -2188,11 +2190,7 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src bash :tangle ~/bin/sway/sway-launcher
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  if command -v "ulauncher"; then
-      sway-launcher-ulauncher
-  else
-      sway-launcher-fzf
-  fi
+  sway-launcher-fzf
 #+end_src
 *** ~/bin/sway/sway-screenshot
 Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/

@@ -206,7 +206,8 @@ NB - NOT Exported as lots of things want to update it
     
     GPG_TTY=$(tty)
     export GPG_TTY
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    # Set up fzf key bindings and fuzzy completion
+    eval "$(fzf --bash)"
 
 1.  bash git prompt
 
@@ -339,7 +340,8 @@ NB - NOT Exported as lots of things want to update it
     POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
     # DEFAULT_USER means we dont show user and host in normal shell prompt
     DEFAULT_USER=$USER
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    # Set up fzf key bindings and fuzzy completion
+    source <(fzf --zsh)
     command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
@@ -692,7 +694,7 @@ Override in .profile.local
     
     
     set $term 'kitty'
-    set $menu 'sway-launcher-fzf'
+    set $menu 'sway-launcher'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current'
     
@@ -1838,7 +1840,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org24992e7"></a>
+<a id="orga674ae3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1926,7 +1928,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org24992e7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga674ae3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -1999,11 +2001,7 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    if command -v "ulauncher"; then
-        sway-launcher-ulauncher
-    else
-        sway-launcher-fzf
-    fi
+    sway-launcher-fzf
 
 
 ### ~/bin/sway/sway-screenshot
