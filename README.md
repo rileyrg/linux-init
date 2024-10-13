@@ -696,7 +696,7 @@ Override in .profile.local
     set $term 'kitty'
     set $menu 'sway-launcher'
     set $editor 'sway-editor'
-    set $wallpaper '~/Pictures/Wallpapers/current'
+    set $wallpaper '~/Pictures/Wallpapers/current '
     
     # Font  for window titles. Will also be used by the bar unless a different font
     # is used in the bar {} block below.
@@ -918,7 +918,8 @@ Override in .profile.local
 
 1.  wallpaper
 
-        output * bg  $wallpaper fill
+        # done in sway-workspace-move
+        # output * bg  $wallpaper fill
 
 2.  transparency
 
@@ -1840,7 +1841,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga674ae3"></a>
+<a id="orgc785881"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1874,6 +1875,11 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     
     rightOutput=${rightOutput:-${leftOutput}}
     rightMostOutput=${rightMostOutput:-${rightOutput}}
+    
+    swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
+    swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
+    swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+    swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
     
     sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     
@@ -1928,7 +1934,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga674ae3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc785881).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -875,7 +875,7 @@ Override in .profile.local
   set $term 'kitty'
   set $menu 'sway-launcher'
   set $editor 'sway-editor'
-  set $wallpaper '~/Pictures/Wallpapers/current'
+  set $wallpaper '~/Pictures/Wallpapers/current '
 
   # Font  for window titles. Will also be used by the bar unless a different font
   # is used in the bar {} block below.
@@ -1114,7 +1114,9 @@ CLOSED: [2023-12-13 Wed 13:12]
 *** display
 **** wallpaper
 #+begin_src conf
-  output * bg  $wallpaper fill
+  # done in sway-workspace-move
+  # output * bg  $wallpaper fill
+
 #+end_src
 **** transparency
 #+begin_src conf
@@ -2072,6 +2074,11 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
   rightOutput=${rightOutput:-${leftOutput}}
   rightMostOutput=${rightMostOutput:-${rightOutput}}
+
+  swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
+  swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
+  swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+  swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
 
   sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
 
