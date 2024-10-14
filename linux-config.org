@@ -208,8 +208,6 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
   systemctl start --user mbsync.timer
 
-  [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
-
   #homebrew
   test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
@@ -438,15 +436,12 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   fi
 #+end_src
 *** zprofile
-***** ~/.config/zsh/.zprofile
 #+begin_src bash :tangle "~/.config/zsh/.zprofile"
   # Maintained in linux-config.org
 #+end_src
-*** zshenv
-***** ~/.config/zsh/.zshenv
-#+begin_src bash :tangle "~/.config/zsh/.zshenv"
+*** ~/.zshenv
+#+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
   # Maintained in linux-config.org
-  logger -t "startup-initfile"  ZSHENV
   if [ -z "$XDG_CONFIG_HOME" ] && [ -d "${HOME}/.config" ]
   then
       export XDG_CONFIG_HOME="${HOME}/.config"
@@ -454,12 +449,8 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
   xhost +SI:localuser:root &> /dev/null
 
-#+end_src
-***** ~/.zshenv
-#+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
-  # Maintained in linux-config.org
   ZDOTDIR=$HOME/.config/zsh
-  . $ZDOTDIR/.zshenv
+  [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 #+end_src
 *** Oh-My-Zsh Related
 Directory is [[file:.oh-my-zsh/][here]].

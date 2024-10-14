@@ -57,8 +57,6 @@ export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
 systemctl start --user mbsync.timer
 
-[ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
-
 #homebrew
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 

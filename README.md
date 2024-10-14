@@ -142,8 +142,6 @@ NB - NOT Exported as lots of things want to update it
     
     systemctl start --user mbsync.timer
     
-    [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
-    
     #homebrew
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
@@ -368,29 +366,21 @@ NB - NOT Exported as lots of things want to update it
 
 ### zprofile
 
-1.  ~/.config/zsh/.zprofile
-
-        # Maintained in linux-config.org
+    # Maintained in linux-config.org
 
 
-### zshenv
+### ~/.zshenv
 
-1.  ~/.config/zsh/.zshenv
-
-        # Maintained in linux-config.org
-        logger -t "startup-initfile"  ZSHENV
-        if [ -z "$XDG_CONFIG_HOME" ] && [ -d "${HOME}/.config" ]
-        then
-            export XDG_CONFIG_HOME="${HOME}/.config"
-        fi
-        
-        xhost +SI:localuser:root &> /dev/null
-
-2.  ~/.zshenv
-
-        # Maintained in linux-config.org
-        ZDOTDIR=$HOME/.config/zsh
-        . $ZDOTDIR/.zshenv
+    # Maintained in linux-config.org
+    if [ -z "$XDG_CONFIG_HOME" ] && [ -d "${HOME}/.config" ]
+    then
+        export XDG_CONFIG_HOME="${HOME}/.config"
+    fi
+    
+    xhost +SI:localuser:root &> /dev/null
+    
+    ZDOTDIR=$HOME/.config/zsh
+    [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 
 
 ### Oh-My-Zsh Related
@@ -1840,7 +1830,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga674ae3"></a>
+<a id="orga368421"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1928,7 +1918,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga674ae3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga368421).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
