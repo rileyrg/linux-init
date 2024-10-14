@@ -17,7 +17,7 @@ set $right l
 set $term 'kitty'
 set $menu 'sway-launcher'
 set $editor 'sway-editor'
-set $wallpaper '~/Pictures/Wallpapers/current'
+set $wallpaper '~/Pictures/Wallpapers/current '
 
 # Font  for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -214,7 +214,8 @@ include "${HOME}/.config/sway/host-config-$(hostname)"
 
 for_window [title="sway-launcher"] floating enable
 
-output * bg  $wallpaper fill
+# done in sway-workspace-move
+# output * bg  $wallpaper fill
 
 set $trans 0.7
 set $alphamark "α"

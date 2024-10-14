@@ -14,6 +14,11 @@ rightMostOutput=${outputs[2]}
 rightOutput=${rightOutput:-${leftOutput}}
 rightMostOutput=${rightMostOutput:-${rightOutput}}
 
+swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
+swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
+swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
+
 sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
 
 curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
