@@ -1133,7 +1133,7 @@ $term is set to "sway-scratch-terminal
     exec sway-kanshi
     exec blueman-applet
     # exec gpg-cache
-    exec 'sway-workspace-populate; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec 'sway-workspace-init; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 
 ## waybar config
@@ -1831,11 +1831,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<<<<<<< HEAD
-<a id="orga368421"></a>
-=======
-<a id="orgc785881"></a>
->>>>>>> a065e29664a9a69041f5bccce2dffa9ccf689ac7
+<a id="orgbaa76b5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1852,7 +1848,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     (sleep 2 && sway-notify "${m}:${c}") &
 
 
-### ~/bin/sway/sway-workspace-move
+### ~/bin/sway/sway-workspace-init
 
     #!/usr/bin/env bash
     
@@ -1890,6 +1886,8 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
       workspace 8; move workspace to output $rightMostOutput;
       workspace $curr;
     "
+    
+    sway-workspace-populate
 
 
 ### ~/bin/sway/sway-workspace-populate
@@ -1899,40 +1897,31 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     killall chrome
     swaymsg "workspace 1"
     emacsclient -c ~/cloud/homefiles/linux-config.org &
+    swaymsg "workspace 2"
+    sway-www "https://google.com" &
     sleep 1
-    monitors=$(sway-active-monitors-count)
-    if [ "$monitors" -gt 1 ]; then
-        swaymsg "workspace 2"
-        sway-www "https://google.com" &
-        sleep 1
-        swaymsg "workspace 3"
-        sway-www "https://react.dev"
-        sleep 1
-        swaymsg "workspace 4"
-        sway-www "file:///home/rgr/development/projects/"
-        sleep 1
-        swaymsg "workspace 6"
-        sway-www "https://music.youtube.com/" &
-        sleep 1
-        swaymsg "workspace 7"
-        sway-www "https://youtube.com"
-        sleep 1
-        swaymsg "workspace 8; layout stacking;exec hexchat;"
-        sway-www "https://web.whatsapp.com/"
-        sway-www "https://web.telegram.org/k/"
-        sway-www "https://mail.google.com/mail/u/0/#inbox"
-        sleep 2
-        sway-workspace-move
-    fi
+    swaymsg "workspace 3"
+    sway-www "https://react.dev"
+    sleep 1
+    swaymsg "workspace 4"
+    sway-www "file:///home/rgr/development/projects/"
+    sleep 1
+    swaymsg "workspace 6"
+    sway-www "https://music.youtube.com/" &
+    sleep 1
+    swaymsg "workspace 7"
+    sway-www "https://youtube.com"
+    sleep 1
+    swaymsg "workspace 8; layout stacking;exec hexchat;"
+    sway-www "https://web.whatsapp.com/"
+    sway-www "https://web.telegram.org/k/"
+    sway-www "https://mail.google.com/mail/u/0/#inbox"
+    sleep 2
 
 
 ### ~/bin/sway/sway-screen-menu
 
-<<<<<<< HEAD
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga368421).
-=======
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc785881).
->>>>>>> a065e29664a9a69041f5bccce2dffa9ccf689ac7
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgbaa76b5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

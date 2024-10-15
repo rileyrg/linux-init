@@ -34,3 +34,5 @@ swaymsg "
   workspace 8; move workspace to output $rightMostOutput;
   workspace $curr;
 "
+
+sway-workspace-populate

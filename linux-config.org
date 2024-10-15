@@ -1322,7 +1322,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   exec sway-kanshi
   exec blueman-applet
   # exec gpg-cache
-  exec 'sway-workspace-populate; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+  exec 'sway-workspace-init; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 #+end_src
 
 ** waybar config
@@ -2048,8 +2048,8 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   (sleep 2 && sway-notify "${m}:${c}") &
 #+end_src
 
-*** ~/bin/sway/sway-workspace-move
-#+begin_src bash :tangle "~/bin/sway/sway-workspace-move"
+*** ~/bin/sway/sway-workspace-init
+#+begin_src bash :tangle "~/bin/sway/sway-workspace-init"
   #!/usr/bin/env bash
 
   # outputs=$(sway-active-monitor-names)
@@ -2086,7 +2086,11 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     workspace 8; move workspace to output $rightMostOutput;
     workspace $curr;
   "
+
+  sway-workspace-populate
+
 #+end_src
+
 *** ~/bin/sway/sway-workspace-populate
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-populate"
   #!/usr/bin/env bash
@@ -2094,31 +2098,26 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   killall chrome
   swaymsg "workspace 1"
   emacsclient -c ~/cloud/homefiles/linux-config.org &
+  swaymsg "workspace 2"
+  sway-www "https://google.com" &
   sleep 1
-  monitors=$(sway-active-monitors-count)
-  if [ "$monitors" -gt 1 ]; then
-      swaymsg "workspace 2"
-      sway-www "https://google.com" &
-      sleep 1
-      swaymsg "workspace 3"
-      sway-www "https://react.dev"
-      sleep 1
-      swaymsg "workspace 4"
-      sway-www "file:///home/rgr/development/projects/"
-      sleep 1
-      swaymsg "workspace 6"
-      sway-www "https://music.youtube.com/" &
-      sleep 1
-      swaymsg "workspace 7"
-      sway-www "https://youtube.com"
-      sleep 1
-      swaymsg "workspace 8; layout stacking;exec hexchat;"
-      sway-www "https://web.whatsapp.com/"
-      sway-www "https://web.telegram.org/k/"
-      sway-www "https://mail.google.com/mail/u/0/#inbox"
-      sleep 2
-      sway-workspace-move
-  fi
+  swaymsg "workspace 3"
+  sway-www "https://react.dev"
+  sleep 1
+  swaymsg "workspace 4"
+  sway-www "file:///home/rgr/development/projects/"
+  sleep 1
+  swaymsg "workspace 6"
+  sway-www "https://music.youtube.com/" &
+  sleep 1
+  swaymsg "workspace 7"
+  sway-www "https://youtube.com"
+  sleep 1
+  swaymsg "workspace 8; layout stacking;exec hexchat;"
+  sway-www "https://web.whatsapp.com/"
+  sway-www "https://web.telegram.org/k/"
+  sway-www "https://mail.google.com/mail/u/0/#inbox"
+  sleep 2
 #+end_src
 *** ~/bin/sway/sway-screen-menu
 Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-44ac-9ce8-530f9fd9e3c4][~/bin/sway/sway-screen]].
