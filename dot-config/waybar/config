@@ -24,7 +24,6 @@
         "backlight",
         "battery",
         "custom/power-draw",
-        "wlr/taskbar",
         "tray",
         "custom/mynetwork"
     ],
