@@ -1133,7 +1133,7 @@ $term is set to "sway-scratch-terminal
     exec sway-kanshi
     exec blueman-applet
     # exec gpg-cache
-    exec 'sway-workspace-init; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec 'sway-workspace-init; sleep 1;swaymsg workspace 1; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 
 
 ## waybar config
@@ -1830,7 +1830,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3211112"></a>
+<a id="org1b6bf6d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1920,7 +1920,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3211112).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1b6bf6d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2941,6 +2941,43 @@ strip debug info and store elsewhere
     fi
 
 
+## ~/bin/enable-disable-wifi
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    
+    if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
+        echo "Turning radio off".
+        nmcli radio wifi off
+    else
+        echo "Turning radio on".
+        nmcli radio wifi on
+    fi
+
+
+## ~/bin/70-wifi-wired-exclusive.sh
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    # https://askubuntu.com/a/1272865/232407
+    export LC_ALL=C
+    
+    # This dispatcher script makes Wi-Fi mutually exclusive with wired networking. When a wired
+    #    interface is connected, Wi-Fi will be set to airplane mode (rfkilled). When the wired
+    #    interface is disconnected, Wi-Fi will be turned back on. Name this script e.g.
+    #    70-wifi-wired-exclusive.sh and put it into /etc/NetworkManager/dispatcher.d/ directory.
+    #    See NetworkManager(8) manual page for more information about NetworkManager dispatcher
+    #    scripts.
+    
+    if [ "$2" = "up" ]; then
+        enable-disable-wifi
+    fi
+    
+    if [ "$2" = "down" ]; then
+        enable-disable-wifi
+    fi
+
+
 ## ~/bin/upd
 
 update sw
@@ -2967,11 +3004,9 @@ update sw
 
 ### ~/bin/hetzner-du
 
-1.  script
-
-        #!/usr/bin/env bash
-        # Maintained in linux-config.org
-        echo "df -h"  | sftp u377059@u377059.your-storagebox.de
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    echo "df -h"  | sftp u377059@u377059.your-storagebox.de
 
 
 ### ~/bin/rclone-mount
@@ -3151,7 +3186,6 @@ out of date
 
     
     [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
-    
     sway-autostart
 
 

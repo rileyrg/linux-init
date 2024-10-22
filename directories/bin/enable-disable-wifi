@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+
+if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
+    echo "Turning radio off".
+    nmcli radio wifi off
+else
+    echo "Turning radio on".
+    nmcli radio wifi on
+fi

@@ -198,4 +198,5 @@
 !/directories/bin/tmux-pane-tty
 !/directories/bin/upd
 !/directories/bin/wifi-toggle
+!/directories/bin/enable-disable-wifi
 !/directories/bin/70-wifi-wired-exclusive.sh

@@ -1322,7 +1322,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   exec sway-kanshi
   exec blueman-applet
   # exec gpg-cache
-  exec 'sway-workspace-init; sleep 1;swaymsg workspace 1;[ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+  exec 'sway-workspace-init; sleep 1;swaymsg workspace 1; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
 #+end_src
 
 ** waybar config
@@ -3080,6 +3080,19 @@ strip debug info and store elsewhere
   fi
 #+end_src
 
+** ~/bin/enable-disable-wifi
+#+begin_src bash :tangle "~/bin/enable-disable-wifi"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+
+  if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
+      echo "Turning radio off".
+      nmcli radio wifi off
+  else
+      echo "Turning radio on".
+      nmcli radio wifi on
+  fi
+#+end_src
 ** ~/bin/70-wifi-wired-exclusive.sh
 #+begin_src bash :tangle "~/bin/70-wifi-wired-exclusive.sh"
   #!/usr/bin/env bash
@@ -3094,22 +3107,12 @@ strip debug info and store elsewhere
   #    See NetworkManager(8) manual page for more information about NetworkManager dispatcher
   #    scripts.
 
-  enable_disable_wifi ()
-  {
-      result=$(nmcli dev | grep "ethernet" | grep -w "connected")
-      if [ -n "$result" ]; then
-          nmcli radio wifi off
-      else
-          nmcli radio wifi on
-      fi
-  }
-
   if [ "$2" = "up" ]; then
-      enable_disable_wifi
+      enable-disable-wifi
   fi
 
   if [ "$2" = "down" ]; then
-      enable_disable_wifi
+      enable-disable-wifi
   fi
 #+end_src
 
@@ -3348,7 +3351,6 @@ fi
 #+begin_src bash   :tangle "DotFiles/.bash_profile"
 
   [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
-
   sway-autostart
 #+end_src
 ** Late addition to ~/.profile

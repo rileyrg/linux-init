@@ -6,5 +6,4 @@ logger -t "startup-initfile"  BASH_PROFILE
 #emacs --bg-daemon  &> /dev/null &
 
 [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
-
 sway-autostart
