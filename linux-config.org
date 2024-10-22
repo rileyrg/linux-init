@@ -3351,7 +3351,9 @@ fi
 #+begin_src bash   :tangle "DotFiles/.bash_profile"
 
   [ -f "${HOME}/.bash_profile.local" ] && . "${HOME}/.bash_profile.local"
+  [ -f "${HOME}/.cargo/env" ] && . "$HOME/.cargo/env"
   sway-autostart
+
 #+end_src
 ** Late addition to ~/.profile
 #+begin_src bash :tangle "DotFiles/.profile"
