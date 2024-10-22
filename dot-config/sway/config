@@ -163,10 +163,15 @@ bindsym $mod+Shift+0 move container to workspace 10
 # bindsym $mod+control+shift+$left move workspace to output left
 # bindsym $mod+control+$right move container to output right
 # bindsym $mod+control+$left move container to output left
-bindsym $mod+control+shift+right move workspace to output right; focus output right;
-bindsym $mod+control+shift+left move workspace to output left; focus output left;
-bindsym $mod+control+right move container to output right;
-bindsym $mod+control+left move container to output left;
+bindsym $mod+control+shift+right move workspace to output right; #focus output right;
+bindsym $mod+control+shift+left move workspace to output left; # focus output left;
+bindsym $mod+control+shift+down move workspace to output down; #focus output down;
+bindsym $mod+control+shift+up move workspace to output up; focus #output up;
+
+bindsym $mod+control+right move container to output right; focus output right;
+bindsym $mod+control+left move container to output left; focus output left;
+bindsym $mod+control+down move container to output down; focus output down;
+bindsym $mod+control+up move container to output up; focus output up;
 
 bindsym $mod+Control+m exec sway-display-swap
 bindsym $mod+Tab workspace back_and_forth

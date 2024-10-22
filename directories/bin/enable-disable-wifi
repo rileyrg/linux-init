@@ -2,9 +2,14 @@
 #Maintained in linux-config.org
 
 if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
-    echo "Turning radio off".
-    nmcli radio wifi off
+    if [ -f "${HOME}"/.wifi-and-eth ]; then
+        echo "${HOME}/.wifi-and-eth exists so wifi on."
+        nmcli radio wifi on
+    else
+        echo "Turning wifi  off"
+        nmcli radio wifi off
+    fi
 else
-    echo "Turning radio on".
+    echo "Turning wifi on"
     nmcli radio wifi on
 fi

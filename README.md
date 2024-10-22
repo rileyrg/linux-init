@@ -832,10 +832,15 @@ Override in .profile.local
     # bindsym $mod+control+shift+$left move workspace to output left
     # bindsym $mod+control+$right move container to output right
     # bindsym $mod+control+$left move container to output left
-    bindsym $mod+control+shift+right move workspace to output right; focus output right;
-    bindsym $mod+control+shift+left move workspace to output left; focus output left;
-    bindsym $mod+control+right move container to output right;
-    bindsym $mod+control+left move container to output left;
+    bindsym $mod+control+shift+right move workspace to output right; #focus output right;
+    bindsym $mod+control+shift+left move workspace to output left; # focus output left;
+    bindsym $mod+control+shift+down move workspace to output down; #focus output down;
+    bindsym $mod+control+shift+up move workspace to output up; focus #output up;
+    
+    bindsym $mod+control+right move container to output right; focus output right;
+    bindsym $mod+control+left move container to output left; focus output left;
+    bindsym $mod+control+down move container to output down; focus output down;
+    bindsym $mod+control+up move container to output up; focus output up;
     
     bindsym $mod+Control+m exec sway-display-swap
     bindsym $mod+Tab workspace back_and_forth
@@ -1830,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf59cfd8"></a>
+<a id="org002a831"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1920,7 +1925,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf59cfd8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org002a831).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2947,10 +2952,15 @@ strip debug info and store elsewhere
     #Maintained in linux-config.org
     
     if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
-        echo "Turning radio off".
-        nmcli radio wifi off
+        if [ -f "${HOME}"/.wifi-and-eth ]; then
+            echo "${HOME}/.wifi-and-eth exists so wifi on."
+            nmcli radio wifi on
+        else
+            echo "Turning wifi  off"
+            nmcli radio wifi off
+        fi
     else
-        echo "Turning radio on".
+        echo "Turning wifi on"
         nmcli radio wifi on
     fi
 
