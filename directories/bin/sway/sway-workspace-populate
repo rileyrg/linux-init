@@ -2,10 +2,10 @@
 # Maintained in linux-config.org
 killall chrome
 swaymsg "workspace 1"
-emacsclient -c ~/cloud/homefiles/linux-config.org &
+emacsclient -c &
 swaymsg "workspace 2"
-sway-www "https://google.com" &
-sleep 1
+sway-www "https://google.com"
+sleep 2
 swaymsg "workspace 3"
 sway-www "https://react.dev"
 sleep 1
@@ -13,7 +13,7 @@ swaymsg "workspace 4"
 sway-www "file:///home/rgr/development/projects/"
 sleep 1
 swaymsg "workspace 6"
-sway-www "https://music.youtube.com/" &
+sway-www "https://music.youtube.com/"
 sleep 1
 swaymsg "workspace 7"
 sway-www "https://youtube.com"
@@ -21,5 +21,6 @@ sleep 1
 swaymsg "workspace 8; layout stacking;exec hexchat;"
 sway-www "https://web.whatsapp.com/"
 sway-www "https://web.telegram.org/k/"
+sway-www "https://reddit.com/"
 sway-www "https://mail.google.com/mail/u/0/#inbox"
-sleep 2
+sleep 1

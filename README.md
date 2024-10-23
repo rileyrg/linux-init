@@ -913,7 +913,7 @@ Override in .profile.local
 
 1.  wallpaper
 
-        # done in sway-workspace-move
+        # done in sway-workspace-init
         # output * bg  $wallpaper fill
 
 2.  transparency
@@ -1126,7 +1126,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+Shift+p exec htop-regexp
     bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
     bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-    bindsym $mod+Control+w exec sway-workspace-move
+    bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 
@@ -1138,7 +1138,7 @@ $term is set to "sway-scratch-terminal
     exec sway-kanshi
     exec blueman-applet
     # exec gpg-cache
-    exec 'sway-workspace-init; sleep 1;swaymsg workspace 1; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+    exec 'sway-workspace-populate; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 
 
 ## waybar config
@@ -1835,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org002a831"></a>
+<a id="org33b60f5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1852,15 +1852,9 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     (sleep 2 && sway-notify "${m}:${c}") &
 
 
-### ~/bin/sway/sway-workspace-init
+### ~/bin/sway/sway-workspace-position
 
     #!/usr/bin/env bash
-    
-    # outputs=$(sway-active-monitor-names)
-    
-    # leftOutput=$(echo $outputs | sed -n "1 p")
-    # rightOutput=$(echo $outputs | sed -n "2 p")
-    # rightMostOutput=$(echo $outputs | sed -n "3 p")
     
     mapfile -t outputs  < <( sway-active-monitor-ids )
     leftOutput=${outputs[0]}
@@ -1870,28 +1864,25 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     rightOutput=${rightOutput:-${leftOutput}}
     rightMostOutput=${rightMostOutput:-${rightOutput}}
     
-    swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-    swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
-    swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
-    swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
-    
     sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
-    
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
+    swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
+    swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
+    swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
+    swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+    
     swaymsg "
-      workspace 3; move workspace to output $leftOutput;
       workspace 1; move workspace to output $leftOutput;
-      workspace 5; move workspace to output $rightOutput;
-      workspace 4; move workspace to output $rightOutput;
       workspace 2; move workspace to output $rightOutput;
+      workspace 3; move workspace to output $leftOutput;
+      workspace 4; move workspace to output $rightOutput;
+      workspace 5; move workspace to output $rightOutput;
       workspace 6; move workspace to output $rightMostOutput;
       workspace 7; move workspace to output $rightMostOutput;
       workspace 8; move workspace to output $rightMostOutput;
       workspace $curr;
     "
-    
-    sway-workspace-populate
 
 
 ### ~/bin/sway/sway-workspace-populate
@@ -1900,10 +1891,10 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     # Maintained in linux-config.org
     killall chrome
     swaymsg "workspace 1"
-    emacsclient -c ~/cloud/homefiles/linux-config.org &
+    emacsclient -c &
     swaymsg "workspace 2"
-    sway-www "https://google.com" &
-    sleep 1
+    sway-www "https://google.com"
+    sleep 2
     swaymsg "workspace 3"
     sway-www "https://react.dev"
     sleep 1
@@ -1911,7 +1902,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     sway-www "file:///home/rgr/development/projects/"
     sleep 1
     swaymsg "workspace 6"
-    sway-www "https://music.youtube.com/" &
+    sway-www "https://music.youtube.com/"
     sleep 1
     swaymsg "workspace 7"
     sway-www "https://youtube.com"
@@ -1919,13 +1910,14 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     swaymsg "workspace 8; layout stacking;exec hexchat;"
     sway-www "https://web.whatsapp.com/"
     sway-www "https://web.telegram.org/k/"
+    sway-www "https://reddit.com/"
     sway-www "https://mail.google.com/mail/u/0/#inbox"
-    sleep 2
+    sleep 1
 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org002a831).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org33b60f5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

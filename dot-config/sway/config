@@ -219,7 +219,7 @@ include "${HOME}/.config/sway/host-config-$(hostname)"
 
 for_window [title="sway-launcher"] floating enable
 
-# done in sway-workspace-move
+# done in sway-workspace-init
 # output * bg  $wallpaper fill
 
 set $trans 0.7
@@ -295,7 +295,7 @@ bindsym $mod+Control+p exec sway-htop
 bindsym $mod+Control+Shift+p exec htop-regexp
 bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
 bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-bindsym $mod+Control+w exec sway-workspace-move
+bindsym $mod+Control+w exec sway-workspace-position
 bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 exec mako
@@ -304,7 +304,7 @@ exec sway-idle
 exec sway-kanshi
 exec blueman-applet
 # exec gpg-cache
-exec 'sway-workspace-init; sleep 1;swaymsg workspace 1; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed")'
+exec 'sway-workspace-populate; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3
