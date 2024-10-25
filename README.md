@@ -1835,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org33b60f5"></a>
+<a id="org0ea8999"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1907,7 +1907,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     swaymsg "workspace 7"
     sway-www "https://youtube.com"
     sleep 1
-    swaymsg "workspace 8; layout stacking;exec hexchat;"
+    swaymsg "workspace 8; layout stacking;"
     sway-www "https://web.whatsapp.com/"
     sway-www "https://web.telegram.org/k/"
     sway-www "https://reddit.com/"
@@ -1917,7 +1917,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org33b60f5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0ea8999).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

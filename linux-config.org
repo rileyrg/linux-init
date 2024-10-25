@@ -2066,7 +2066,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
   sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
-  
+
   swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
   swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
   swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
@@ -2108,7 +2108,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
   swaymsg "workspace 7"
   sway-www "https://youtube.com"
   sleep 1
-  swaymsg "workspace 8; layout stacking;exec hexchat;"
+  swaymsg "workspace 8; layout stacking;"
   sway-www "https://web.whatsapp.com/"
   sway-www "https://web.telegram.org/k/"
   sway-www "https://reddit.com/"
