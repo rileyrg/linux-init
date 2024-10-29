@@ -1835,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0ea8999"></a>
+<a id="org814fa30"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1890,7 +1890,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     killall chrome
-    swaymsg "workspace 1"
+    swaymsg "workspace 1; layout stacking;"
     emacsclient -c &
     swaymsg "workspace 2"
     sway-www "https://google.com"
@@ -1917,7 +1917,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0ea8999).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org814fa30).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
