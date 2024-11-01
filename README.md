@@ -669,9 +669,6 @@ Override in .profile.local
 
     # Maintained in linux-config.org
     
-    include /etc/sway/config.d/*
-    include config-vars.d/*
-    
     # Logo key. Use Mod1 for Alt.
     set $mod Mod4
     set $super Mod4
@@ -1835,7 +1832,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org92a5604"></a>
+<a id="orge9ba449"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1917,7 +1914,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org92a5604).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge9ba449).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3201,9 +3198,15 @@ out of date
     sway-autostart
 
 
-## Late addition to ~/.profile
+## ~/.profile
 
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
+
+
+## sway config
+
+    include /etc/sway/config.d/*
+    include config-vars.d/*
 
