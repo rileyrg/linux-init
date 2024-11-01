@@ -8,3 +8,4 @@
 - cache/**
 - rclone/rclone.conf
 - .syncrclone/logs/**
+- Documents/.syncrclone

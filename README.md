@@ -1835,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga866c09"></a>
+<a id="org29c2d5b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1917,7 +1917,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga866c09).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org29c2d5b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3001,7 +3001,7 @@ update sw
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    syncrclone "$HOME"/.syncrclone/gdrive-config.py
+    syncrclone "$HOME"/.syncrclone/gdrive-docs-config.py
 
 
 ### ~/bin/syncrclone-cloud-gdrive

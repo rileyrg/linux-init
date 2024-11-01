@@ -87,7 +87,7 @@
 !/DotFiles/.syncrclone/crontab.x1c6
 !/DotFiles/.syncrclone/excludes.txt
 !/DotFiles/.syncrclone/config.py
-!/DotFiles/.syncrclone/gdrive-config.py
+!/DotFiles/.syncrclone/gdrive-docs-config.py
 !/DotFiles/.syncrclone/gdrive-cloud-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
 !/DotFiles/.ripgreprc
