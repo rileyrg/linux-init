@@ -25,7 +25,7 @@ This is *ALWAYS* evaluated from the parent of this file.
 #
 #  See docs/config_tips.md for some helpful tips and tricks
 remoteA = "/home/rgr/cloud/homefiles/directories/Documents/"
-remoteB = "gdrive:Documents"
+remoteB = "gdrive:cloud/homefiles/Documents"
 
 # (ADVANCED USAGE) Specify where to store past file lists, backups, logs, locks, etc.
 # This value must be either:
@@ -66,7 +66,7 @@ rclone_exe = "rclone"
 
 ##
 # See warnings in the readme about --exclude-if-present
-filter_flags = ["--filter-from", "excludes.txt"]
+filter_flags = ["--filter-from", "doc-excludes.txt"]
 
 # General rclone flags are called every time rclone is called. This is how
 # you can specify things like the conifg file.

@@ -1835,7 +1835,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org29c2d5b"></a>
+<a id="org92a5604"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1917,7 +1917,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org29c2d5b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org92a5604).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2995,7 +2995,7 @@ update sw
 <https://rclone.org/>
 
 
-### ~/bin/syncrclone-gdrive
+### ~/bin/syncrclone-docs-gdrive
 
 <https://github.com/Jwink3101/syncrclone>
 

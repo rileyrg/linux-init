@@ -150,7 +150,7 @@
 !/directories/bin/resgithub.sh
 !/directories/bin/rsnapshot-if-mounted
 !/directories/bin/stm32cubeide-uninstall
-!/directories/bin/syncrclone-gdrive
+!/directories/bin/syncrclone-docs-gdrive
 !/directories/bin/syncrclone-cloud-gdrive
 !/directories/bin/syncrclone-htop
 !/directories/bin/syncrclone-once
