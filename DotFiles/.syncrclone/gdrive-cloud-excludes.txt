@@ -1,0 +1,11 @@
+- var/eln-cache/**
+- straight/build/**
+- straight/build-cache.el
+- straight/modified/**
+- .android/avd/**
+- hexchat/logs/**
+- hexchat/scrollback/**
+- cache/**
+- rclone/rclone.conf
+- .syncrclone/logs/**
+- directories/Documents
