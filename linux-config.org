@@ -3183,6 +3183,16 @@ https://github.com/Jwink3101/syncrclone
   # Maintained in linux-config.org
   syncrclone "$HOME"/.syncrclone/gdrive-config.py
 #+end_src
+
+*** ~/bin/syncrclone-cloud-gdrive
+https://github.com/Jwink3101/syncrclone
+#+begin_src bash :tangle ~/bin/syncrclone-cloud-gdrive
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  syncrclone "$HOME"/.syncrclone/gdrive-cloud-config.py
+#+end_src
+
+
 *** ~/bin/hetzner-du
 #+begin_src bash :tangle "~/bin/hetzner-du"
   #!/usr/bin/env bash
