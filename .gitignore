@@ -87,10 +87,12 @@
 !/DotFiles/.syncrclone/crontab.intelnuc
 !/DotFiles/.syncrclone/crontab.x1c6
 !/DotFiles/.syncrclone/crontab.t14s
-!/DotFiles/.syncrclone/cloud-excludes.txt
+!/DotFiles/.syncrclone/excludes.txt
+!/DotFiles/.syncrclone/gdrive-excludes.txt
+!/DotFiles/.syncrclone/privacy-excludes.txt
 !/DotFiles/.syncrclone/config.py
-!/DotFiles/.syncrclone/gdrive-cloud-config.py
-!/DotFiles/.syncrclone/gdrive-cloud-excludes.txt
+!/DotFiles/.syncrclone/gdrive-config.py
+!/DotFiles/.syncrclone/gdrive-excludes.txt
 !/DotFiles/.syncrclone/gdrive-docs-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
 !/DotFiles/.ripgreprc
@@ -153,8 +155,8 @@
 !/directories/bin/resgithub.sh
 !/directories/bin/rsnapshot-if-mounted
 !/directories/bin/stm32cubeide-uninstall
-!/directories/bin/syncrclone-docs-gdrive
-!/directories/bin/syncrclone-cloud-gdrive
+!/directories/bin/syncrclone-gdrive-docs
+!/directories/bin/syncrclone-gdrive
 !/directories/bin/syncrclone-htop
 !/directories/bin/syncrclone-once
 !/directories/bin/thirdparty
