@@ -3173,22 +3173,20 @@ CLOSED: [2023-11-16 Thu 12:17]
       echo "rclone bisync finished." >> "$LOGFILE"
   fi
 #+end_src
-*** ~/bin/syncrclone-docs-gdrive
+*** ~/bin/syncrclone-gdrive-docs
 https://github.com/Jwink3101/syncrclone
-#+begin_src bash :tangle ~/bin/syncrclone-docs-gdrive
+#+begin_src bash :tangle ~/bin/syncrclone-gdrive-docs
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   syncrclone "$HOME"/.syncrclone/gdrive-docs-config.py
 #+end_src
 
-*** ~/bin/syncrclone-cloud-gdrive
-https://github.com/Jwink3101/syncrclone
-#+begin_src bash :tangle ~/bin/syncrclone-cloud-gdrive
+*** ~/bin/syncrclone-gdrive
+#+begin_src bash :tangle ~/bin/syncrclone-gdrive
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  syncrclone "$HOME"/.syncrclone/gdrive-cloud-config.py
+  syncrclone "$HOME"/.syncrclone/gdrive-config.py
 #+end_src
-
 
 *** ~/bin/hetzner-du
 #+begin_src bash :tangle "~/bin/hetzner-du"

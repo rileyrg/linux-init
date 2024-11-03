@@ -66,7 +66,7 @@ rclone_exe = "rclone"
 
 ##
 # See warnings in the readme about --exclude-if-present
-filter_flags = ["--filter-from", "doc-excludes.txt"]
+filter_flags = ["--filter-from", "privacy-excludes.txt"]
 
 # General rclone flags are called every time rclone is called. This is how
 # you can specify things like the conifg file.

@@ -1,0 +1,9 @@
+- eln-cache/
+- .emacs.d/straight/
+- .android/avd/
+- hexchat/logs/
+- hexchat/scrollback/
+- cache/
+- rclone/rclone.conf
+- .syncrclone/logs/
+- Documents/.syncrclone/
