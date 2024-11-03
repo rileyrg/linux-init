@@ -49,7 +49,7 @@ bindsym Escape mode "default"
 
 bindsym $mod+Control+q mode "$mode_system"
 
-bindsym --release $mod+L exec sway-lock-utils suspend
+bindsym --release $mod+L exec sway-lock-utils lock
 
 #
 # Resizing containers:
