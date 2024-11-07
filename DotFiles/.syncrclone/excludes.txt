@@ -6,3 +6,4 @@
 - cache/
 - rclone/rclone.conf
 - .syncrclone/logs/
+- .syncrclone/backups/
