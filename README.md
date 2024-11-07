@@ -1832,7 +1832,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4868add"></a>
+<a id="orgac83ed9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1914,7 +1914,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4868add).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgac83ed9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2992,7 +2992,7 @@ update sw
 <https://rclone.org/>
 
 
-### ~/bin/syncrclone-docs-gdrive
+### ~/bin/syncrclone-gdrive-docs
 
 <https://github.com/Jwink3101/syncrclone>
 
@@ -3001,13 +3001,11 @@ update sw
     syncrclone "$HOME"/.syncrclone/gdrive-docs-config.py
 
 
-### ~/bin/syncrclone-cloud-gdrive
-
-<https://github.com/Jwink3101/syncrclone>
+### ~/bin/syncrclone-gdrive
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    syncrclone "$HOME"/.syncrclone/gdrive-cloud-config.py
+    syncrclone "$HOME"/.syncrclone/gdrive-config.py
 
 
 ### ~/bin/hetzner-du
@@ -3073,6 +3071,15 @@ update sw
         fi
         exit 0
     fi
+
+
+## cloud rsync between machines
+
+    #Maintained in linux-config.org
+    .syncrclone/backups/
+    .syncrclone/logs/
+    var/eln-cache
+    emacs-config/straight/
 
 
 ## Google Translate Helpers

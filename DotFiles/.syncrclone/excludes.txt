@@ -1,5 +1,3 @@
-- eln-cache/
-- .emacs.d/straight/
 - .android/avd/
 - hexchat/logs/
 - hexchat/scrollback/
@@ -7,3 +5,4 @@
 - rclone/rclone.conf
 - .syncrclone/logs/
 - .syncrclone/backups/
+- emacs-config/straight/
