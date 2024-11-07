@@ -1,0 +1,5 @@
+#Maintained in linux-config.org
+.syncrclone/backups/
+.syncrclone/logs/
+var/eln-cache
+emacs-config/straight/

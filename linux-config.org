@@ -3052,8 +3052,6 @@ strip debug info and store elsewhere
 #+end_src
 
 
-
-
 ** ~/bin/sharemouse
   ,#+begin_src bash :tangle "~/bin/sharemouse"
     #!/usr/bin/env bash
@@ -3249,6 +3247,16 @@ https://github.com/Jwink3101/syncrclone
       exit 0
   fi
 #+end_src
+
+** cloud rsync between machines
+#+begin_src conf :tangle ~/cloud/homefiles/.rsync-ignore
+  #Maintained in linux-config.org
+  .syncrclone/backups/
+  .syncrclone/logs/
+  var/eln-cache
+  emacs-config/straight/
+#+end_src
+
 ** Google Translate Helpers
 #+begin_src bash
   sudo apt install translate-shell

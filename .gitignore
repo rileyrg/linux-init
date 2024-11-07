@@ -4,6 +4,8 @@
 !README.md
 !linux-config.org
 
+!/.rsync-ignore
+
 !/etc
 
 !/etc/acpi
