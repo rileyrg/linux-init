@@ -2306,6 +2306,23 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 default-timeout=10000
 #+end_src
 * Programming Related                                           :programming:
+** clang-format
+clangd lsp formatting
+#+begin_src  config :tangle "DotFiles/.clang-format"
+# Maintained in linux-config.org
+BasedOnStyle: Google
+Language: Cpp
+IndentWidth: 4
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AccessModifierOffset: -4
+PointerAlignment: Left
+ColumnLimit: 80
+KeepEmptyLinesAtTheStartOfBlocks: true
+#+end_src
 ** dart/flutter                                                :dart:flutter:
 https://dart.dev/get-dart#install-a-debian-package
 https://docs.flutter.dev/get-started/install/linux

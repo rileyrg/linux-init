@@ -1832,7 +1832,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgac83ed9"></a>
+<a id="org524a7da"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1914,7 +1914,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgac83ed9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org524a7da).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2110,6 +2110,25 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
 
 # Programming Related     :programming:
+
+
+## clang-format
+
+clangd lsp formatting
+
+    # Maintained in linux-config.org
+    BasedOnStyle: Google
+    Language: Cpp
+    IndentWidth: 4
+    AllowShortBlocksOnASingleLine: false
+    AllowShortCaseLabelsOnASingleLine: false
+    AllowShortFunctionsOnASingleLine: false
+    AllowShortIfStatementsOnASingleLine: false
+    AllowShortLoopsOnASingleLine: false
+    AccessModifierOffset: -4
+    PointerAlignment: Left
+    ColumnLimit: 80
+    KeepEmptyLinesAtTheStartOfBlocks: true
 
 
 ## dart/flutter     :dart:flutter:

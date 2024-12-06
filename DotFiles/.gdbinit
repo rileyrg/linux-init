@@ -7,6 +7,8 @@ set history filename ~/.gdb_history
 set history size 32768
 set history expansion on
 
+set output-radix 16
+
 define pretty
 set print pretty on
 set print symbol-filename on

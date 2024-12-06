@@ -81,6 +81,7 @@
 !/DotFiles/.bashrc
 !/DotFiles/.bash_profile
 !/DotFiles/.bash_profile.local.example
+!/DotFiles/.clang-format
 !/DotFiles/.mbsyncrc
 !/DotFiles/.profile
 !/DotFiles/.ignore
