@@ -1605,7 +1605,7 @@ $term is set to "sway-scratch-terminal
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    exec sway-oneterminal "Processes" htop
+    exec sway-oneterminal "Processes" btop
 
 
 ### ~/bin/sway/sway-kanshi
@@ -1832,7 +1832,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org524a7da"></a>
+<a id="org19169d4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1914,7 +1914,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org524a7da).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org19169d4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -1792,7 +1792,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle "~/bin/sway/sway-htop"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  exec sway-oneterminal "Processes" htop
+  exec sway-oneterminal "Processes" btop
 #+end_src
 *** ~/bin/sway/sway-kanshi
 Monitor control with hotplug https://github.com/emersion/kanshi

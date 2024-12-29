@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-exec sway-oneterminal "Processes" htop
+exec sway-oneterminal "Processes" btop
