@@ -1493,7 +1493,7 @@ $term is set to "sway-scratch-terminal
 ## swaywm scripts     :sway:wayland:
 
 
-### ~/bin/sway-sway-active-monitors-count
+### ~/bin/sway-active-monitors-count
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -1799,14 +1799,14 @@ Just a gathering place of locky/suspendy type things&#x2026;
 ### ~/bin/sway/sway-laptop-id
 
 Here we look for an env `LAPTOP_ID`. In my setup that would be set in `${HOME}/.profile.local`. If thats not set we assume `eDP-1`
-but in both cases we check if it exists in the sway tree, and, if not, set it it to the first one found.
+but in both cases we check if it exists in the sway tree, and, if not, set it t the last
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    id="${LAPTOP_ID:-"eDP-1"}"
-    displays="$(swaymsg -t get_outputs | jq -r '.[0]')"
-    if [ -z  "$(jq '.|select(.name=="$id") | .name' <<< $displays)" ];then
-        id="$(jq -r '[.][0].name' <<< $displays)"
+    id="${LAPTOP_ID:-'eDP-1'}"
+    id=$( swaymsg -t get_outputs | jq -r ".[] | select (.name == \"${id}\") | .name")
+    if [ -z  "$id" ];then
+        id=$(swaymsg -t get_outputs | jq -r '.[-1].name')
     fi
     echo $id
 
@@ -1832,7 +1832,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org19169d4"></a>
+<a id="org76d2ec0"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1914,7 +1914,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it it
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org19169d4).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org76d2ec0).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
