@@ -943,19 +943,7 @@ $term is set to "sway-scratch-terminal
 
     for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
 
-1.  ~/bin/sway/sway-autostart
-
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
-            if  [ "$(hostname)" = "xmgneo" ];then
-                sway --my-next-gpu-wont-be-nvidia &
-            else
-                sway &
-            fi
-        fi
-
-2.  ~/bin/sway/sway-scratch-terminal
+1.  ~/bin/sway/sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1517,8 +1505,14 @@ $term is set to "sway-scratch-terminal
 ### ~/bin/sway/sway-autostart
 
     #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    [ -f "${HOME}/.sway-autostart" ]  && . "${HOME}/.sway-autostart"
+    #Maintained in linux-config.org
+    if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
+        if  [ "$(hostname)" = "xmgneo" ];then
+            sway --my-next-gpu-wont-be-nvidia &
+        else
+            sway &
+        fi
+    fi
 
 
 ### ~/bin/sway/sway-brightness-notify
@@ -1832,7 +1826,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org76d2ec0"></a>
+<a id="org927c278"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1914,7 +1908,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org76d2ec0).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org927c278).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
