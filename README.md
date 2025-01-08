@@ -1123,7 +1123,7 @@ $term is set to "sway-scratch-terminal
     exec sway-kanshi
     exec blueman-applet
     # exec gpg-cache
-    exec 'sway-workspace-populate; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
+    exec 'sway-workspace-populate-conditional; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 
 
 ## waybar config
@@ -1826,7 +1826,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org927c278"></a>
+<a id="org0701f68"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1882,7 +1882,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     # Maintained in linux-config.org
     killall chrome
     swaymsg "workspace 1; layout stacking;"
-    emacsclient -c &
+    ! pidof emacs && emacsclient -c &
     swaymsg "workspace 2"
     sway-www "https://google.com"
     sleep 2
@@ -1906,9 +1906,23 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     sleep 1
 
 
+### ~/bin/sway/sway-workspace-populate-conditional
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if [ -f "${HOME}/.sway-workspace-populate" ]; then
+        sway-workspace-populate
+    elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
+        source "${HOME}/.sway-workspace-populate-user"
+    else
+        swaymsg "workspace 1; layout stacking;"
+        ! pidof emacs && emacsclient -c &
+    fi
+
+
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org927c278).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0701f68).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

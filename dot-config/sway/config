@@ -301,7 +301,7 @@ exec sway-idle
 exec sway-kanshi
 exec blueman-applet
 # exec gpg-cache
-exec 'sway-workspace-populate; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
+exec 'sway-workspace-populate-conditional; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

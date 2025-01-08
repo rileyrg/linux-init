@@ -2,7 +2,7 @@
 # Maintained in linux-config.org
 killall chrome
 swaymsg "workspace 1; layout stacking;"
-emacsclient -c &
+! pidof emacs && emacsclient -c &
 swaymsg "workspace 2"
 sway-www "https://google.com"
 sleep 2
