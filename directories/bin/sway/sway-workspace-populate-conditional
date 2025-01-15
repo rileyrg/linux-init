@@ -4,7 +4,6 @@ if [ -f "${HOME}/.sway-workspace-populate" ]; then
     sway-workspace-populate
 elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
     source "${HOME}/.sway-workspace-populate-user"
-else
-    swaymsg "workspace 1; layout stacking;"
-    ! pidof emacs && emacsclient -c &
+# else
+#     emacsclient -c -a "" &
 fi

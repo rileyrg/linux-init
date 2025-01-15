@@ -2117,9 +2117,8 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
       sway-workspace-populate
   elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
       source "${HOME}/.sway-workspace-populate-user"
-  else
-      swaymsg "workspace 1; layout stacking;"
-      ! pidof emacs && emacsclient -c &
+  # else
+  #     emacsclient -c -a "" &
   fi
 
 #+end_src
@@ -3403,6 +3402,7 @@ fi
 #+begin_src bash :tangle "DotFiles/.profile"
   # fix for java apps in sway
   export _JAVA_AWT_WM_NONREPARENTING=1
+  pgrep emacs > /dev/null || (emacs --daemon > /dev/null 2>&1 & )
   [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
 #+end_src
 
