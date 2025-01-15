@@ -102,5 +102,5 @@ export USER_STARTX_START=
 
 # fix for java apps in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
-pgrep emacs > /dev/null || (emacs --daemon > /dev/null 2>&1 & )
+pgrep emacs > /dev/null || (emacs --daemon="general" > /dev/null 2>&1 & )
 [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"

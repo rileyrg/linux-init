@@ -547,18 +547,18 @@ Written to find the tty for a pane in order to redirect gef context source to a 
 
     #!/usr/bin/env bash
     #Maintained in linux-config.org
-    if ! pidof "emacs"; then
-        #emacs --daemon
-        emacsclient -n -c -a "" "$@"
+    emacsclient -s "general" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+    if [ "$?" = 0 ]; then
+        # echo "emacs frame found"
+        emacsclient -s "general" -n  "$@" &
     else
-        emacsclient -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
-        if [ "$?" = 1 ]; then
-            emacsclient -n -c -a "" "$@"
-        else
-            emacsclient -n -a "" "$@"
-            sway-do-tool "Emacs"
-        fi
+        # echo "emacs frame NOT found"
+        exists=$(pidof "emacs")
+        echo "PID$exists"
+        emacsclient -s "general" -c "$@" &
+        [ -z "$exists" ] && sleep 5 || sleep 0.5
     fi
+    sway-do-tool "Emacs"
 
 
 ## Vim
@@ -1592,7 +1592,7 @@ $term is set to "sway-scratch-terminal
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
-    exec emacs-same-frame "$@"
+    emacs-same-frame "$@"
 
 
 ### ~/bin/sway/sway-htop
@@ -1826,7 +1826,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge67bef6"></a>
+<a id="orgd1db3c5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1921,7 +1921,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge67bef6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd1db3c5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3235,7 +3235,7 @@ out of date
 
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
-    pgrep emacs > /dev/null || (emacs --daemon > /dev/null 2>&1 & )
+    pgrep emacs > /dev/null || (emacs --daemon="general" > /dev/null 2>&1 & )
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
 
 
