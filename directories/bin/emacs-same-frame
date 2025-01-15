@@ -3,12 +3,12 @@
 emacsclient -s "general" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
 if [ "$?" = 0 ]; then
     # echo "emacs frame found"
-    emacsclient -s "general" -n  "$@" &
+    sway-notify "found emacs frame"
+    emacsclient -s "general"  -n  "$@"
 else
     # echo "emacs frame NOT found"
     exists=$(pidof "emacs")
-    echo "PID$exists"
-    emacsclient -s "general" -c "$@" &
-    [ -z "$exists" ] && sleep 5 || sleep 0.5
+    emacsclient -s "general" -n -c "$@"
+    [ -z "$exists" ] && sleep 7 || sleep 0.5
 fi
 sway-do-tool "Emacs"

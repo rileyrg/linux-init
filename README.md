@@ -550,12 +550,12 @@ Written to find the tty for a pane in order to redirect gef context source to a 
     emacsclient -s "general" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
     if [ "$?" = 0 ]; then
         # echo "emacs frame found"
-        emacsclient -s "general" -n  "$@" &
+        emacsclient -s "general" -T "Emacs" -n  "$@" &
     else
         # echo "emacs frame NOT found"
         exists=$(pidof "emacs")
         echo "PID$exists"
-        emacsclient -s "general" -c "$@" &
+        emacsclient -s "general" -T "Emacs" -c "$@" &
         [ -z "$exists" ] && sleep 5 || sleep 0.5
     fi
     sway-do-tool "Emacs"
@@ -1103,7 +1103,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec emacsclient -c -eval '(progn (rgr/erc-start))'
+    bindsym $mod+Control+i exec emacsclient -s "erc" -T "erc" -c -eval '(progn (rgr/erc-start))' && sway-do-tool
     bindsym $mod+Control+d exec emacsclient -c -eval '(dired "~")'
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
@@ -1826,7 +1826,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd1db3c5"></a>
+<a id="orgd0358dc"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1921,7 +1921,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd1db3c5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd0358dc).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
