@@ -608,10 +608,10 @@ Written to find the tty for a pane in order to redirect gef context source to a 
   #Maintained in linux-config.org
 
   daemon="${EMACSD:-general}"
-  title="${EMACST:-Emacs}"
+  title="${EMACST:-Emacs-${daemon}}"
 
   # start emacs if not running
-  emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+  emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" 2> /dev/null| grep -q t
 
   if [ "$?" = 0 ]; then
       # echo "emacs frame found"
@@ -1296,7 +1296,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
   bindsym $mod+Control+c exec conky
   bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-  bindsym $mod+Control+i exec emacsclient -s "erc"  -n -c -eval '(progn (rgr/erc-start))' && sleep 1 && sway-do-tool "emacs-erc"
+  bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc" -T "Emacs-erc" -c -eval '(progn (rgr/erc-start))' && sway-do-tool "Emacs-erc"
   bindsym $mod+Control+d exec emacsclient -s "dired" -n -c -eval '(dired "~")'  && sway-do-tool "dired"
   bindsym $mod+Control+Shift+d exec sway-screen-menu
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus

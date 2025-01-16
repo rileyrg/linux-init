@@ -2,10 +2,10 @@
 #Maintained in linux-config.org
 
 daemon="${EMACSD:-general}"
-title="${EMACST:-Emacs}"
+title="${EMACST:-Emacs-${daemon}}"
 
 # start emacs if not running
-emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" 2> /dev/null| grep -q t
 
 if [ "$?" = 0 ]; then
     # echo "emacs frame found"
