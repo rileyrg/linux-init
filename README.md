@@ -1107,7 +1107,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc" -T "Emacs-erc" -c -eval '(progn (rgr/erc-start))' && sway-do-tool "Emacs-erc"
+    bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc" -T "Emacs-erc"
     bindsym $mod+Control+d exec emacsclient -s "dired" -n -c -eval '(dired "~")'  && sway-do-tool "dired"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
@@ -1830,7 +1830,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0a5d096"></a>
+<a id="orga8db6a1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1925,7 +1925,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0a5d096).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8db6a1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
