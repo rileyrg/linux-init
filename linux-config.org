@@ -606,17 +606,20 @@ Written to find the tty for a pane in order to redirect gef context source to a 
 #+begin_src  bash :tangle "~/bin/emacs-same-frame"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  emacsclient -s "general" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+
+  daemon="${EMACSD:-general}"
+  title="${EMACST:-Emacs}"
+
+  # start emacs if not running
+  emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" | grep -q t
+
   if [ "$?" = 0 ]; then
       # echo "emacs frame found"
       sway-notify "found emacs frame"
-      emacsclient -s "general"  -n  "$@"
+      emacsclient -s "general"  -n  "$@"  > /dev/null 2>&1
   else
       # echo "emacs frame NOT found"
-      exists=$(pidof "emacs")
-      #emacsclient -s "general" -n -F "'(name . \emacs-general\"))" -c "$@"
-      emacsclient -s "general" -n  -c "$@"
-      [ -z "$exists" ] && sleep 7 || sleep 0.5
+      emacsclient  -s "${daemon}" -n  -c "$@" > /dev/null 2>&1
   fi
   sway-do-tool "Emacs"
 #+end_src
