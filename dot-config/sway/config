@@ -284,7 +284,7 @@ bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
 bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
 bindsym $mod+Control+c exec conky
 bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-bindsym $mod+Control+i exec emacsclient -s "erc" -T "erc" -n -c -eval '(progn (rgr/erc-start))' && sway-do-tool "erc"
+bindsym $mod+Control+i exec emacsclient -s "erc"  -n -c -eval '(progn (rgr/erc-start))' && sleep 1 && sway-do-tool "emacs-erc"
 bindsym $mod+Control+d exec emacsclient -s "dired" -n -c -eval '(dired "~")'  && sway-do-tool "dired"
 bindsym $mod+Control+Shift+d exec sway-screen-menu
 bindsym $mod+Control+f exec command -v thunar && thunar || nautilus

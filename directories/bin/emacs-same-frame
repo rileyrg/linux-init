@@ -11,4 +11,4 @@ else
     emacsclient -s "general" -n -c "$@"
     [ -z "$exists" ] && sleep 7 || sleep 0.5
 fi
-sway-do-tool "Emacs"
+sway-do-tool "emacs-general"
