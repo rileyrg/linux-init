@@ -614,10 +614,11 @@ Written to find the tty for a pane in order to redirect gef context source to a 
   else
       # echo "emacs frame NOT found"
       exists=$(pidof "emacs")
-      emacsclient -s "general" -n -c "$@"
+      #emacsclient -s "general" -n -F "'(name . \emacs-general\"))" -c "$@"
+      emacsclient -s "general" -n  -c "$@"
       [ -z "$exists" ] && sleep 7 || sleep 0.5
   fi
-  sway-do-tool "emacs-general"
+  sway-do-tool "Emacs"
 #+end_src
 
 ** Vim

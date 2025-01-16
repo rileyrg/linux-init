@@ -8,7 +8,8 @@ if [ "$?" = 0 ]; then
 else
     # echo "emacs frame NOT found"
     exists=$(pidof "emacs")
-    emacsclient -s "general" -n -c "$@"
+    #emacsclient -s "general" -n -F "'(name . \emacs-general\"))" -c "$@"
+    emacsclient -s "general" -n  -c "$@"
     [ -z "$exists" ] && sleep 7 || sleep 0.5
 fi
-sway-do-tool "emacs-general"
+sway-do-tool "Emacs"
