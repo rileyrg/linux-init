@@ -1830,7 +1830,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga8db6a1"></a>
+<a id="orgcdbe281"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1852,9 +1852,9 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     #!/usr/bin/env bash
     
     mapfile -t outputs  < <( sway-active-monitor-ids )
-    leftOutput=${outputs[0]}
-    rightOutput=${outputs[1]}
-    rightMostOutput=${outputs[2]}
+    export leftOutput=${outputs[0]}
+    export rightOutput=${outputs[1]}
+    export rightMostOutput=${outputs[2]}
     
     rightOutput=${rightOutput:-${leftOutput}}
     rightMostOutput=${rightMostOutput:-${rightOutput}}
@@ -1862,22 +1862,27 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
-    swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
+    # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
     swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
-    swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
-    swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+    
+    if [ "$leftOutput" != "$rightOutput" ]; then
+        swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
+        if [ "$rightOutput" != "$rightMostOutput" ]; then
+            swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+        fi
+    fi
     
     swaymsg "
-      workspace 1; move workspace to output $leftOutput;
-      workspace 2; move workspace to output $rightOutput;
-      workspace 3; move workspace to output $leftOutput;
-      workspace 4; move workspace to output $rightOutput;
-      workspace 5; move workspace to output $rightOutput;
-      workspace 6; move workspace to output $rightMostOutput;
-      workspace 7; move workspace to output $rightMostOutput;
-      workspace 8; move workspace to output $rightMostOutput;
-      workspace $curr;
-    "
+       workspace 1; move workspace to output $leftOutput;
+       workspace 2; move workspace to output $rightOutput;
+       workspace 3; move workspace to output $leftOutput;
+       workspace 4; move workspace to output $rightOutput;
+       workspace 5; move workspace to output $rightOutput;
+       workspace 6; move workspace to output $rightMostOutput;
+       workspace 7; move workspace to output $rightMostOutput;
+       workspace 8; move workspace to output $rightMostOutput;
+       workspace $curr;
+     "
 
 
 ### ~/bin/sway/sway-workspace-populate
@@ -1925,7 +1930,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga8db6a1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcdbe281).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
