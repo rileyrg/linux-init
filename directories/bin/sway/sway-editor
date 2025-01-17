@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
+export EMACSD="general"
 emacs-same-frame "$@"

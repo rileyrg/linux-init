@@ -550,7 +550,6 @@ Written to find the tty for a pane in order to redirect gef context source to a 
     
     daemon="${EMACSD:-general}"
     title="${EMACST:-Emacs-${daemon}}"
-    
     # start emacs if not running
     emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" 2> /dev/null| grep -q t
     
@@ -562,7 +561,7 @@ Written to find the tty for a pane in order to redirect gef context source to a 
         # echo "emacs frame NOT found"
         emacsclient  -s "${daemon}" -n  -c "$@" > /dev/null 2>&1
     fi
-    sway-do-tool "Emacs"
+    sway-do-tool "$title"
 
 
 ## Vim
@@ -762,7 +761,7 @@ Override in .profile.local
     bindsym $mod+d exec $menu
     
     # Start your editor
-    bindsym $mod+Shift+e exec $editor
+    bindsym $mod+Shift+e exec EMACSD="general" $editor
     
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -1107,7 +1106,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc" -T "Emacs-erc"
+    bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc"
     bindsym $mod+Control+d exec emacsclient -s "dired" -n -c -eval '(dired "~")'  && sway-do-tool "dired"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
@@ -1596,6 +1595,7 @@ $term is set to "sway-scratch-terminal
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
+    export EMACSD="general"
     emacs-same-frame "$@"
 
 
@@ -1830,7 +1830,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcdbe281"></a>
+<a id="org855eb20"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1930,7 +1930,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcdbe281).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org855eb20).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

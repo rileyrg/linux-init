@@ -3,7 +3,6 @@
 
 daemon="${EMACSD:-general}"
 title="${EMACST:-Emacs-${daemon}}"
-
 # start emacs if not running
 emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" 2> /dev/null| grep -q t
 
@@ -15,4 +14,4 @@ else
     # echo "emacs frame NOT found"
     emacsclient  -s "${daemon}" -n  -c "$@" > /dev/null 2>&1
 fi
-sway-do-tool "Emacs"
+sway-do-tool "$title"

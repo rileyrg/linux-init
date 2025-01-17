@@ -609,7 +609,6 @@ Written to find the tty for a pane in order to redirect gef context source to a 
 
   daemon="${EMACSD:-general}"
   title="${EMACST:-Emacs-${daemon}}"
-
   # start emacs if not running
   emacsclient -s "${daemon}" -e "(if (> (length (frame-list)) 1) 't)" 2> /dev/null| grep -q t
 
@@ -621,7 +620,7 @@ Written to find the tty for a pane in order to redirect gef context source to a 
       # echo "emacs frame NOT found"
       emacsclient  -s "${daemon}" -n  -c "$@" > /dev/null 2>&1
   fi
-  sway-do-tool "Emacs"
+  sway-do-tool "$title"
 #+end_src
 
 ** Vim
@@ -941,7 +940,7 @@ Override in .profile.local
   bindsym $mod+d exec $menu
 
   # Start your editor
-  bindsym $mod+Shift+e exec $editor
+  bindsym $mod+Shift+e exec EMACSD="general" $editor
 
   # Drag floating windows by holding down $mod and left mouse button.
   # Resize them with right mouse button + $mod.
@@ -1296,7 +1295,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
   bindsym $mod+Control+c exec conky
   bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-  bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc" -T "Emacs-erc"
+  bindsym $mod+Control+i exec EMACSD="erc" emacs-same-frame && emacsclient -s "erc"
   bindsym $mod+Control+d exec emacsclient -s "dired" -n -c -eval '(dired "~")'  && sway-do-tool "dired"
   bindsym $mod+Control+Shift+d exec sway-screen-menu
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
@@ -1783,6 +1782,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   # sleep 2 && command -v notify-send && notify-send "Starting emacs..." &
+  export EMACSD="general"
   emacs-same-frame "$@"
 #+end_src
 *** ~/bin/sway/sway-htop
