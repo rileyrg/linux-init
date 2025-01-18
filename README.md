@@ -540,6 +540,16 @@ Written to find the tty for a pane in order to redirect gef context source to a 
 # Editors
 
 
+## emacs
+
+
+### sway-editor
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    sway-do-tool "Emacs-general" || emacsclient -s "general" -n -c && sleep 1 && sway-do-tool "Emacs-general"
+
+
 ## Vim
 
 
@@ -661,7 +671,7 @@ Override in .profile.local
     
     set $term 'kitty'
     set $menu 'sway-launcher'
-    set $editor emacsclient -s "general" -c
+    set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current '
     
     # Font  for window titles. Will also be used by the bar unless a different font
@@ -737,7 +747,7 @@ Override in .profile.local
     bindsym $mod+d exec $menu
     
     # Start your editor
-    bindsym $mod+Shift+e exec sway-do-tool "Emacs-general" || emacsclient -s "general" -n -c && sleep 1 && sway-do-tool "Emacs-general"
+    bindsym $mod+Shift+e exec $editor
     
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -1082,8 +1092,8 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec sway-do-tool "Emacs-erc" || EMACSD="erc" emacs-same-frame
-    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c -eval '(dired "~")'
+    bindsym $mod+Control+i exec sway-do-tool "Emacs-erc" || emacsclient -s "erc" -c -n && sleep 0.5 && sway-do-tool "Emacs-erc"
+    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c -eval '(dired "~")' && sleep 0.5  && sway-do-tool "Emacs-dired"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
@@ -1797,7 +1807,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2256e74"></a>
+<a id="orgd1e794b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1817,7 +1827,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 ### ~/bin/sway/sway-workspace-position
 
     #!/usr/bin/env bash
-    
+    # Maintained in linux-config.org
     mapfile -t outputs  < <( sway-active-monitor-ids )
     export leftOutput=${outputs[0]}
     export rightOutput=${outputs[1]}
@@ -1897,7 +1907,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2256e74).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd1e794b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
