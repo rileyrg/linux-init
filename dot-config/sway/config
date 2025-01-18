@@ -263,8 +263,6 @@ bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wif
 assign [class="Code"] 3
 assign [class="Signal"] 8
 assign [class="jetbrains-studio"] 3
-assign [app_id="emacs"] 1
-assign [class="Emacs"] 1
 assign [class="Hexchat"] 8
 assign [app_id="telegram"] 8
 assign [class="discord"] 8
