@@ -2040,12 +2040,12 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
   # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-  swaymsg "output $leftOutput bg ~/Pictures/Wallpapers/s1 fill"
+  swaymsg "output $leftOutput bg ${HOME}/Pictures/Wallpapers/s1 fill"
 
   if [ "$leftOutput" != "$rightOutput" ]; then
-      swaymsg "output $rightOutput bg ~/Pictures/Wallpapers/s2 fill"
-      if [ "$rightOutput" != "$rightMostOutput" ]; then
-          swaymsg "output $rightMostOutput bg ~/Pictures/Wallpapers/s3 fill"
+      swaymsg "output ${rightOutput} bg ${HOME}/Pictures/Wallpapers/s2 fill"
+      if [ "$rightOutput" != "${rightMostOutput}" ]; then
+          swaymsg "output ${rightMostOutput} bg ${HOME}/Pictures/Wallpapers/s3 fill"
       fi
   fi
 
