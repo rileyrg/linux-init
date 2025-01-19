@@ -1805,7 +1805,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgfbfc170"></a>
+<a id="org4228a26"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1838,12 +1838,12 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
     # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-    swaymsg "output $leftOutput bg ${HOME}/Pictures/Wallpapers/s1 fill"
+    swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
     
     if [ "$leftOutput" != "$rightOutput" ]; then
-        swaymsg "output ${rightOutput} bg ${HOME}/Pictures/Wallpapers/s2 fill"
+        swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
         if [ "$rightOutput" != "${rightMostOutput}" ]; then
-            swaymsg "output ${rightMostOutput} bg ${HOME}/Pictures/Wallpapers/s3 fill"
+            swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
         fi
     fi
     
@@ -1905,7 +1905,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfbfc170).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4228a26).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
