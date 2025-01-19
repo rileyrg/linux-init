@@ -1279,7 +1279,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   bindsym $mod+Control+c exec conky
   bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
   bindsym $mod+Control+i exec sway-do-tool "Emacs-erc" || emacsclient -s "erc" -c -n && sleep 0.5 && sway-do-tool "Emacs-erc"
-  bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c -eval '(dired "~")' && sleep 0.5  && sway-do-tool "Emacs-dired"
+  bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c -eval '(switch-to-dired)' && sleep 0.5  && sway-do-tool "Emacs-dired"
   bindsym $mod+Control+Shift+d exec sway-screen-menu
   bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
   bindsym $mod+Control+p exec sway-htop
