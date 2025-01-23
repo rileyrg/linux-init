@@ -1109,6 +1109,7 @@ $term is set to "sway-scratch-terminal
     exec sway-idle
     exec sway-kanshi
     exec blueman-applet
+    exec nm-applet
     # exec gpg-cache
     exec 'sway-workspace-populate-conditional; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 
@@ -1805,7 +1806,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org63032dc"></a>
+<a id="org1864ba2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1905,7 +1906,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org63032dc).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1864ba2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

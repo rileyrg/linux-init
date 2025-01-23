@@ -1296,6 +1296,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   exec sway-idle
   exec sway-kanshi
   exec blueman-applet
+  exec nm-applet
   # exec gpg-cache
   exec 'sway-workspace-populate-conditional; enable-disable-wifi; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sleep 3; sway-workspace-position; swaymsg workspace 1; '
 #+end_src
