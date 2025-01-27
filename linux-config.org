@@ -107,8 +107,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 :END:
 * Basic shell things
 ** X/Sway common
-(:tangle "DotFiles/.Xdefaults")
-#+begin_src conf :tangle no
+#+begin_src conf :tangle "DotFiles/.Xdefaults"
   ! Maintained in linux-config.org
   ! Use a truetype font and size.
   ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
