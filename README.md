@@ -760,7 +760,7 @@ Override in .profile.local
     bindsym $mod+Shift+c reload
     
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    # bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
     
     #
     # Moving around:
@@ -1091,7 +1091,8 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
-    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c -eval '(switch-to-dired)' && sleep 0.5  && sway-do-tool "Emacs-dired"
+    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
+    bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
@@ -1806,7 +1807,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org1864ba2"></a>
+<a id="org1b0e807"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1906,7 +1907,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1864ba2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1b0e807).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
