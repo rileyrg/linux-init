@@ -934,7 +934,7 @@ Override in .profile.local
   floating_modifier $mod normal
 
   # Reload the configuration file
-  bindsym $mod+Shift+c reload
+  bindsym $mod+Control+c reload
 
   # Exit sway (logs you out of your Wayland session)
   # bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -1267,27 +1267,27 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 *** apps keybindings
 #+begin_src conf
 
-  bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+    bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 
-  bindsym $mod+Print exec sway-screenshot -i
-  bindsym $mod+Control+Print exec sway-screen-recorder
+    bindsym $mod+Print exec sway-screenshot -i
+    bindsym $mod+Control+Print exec sway-screen-recorder
 
-  bindsym $mod+Shift+f exec "sway-www"
-  bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
-  bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-  bindsym $mod+Control+c exec conky
-  bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-  bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
-  bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
-  bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
-  bindsym $mod+Control+Shift+d exec sway-screen-menu
-  bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
-  bindsym $mod+Control+p exec sway-htop
-  bindsym $mod+Control+Shift+p exec htop-regexp
-  bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
-  bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
-  bindsym $mod+Control+w exec sway-workspace-position
-  bindsym $mod+Control+shift+u exec sway-workspace-populate
+    bindsym $mod+Shift+f exec "sway-firefox"
+    bindsym $mod+Shift+c exec "sway-chrome"
+    bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
+    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
+    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
+    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
+    bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
+    bindsym $mod+Control+Shift+d exec sway-screen-menu
+    bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
+    bindsym $mod+Control+p exec sway-htop
+    bindsym $mod+Control+Shift+p exec htop-regexp
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
+    bindsym $mod+Control+w exec sway-workspace-position
+    bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
 *** sway startup processes
 #+begin_src  conf
@@ -2282,7 +2282,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-chrome"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-   google-chrome  --enable-features=VaapiVideoDecodeLinuxGL --use-gl=angle --use-angle=gl --ozone-platform=wayland  --hide-crash-restore-bubble --new-window "$@" 
+   google-chrome --ozone-platform=wayland --hide-crash-restore-bubble --new-window "$@" 
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:

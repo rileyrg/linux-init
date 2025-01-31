@@ -755,7 +755,7 @@ Override in .profile.local
     floating_modifier $mod normal
     
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Control+c reload
     
     # Exit sway (logs you out of your Wayland session)
     # bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -1083,10 +1083,10 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Print exec sway-screenshot -i
     bindsym $mod+Control+Print exec sway-screen-recorder
     
-    bindsym $mod+Shift+f exec "sway-www"
+    bindsym $mod+Shift+f exec "sway-firefox"
+    bindsym $mod+Shift+c exec "sway-chrome"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
-    bindsym $mod+Control+c exec conky
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
@@ -1805,7 +1805,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgaa8c9e8"></a>
+<a id="orgeb482fc"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -1905,7 +1905,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgaa8c9e8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgeb482fc).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2066,9 +2066,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    # google-chrome   "$@" &> /dev/null &
-    google-chrome  --enable-features=VaapiVideoDecodeLinuxGL --use-gl=angle --use-angle=gl --ozone-platform=wayland  --hide-crash-restore-bubble --new-window "$@" &> /dev/null &
-    # sway-firefox "$1"
+    sway-firefox "$@"
 
 
 ### ~/bin/sway/sway-email
@@ -2076,6 +2074,13 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     MOZ_ENABLE_WAYLAND=1 firefox --name=wwwemail --new-window "https://www.gmail.com"
+
+
+### ~/bin/sway/sway-chrome
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+     google-chrome --ozone-platform=wayland --hide-crash-restore-bubble --new-window "$@" 
 
 
 ### ~/bin/sway/sway-firefox
@@ -2895,7 +2900,7 @@ strip debug info and store elsewhere
         mv "$texclude" .git/info/exclude
         git add .
         git commit -a -m "$commitmsg"
-        git push -f
+    #    git push -f
     else
         echo "test Warning: No git config file found. Aborting.";exit;
     fi
