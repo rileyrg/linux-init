@@ -1,0 +1,48 @@
+# Maintained in linux-config.org
+
+#settings write -f .lldb-settings-local-start
+#settings read  -f .lldb-settings-local
+
+settings set target.load-cwd-lldbinit true
+settings set interpreter.prompt-on-quit false
+settings set target.x86-disassembly-flavor intel
+
+command alias bfl breakpoint set -f %1 -l %2
+command alias lv command script import "~/bin/thirdparty/pyenv/versions/3.9.2/lib/python3.9/site-packages/voltron/entry.py"
+command alias sl source list -a $rip
+command alias so thread step-out
+#auto breaks  - annotate code with labels eg debug_inspect__var_of_interest
+command alias b_inspect breakpoint set -p "debug_inspect_"
+command alias b_call breakpoint set -p "debug_call_"
+
+# regexp break points arent pending/deferred
+#b_inspect
+#b_call
+
+command regex rlook 's/(.+)/image lookup -rn %1/'
+
+#breg X will break at *X* labels
+command regex breg 's/(.+)/breakpoint set -p "%1"/'
+#bdeb X will break at debug*X labels
+command regex bdeb 's/(.+)/breakpoint set -p "debug_(.+)%1"/'
+#bcall X will break at debug_call__X labels
+command regex bcall 's/(.+)/breakpoint set -p "debug_call__%1"/'
+#binsp X will break at debug_inspect__X labels
+command regex binsp 's/(.+)/breakpoint set -p "debug_inspect__%1"/'
+
+command regex srcb 's/([0-9]+)/settings set stop-line-count-before %1/'
+srcb 2
+command regex srca 's/([0-9]+)/settings set stop-line-count-after %1/'
+srca 3
+
+settings set stop-disassembly-display no-debuginfo
+
+#step into stl
+settings set target.process.thread.step-avoid-regexp ""
+
+
+#alias vtty = shell tmux-pane-tty voltron 4
+
+#define voltron-source-tty
+#shell tmux-pane-tty
+#end

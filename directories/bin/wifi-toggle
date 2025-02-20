@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+status="$(nmcli radio wifi)"
+if [ "$status" = "enabled" ]; then
+    nmcli radio wifi off
+    echo "Wifi Off"
+else
+    nmcli radio wifi on
+    echo "Wifi On"
+fi

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+
+if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
+    if [ -f "${HOME}"/.wifi-and-eth ]; then
+        echo "${HOME}/.wifi-and-eth exists so wifi on."
+        nmcli radio wifi on
+    else
+        echo "Turning wifi  off"
+        nmcli radio wifi off
+    fi
+else
+    echo "Turning wifi on"
+    nmcli radio wifi on
+fi

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+version="${1:-${STM32CUBEIDE_VERSION:-"1.9.0"}}"
+echo "Removing st-stm32cubeide-${version}"
+sudo dpkg -r st-stm32cubeide-"$version"
+sudo dpkg -r st-stlink-server
+sudo dpkg -r st-stlink-udev-rules
+sudo dpkg -r segger-jlink-udev-rules

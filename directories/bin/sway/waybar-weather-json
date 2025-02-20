@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org 
+sleep 5
+WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr

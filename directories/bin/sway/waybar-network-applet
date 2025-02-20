@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+if command -v iwgtk 2>&1 >/dev/null
+then
+    pgrep iwgtk || iwgtk -i &
+else
+    pgrep nm-applet || nm-applet &
+fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+m=$(swaymsg -t get_outputs | jq -r '.[] |  "\(.name)\n\(.active)"'  | zenity  --title "Select Display" --list  --text "" --column "Monitor" --column "Enabled")
+if [ ! -z "$m" ]; then
+    c="$(zenity  --list  --title "Enable ${m}?" --text "" --radiolist  --column "Pick" --column "Enabled" TRUE enable FALSE disable)"
+    if [ ! -z "$c" ]; then
+        sway-screen $c $m
+    fi
+fi
+exit 0

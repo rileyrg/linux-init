@@ -1,0 +1,14 @@
+# Maintained in linux-config.org
+# Don't let ripgrep vomit really long lines to my terminal, and show a preview.
+--max-columns=150
+
+# Set the colors.
+--color=never
+--colors=line:none
+--colors=line:style:bold
+
+# Because who cares about case!?
+--smart-case
+
+#ignore .gitignore
+# --no-ignore-vcs

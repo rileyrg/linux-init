@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+string="$(uname -r)"
+if [[ $string == *"arch"* ]]; then
+    sudo pacman -Syu
+else
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
+fi

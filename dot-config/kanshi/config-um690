@@ -1,0 +1,4 @@
+{
+output HDMI-A-1  enable mode 2560x1440 position 0,0
+output HDMI-A-2  enable mode 1920x1080 position 2560,116
+}

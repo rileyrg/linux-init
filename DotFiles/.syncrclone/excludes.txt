@@ -1,0 +1,8 @@
+- .android/avd/
+- hexchat/logs/
+- hexchat/scrollback/
+- cache/
+- rclone/rclone.conf
+- .syncrclone/logs/
+- .syncrclone/backups/
+- emacs-config/straight/

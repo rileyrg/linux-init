@@ -1,0 +1,6 @@
+# Maintained in linux-config.org
+# /etc/acpi/events/xmg-neo-powerstate
+# Called when the user connects ac power to us
+#
+event=ac_adapter.*
+action=/etc/acpi/actions/xmg-neo-powerstate.sh

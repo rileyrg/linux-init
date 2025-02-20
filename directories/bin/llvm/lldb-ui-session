@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+
+# create a lldb debug session unless it already exists.
+# the -d to new session says "dont attach to current terminal"
+# there is a bug where the splt panes split that of a tmux session in the terminal
+# we issue the command from. No idea why or how.
+# directory="$(realpath -s "${1:-`pwd`}")"
+directory="${1:-`pwd`}"
+session="${2:-"voltron-$(basename "$directory")"}"
+if ! TMUX= tmux has-session -t "$session" &> /dev/null; then
+
+    tmux new-session -d -c "$directory" -s "$session" 'voltron-source 32'
+    firstPane=$(tmux display-message -p "#{pane_id}")
+    firstWindow=$(tmux display-message -p "#{window_id}")
+
+    srcPane="$firstPane"
+
+    tmux splitw -h -p 70 -t "$srcPane" voltron-disassembly-mixed
+    disassPane=$(tmux display-message -p "#{pane_id}")
+
+
+    tmux splitw -v -p 30 -t "$srcPane" voltron-locals
+    localsPane=$(tmux display-message -p "#{pane_id}")
+
+    tmux new-window voltron-disassembly &> /dev/null
+    sourcePane=$(tmux display-message -p "#{pane_id}")
+
+    tmux splitw -v -p 30 -t "$sourcePane" voltron-locals
+    localsPane=$(tmux display-message -p "#{pane_id}")
+
+    tmux splitw -h -p 70 -t "$sourcePane" voltron-registers
+    registersPane=$(tmux display-message -p "#{pane_id}")
+
+    tmux splitw -h -p 70 -t "$localsPane" voltron-backtrace
+    backTracePane=$(tmux display-message -p "#{pane_id}")
+
+    tmux select-window -t "$firstWindow"
+    tmux select-pane -t "$firstPane"
+
+fi
+echo "$session"

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+directory="${1:-`pwd`}"
+session="$(lldb-ui-session "${directory}" "$2")"
+ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"

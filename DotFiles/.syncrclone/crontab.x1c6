@@ -1,0 +1,2 @@
+0 8-20/2 * * *  . $HOME/.profile; export SYNC_CRON=1;syncrclone-once
+30 11 * * *  . $HOME/.profile; syncrclone /home/rgr/.syncrclone/gdrive-config.py

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+
+sessionname="${1:-`pwd`}"
+title="${ONETERM_TITLE:-${sessionname}}"
+script="${2}"
+if ! sway-do-tool "$title"; then
+    kitty --title "${title}" -e tmux new-session -A -s ${sessionname} ${script} &
+else
+    if ! tmux has-session -t  "${sessionname}"; then
+        tmux attach -t "${sessionname}"
+    fi
+fi
+exit 0

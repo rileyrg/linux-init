@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+if pidof dropbox &> /dev/null ; then
+    stat=$(dropbox status | sed -n 1p)
+    echo "${stat}"; echo "";
+else
+    if command -v dropbox > /dev/null; then
+        echo "⇄Restarting Dropbox.."
+        dropbox start &> /dev/null &
+    fi
+fi

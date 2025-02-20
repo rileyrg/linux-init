@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+pkill swayidle
+exec swayidle -w \
+     timeout 1 '' \
+     resume 'sway-lock-utils unblank' \
+     timeout 10 'pidof swaylock && sway-lock-utils blank' \
+     resume 'sway-lock-utils unblank' \
+     timeout ${SWAYIDLEHOOK_BLANK:-3600} 'sway-lock-utils blank' \
+     resume 'sway-lock-utils unblank' \
+     timeout ${SWAYIDLEHOOK_LOCK:-14400} 'sway-lock-utils lock' \
+     resume 'sway-lock-utils unblank' \
+     timeout ${SWAYIDLEHOOK_SUSPEND:-0} 'sway-lock-utils suspend' \
+     resume 'sway-lock-utils unblank' \
+     lock 'sway-lock-utils lock' \
+     unlock 'sway-lock-utils unblank' \
+     before-sleep 'sway-lock-utils lock'

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+#
+#
+pollCycle=${BAT_POWER_POLL_CYCLE:-600}
+while true; do
+    sleep "$pollCycle"
+    if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
+        mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
+        status=${batStats[0]}
+        level=${batStats[1]}
+        if [ "$status" = "Discharging" ]; then
+            if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
+                if [ -f ~/.BAT_POWER_LOW ]; then
+                    notify-send "** SUSPENDING in 15 SECONDS **"
+                    beep 
+                    sleep 15
+                    rm  ~/.BAT_POWER_LOW
+                    systemctl suspend
+                else
+                    touch ~/.BAT_POWER_LOW
+                    notify-send "**WARNING**" "Battery low. Suspending in ${pollCycle} seconds."
+                    beep
+                fi
+            fi
+        else
+            rm -f ~/.BAT_POWER_LOW
+        fi
+    fi
+done

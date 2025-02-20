@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+swaymsg "workspace 8; layout stacking;sleep 0.3;"
+sway-www "https://web.whatsapp.com/"
+sway-www "https://web.telegram.org/k/"
+sway-www "https://reddit.com/"
+sway-www "https://mail.google.com/mail/u/0/#inbox"
+sleep 0.3

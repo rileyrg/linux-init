@@ -1,0 +1,4 @@
+# Maintained in linux-config.org
+dynamic_lines=true
+gtk_dark=true
+terminal=kitty

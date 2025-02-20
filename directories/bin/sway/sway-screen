@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+m="${2:-$(swaymsg -t get_outputs | jq -r '.[0].name')}"
+c="${1:-enable}"
+[ "$c" = "disable" ] && [ "$(sway-active-monitors-count)" = "1" ] && sway-notify "Not turning off single display $m" && exit 1
+swaymsg "output ${m} ${c}"
+(sleep 2 && sway-notify "${m}:${c}") &

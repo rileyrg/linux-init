@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+mp="${1:-man}"
+if pidof emacs; then
+    emacsclient -c -e "(manual-entry \"-a ${mp}\")" &> /dev/null &
+else
+    sway-oneterminal random-man "man $mp"
+fi

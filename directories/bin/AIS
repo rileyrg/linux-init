@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+TMUX= tmux new  -A -s "AIS" AIScatcher

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+# thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
+
+DIR=${HOME}/tmp/Screenshots
+
+mkdir -p "${DIR}"
+
+FILENAME="screenshot-$(date +%F-%T).png"
+sway-notify "use the mouse to select region.."
+region="$(slurp)"
+if [ ! -z "$region" ]; then
+    sway-notify "Taking pic in 5s.."
+    sleep 5
+    grim -g "$region" "${DIR}"/"${FILENAME}" || exit 1
+    #Create a link, so don't have to search for the newest
+    ln -sf "${DIR}"/"${FILENAME}" "${DIR}"/screenshot-latest.png
+    sway-notify "Done! see ${DIR}/screenshot-latest.png"
+fi

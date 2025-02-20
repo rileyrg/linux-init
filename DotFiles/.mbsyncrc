@@ -1,0 +1,114 @@
+# Maintained in linux-config.org
+Create  Both
+Expunge Both
+SyncState *
+
+IMAPAccount gmx
+Host imap.gmx.com
+User rileyrg@gmx.de
+PassCmd "pass Email/gmx/apps/mbsync"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 1
+
+IMAPStore gmx-remote
+Account gmx
+
+MaildirStore gmx-local
+Path ~/Maildir/gmx/
+Inbox ~/Maildir/gmx/INBOX
+SubFolders Legacy
+
+Channel gmx-inbox
+Far :gmx-remote:"INBOX"
+Near :gmx-local:"INBOX"
+
+Channel gmx-sent
+Far :gmx-remote:"Gesendet"
+Near :gmx-local:"Sent"
+
+Channel gmx-learning
+Far :gmx-remote:"Learning"
+Near :gmx-local:"Learning"
+
+Channel gmx-drafts
+Far :gmx-remote:"Entw&APw-rfe"
+Near :gmx-local:"Drafts"
+
+Channel gmx-bin
+Far :gmx-remote:"Gel&APY-scht"
+Near :gmx-local:"Bin"
+
+Channel gmx-spam
+Far :gmx-remote:"Spamverdacht"
+Near :gmx-local:"Spam"
+
+Channel gmx-archive
+Far :gmx-remote:"Archiv"
+Near :gmx-local:"Archive"
+
+Group gmx
+Channel gmx-inbox
+Channel gmx-sent
+Channel gmx-drafts
+Channel gmx-bin
+Channel gmx-spam
+Channel gmx-archive
+
+Group gmx-special-interest
+Channel gmx-learning
+
+IMAPAccount gmail
+Host imap.gmail.com
+User rileyrg@gmail.com
+PassCmd "pass Email/gmail/apps/mbsync"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+PipelineDepth 32
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/Maildir/gmail/
+Inbox ~/Maildir/gmail/INBOX
+SubFolders Legacy
+
+Channel gmail-inbox
+Far :gmail-remote:"INBOX"
+Near :gmail-local:"INBOX"
+
+Channel gmail-sent
+Far :gmail-remote:"[Google Mail]/Sent Mail"
+Near :gmail-local:"Sent"
+
+Channel gmail-drafts
+Far :gmail-remote:"[Google Mail]/Drafts"
+Near :gmail-local:"Drafts"
+
+Channel gmail-bin
+Far :gmail-remote:"[Google Mail]/Bin"
+Near :gmail-local:"Bin"
+
+Channel gmail-spam
+Far :gmail-remote:"[Google Mail]/Spam"
+Near :gmail-local:"Spam"
+
+Channel gmail-archive
+Far :gmail-remote:"[Google Mail]/All Mail"
+Near :gmail-local:"Archive"
+
+Channel gmail-gmx-archive
+Far :gmail-remote:"[Google Mail]/All Mail"
+Near :gmx-local:"gmail/Archive"
+
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-drafts
+Channel gmail-bin
+Channel gmail-spam
+Channel gmail-archive
+
+Group gmail-gmx
+Channel gmail-gmx-archive

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+MOZ_ENABLE_WAYLAND=1 firefox --new-window "$1" &>/dev/null &

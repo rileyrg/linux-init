@@ -1,0 +1,25 @@
+mkdir -p ${HOME}/development/projects/wayland/clones
+export WLD=${HOME}/development/projects/wayland
+export LD_LIBRARY_PATH=$WLD/lib
+export PKG_CONFIG_PATH=$WLD/lib/pkgconfig/:$WLD/share/pkgconfig/
+export PATH=$WLD/bin:$PATH
+
+cd ${HOME}/development/projects/wayland/clones
+
+git clone https://gitlab.freedesktop.org/wayland/wayland.git
+cd wayland
+meson build/ --prefix=$WLD
+ninja -C build/ install
+cd ..
+
+git clone https://gitlab.freedesktop.org/wayland/wayland-protocols.git
+cd wayland-protocols
+meson build/ --prefix=$WLD
+ninja -C build/ install
+cd ..
+
+git clone https://gitlab.freedesktop.org/wayland/weston.git
+cd weston
+meson build/ --prefix=$WLD -Dbackend-wayland=true -Dcolor-management-colord=false -Dremoting=false
+ninja -C build/ install
+cd ..

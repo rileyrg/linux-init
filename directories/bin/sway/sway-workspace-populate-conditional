@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if [ -f "${HOME}/.sway-workspace-populate" ]; then
+    sway-workspace-populate
+elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
+    source "${HOME}/.sway-workspace-populate-user"
+# else
+#     emacsclient -c -a "" &
+fi

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if [[ "$1" = "0" ]]; then
+    wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+elif [[ "$1" =  "+" ]]; then
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ "0.1+"
+elif [[ "$1" = "-" ]]; then
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ "0.1-"
+fi
+
+
+volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+volumep=$(echo $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tr -dc '0-9')| sed 's/^0*//')
+if [[ -z $volumep ]]; then
+    volumep="0"
+elif [[ $volumep -gt "150" ]];then
+    volumep="150"
+    wpctl set-volume @DEFAULT_AUDIO_SINK@ 1
+fi
+if [[ "$volume" == *"MUTED"* ]]; then
+    sway-notify "🔊 MUTED (${volumep}%) "
+else
+    sway-notify "🔊${volumep}%"
+fi

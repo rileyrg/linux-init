@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if pgrep -x "wf-recorder"; then
+    sway-notify "stopping wf-recorder"
+    # sigint
+    kill -2 $(pgrep wf-recorder)
+else
+    sway-notify "starting wf-recorder"
+    wf-recorder -f ${HOME}/tmp/output.mkv -g "$(slurp)"
+fi

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
+    if  [ "$(hostname)" = "xmgneo" ];then
+        sway --my-next-gpu-wont-be-nvidia &
+    else
+        sway &
+    fi
+fi

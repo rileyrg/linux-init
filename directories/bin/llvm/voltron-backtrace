@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+voltron v c 'thread backtrace'

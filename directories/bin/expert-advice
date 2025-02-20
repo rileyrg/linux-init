@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+f=$(command -v fortune &>/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020.")
+if [ "$1" = "t" ]
+then
+    echo $f | xclip -i -selection clipboard
+fi
+echo $f

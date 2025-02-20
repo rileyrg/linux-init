@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+if ( ! dropbox running ); then
+    fullstat="$(dropbox status)"
+    stat="$(sed -n 1p <<< $fullstat)"
+else
+    fullstat=""
+    if [ -f "${HOME}/.RESTART_DROPBOX" ];then
+        stat="Restarting Dropbox.."
+        sway-notify "$stat"
+        dropbox start &> /dev/null
+    else
+        stat="click to restart DB"
+    fi
+fi
+
+jq --unbuffered --compact-output -n \
+   --arg text "$stat" \
+   --arg tooltip "$fullstat" \
+   --arg class "dropbox-status" \
+   '{text: $text, tooltip: $tooltip, class: $class}'

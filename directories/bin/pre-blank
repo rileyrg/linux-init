@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+command -v brightnessctl && brightnessctl -s
+[ -f ~/.pre-blank ]  && . ~/.pre-blank

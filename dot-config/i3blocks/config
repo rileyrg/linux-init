@@ -1,0 +1,74 @@
+[dropbox]
+interval=15
+command=my-i3b-db-status
+color=#ffd700
+
+[kernel]
+label=🐧
+command=my-i3b-kernel
+interval=once
+color=#ffffff
+
+[uptime]
+
+command=my-i3b-uptime
+interval=60
+
+[cpu_usage]
+markup=pango
+command=my-i3b-cpu
+interval=1
+
+[temperature]
+label=🌡
+command=my-i3b-temperature
+interval=60
+
+[battery]
+markup=pango
+command=my-i3b-battery-status
+interval=60
+
+# [power_draw]
+# label=⚡
+# command=echo "$(awk '{print $1*10^-6 " W"}' /sys/class/power_supply/BAT0/power_now)"
+# interval=5
+# color=#00ff00
+
+[weather]
+markup=pango
+command=my-i3b-weather
+interval=300
+
+# [weather]
+# command=curl -s 'wttr.in/{Grömitz}?format=%l:+%c+%t'
+# interval=900
+# color=#A4C2F4
+
+[brightness]
+command=my-i3b-brightness
+interval=2
+
+[monitors]
+command=my-i3b-monitors
+interval=5
+
+[volume]
+markup=pango
+command=my-i3b-volume
+interval=2
+color=#FFD700
+
+[bluetooth]
+command=my-i3b-bluetooth
+interval=60
+color=#4d4dff
+
+[wifi]
+markup=pango
+command=my-i3b-wifi
+interval=60
+
+[time]
+command=my-i3b-date-cal
+interval=60

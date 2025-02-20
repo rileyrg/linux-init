@@ -1,0 +1,14 @@
+profile home-dp{
+output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+output 'Synaptics Inc Non-PnP 0x00BC614E' mode 1920x1080 position 2560,0
+output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
+}
+profile home-hdmi{
+output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
+}
+profile home-no-lap{
+output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+# pidof kanshi && echo "kanshi process $(pidof kanshi) already running. Exiting." && exit 0
+pkill kanshi
+config="${HOME}/.config/kanshi/config-$(hostname)"
+if [ -f  "$config" ]; then
+    echo  "kanshi -c $config"
+    kanshi -c "$config"
+else
+    echo "kanshi default config"
+    kanshi
+fi

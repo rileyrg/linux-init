@@ -1,0 +1,6 @@
+home UUID=33d92535-7dc8-446f-b68f-02ab772e2f32  /home.key:UUID=82cde4c8-aa2c-4564-b03a-2e866ad29ff3 luks,discard,keyscript=/lib/cryptsetup/scripts/passdev,keyfile-timeout=10
+
+# partition on key stick
+#rsnapshot UUID=bba72167-9e91-4c33-972e-2291c425056f  /home.key:UUID=82cde4c8-aa2c-4564-b03a-2e866ad29ff3 luks,discard,keyscript=/lib/cryptsetup/scripts/passdev,keyfile-timeout=10
+# microSD on x1c6
+rsnapshot UUID=6ee6bc12-7482-481e-a4e7-7b7940042a7e  /home.key:UUID=82cde4c8-aa2c-4564-b03a-2e866ad29ff3 luks,discard,keyscript=/lib/cryptsetup/scripts/passdev,keyfile-timeout=10

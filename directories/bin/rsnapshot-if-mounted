@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+mountpoint=${1:-"/media/rsnapshot"};
+rsnapshottype=${2:-"alpha"};
+if $(/usr/bin/mountpoint -q $mountpoint); then
+    echo "$mountpoint is mounted";
+    /usr/bin/rsnapshot -v "$rsnapshottype";
+else
+    echo "$mountpoint not mounted";
+fi;

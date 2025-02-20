@@ -1,0 +1,34 @@
+! Maintained in linux-config.org
+! Use a truetype font and size.
+*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.dpi: 96
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault
+
+! Fonts {{{
+#ifdef SRVR_t460
+Xft.dpi:       104
+#endif
+#ifdef SRVR_intelnuc
+Xft.dpi:       108
+#endif
+#ifdef SRVR_x270
+Xft.dpi:       96
+#endif
+#ifdef SRVR_t14s
+Xft.dpi:       96
+#endif
+#ifdef SRVR_x1c6
+Xft.dpi:       96
+#endif
+#ifdef SRVR_x13amdg4
+Xft.dpi:       188
+#endif
+#ifdef SRVR_xmgneo
+Xft.dpi:       188
+#endif
+! }}}

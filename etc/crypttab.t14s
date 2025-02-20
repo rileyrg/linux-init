@@ -1,0 +1,2 @@
+#home UUID=f52a08b3-7fee-44f7-adbd-175629b8ea79 /home.key:UUID=82cde4c8-aa2c-4564-b03a-2e866ad29ff3 luks
+home UUID=f52a08b3-7fee-44f7-adbd-175629b8ea79 /home.key:UUID=82cde4c8-aa2c-4564-b03a-2e866ad29ff3 luks,discard,keyscript=/lib/cryptsetup/scripts/passdev,keyfile-timeout=10

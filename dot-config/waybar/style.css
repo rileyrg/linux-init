@@ -1,0 +1,132 @@
+*{
+    border: none;
+    background: rgba(28, 28, 28, 0.6);
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 10pt;
+    min-height: 0;
+}
+
+#waybar {
+    background: rgba(28, 28, 28, 0.6);
+    color: #e4e4e4;
+}
+
+#window {
+    color: #e4e4e4;
+    font-weight: bold;
+}
+
+#workspaces {
+    font-size: 8px;
+    /*	padding: 0 2px;*/
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: rgba(28, 28, 28, 0.6);
+}
+
+#workspaces button {
+    padding: 0 5px;
+    /*	background: rgba(28, 28, 28, 0.9);*/
+    color: #888888;
+    /*	margin: 0 1px;*/
+}
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+
+}
+
+#workspaces button.visible {
+    padding: 0 5px;
+    border-radius: 10px;
+    color: #ff0000;
+    margin: 0 0px;
+}
+
+#workspaces button.focused {
+    color: #00ff00;
+
+}
+#workspaces button.urgent {
+    background: #5555ff;
+
+}
+
+#workspaces button.urgent {
+    background: #af005f;
+    color: #1b1d1e;
+}
+
+#mode {
+    background: #af005f;
+}
+
+#custom-bluetooth,#custom-power-draw,#custom-dropbox,#clock, #temperature, #cpu, #memory, #network, #backlight, #pulseaudio, #battery, #tray, #idle_inhibitor {
+    padding: 0 3px;
+}
+
+#idle_inhibitor{
+    font-size:16px
+}
+
+#clock {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+@keyframes blink {
+    to {
+        background-color: darkred;
+    }
+}
+
+#battery.warning:not(.charging) {
+    background-color: #ff8700;
+    color: #1b1d1e;
+}
+#battery.critical:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+#battery,#battery_icon,#battery.charging {
+    color:gold
+}
+
+
+#cpu {
+}
+
+#memory {
+}
+
+#network {
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+}
+
+#pulseaudio.muted {
+}
+
+#custom-weather {
+    font-size:12px;
+}
+
+#tray {
+    margin-left: 1px;
+}

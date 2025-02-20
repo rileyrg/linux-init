@@ -1,0 +1,311 @@
+# Maintained in linux-config.org
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+set $super Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+
+set $term 'kitty'
+set $menu 'sway-launcher'
+set $editor 'sway-editor'
+set $wallpaper '~/Pictures/Wallpapers/current '
+
+# Font  for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango: "JetBrainsMono Nerd Font 6"
+#DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+
+mouse_warping output
+
+bar {
+swaybar_command waybar
+position top
+hidden_state hide
+mode hide
+modifier Mod4
+}
+bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
+
+
+set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+bindsym b exec sway-lock-utils blank, mode "default"
+bindsym l exec sway-lock-utils lock, mode "default"
+bindsym e exec sway-lock-utils logout, mode "default"
+bindsym s exec sway-lock-utils suspend, mode "default"
+bindsym h exec sway-lock-utils hibernate, mode "default"
+bindsym r exec sway-lock-utils reboot, mode "default"
+bindsym Shift+s exec sway-lock-utils shutdown, mode "default"
+# back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+bindsym $mod+Control+q mode "$mode_system"
+
+bindsym --release $mod+L exec sway-lock-utils lock
+
+#
+# Resizing containers:
+#
+mode "resize" {
+# left will shrink the containers width
+# right will grow the containers width
+# up will shrink the containers height
+# down will grow the containers height
+# bindsym $left resize shrink width 10px
+# bindsym $down resize grow height 10px
+# bindsym $up resize shrink height 10px
+# bindsym $right resize grow width 10px
+
+# Ditto, with arrow keys
+bindsym Left resize shrink width 10px
+bindsym Down resize grow height 10px
+bindsym Up resize shrink height 10px
+bindsym Right resize grow width 10px
+
+# # Return to default mode
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+### Key bindings
+#
+# Basics:
+#
+# Kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+
+# Start your launcher
+bindsym $mod+d exec $menu
+
+# Start your editor
+bindsym $mod+Shift+e exec $editor
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Control+c reload
+
+# Exit sway (logs you out of your Wayland session)
+# bindsym $mod+Control+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+#
+# Moving around:
+#
+# Move your focus around
+# bindsym $mod+$left focus left
+# bindsym $mod+$down focus down
+# bindsym $mod+$up focus up
+# bindsym $mod+$right focus right
+# # Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window
+# bindsym $mod+Shift+$right move right
+# bindsym $mod+Shift+$left move left
+# bindsym $mod+Shift+$down move down
+# bindsym $mod+Shift+$up move up
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# #
+# # Workspaces:
+#
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+# Note: workspaces can have any name you want, not just numbers.
+# We just use 1-10 as the default.
+
+# bindsym $mod+control+shift+$right move workspace to output right
+# bindsym $mod+control+shift+$left move workspace to output left
+# bindsym $mod+control+$right move container to output right
+# bindsym $mod+control+$left move container to output left
+bindsym $mod+control+shift+right move workspace to output right; #focus output right;
+bindsym $mod+control+shift+left move workspace to output left; # focus output left;
+bindsym $mod+control+shift+down move workspace to output down; #focus output down;
+bindsym $mod+control+shift+up move workspace to output up; focus #output up;
+
+bindsym $mod+control+right move container to output right; focus output right;
+bindsym $mod+control+left move container to output left; focus output left;
+bindsym $mod+control+down move container to output down; focus output down;
+bindsym $mod+control+up move container to output up; focus output up;
+
+bindsym $mod+Control+m exec sway-display-swap
+bindsym $mod+Tab workspace back_and_forth
+
+#
+# Layout stuff:
+
+#
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+bindsym $mod+Return exec sway-scratch-terminal
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+include "${HOME}/.config/sway/host-config-$(hostname)"
+
+for_window [title="sway-launcher"] floating enable
+
+# done in sway-workspace-init
+# output * bg  $wallpaper fill
+
+set $trans 0.7
+set $alphamark "α"
+for_window [con_mark=$alphamark] opacity set $trans
+bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
+
+set $laptop-id `sway-laptop-id`
+bindswitch lid:on exec "sway-screen disable $laptop-id"
+bindswitch lid:off exec "sway-screen enable $laptop-id"
+
+bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
+bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
+
+gaps inner  1
+gaps outer  0
+
+for_window [title=ScratchTerminal] mark "$alphamark", move to scratchpad; [title=ScratchTerminal] scratchpad show
+
+
+
+set $clipboard "~/.local/share/clipman.json"
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
+bindsym $mod+y exec sway-clipboard-history-select
+bindsym $mod+Control+y exec sway-clipboard-history-clear
+
+bindsym XF86AudioMute exec  sway-volume-notify "0"
+bindsym $mod+XF86AudioMute exec  pavucontrol
+bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
+bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
+# bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
+# bindsym XF86AudioLowerVolume exec pulse-volume "-5%" && sway-volume-notify
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && sway-volume-notify
+
+for_window [app_id="pavucontrol"] floating enable
+bindsym $mod+Control+Shift+a exec pulse-restart
+
+bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wifi)."
+
+# assign [title="dbg:"] 3
+#assign [app_id="Alacritty"] 1
+#assign [class="Ardour"] 6
+assign [class="Code"] 3
+assign [class="Signal"] 8
+assign [class="jetbrains-studio"] 3
+assign [class="Hexchat"] 8
+assign [app_id="telegram"] 8
+assign [class="discord"] 8
+assign [class="Steam"] 9
+
+for_window [title="wifi"] floating enable
+for_window [title="bluetoothctl"] floating enable
+# for_window [title="YouTube"] move container to workspace  7
+
+bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
+
+bindsym $mod+Print exec sway-screenshot -i
+bindsym $mod+Control+Print exec sway-screen-recorder
+
+bindsym $mod+Shift+f exec "sway-firefox"
+bindsym $mod+Shift+c exec "sway-chrome"
+bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
+bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
+bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
+bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
+bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
+bindsym $mod+Control+Shift+d exec sway-screen-menu
+bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
+bindsym $mod+Control+p exec sway-htop
+bindsym $mod+Control+Shift+p exec htop-regexp
+bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
+bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
+bindsym $mod+Control+w exec sway-workspace-position
+bindsym $mod+Control+shift+u exec sway-workspace-populate
+
+exec mako
+#  exec bluetooth-headphone-controls
+  exec sway-idle
+  exec sway-kanshi
+  exec blueman-applet &>/dev/null
+  exec waybar-network-applet
+  # exec gpg-cache
+  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sway-workspace-position; swaymsg workspace 1; '
+
+for_window [class="STM32CubeIDE"] floating enable
+assign [class="STM32CubeIDE"] 3
+assign [title="STM32CubeIDE"] 3
+
+include /etc/sway/config.d/*
+include config-vars.d/*
