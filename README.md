@@ -557,30 +557,43 @@ ten minutes which can be overridden with the ENV **.BAT\_POWER\_POLL\_CYCLE**.
     # Maintained in linux-config.org
     #
     #
+    
+    function beepy(){
+        if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
+            paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.og
+        else
+            # sudo modprobe pcspkr
+            beep
+        fi
+    }
+    
     pollCycle=${BAT_POWER_POLL_CYCLE:-600}
     while true; do
         sleep "$pollCycle"
-        if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
-            mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
-            status=${batStats[0]}
-            level=${batStats[1]}
-            if [ "$status" = "Discharging" ]; then
-                if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
-                    if [ -f ~/.BAT_POWER_LOW ]; then
-                        notify-send "** SUSPENDING in 15 SECONDS **"
-                        beep 
-                        sleep 15
-                        rm  ~/.BAT_POWER_LOW
-                        systemctl suspend
-                    else
+        mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
+        status=${batStats[0]}
+        level=${batStats[1]}
+        if [ "$status" = "Discharging" ]; then
+            if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
+                if [ -f ~/.BAT_POWER_LOW ]; then
+                    rm  ~/.BAT_POWER_LOW
+                    notify-send "** SUSPENDING in 15 SECONDS **"
+                    beepy
+                    sleep 12
+                    systemctl suspend
+                else
+                    if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
                         touch ~/.BAT_POWER_LOW
-                        notify-send "**WARNING**" "Battery low. Suspending in ${pollCycle} seconds."
-                        beep
+                        notify-send "**WARNING**" "Battery low: ${level}%. Suspending in ${pollCycle} seconds."
+                        beepy
+                    else
+                        notify-send "**WARNING**" "Battery low: ${level}%."
+                        beepy
                     fi
                 fi
-            else
-                rm -f ~/.BAT_POWER_LOW
             fi
+        else
+            rm -f ~/.BAT_POWER_LOW
         fi
     done
 
@@ -2140,7 +2153,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4e12781"></a>
+<a id="org255becb"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2222,7 +2235,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4e12781).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org255becb).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
