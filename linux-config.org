@@ -617,7 +617,10 @@ If you want to stop the suspend then create file
 *~/.BAT_POWER_SUSPEND_SUSPEND*. This defaults to 30% battery level as
 the suspend threshold but you can set an ENV variable
 *BAT_POWER_SUSPEND_LEVEL* to override it. The polling period is every
-ten minutes which can be overridden with the ENV *.BAT_POWER_POLL_CYCLE*.
+ten minutes which can be overridden with the ENV
+*.BAT_POWER_POLL_CYCLE*.
+
+I launch it from my *.profile*. see below.
 
 #+begin_src bash :tangle "~/bin/discharge-suspend"
   #!/usr/bin/env bash
@@ -672,6 +675,7 @@ ten minutes which can be overridden with the ENV *.BAT_POWER_POLL_CYCLE*.
 #+end_src
 
 ** exec discharge-suspend
+this goes into my .profile
 #+begin_src bash :tangle "DotFiles/.profile"
   discharge-suspend &
 #+end_src

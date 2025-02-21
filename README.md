@@ -551,7 +551,10 @@ If you want to stop the suspend then create file
 **~/.BAT\_POWER\_SUSPEND\_SUSPEND**. This defaults to 30% battery level as
 the suspend threshold but you can set an ENV variable
 **BAT\_POWER\_SUSPEND\_LEVEL** to override it. The polling period is every
-ten minutes which can be overridden with the ENV **.BAT\_POWER\_POLL\_CYCLE**.
+ten minutes which can be overridden with the ENV
+**.BAT\_POWER\_POLL\_CYCLE**.
+
+I launch it from my **.profile**. see below.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -605,6 +608,8 @@ ten minutes which can be overridden with the ENV **.BAT\_POWER\_POLL\_CYCLE**.
 
 
 ## exec discharge-suspend
+
+this goes into my .profile
 
     discharge-suspend &
 
@@ -2153,7 +2158,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org255becb"></a>
+<a id="org89fac34"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2235,7 +2240,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org255becb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org89fac34).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
