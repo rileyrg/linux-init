@@ -677,7 +677,9 @@ I launch it from my *.profile*. see below.
 ** exec discharge-suspend
 this goes into my .profile
 #+begin_src bash :tangle "DotFiles/.profile"
-  discharge-suspend &
+  if [ -z "$SSH_CONNECTION" ]; then
+      discharge-suspend &
+  fi
 #+end_src
 
 

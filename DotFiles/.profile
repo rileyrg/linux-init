@@ -66,7 +66,9 @@ export FZF_TMUX_OPTS="-d 40%"
 export BAT_POWER_SUSPEND_LEVEL=30
 export BAT_POWER_POLL_CYCLE=300
 
-discharge-suspend &
+if [ -z "$SSH_CONNECTION" ]; then
+    discharge-suspend &
+fi
 
 export XKB_DEFAULT_LAYOUT=de
 export XKB_DEFAULT_OPTIONS=ctrl:nocaps

@@ -611,7 +611,9 @@ I launch it from my **.profile**. see below.
 
 this goes into my .profile
 
-    discharge-suspend &
+    if [ -z "$SSH_CONNECTION" ]; then
+        discharge-suspend &
+    fi
 
 
 # Network
@@ -2158,7 +2160,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org89fac34"></a>
+<a id="orga5db7ec"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2240,7 +2242,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org89fac34).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga5db7ec).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
