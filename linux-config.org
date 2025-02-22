@@ -1382,7 +1382,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+end_src
 *** sway startup processes
 #+begin_src  conf
-  exec mako
+#   exec mako
 #  exec bluetooth-headphone-controls
   exec sway-idle
   exec sway-kanshi

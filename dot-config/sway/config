@@ -294,7 +294,7 @@ bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && 
 bindsym $mod+Control+w exec sway-workspace-position
 bindsym $mod+Control+shift+u exec sway-workspace-populate
 
-exec mako
+#   exec mako
 #  exec bluetooth-headphone-controls
   exec sway-idle
   exec sway-kanshi
