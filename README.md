@@ -1174,9 +1174,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Print exec sway-screenshot -i
     bindsym $mod+Control+Print exec sway-screen-recorder
     
-    bindsym $mod+Shift+w exec "sway-www"
-    bindsym $mod+Shift+f exec "sway-firefox"
-    bindsym $mod+Shift+c exec "sway-chrome"
+    bindsym $mod+Shift+f exec "sway-chrome"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
@@ -2164,7 +2162,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org23ac82a"></a>
+<a id="orgf6ed55c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2246,7 +2244,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org23ac82a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf6ed55c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
