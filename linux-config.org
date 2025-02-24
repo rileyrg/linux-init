@@ -1363,6 +1363,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Print exec sway-screenshot -i
     bindsym $mod+Control+Print exec sway-screen-recorder
 
+    bindsym $mod+Shift+w exec "sway-www"
     bindsym $mod+Shift+f exec "sway-firefox"
     bindsym $mod+Shift+c exec "sway-chrome"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
@@ -1380,6 +1381,9 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
+
+*** 
+
 *** sway startup processes
 #+begin_src  conf
 #   exec mako
@@ -2615,7 +2619,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-www"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  sway-firefox "$@" &
+  sway-chrome "$@" &
 #+end_src
 *** ~/bin/sway/sway-email
 :PROPERTIES:

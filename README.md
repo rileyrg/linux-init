@@ -1174,6 +1174,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Print exec sway-screenshot -i
     bindsym $mod+Control+Print exec sway-screen-recorder
     
+    bindsym $mod+Shift+w exec "sway-www"
     bindsym $mod+Shift+f exec "sway-firefox"
     bindsym $mod+Shift+c exec "sway-chrome"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
@@ -1192,9 +1193,12 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 
+### 
+
+
 ### sway startup processes
 
-      exec mako
+    #   exec mako
     #  exec bluetooth-headphone-controls
       exec sway-idle
       exec sway-kanshi
@@ -2160,7 +2164,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgebbebc8"></a>
+<a id="org23ac82a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2242,7 +2246,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgebbebc8).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org23ac82a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2403,7 +2407,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    sway-firefox "$@" &
+    sway-chrome "$@" &
 
 
 ### ~/bin/sway/sway-email
