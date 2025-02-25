@@ -3079,7 +3079,7 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   Host imap.gmx.com
   User rileyrg@gmx.de
   PassCmd "pass Email/gmx/apps/mbsync"
-  SSLType IMAPS
+  TLSType IMAPS
   CertificateFile /etc/ssl/certs/ca-certificates.crt
   PipelineDepth 1
 
@@ -3134,7 +3134,7 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   Host imap.gmail.com
   User rileyrg@gmail.com
   PassCmd "pass Email/gmail/apps/mbsync"
-  SSLType IMAPS
+  TLSType IMAPS
   CertificateFile /etc/ssl/certs/ca-certificates.crt
   PipelineDepth 32
 

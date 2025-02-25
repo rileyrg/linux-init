@@ -7,7 +7,7 @@ IMAPAccount gmx
 Host imap.gmx.com
 User rileyrg@gmx.de
 PassCmd "pass Email/gmx/apps/mbsync"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 PipelineDepth 1
 
@@ -62,7 +62,7 @@ IMAPAccount gmail
 Host imap.gmail.com
 User rileyrg@gmail.com
 PassCmd "pass Email/gmail/apps/mbsync"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 PipelineDepth 32
 
