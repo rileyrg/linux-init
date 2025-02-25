@@ -3204,8 +3204,8 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   Description=Mailbox synchronization timer
 
   [Timer]
-  OnBootSec=15m
-  OnUnitActiveSec=60m
+  OnBootSec=60
+  OnUnitActiveSec=600
   Unit=mbsync.service
 
   [Install]
@@ -3231,14 +3231,14 @@ and activate them
 #+begin_src bash :tangle "~/bin/getmails"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  if ! $(pidof -xq mbsync); then
+  if ! $(pidof -xq "mbsync"); then
       if [ $# -eq 0 ]; then
           mbsync -a
       else
           mbsync "$@"
       fi
-      pidof mu  || mu index
   fi
+  exit 0
 #+end_src
 * bin
 ** ~/bin/bluetooth-headphone-controls

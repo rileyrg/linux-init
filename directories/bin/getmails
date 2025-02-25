@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-if ! $(pidof -xq mbsync); then
+if ! $(pidof -xq "mbsync"); then
     if [ $# -eq 0 ]; then
         mbsync -a
     else
         mbsync "$@"
     fi
-    pidof mu  || mu index
 fi
+exit 0
