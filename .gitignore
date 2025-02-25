@@ -58,6 +58,12 @@
 !/dot-config/sway/config
 !/dot-config/sway/host-config-*
 
+!/dot-config/systemd
+!/dot-config/systemd/user
+!/dot-config/systemd/user/mbsync.*
+
+
+
 !/dot-config/tmux
 !/dot-config/tmux/tmux.conf
 

@@ -3217,8 +3217,11 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   Description=Mailbox synchronization service
 
   [Service]
-  Type=oneshot
+  Type=simple
   ExecStart=/home/rgr/bin/getmails
+
+  RuntimeMaxSec=180
+  
 #+end_src
 and activate them
 #+begin_src bash

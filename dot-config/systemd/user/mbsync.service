@@ -1,0 +1,8 @@
+[Unit]
+Description=Mailbox synchronization service
+
+[Service]
+Type=simple
+ExecStart=/home/rgr/bin/getmails
+
+RuntimeMaxSec=180
