@@ -605,6 +605,21 @@ I launch it from my **.profile**. see below.
     done
 
 
+## ~/bin/discharge-suspend-toggle
+
+toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
+        rm ~/.BAT_POWER_SUSPEND_SUSPEND;
+        sway-notify "Auto suspend enabled"
+    else
+        touch ~/.BAT_POWER_SUSPEND_SUSPEND;
+        sway-notify "Auto suspend disabled"
+    fi
+
+
 ## ENV SET
 
     export BAT_POWER_SUSPEND_LEVEL=30
@@ -1335,7 +1350,7 @@ $term is set to "sway-scratch-terminal
                 "activated": "📀ﰌ",
                 "deactivated": "😴"
             },
-            "on-click-right": "sway-lock"
+            "on-click-right": "discharge-suspend-toggle"
         },
         "pulseaudio": {
             "format": "{icon} {volume}% {format_source}",
@@ -2166,7 +2181,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org19e2e74"></a>
+<a id="orgcc84a7b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2248,7 +2263,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org19e2e74).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc84a7b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

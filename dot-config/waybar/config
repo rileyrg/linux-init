@@ -118,7 +118,7 @@
             "activated": "📀ﰌ",
             "deactivated": "😴"
         },
-        "on-click-right": "sway-lock"
+        "on-click-right": "discharge-suspend-toggle"
     },
     "pulseaudio": {
         "format": "{icon} {volume}% {format_source}",

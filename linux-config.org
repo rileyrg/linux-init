@@ -668,6 +668,24 @@ I launch it from my *.profile*. see below.
   done
 #+end_src
 
+** ~/bin/discharge-suspend-toggle
+
+toggle existence of *~/.BAT_POWER_SUSPEND_SUSPEND*
+
+#+begin_src bash :tangle "~/bin/discharge-suspend-toggle"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
+      rm ~/.BAT_POWER_SUSPEND_SUSPEND;
+      sway-notify "Auto suspend enabled"
+  else
+      touch ~/.BAT_POWER_SUSPEND_SUSPEND;
+      sway-notify "Auto suspend disabled"
+  fi
+
+#+end_src 
+
+
 ** ENV SET
 #+begin_src bash :tangle "DotFiles/.profile"
   export BAT_POWER_SUSPEND_LEVEL=30
@@ -1521,7 +1539,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
                 "activated": "📀ﰌ",
                 "deactivated": "😴"
             },
-            "on-click-right": "sway-lock"
+            "on-click-right": "discharge-suspend-toggle"
         },
         "pulseaudio": {
             "format": "{icon} {volume}% {format_source}",

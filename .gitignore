@@ -138,6 +138,7 @@
 !/directories/bin/build-emacs
 !/directories/bin/bluetooth-headphone-controls
 !/directories/bin/discharge-suspend
+!/directories/bin/discharge-suspend-toggle
 !/directories/bin/edit
 !/directories/bin/eman
 !/directories/bin/expert-advice
