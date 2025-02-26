@@ -12,6 +12,10 @@ function beepy(){
     fi
 }
 
+if [ ! -f /sys/class/power_supply/BAT0/status ];then
+    exit 1;
+fi
+
 pollCycle=${BAT_POWER_POLL_CYCLE:-600}
 while true; do
     sleep "$pollCycle"
