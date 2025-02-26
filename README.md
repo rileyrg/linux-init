@@ -2162,7 +2162,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc032676"></a>
+<a id="orgc140644"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2244,7 +2244,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc032676).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc140644).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3011,7 +3011,7 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
         
         [Timer]
         OnBootSec=60
-        OnUnitActiveSec=600
+        OnUnitActiveSec=3600
         Unit=mbsync.service
         
         [Install]
@@ -3026,7 +3026,7 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
         Type=simple
         ExecStart=/home/rgr/bin/getmails
         
-        RuntimeMaxSec=480
+        RuntimeMaxSec=1200
     
     and activate them
     

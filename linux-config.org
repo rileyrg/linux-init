@@ -3186,7 +3186,7 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
 
   [Timer]
   OnBootSec=60
-  OnUnitActiveSec=600
+  OnUnitActiveSec=3600
   Unit=mbsync.service
 
   [Install]
@@ -3201,7 +3201,7 @@ Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use g
   Type=simple
   ExecStart=/home/rgr/bin/getmails
 
-  RuntimeMaxSec=480
+  RuntimeMaxSec=1200
   
 #+end_src
 and activate them
