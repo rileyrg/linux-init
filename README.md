@@ -558,17 +558,6 @@ I launch it from my **.profile**. see below.
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    #
-    #
-    
-    function beepy(){
-        if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
-            paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
-        else
-            # sudo modprobe pcspkr
-            beep
-        fi
-    }
     
     if [ ! -f /sys/class/power_supply/BAT0/status ];then
         exit 1;
@@ -618,6 +607,7 @@ toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
         touch ~/.BAT_POWER_SUSPEND_SUSPEND;
         sway-notify "Auto suspend disabled"
     fi
+    beepy
 
 
 ## ENV SET
@@ -2181,7 +2171,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcc84a7b"></a>
+<a id="orga4f79f9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2263,7 +2253,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcc84a7b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4f79f9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3088,6 +3078,16 @@ install packages from backup catalog
     # Maintained in linux-config.org
     sudo pacman -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-repo.txt
     pikaur -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-aur.txt
+
+
+## ~/bin/beepy
+
+    if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
+        paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
+    else
+        # sudo modprobe pcspkr
+        beep
+    fi
 
 
 ## ~/bin/bluetooth-headphone-controls

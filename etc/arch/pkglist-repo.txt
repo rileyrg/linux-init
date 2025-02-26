@@ -13,7 +13,6 @@ bluez-deprecated-tools
 bluez-utils
 brightnessctl
 btop
-chromium
 clang
 cmake
 cronie

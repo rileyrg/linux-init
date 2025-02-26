@@ -135,6 +135,7 @@
 !/directories/bin/AIScheck
 !/directories/bin/arch-backup
 !/directories/bin/arch-restore
+!/directories/bin/beepy
 !/directories/bin/build-emacs
 !/directories/bin/bluetooth-headphone-controls
 !/directories/bin/discharge-suspend

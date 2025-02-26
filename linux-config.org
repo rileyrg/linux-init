@@ -621,17 +621,6 @@ I launch it from my *.profile*. see below.
 #+begin_src bash :tangle "~/bin/discharge-suspend"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  #
-  #
-
-  function beepy(){
-      if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
-          paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
-      else
-          # sudo modprobe pcspkr
-          beep
-      fi
-  }
 
   if [ ! -f /sys/class/power_supply/BAT0/status ];then
       exit 1;
@@ -682,7 +671,7 @@ toggle existence of *~/.BAT_POWER_SUSPEND_SUSPEND*
       touch ~/.BAT_POWER_SUSPEND_SUSPEND;
       sway-notify "Auto suspend disabled"
   fi
-
+  beepy
 #+end_src 
 
 
@@ -699,7 +688,6 @@ this goes into my .profile
       discharge-suspend &
   fi
 #+end_src
-
 
 * Network
 ** ~/bin/network-online
@@ -3264,6 +3252,15 @@ install packages from backup catalog
   pikaur -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-aur.txt
 #+end_src
 
+** ~/bin/beepy
+#+begin_src bash  :tangle "~/bin/beepy"
+  if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
+      paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
+  else
+      # sudo modprobe pcspkr
+      beep
+  fi
+#+end_src 
 ** ~/bin/bluetooth-headphone-controls
 Enable bluetooth multimedia pause/ play
 :PROPERTIES:

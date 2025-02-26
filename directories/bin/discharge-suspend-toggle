@@ -7,3 +7,4 @@ else
     touch ~/.BAT_POWER_SUSPEND_SUSPEND;
     sway-notify "Auto suspend disabled"
 fi
+beepy

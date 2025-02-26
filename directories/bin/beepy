@@ -1,0 +1,6 @@
+if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
+    paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
+else
+    # sudo modprobe pcspkr
+    beep
+fi

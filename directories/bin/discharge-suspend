@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-#
-#
-
-function beepy(){
-    if [ -f /usr/share/sounds/freedesktop/stereo/suspend-error.oga ];then
-        paplay  /usr/share/sounds/freedesktop/stereo/suspend-error.oga
-    else
-        # sudo modprobe pcspkr
-        beep
-    fi
-}
 
 if [ ! -f /sys/class/power_supply/BAT0/status ];then
     exit 1;
