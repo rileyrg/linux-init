@@ -21,6 +21,9 @@
 !/etc/apt/sources.list.d
 !/etc/apt/sources.list.d/*
 
+!/etc/arch
+!/etc/arch/*
+
 !/etc/rsnapshot
 !/etc/rsnapshot/*
 

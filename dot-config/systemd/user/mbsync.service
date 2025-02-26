@@ -5,4 +5,4 @@ Description=Mailbox synchronization service
 Type=simple
 ExecStart=/home/rgr/bin/getmails
 
-RuntimeMaxSec=180
+RuntimeMaxSec=480

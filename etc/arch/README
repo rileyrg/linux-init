@@ -1,0 +1,22 @@
+ARCH back up / restore
+https://github.com/bruhtus/package-backup
+
+To backup all of your currently installed package
+Backup package in official repository
+
+pacman -Qqen > pkglist-repo.txt
+
+Backup package in arch user repository (AUR)
+
+pacman -Qqem > pkglist-aur.txt
+
+To restore / re-install all of your package
+For repository package
+
+sudo pacman -S --needed - < pkglist-repo.txt
+
+For AUR package
+
+yay -S --needed - < pkglist-aur.txt
+
+
