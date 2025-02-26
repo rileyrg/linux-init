@@ -528,7 +528,7 @@ Written to find the tty for a pane in order to redirect gef context source to a 
     tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
 
 
-# TODO Power Related
+# Power Related
 
 Caveat - for my thinkpads.
 Script that checks for a .BATTERY\_POWER\_LOW file and if its there and
@@ -2162,7 +2162,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgbdc6599"></a>
+<a id="orgc032676"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2244,7 +2244,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgbdc6599).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc032676).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2599,19 +2599,7 @@ clangd lsp formatting
             session="$(lldb-ui-session "${directory}" "$2")"
             ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"
     
-    4.  emacs
-    
-        1.  build-emacs
-        
-            build and install in own bin directory
-            
-                #!/usr/bin/env bash
-                # Maintained in linux-config.org
-                cd ~/development/projects/emacs/emacs || return
-                ./configure --prefix=/home/rgr/.emacs.d/bin
-                make -j"$(nproc)" && make install
-    
-    5.  lldb voltron scripts
+    4.  lldb voltron scripts
     
         1.  ~/bin/llvm/voltron-backtrace
         
@@ -2661,7 +2649,7 @@ clangd lsp formatting
                 # Maintained in linux-config.org
                 voltron v stack
     
-    6.  lldb python scripting     :python:
+    5.  lldb python scripting     :python:
     
         lldb also has a built-in Python interpreter, which is accessible by the “script” command. All the functionality of the debugger is available as classes in the Python interpreter, so the more complex commands that in gdb you would introduce with the “define” command can be done by writing Python functions using the lldb-Python library, then loading the scripts into your running session and accessing them with the “script” command.
         
@@ -3061,6 +3049,26 @@ Note the [PassCmd](https://wiki.archlinux.org/index.php/Isync) - since I use gpg
 
 
 # bin
+
+
+## ~/bin/arch-backup
+
+keep the arch and aur packages installed backed up
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    pacman -Qqen > ~/cloud/homefiles/etc/arch/pkglist-repo.txt
+    pacman -Qqem > ~/cloud/homefiles/etc/arch/pkglist-aur.txt
+
+
+## ~/bin/arch-restore
+
+install packages from backup catalog
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    sudo pacman -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-repo.txt
+    pikaur -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-aur.txt
 
 
 ## ~/bin/bluetooth-headphone-controls

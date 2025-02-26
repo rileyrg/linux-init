@@ -595,11 +595,7 @@ Written to find the tty for a pane in order to redirect gef context source to a 
   tmux list-panes -t "${session}:${window}" -F 'pane_index:#{pane_index} #{pane_tty}' | awk '/pane_index:'"${pane_index}"'/ {print $2 }'
 #+end_src
 
-* TODO Power Related
-SCHEDULED: <2025-02-25 Tue>
-:LOGBOOK:
-- State "TODO"       from              [2025-02-20 Thu 12:09]
-:END:
+* Power Related
 Caveat - for my thinkpads.
 Script that checks for a .BATTERY_POWER_LOW file and if its there and
 we're discharging, it suspends the laptop. If it's there and we're
@@ -2800,21 +2796,6 @@ Create a session but let someone else do the attach
   ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"
 #+end_src
 
-***** emacs
-
-******  build-emacs
-build and install in own bin directory
-:LOGBOOK:
-- State "TODO"       from              [2023-07-24 Mon 18:58]
-:END:
-#+begin_src bash :tangle ~/bin/build-emacs
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  cd ~/development/projects/emacs/emacs || return
-  ./configure --prefix=/home/rgr/.emacs.d/bin
-  make -j"$(nproc)" && make install
-#+end_src
-
 ***** lldb voltron scripts
 
 ****** ~/bin/llvm/voltron-backtrace
@@ -3244,6 +3225,23 @@ and activate them
   exit 0
 #+end_src
 * bin
+** ~/bin/arch-backup
+keep the arch and aur packages installed backed up
+#+begin_src bash :tangle "~/bin/arch-backup"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  pacman -Qqen > ~/cloud/homefiles/etc/arch/pkglist-repo.txt
+  pacman -Qqem > ~/cloud/homefiles/etc/arch/pkglist-aur.txt
+#+end_src
+** ~/bin/arch-restore
+install packages from backup catalog
+#+begin_src bash :tangle "~/bin/arch-restore"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  sudo pacman -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-repo.txt
+  pikaur -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-aur.txt
+#+end_src
+
 ** ~/bin/bluetooth-headphone-controls
 Enable bluetooth multimedia pause/ play
 :PROPERTIES:
