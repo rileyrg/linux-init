@@ -563,7 +563,9 @@ I launch it from my **.profile**. see below.
         exit 1;
     fi
     
-    pollCycle=${BAT_POWER_POLL_CYCLE:-600}
+    rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
+    pollCycle=${BAT_POWER_POLL_CYCLE:-120}
+    
     while true; do
         sleep "$pollCycle"
         mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
@@ -571,19 +573,19 @@ I launch it from my **.profile**. see below.
         level=${batStats[1]}
         if [ "$status" = "Discharging" ]; then
             if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
+                notify-send "**WARNING**" "Battery low: ${level}%."
                 if [ -f ~/.BAT_POWER_LOW ]; then
                     rm  ~/.BAT_POWER_LOW
-                    notify-send "** SUSPENDING in 15 SECONDS **"
-                    beepy
-                    sleep 12
-                    systemctl suspend
+                    if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
+                        notify-send "** SUSPENDING in 15 SECONDS **"
+                        beepy
+                        sleep 12
+                        systemctl suspend
+                    fi
                 else
                     if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
                         touch ~/.BAT_POWER_LOW
-                        notify-send "**WARNING**" "Battery low: ${level}%. Suspending in ${pollCycle} seconds."
-                        beepy
-                    else
-                        notify-send "**WARNING**" "Battery low: ${level}%."
+                        notify-send "**WARNING**" "Battery critically low. Suspending in ${pollCycle} seconds."
                         beepy
                     fi
                 fi
@@ -2171,7 +2173,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga4f79f9"></a>
+<a id="org5f43e7f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2253,7 +2255,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4f79f9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5f43e7f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2428,7 +2430,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-     google-chrome --ozone-platform=wayland --hide-crash-restore-bubble --new-window "$@"  &
+     google-chrome --hide-crash-restore-bubble --new-window "$@"  &
 
 
 ### ~/bin/sway/sway-firefox

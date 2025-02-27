@@ -5,7 +5,9 @@ if [ ! -f /sys/class/power_supply/BAT0/status ];then
     exit 1;
 fi
 
-pollCycle=${BAT_POWER_POLL_CYCLE:-600}
+rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
+pollCycle=${BAT_POWER_POLL_CYCLE:-120}
+
 while true; do
     sleep "$pollCycle"
     mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
@@ -13,19 +15,19 @@ while true; do
     level=${batStats[1]}
     if [ "$status" = "Discharging" ]; then
         if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
+            notify-send "**WARNING**" "Battery low: ${level}%."
             if [ -f ~/.BAT_POWER_LOW ]; then
                 rm  ~/.BAT_POWER_LOW
-                notify-send "** SUSPENDING in 15 SECONDS **"
-                beepy
-                sleep 12
-                systemctl suspend
+                if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
+                    notify-send "** SUSPENDING in 15 SECONDS **"
+                    beepy
+                    sleep 12
+                    systemctl suspend
+                fi
             else
                 if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
                     touch ~/.BAT_POWER_LOW
-                    notify-send "**WARNING**" "Battery low: ${level}%. Suspending in ${pollCycle} seconds."
-                    beepy
-                else
-                    notify-send "**WARNING**" "Battery low: ${level}%."
+                    notify-send "**WARNING**" "Battery critically low. Suspending in ${pollCycle} seconds."
                     beepy
                 fi
             fi
