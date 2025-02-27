@@ -15,7 +15,6 @@ while true; do
     level=${batStats[1]}
     if [ "$status" = "Discharging" ]; then
         if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
-            notify-send "**WARNING**" "Battery low: ${level}%."
             if [ -f ~/.BAT_POWER_LOW ]; then
                 rm  ~/.BAT_POWER_LOW
                 if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
@@ -29,6 +28,8 @@ while true; do
                     touch ~/.BAT_POWER_LOW
                     notify-send "**WARNING**" "Battery critically low. Suspending in ${pollCycle} seconds."
                     beepy
+                else
+                    notify-send "**WARNING**" "Battery low: ${level}%."
                 fi
             fi
         fi

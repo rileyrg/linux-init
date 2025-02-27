@@ -573,7 +573,6 @@ I launch it from my **.profile**. see below.
         level=${batStats[1]}
         if [ "$status" = "Discharging" ]; then
             if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
-                notify-send "**WARNING**" "Battery low: ${level}%."
                 if [ -f ~/.BAT_POWER_LOW ]; then
                     rm  ~/.BAT_POWER_LOW
                     if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
@@ -587,6 +586,8 @@ I launch it from my **.profile**. see below.
                         touch ~/.BAT_POWER_LOW
                         notify-send "**WARNING**" "Battery critically low. Suspending in ${pollCycle} seconds."
                         beepy
+                    else
+                        notify-send "**WARNING**" "Battery low: ${level}%."
                     fi
                 fi
             fi
@@ -605,11 +606,11 @@ toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
     if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
         rm ~/.BAT_POWER_SUSPEND_SUSPEND;
         sway-notify "Auto suspend enabled"
+        beepy
     else
         touch ~/.BAT_POWER_SUSPEND_SUSPEND;
         sway-notify "Auto suspend disabled"
     fi
-    beepy
 
 
 ## ENV SET
@@ -623,7 +624,7 @@ toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
 this goes into my .profile
 
     if [ -z "$SSH_CONNECTION" ]; then
-        discharge-suspend &
+        (pgrep -f "discharge-suspend" > /dev/null ||  discharge-suspend &) 2>&1
     fi
 
 
@@ -2173,7 +2174,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5f43e7f"></a>
+<a id="orgf264efd"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2255,7 +2256,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5f43e7f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf264efd).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

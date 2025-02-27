@@ -3,8 +3,8 @@
 if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
     rm ~/.BAT_POWER_SUSPEND_SUSPEND;
     sway-notify "Auto suspend enabled"
+    beepy
 else
     touch ~/.BAT_POWER_SUSPEND_SUSPEND;
     sway-notify "Auto suspend disabled"
 fi
-beepy

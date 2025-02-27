@@ -67,7 +67,7 @@ export BAT_POWER_SUSPEND_LEVEL=30
 export BAT_POWER_POLL_CYCLE=300
 
 if [ -z "$SSH_CONNECTION" ]; then
-    discharge-suspend &
+    (pgrep -f "discharge-suspend" > /dev/null ||  discharge-suspend &) 2>&1
 fi
 
 export XKB_DEFAULT_LAYOUT=de
