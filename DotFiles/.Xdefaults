@@ -26,7 +26,7 @@ Xft.dpi:       96
 Xft.dpi:       96
 #endif
 #ifdef SRVR_x13amdg4
-Xft.dpi:       188
+Xft.dpi:       96
 #endif
 #ifdef SRVR_xmgneo
 Xft.dpi:       188
