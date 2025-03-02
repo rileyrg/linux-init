@@ -71,7 +71,7 @@ NB - NOT Exported as lots of things want to update it
     Xft.dpi:       96
     #endif
     #ifdef SRVR_x13amdg4
-    Xft.dpi:       188
+    Xft.dpi:       96
     #endif
     #ifdef SRVR_xmgneo
     Xft.dpi:       188
@@ -565,26 +565,30 @@ I launch it from my **.profile**. see below.
     
     rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
     pollCycle=${BAT_POWER_POLL_CYCLE:-120}
+    orgPollCycle=${pollCycle}
+    suspendTime=${BAT_POWER_SUSPEND_TIME:-600};
     
     while true; do
-        sleep "$pollCycle"
+        sleep ${pollCycle}
         mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
         status=${batStats[0]}
         level=${batStats[1]}
-        if [ "$status" = "Discharging" ]; then
-            if [ "$level" -le "${BAT_POWER_SUSPEND_LEVEL:-30}" ]; then
+        if [ ${status} = "Discharging" ]; then
+            if [ ${level} -le ${BAT_POWER_SUSPEND_LEVEL:-30} ]; then
                 if [ -f ~/.BAT_POWER_LOW ]; then
                     rm  ~/.BAT_POWER_LOW
+                    pollCycle=${orgPollCycle}
                     if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
-                        notify-send "** SUSPENDING in 15 SECONDS **"
+                        notify-send "** SUSPENDING in 60 SECONDS **"
                         beepy
-                        sleep 12
+                        sleep 60
                         systemctl suspend
                     fi
                 else
                     if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
                         touch ~/.BAT_POWER_LOW
-                        notify-send "**WARNING**" "Battery critically low. Suspending in ${pollCycle} seconds."
+                        pollCycle=${suspendTime}
+                        notify-send "**WARNING**" "Battery low. Suspending in ${pollCycle} seconds."
                         beepy
                     else
                         notify-send "**WARNING**" "Battery low: ${level}%."
@@ -2174,7 +2178,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf264efd"></a>
+<a id="org47977f7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2256,7 +2260,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf264efd).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org47977f7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
