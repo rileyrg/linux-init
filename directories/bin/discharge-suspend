@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 
-# loop and check power levels every BAT_POWER_POLL_CYCLE seconds. When a certain
+# loop and check power levels every BAT_POWER_SUSPEND_POLL_CYCLE seconds. When a certain
 # threshold, BAT_POWER_SUSPEND_LEVEL, is reached then, unless there is
 # a check file ~/.BAT_POWER_SUSPEND_SUSPEND, in which case we just repeat
-# warnings, suspend in BAT_POWER_SUSPEND_TIME seconds.
-# 
+# warnings, suspend in BAT_POWER_SUSPEND_TIME seconds. Calling the sister scriptdir
+# discharge-suspend-toggle toggles suspend process.
 if [ ! -f /sys/class/power_supply/BAT0/status ];then
     exit 1
 fi
