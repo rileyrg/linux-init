@@ -564,39 +564,43 @@ I launch it from my **.profile**. see below.
     fi
     
     rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
-    pollCycle=${BAT_POWER_POLL_CYCLE:-120}
-    orgPollCycle=${pollCycle}
-    suspendTime=${BAT_POWER_SUSPEND_TIME:-600};
+    POLLCYCLE=${BAT_POWER_SUSPEND_POLL_CYCLE:-120}
+    SUSPENDTIME=${BAT_POWER_SUSPEND_TIME:-600};
+    
+    BAT_POWER_SUSPENDING=false
     
     while true; do
-        sleep ${pollCycle}
+        sleep ${POLLCYCLE}
         mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
         status=${batStats[0]}
         level=${batStats[1]}
         if [ ${status} = "Discharging" ]; then
             if [ ${level} -le ${BAT_POWER_SUSPEND_LEVEL:-30} ]; then
-                if [ -f ~/.BAT_POWER_LOW ]; then
-                    rm  ~/.BAT_POWER_LOW
-                    pollCycle=${orgPollCycle}
-                    if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
-                        notify-send "** SUSPENDING in 60 SECONDS **"
+                if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ]; then
+                    if [ ${BAT_POWER_SUSPENDING} = true ]; then
+                        if [ ${SECONDS} -ge ${SUSPENDTIME} ];then
+                            notify-send "** SUSPENDING in 30 SECONDS **"
+                            beepy
+                            sleep 30
+                            systemctl suspend
+                            BAT_POWER_SUSPENDING=false
+                            SECONDS=0;
+                        else
+                            notify-send "**WARNING**" "Battery low: suspending in about $((${SUSPENDTIME}-${SECONDS})) seconds."
+                        fi
+                    else
+                        BAT_POWER_SUSPENDING=true
+                        SECONDS=0
+                        notify-send "**WARNING**" "Battery low. Suspending in ${SUSPENDTIME} seconds."
                         beepy
-                        sleep 60
-                        systemctl suspend
                     fi
                 else
-                    if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
-                        touch ~/.BAT_POWER_LOW
-                        pollCycle=${suspendTime}
-                        notify-send "**WARNING**" "Battery low. Suspending in ${pollCycle} seconds."
-                        beepy
-                    else
-                        notify-send "**WARNING**" "Battery low: ${level}%."
-                    fi
+                    BAT_POWER_SUSPENDING=false;
+                    notify-send "**WARNING**" "Battery low: ${level}%."
                 fi
             fi
         else
-            rm -f ~/.BAT_POWER_LOW
+            BAT_POWER_SUSPENDING=false
         fi
     done
 
@@ -609,7 +613,7 @@ toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
     # Maintained in linux-config.org
     if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
         rm ~/.BAT_POWER_SUSPEND_SUSPEND;
-        sway-notify "Auto suspend enabled"
+        sway-notify "Auto suspend re-enabled"
         beepy
     else
         touch ~/.BAT_POWER_SUSPEND_SUSPEND;
@@ -619,8 +623,8 @@ toggle existence of **~/.BAT\_POWER\_SUSPEND\_SUSPEND**
 
 ## ENV SET
 
-    export BAT_POWER_SUSPEND_LEVEL=30
-    export BAT_POWER_POLL_CYCLE=300
+    # export BAT_POWER_SUSPEND_LEVEL=30
+    # export BAT_POWER_SUSPEND_POLL_CYCLE=300
 
 
 ## exec discharge-suspend
@@ -2178,7 +2182,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org47977f7"></a>
+<a id="orgfbb1592"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2260,7 +2264,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org47977f7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfbb1592).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

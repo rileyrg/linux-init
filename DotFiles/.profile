@@ -63,8 +63,8 @@ test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 export FZF_TMUX_OPTS=1
 export FZF_TMUX_OPTS="-d 40%"
 
-export BAT_POWER_SUSPEND_LEVEL=30
-export BAT_POWER_POLL_CYCLE=300
+# export BAT_POWER_SUSPEND_LEVEL=30
+# export BAT_POWER_SUSPEND_POLL_CYCLE=300
 
 if [ -z "$SSH_CONNECTION" ]; then
     (pgrep -f "discharge-suspend" > /dev/null ||  discharge-suspend &) 2>&1

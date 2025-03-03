@@ -2,7 +2,7 @@
 # Maintained in linux-config.org
 if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
     rm ~/.BAT_POWER_SUSPEND_SUSPEND;
-    sway-notify "Auto suspend enabled"
+    sway-notify "Auto suspend re-enabled"
     beepy
 else
     touch ~/.BAT_POWER_SUSPEND_SUSPEND;
