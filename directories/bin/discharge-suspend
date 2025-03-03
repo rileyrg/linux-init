@@ -6,6 +6,7 @@
 # a check file ~/.BAT_POWER_SUSPEND_SUSPEND, in which case we just repeat
 # warnings, suspend in BAT_POWER_SUSPEND_TIME seconds. Calling the sister scriptdir
 # discharge-suspend-toggle toggles suspend process.
+
 if [ ! -f /sys/class/power_supply/BAT0/status ];then
     exit 1
 fi
@@ -17,6 +18,10 @@ BAT_POWER_SUSPEND_TIME=${BAT_POWER_SUSPEND_TIME:-600}
 BAT_POWER_SUSPEND_CRITICAL_LEVEL=${BAT_POWER_SUSPEND_CRITICAL_LEVEL:-5}
 
 BAT_POWER_SUSPEND_SUSPENDING=false
+# if suspend is suspended only warn every five minutes or so...
+BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD=${BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD:-300}
+
+LASTWARN=0
 
 while true;  do
     sleep ${BAT_POWER_SUSPEND_POLL_CYCLE}
@@ -57,7 +62,10 @@ while true;  do
             else
                 # since suspend is being overridden, just warn of low battery
                 BAT_POWER_SUSPEND_SUSPENDING=false
-                notify-send "**WARNING**" "Battery low: ${level}%"
+                if (( ${BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD} + ${LASTWARN}  < ${SECONDS} )); then
+                    notify-send "**WARNING**" "Battery low: ${level}%"
+                    LASTWARN=${SECONDS}
+                fi
             fi
         fi
     else

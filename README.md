@@ -576,6 +576,10 @@ I launch it from my **.profile**. see below.
     BAT_POWER_SUSPEND_CRITICAL_LEVEL=${BAT_POWER_SUSPEND_CRITICAL_LEVEL:-5}
     
     BAT_POWER_SUSPEND_SUSPENDING=false
+    # if suspend is suspended only warn every five minutes or so...
+    BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD=${BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD:-300}
+    
+    LASTWARN=0
     
     while true;  do
         sleep ${BAT_POWER_SUSPEND_POLL_CYCLE}
@@ -616,7 +620,10 @@ I launch it from my **.profile**. see below.
                 else
                     # since suspend is being overridden, just warn of low battery
                     BAT_POWER_SUSPEND_SUSPENDING=false
-                    notify-send "**WARNING**" "Battery low: ${level}%"
+                    if (( ${BAT_POWER_SUSPEND_SUSPEND_WARN_PERIOD} + ${LASTWARN}  < ${SECONDS} )); then
+                        notify-send "**WARNING**" "Battery low: ${level}%"
+                        LASTWARN=${SECONDS}
+                    fi
                 fi
             fi
         else
@@ -2207,7 +2214,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org8785c37"></a>
+<a id="orgfe9b480"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2289,7 +2296,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8785c37).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfe9b480).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
