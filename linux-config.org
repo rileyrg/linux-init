@@ -612,7 +612,7 @@ If you want to stop the suspend then create file
 the suspend threshold but you can set an ENV variable
 *BAT_POWER_SUSPEND_LEVEL* to override it. The polling period is every
 ten minutes which can be overridden with the ENV
-*.BAT_POWER_POLL_CYCLE*.
+*.BAT_POWER_POLL_SUSPEND_CYCLE*.
 
 I launch it from my *.profile*. see below.
 
@@ -630,10 +630,10 @@ I launch it from my *.profile*. see below.
   fi
 
   rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
-  POLLCYCLE=${BAT_POWER_SUSPEND_POLL_CYCLE:-120}
+  POLLCYCLE=${BAT_POWER_SUSPEND_POLL_CYCLE:-60}
   SUSPENDTIME=${BAT_POWER_SUSPEND_TIME:-600};
 
-  BAT_POWER_SUSPENDING=false
+  BAT_POWER_SUSPEND_SUSPENDING=false
 
   while true; do
       sleep ${POLLCYCLE}
@@ -641,36 +641,36 @@ I launch it from my *.profile*. see below.
       status=${batStats[0]}
       level=${batStats[1]}
       if [ ${status} = "Discharging" ]; then
-          if [ ${level} -le ${BAT_POWER_SUSPEND_LEVEL:-30} ]; then
+          if ((${level} <= ${BAT_POWER_SUSPEND_LEVEL:-30})); then
               # unless we're overriding the auto suspend then check if we should
               if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ]; then
                   #if we're already in the process of supending see if its time to suspend
-                  if [ ${BAT_POWER_SUSPENDING} = true ]; then
-                      if [ ${SECONDS} -ge ${SUSPENDTIME} ];then
+                  if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
+                      if ((${SECONDS} >= ${SUSPENDTIME}));then
                           notify-send "** SUSPENDING in 10 SECONDS : no escape.  **"
                           beepy
                           sleep 10
                           systemctl suspend
-                          BAT_POWER_SUSPENDING=false
+                          BAT_POWER_SUSPEND_SUSPENDING=false
                       else
                           notify-send "**WARNING**" "Battery low: suspending in about $((${SUSPENDTIME}-${SECONDS})) seconds."
                       fi
                   else
                       # initiate the suspending period
-                      BAT_POWER_SUSPENDING=true
+                      BAT_POWER_SUSPEND_SUSPENDING=true
                       SECONDS=0
                       notify-send "**WARNING**" "Battery low. Suspending in ${SUSPENDTIME} seconds."
                       beepy
                   fi
               else
                   # since suspend is being overridden, just warn of low battery
-                  BAT_POWER_SUSPENDING=false;
+                  BAT_POWER_SUSPEND_SUSPENDING=false;
                   notify-send "**WARNING**" "Battery low: ${level}%."
               fi
           fi
       else
           # we're not discharging so cancel any suspend operations
-          BAT_POWER_SUSPENDING=false
+          BAT_POWER_SUSPEND_SUSPENDING=false
       fi
   done
 #+end_src

@@ -552,7 +552,7 @@ If you want to stop the suspend then create file
 the suspend threshold but you can set an ENV variable
 **BAT\_POWER\_SUSPEND\_LEVEL** to override it. The polling period is every
 ten minutes which can be overridden with the ENV
-**.BAT\_POWER\_POLL\_CYCLE**.
+**.BAT\_POWER\_POLL\_SUSPEND\_CYCLE**.
 
 I launch it from my **.profile**. see below.
 
@@ -569,10 +569,10 @@ I launch it from my **.profile**. see below.
     fi
     
     rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
-    POLLCYCLE=${BAT_POWER_SUSPEND_POLL_CYCLE:-120}
+    POLLCYCLE=${BAT_POWER_SUSPEND_POLL_CYCLE:-60}
     SUSPENDTIME=${BAT_POWER_SUSPEND_TIME:-600};
     
-    BAT_POWER_SUSPENDING=false
+    BAT_POWER_SUSPEND_SUSPENDING=false
     
     while true; do
         sleep ${POLLCYCLE}
@@ -580,36 +580,36 @@ I launch it from my **.profile**. see below.
         status=${batStats[0]}
         level=${batStats[1]}
         if [ ${status} = "Discharging" ]; then
-            if [ ${level} -le ${BAT_POWER_SUSPEND_LEVEL:-30} ]; then
+            if ((${level} <= ${BAT_POWER_SUSPEND_LEVEL:-30})); then
                 # unless we're overriding the auto suspend then check if we should
                 if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ]; then
                     #if we're already in the process of supending see if its time to suspend
-                    if [ ${BAT_POWER_SUSPENDING} = true ]; then
-                        if [ ${SECONDS} -ge ${SUSPENDTIME} ];then
+                    if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
+                        if ((${SECONDS} >= ${SUSPENDTIME}));then
                             notify-send "** SUSPENDING in 10 SECONDS : no escape.  **"
                             beepy
                             sleep 10
                             systemctl suspend
-                            BAT_POWER_SUSPENDING=false
+                            BAT_POWER_SUSPEND_SUSPENDING=false
                         else
                             notify-send "**WARNING**" "Battery low: suspending in about $((${SUSPENDTIME}-${SECONDS})) seconds."
                         fi
                     else
                         # initiate the suspending period
-                        BAT_POWER_SUSPENDING=true
+                        BAT_POWER_SUSPEND_SUSPENDING=true
                         SECONDS=0
                         notify-send "**WARNING**" "Battery low. Suspending in ${SUSPENDTIME} seconds."
                         beepy
                     fi
                 else
                     # since suspend is being overridden, just warn of low battery
-                    BAT_POWER_SUSPENDING=false;
+                    BAT_POWER_SUSPEND_SUSPENDING=false;
                     notify-send "**WARNING**" "Battery low: ${level}%."
                 fi
             fi
         else
             # we're not discharging so cancel any suspend operations
-            BAT_POWER_SUSPENDING=false
+            BAT_POWER_SUSPEND_SUSPENDING=false
         fi
     done
 
@@ -2191,7 +2191,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org410fd7f"></a>
+<a id="org83587d0"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2273,7 +2273,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org410fd7f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org83587d0).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
