@@ -565,7 +565,7 @@ I launch it from my **.profile**. see below.
     # warnings, suspend in BAT_POWER_SUSPEND_TIME seconds.
     # 
     if [ ! -f /sys/class/power_supply/BAT0/status ];then
-        exit 1;
+        exit 1
     fi
     
     rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
@@ -588,7 +588,7 @@ I launch it from my **.profile**. see below.
                     #if at a critical level then time to call it a day and suspend
                     rm -f ~/.BAT_POWER_SUSPEND_SUSPEND
                     BAT_POWER_SUSPEND_SUSPENDING=true
-                    notify-send "CRITICIAL LOW BATTERY"
+                    notify-send "**CRITICIAL**" "LOW BATTERY"
                     CRITICAL=true
                     beepy
                 fi
@@ -597,30 +597,34 @@ I launch it from my **.profile**. see below.
                     #if we're already in the process of suspending see if its time to suspend
                     if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
                         if [ ${CRITICAL} = true ] || ((${SECONDS} >= ${BAT_POWER_SUSPEND_TIME}));then
-                            notify-send "** SUSPENDING in 10 SECONDS : no escape.  **"
+                            notify-send "**SUSPENDING**" "in 10 SECONDS"
                             beepy
                             sleep 10
                             systemctl suspend
                             BAT_POWER_SUSPEND_SUSPENDING=false
                         else
-                            notify-send "**WARNING**" "Battery low: suspending in about $((${BAT_POWER_SUSPEND_TIME}-${SECONDS})) seconds."
+                            notify-send "**WARNING**" "Battery low: suspending in about $((${BAT_POWER_SUSPEND_TIME}-${SECONDS}))s"
                         fi
                     else
                         # initiate the suspending period
                         BAT_POWER_SUSPEND_SUSPENDING=true
                         SECONDS=0
-                        notify-send "**WARNING**" "Battery low. Suspending in ${BAT_POWER_SUSPEND_TIME} seconds."
+                        notify-send "**WARNING**" "Battery low: suspending in ${BAT_POWER_SUSPEND_TIME}s"
                         beepy
                     fi
                 else
                     # since suspend is being overridden, just warn of low battery
-                    BAT_POWER_SUSPEND_SUSPENDING=false;
-                    notify-send "**WARNING**" "Battery low: ${level}%."
+                    BAT_POWER_SUSPEND_SUSPENDING=false
+                    notify-send "**WARNING**" "Battery low: ${level}%"
                 fi
             fi
         else
             # we're not discharging so cancel any suspend operations
-            BAT_POWER_SUSPEND_SUSPENDING=false
+            if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
+                notify-send "**Charging detected**" "Suspending cancelled"
+                BAT_POWER_SUSPEND_SUSPENDING=false
+                SECONDS=0
+            fi
         fi
     done
 
@@ -2202,7 +2206,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4d6e9b5"></a>
+<a id="org22da130"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2284,7 +2288,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4d6e9b5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org22da130).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
