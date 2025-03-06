@@ -656,7 +656,7 @@ I launch it from my *.profile*. see below.
                   BAT_POWER_SUSPEND_SUSPENDING=true
                   notify-send "**CRITICIAL**" "LOW BATTERY"
                   CRITICAL=true
-                  beepy
+                  [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
               fi
               # unless we're overriding the auto suspend then check if we should
               if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ]; then
@@ -664,7 +664,7 @@ I launch it from my *.profile*. see below.
                   if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
                       if [ ${CRITICAL} = true ] || ((${SECONDS} >= ${BAT_POWER_SUSPEND_TIME}));then
                           notify-send "**SUSPENDING**" "in 10 SECONDS"
-                          beepy
+                          [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
                           sleep 10
                           systemctl suspend
                           BAT_POWER_SUSPEND_SUSPENDING=false
@@ -676,7 +676,7 @@ I launch it from my *.profile*. see below.
                       BAT_POWER_SUSPEND_SUSPENDING=true
                       SECONDS=0
                       notify-send "**WARNING**" "Battery low: suspending in ${BAT_POWER_SUSPEND_TIME}s"
-                      beepy
+                      [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
                   fi
               else
                   # since suspend is being overridden, just warn of low battery

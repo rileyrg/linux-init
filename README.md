@@ -595,7 +595,7 @@ I launch it from my **.profile**. see below.
                     BAT_POWER_SUSPEND_SUSPENDING=true
                     notify-send "**CRITICIAL**" "LOW BATTERY"
                     CRITICAL=true
-                    beepy
+                    [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
                 fi
                 # unless we're overriding the auto suspend then check if we should
                 if [ ! -f ~/.BAT_POWER_SUSPEND_SUSPEND ]; then
@@ -603,7 +603,7 @@ I launch it from my **.profile**. see below.
                     if [ ${BAT_POWER_SUSPEND_SUSPENDING} = true ]; then
                         if [ ${CRITICAL} = true ] || ((${SECONDS} >= ${BAT_POWER_SUSPEND_TIME}));then
                             notify-send "**SUSPENDING**" "in 10 SECONDS"
-                            beepy
+                            [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
                             sleep 10
                             systemctl suspend
                             BAT_POWER_SUSPEND_SUSPENDING=false
@@ -615,7 +615,7 @@ I launch it from my **.profile**. see below.
                         BAT_POWER_SUSPEND_SUSPENDING=true
                         SECONDS=0
                         notify-send "**WARNING**" "Battery low: suspending in ${BAT_POWER_SUSPEND_TIME}s"
-                        beepy
+                        [ ! -f ~/.BAT_POWER_SUSPEND_SILENT ] && beepy
                     fi
                 else
                     # since suspend is being overridden, just warn of low battery
@@ -2214,7 +2214,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgfe9b480"></a>
+<a id="org1386257"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2296,7 +2296,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfe9b480).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1386257).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
