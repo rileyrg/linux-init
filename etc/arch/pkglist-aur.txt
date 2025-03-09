@@ -1,6 +1,7 @@
 aconfmgr-git
 aic94xx-firmware
 ast-firmware
+clipman
 dict-freedict-deu-eng
 dict-freedict-eng-deu
 dict-freedict-hun-eng

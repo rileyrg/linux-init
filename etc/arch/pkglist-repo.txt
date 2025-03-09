@@ -5,6 +5,7 @@ aspell-en
 awesome-terminal-fonts
 base
 base-devel
+bash-language-server
 beep
 blueman
 bluetui
@@ -24,7 +25,6 @@ dnsmasq
 efibootmgr
 efitools
 eog
-firefox
 font-manager
 foot
 fortune-mod
@@ -193,6 +193,7 @@ xf86-video-ati
 xf86-video-nouveau
 xf86-video-vmware
 xorg-server
+xorg-xeyes
 xorg-xhost
 xorg-xinit
 xorg-xwayland
