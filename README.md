@@ -668,6 +668,23 @@ this goes into my .profile
     fi
 
 
+# syncing
+
+
+## sync-to
+
+    set -x
+    rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ~/cloud/ ${1:-richiehh}:cloud/
+    set +x
+
+
+## sync-from
+
+    set -x 
+    rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ~/cloud/
+    set +x
+
+
 # Network
 
 
@@ -2214,7 +2231,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga69ef36"></a>
+<a id="org5b431a9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2296,7 +2313,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga69ef36).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5b431a9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

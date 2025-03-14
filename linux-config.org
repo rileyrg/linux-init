@@ -730,6 +730,22 @@ this goes into my .profile
   fi
 #+end_src
 
+
+* syncing
+
+** sync-to
+#+begin_src  bash :tangle ~/bin/sync-to
+  set -x
+  rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ~/cloud/ ${1:-richiehh}:cloud/
+  set +x
+#+end_src 
+** sync-from
+#+begin_src  bash :tangle ~/bin/sync-from
+  set -x 
+  rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ~/cloud/
+  set +x
+#+end_src 
+
 * Network
 ** ~/bin/network-online
 #+begin_src bash :tangle "~/bin/network-online"

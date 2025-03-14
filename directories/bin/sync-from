@@ -1,0 +1,3 @@
+set -x 
+rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ~/cloud/
+set +x
