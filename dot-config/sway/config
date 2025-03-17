@@ -25,13 +25,9 @@ mouse_warping output
 
 bar {
 swaybar_command waybar
-position top
-hidden_state hide
-mode hide
-modifier Mod4
 }
-bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
 
+bindsym $mod+b exec killall -SIGUSR1 waybar
 
 set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -176,11 +172,7 @@ bindsym $mod+Tab workspace back_and_forth
 #
 # Layout stuff:
 
-#
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
-bindsym $mod+b splith
+bindsym $mod+h splith
 bindsym $mod+v splitv
 
 # Switch the current container between different layout styles

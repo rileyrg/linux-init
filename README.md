@@ -841,13 +841,9 @@ Override in .profile.local
     
     bar {
     swaybar_command waybar
-    position top
-    hidden_state hide
-    mode hide
-    modifier Mod4
     }
-    bindsym $mod+Alt+b "exec killall -SIGUSR1 waybar"
     
+    bindsym $mod+b exec killall -SIGUSR1 waybar
     
     set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
     mode "$mode_system" {
@@ -992,11 +988,7 @@ Override in .profile.local
     #
     # Layout stuff:
     
-    #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
+    bindsym $mod+h splith
     bindsym $mod+v splitv
     
     # Switch the current container between different layout styles
@@ -2231,7 +2223,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5b431a9"></a>
+<a id="org6fd57a5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2313,7 +2305,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5b431a9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6fd57a5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
