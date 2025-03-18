@@ -859,7 +859,7 @@ Override in .profile.local
     bindsym Escape mode "default"
     }
     
-    bindsym $mod+Control+q mode "$mode_system"
+    bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
     
     bindsym --release $mod+L exec sway-lock-utils lock
     
@@ -2223,7 +2223,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org6fd57a5"></a>
+<a id="org77839c7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2305,7 +2305,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6fd57a5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org77839c7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -1032,7 +1032,7 @@ Override in .profile.local
   bindsym Escape mode "default"
   }
 
-  bindsym $mod+Control+q mode "$mode_system"
+  bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
 
   bindsym --release $mod+L exec sway-lock-utils lock
 
