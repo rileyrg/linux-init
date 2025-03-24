@@ -1034,7 +1034,8 @@ Override in .profile.local
 
   bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
 
-  bindsym --release $mod+L exec sway-lock-utils lock
+  bindsym --release $mod+Control+b exec sway-blank
+  bindsym --release $mod+Control+L exec sway-lock
 
   #
   # Resizing containers:

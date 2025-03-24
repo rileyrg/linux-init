@@ -861,7 +861,8 @@ Override in .profile.local
     
     bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
     
-    bindsym --release $mod+L exec sway-lock-utils lock
+    bindsym --release $mod+Control+b exec sway-blank
+    bindsym --release $mod+Control+L exec sway-lock
     
     #
     # Resizing containers:
@@ -2223,7 +2224,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org77839c7"></a>
+<a id="orge80d3a7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2305,7 +2306,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org77839c7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge80d3a7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
