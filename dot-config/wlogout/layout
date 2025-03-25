@@ -1,36 +1,38 @@
 {
-    "label" : "lock",
-    "action" : "loginctl lock-session",
-    "text" : "Lock",
-    "keybind" : "l"
+"label" : "lock",
+"action" : "sway-lock-utils lock",
+"text" : "Lock(l)",
+"keybind" : "l"
 }
 {
-    "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
+"label" : "blank",
+"action" : "sway-lock-utils blank",
+"text" : "Blank(b)",
+"keybind" : "b"
+}
+
+{
+"label" : "logout",
+"action" : "sway-lock-utils logout",
+"text" : "Logout(e)",
+"keybind" : "e"
 }
 {
-    "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
-    "text" : "Logout",
-    "keybind" : "e"
+"label" : "suspend",
+"action" : "sway-lock-utils suspend",
+"text" : "Suspend(s)",
+"keybind" : "s"
+}
+
+{
+"label" : "reboot",
+"action" : "sway-lock-utils reboot",
+"text" : "Reboot(r)",
+"keybind" : "r"
 }
 {
-    "label" : "shutdown",
-    "action" : "systemctl poweroff",
-    "text" : "Shutdown",
-    "keybind" : "S"
-}
-{
-    "label" : "suspend",
-    "action" : "systemctl suspend",
-    "text" : "Suspend",
-    "keybind" : "s"
-}
-{
-    "label" : "reboot",
-    "action" : "systemctl reboot",
-    "text" : "Reboot",
-    "keybind" : "r"
+"label" : "shutdown",
+"action" : "sway-lock-utils shutdown",
+"text" : "Shutdown(S)",
+"keybind" : "S"
 }

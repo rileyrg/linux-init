@@ -861,9 +861,6 @@ Override in .profile.local
     
     bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
     
-    bindsym --release $mod+Control+b exec sway-blank
-    bindsym --release $mod+Control+L exec sway-lock
-    
     #
     # Resizing containers:
     #
@@ -2224,7 +2221,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb449ae6"></a>
+<a id="orgced3a5d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2306,7 +2303,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb449ae6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgced3a5d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2516,40 +2513,99 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 2.  layout config
 
         {
-            "label" : "lock",
-            "action" : "loginctl lock-session",
-            "text" : "Lock",
-            "keybind" : "l"
+        "label" : "lock",
+        "action" : "sway-lock-utils lock",
+        "text" : "Lock(l)",
+        "keybind" : "l"
         }
         {
-            "label" : "hibernate",
-            "action" : "systemctl hibernate",
-            "text" : "Hibernate",
-            "keybind" : "h"
+        "label" : "blank",
+        "action" : "sway-lock-utils blank",
+        "text" : "Blank(b)",
+        "keybind" : "b"
+        }
+        
+        {
+        "label" : "logout",
+        "action" : "sway-lock-utils logout",
+        "text" : "Logout(e)",
+        "keybind" : "e"
         }
         {
-            "label" : "logout",
-            "action" : "loginctl terminate-user $USER",
-            "text" : "Logout",
-            "keybind" : "e"
+        "label" : "suspend",
+        "action" : "sway-lock-utils suspend",
+        "text" : "Suspend(s)",
+        "keybind" : "s"
+        }
+        
+        {
+        "label" : "reboot",
+        "action" : "sway-lock-utils reboot",
+        "text" : "Reboot(r)",
+        "keybind" : "r"
         }
         {
-            "label" : "shutdown",
-            "action" : "systemctl poweroff",
-            "text" : "Shutdown",
-            "keybind" : "S"
+        "label" : "shutdown",
+        "action" : "sway-lock-utils shutdown",
+        "text" : "Shutdown(S)",
+        "keybind" : "S"
         }
-        {
-            "label" : "suspend",
-            "action" : "systemctl suspend",
-            "text" : "Suspend",
-            "keybind" : "s"
+
+3.  layout style
+
+        * {
+                background-image: none;
+                box-shadow: none;
         }
-        {
-            "label" : "reboot",
-            "action" : "systemctl reboot",
-            "text" : "Reboot",
-            "keybind" : "r"
+        
+        window {
+                background-color: rgba(12, 12, 12, 0.9);
+        }
+        
+        button {
+            border-radius: 0;
+            border-color: black;
+                text-decoration-color: #FFFFFF;
+            color: #FFFFFF;
+                background-color: #1E1E1E;
+                border-style: solid;
+                border-width: 1px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 25%;
+        }
+        
+        /* button:focus, button:active, button:hover { */
+        /* 	background-color: #3700B3; */
+        /* 	outline-style: none; */
+        /* } */
+        
+        #lock {
+            background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
+        }
+        
+        #blank {
+            background-image: image(url("blank.png"),url("blank.png"));
+        }
+        
+        #logout {
+            background-image: image(url("/usr/share/wlogout/icons/logout.png"), url("/usr/local/share/wlogout/icons/logout.png"));
+        }
+        
+        #suspend {
+            background-image: image(url("/usr/share/wlogout/icons/suspend.png"), url("/usr/local/share/wlogout/icons/suspend.png"));
+        }
+        
+        #hibernate {
+            background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+        }
+        
+        #shutdown {
+            background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+        }
+        
+        #reboot {
+            background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
         }
 
 
