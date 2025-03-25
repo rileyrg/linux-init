@@ -70,6 +70,9 @@
 !/dot-config/tmux
 !/dot-config/tmux/tmux.conf
 
+!/dot-config/wlogout
+!/dot-config/wlogout/*
+
 !/dot-config/wofi
 !/dot-config/wofi/config
 !/dot-config/wofi/style.css

@@ -2710,10 +2710,56 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   sway-oneterminal "wifi" "nmtui"  &>/dev/null
 #+end_src
 ** wayland utils
-*** ~/.config/mako/config
+*** mako notificiation
 #+begin_src conf :tangle "~/.config/mako/config"
 default-timeout=10000
 #+end_src
+*** wlogout
+**** readme
+#+begin_src  text :tangle "~/.config/wlogout/README"
+Layout maintained in linux-config.org
+https://github.com/ArtsyMacaw/wlogout/blob/master/layout
+#+end_src 
+
+**** layout config
+#+begin_src conf :tangle "~/.config/wlogout/layout"
+  {
+      "label" : "lock",
+      "action" : "loginctl lock-session",
+      "text" : "Lock",
+      "keybind" : "l"
+  }
+  {
+      "label" : "hibernate",
+      "action" : "systemctl hibernate",
+      "text" : "Hibernate",
+      "keybind" : "h"
+  }
+  {
+      "label" : "logout",
+      "action" : "loginctl terminate-user $USER",
+      "text" : "Logout",
+      "keybind" : "e"
+  }
+  {
+      "label" : "shutdown",
+      "action" : "systemctl poweroff",
+      "text" : "Shutdown",
+      "keybind" : "S"
+  }
+  {
+      "label" : "suspend",
+      "action" : "systemctl suspend",
+      "text" : "Suspend",
+      "keybind" : "s"
+  }
+  {
+      "label" : "reboot",
+      "action" : "systemctl reboot",
+      "text" : "Reboot",
+      "keybind" : "r"
+  }
+#+end_src 
 * Programming Related                                           :programming:
 ** clang-format
 clangd lsp formatting

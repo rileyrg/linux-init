@@ -2224,7 +2224,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge80d3a7"></a>
+<a id="orgb449ae6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2306,7 +2306,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge80d3a7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb449ae6).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2501,9 +2501,56 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 ## wayland utils
 
 
-### ~/.config/mako/config
+### mako notificiation
 
     default-timeout=10000
+
+
+### wlogout
+
+1.  readme
+
+        Layout maintained in linux-config.org
+        https://github.com/ArtsyMacaw/wlogout/blob/master/layout
+
+2.  layout config
+
+        {
+            "label" : "lock",
+            "action" : "loginctl lock-session",
+            "text" : "Lock",
+            "keybind" : "l"
+        }
+        {
+            "label" : "hibernate",
+            "action" : "systemctl hibernate",
+            "text" : "Hibernate",
+            "keybind" : "h"
+        }
+        {
+            "label" : "logout",
+            "action" : "loginctl terminate-user $USER",
+            "text" : "Logout",
+            "keybind" : "e"
+        }
+        {
+            "label" : "shutdown",
+            "action" : "systemctl poweroff",
+            "text" : "Shutdown",
+            "keybind" : "S"
+        }
+        {
+            "label" : "suspend",
+            "action" : "systemctl suspend",
+            "text" : "Suspend",
+            "keybind" : "s"
+        }
+        {
+            "label" : "reboot",
+            "action" : "systemctl reboot",
+            "text" : "Reboot",
+            "keybind" : "r"
+        }
 
 
 # Programming Related     :programming:
