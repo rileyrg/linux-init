@@ -12,7 +12,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/mru.vim'
-Plug 'habamax/vim-polar'
+Plug 'doums/darcula'
 " Plug 'ervandew/supertab'
 
 call plug#end()
@@ -48,5 +48,4 @@ set shortmess+=A
 set splitbelow
 set splitright
 
-set termguicolors
-colorscheme polar
+colorscheme darcula
