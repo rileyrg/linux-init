@@ -393,6 +393,7 @@ Directory is [here](.oh-my-zsh/).
         # Maintained in linux-config.org
         alias grep="grep -n --color"
         alias hg='history|grep'
+        alias vi='vim'
 
 2.  Functions ~/.config/zsh/oh-my-zsh/custom/functions.zsh
 
@@ -2221,7 +2222,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgced3a5d"></a>
+<a id="org085a6ca"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2303,7 +2304,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgced3a5d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org085a6ca).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
