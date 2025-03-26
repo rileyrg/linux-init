@@ -94,9 +94,12 @@
 !/DotFiles/.bash_profile
 !/DotFiles/.bash_profile.local.example
 !/DotFiles/.clang-format
+!/DotFiles/.gdbinit
+!/DotFiles/.ignore
+!/DotFiles/.lldbinit
 !/DotFiles/.mbsyncrc
 !/DotFiles/.profile
-!/DotFiles/.ignore
+!/DotFiles/.ripgreprc
 !/DotFiles/.syncrclone
 
 !/DotFiles/.syncrclone/crontab.intelnuc
@@ -110,10 +113,10 @@
 !/DotFiles/.syncrclone/gdrive-excludes.txt
 !/DotFiles/.syncrclone/gdrive-docs-config.py
 !/DotFiles/.syncrclone/hetzner-config.py
-!/DotFiles/.ripgreprc
+
+!/DotFiles/.vimrc
+
 !/DotFiles/.Xdefaults
-!/DotFiles/.gdbinit
-!/DotFiles/.lldbinit
 
 !/directories
 

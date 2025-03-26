@@ -728,6 +728,7 @@ this goes into my .profile
     Plug 'tpope/vim-fugitive'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'vim-scripts/mru.vim'
+    Plug 'habamax/vim-polar'
     " Plug 'ervandew/supertab'
     
     call plug#end()
@@ -762,6 +763,9 @@ this goes into my .profile
     set shortmess+=A
     set splitbelow
     set splitright
+    
+    set termguicolors
+    colorscheme polar
 
 
 # ripgrep
@@ -2222,7 +2226,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org085a6ca"></a>
+<a id="org1f6f47d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2304,7 +2308,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org085a6ca).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1f6f47d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
