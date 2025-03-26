@@ -674,6 +674,8 @@ this goes into my .profile
 
 ## sync-to
 
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
     set -x
     rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ~/cloud/ ${1:-richiehh}:cloud/
     set +x
@@ -681,8 +683,16 @@ this goes into my .profile
 
 ## sync-from
 
-    set -x 
-    rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ~/cloud/
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    set -x
+    cwd=$(pwd)
+    rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ${HOME}/cloud/
+    cd ${HOME}
+    ln -sf ${HOME}/cloud/homefiles/DotFiles/.* .
+    cd ${HOME}/.config
+    ln -sf ~/cloud/homefiles/dot-config/* .
+    cd ${cwd}
     set +x
 
 
@@ -2225,7 +2235,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org143322f"></a>
+<a id="org54adcd1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2307,7 +2317,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org143322f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org54adcd1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

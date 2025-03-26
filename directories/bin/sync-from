@@ -1,3 +1,11 @@
-set -x 
-rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ~/cloud/
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+set -x
+cwd=$(pwd)
+rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ${HOME}/cloud/
+cd ${HOME}
+ln -sf ${HOME}/cloud/homefiles/DotFiles/.* .
+cd ${HOME}/.config
+ln -sf ~/cloud/homefiles/dot-config/* .
+cd ${cwd}
 set +x
