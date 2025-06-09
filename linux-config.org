@@ -1433,7 +1433,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 
     bindsym $mod+Shift+f exec "sway-chrome"
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
-    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio.sh"
+    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
