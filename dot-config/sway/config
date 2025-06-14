@@ -254,6 +254,7 @@ assign [class="Code"] 3
 assign [class="calibre"] 5
 assign [class="Signal"] 8
 assign [class="jetbrains-studio"] 3
+assign [class="jetbrains-idea-ce"] 3
 assign [class="Hexchat"] 8
 assign [app_id="telegram"] 8
 assign [class="discord"] 8
@@ -271,6 +272,7 @@ bindsym $mod+Control+Print exec sway-screen-recorder
 bindsym $mod+Shift+f exec "sway-chrome"
 bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
 bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
+bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
 bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
 bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
 bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
