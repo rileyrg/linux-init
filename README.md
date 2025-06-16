@@ -587,8 +587,8 @@ I launch it from my **.profile**. see below.
         mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
         status=${batStats[0]}
         level=${batStats[1]}
-        if [ ${status} = "Discharging" ]; then
-            CRITICAL=FALSE
+        if [ "${status}" = "Discharging" ]; then
+                CRITICAL=FALSE
             if ((${level} <= ${BAT_POWER_SUSPEND_LEVEL})); then
                 if ((${level} <= ${BAT_POWER_SUSPEND_CRITICAL_LEVEL}));then
                     #if at a critical level then time to call it a day and suspend
@@ -2238,7 +2238,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org851b75e"></a>
+<a id="orgc8b4d50"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2320,7 +2320,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org851b75e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc8b4d50).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

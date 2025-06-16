@@ -28,8 +28,8 @@ while true;  do
     mapfile -t batStats< <(cat /sys/class/power_supply/BAT0/{status,capacity})
     status=${batStats[0]}
     level=${batStats[1]}
-    if [ ${status} = "Discharging" ]; then
-        CRITICAL=FALSE
+    if [ "${status}" = "Discharging" ]; then
+            CRITICAL=FALSE
         if ((${level} <= ${BAT_POWER_SUSPEND_LEVEL})); then
             if ((${level} <= ${BAT_POWER_SUSPEND_CRITICAL_LEVEL}));then
                 #if at a critical level then time to call it a day and suspend
