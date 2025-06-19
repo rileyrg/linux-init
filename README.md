@@ -2238,7 +2238,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc8b4d50"></a>
+<a id="org0633f28"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2320,7 +2320,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc8b4d50).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0633f28).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2495,7 +2495,7 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-     google-chrome --hide-crash-restore-bubble --new-window "$@"  &
+     google-chrome --hide-crash-restore-bubble --new-window --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"  &
 
 
 ### ~/bin/sway/sway-firefox
