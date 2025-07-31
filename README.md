@@ -1228,6 +1228,7 @@ $term is set to "sway-scratch-terminal
     assign [class="Signal"] 8
     assign [class="jetbrains-studio"] 3
     assign [class="jetbrains-idea-ce"] 3
+    assign [class="jetbrains-clion"] 3
     assign [class="Hexchat"] 8
     assign [app_id="telegram"] 8
     assign [class="discord"] 8
@@ -1253,6 +1254,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
+    bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
@@ -2238,7 +2240,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0633f28"></a>
+<a id="orgf930ff2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2320,7 +2322,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0633f28).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf930ff2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
