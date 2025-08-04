@@ -906,7 +906,6 @@ Override in .profile.local
     # Basics:
     #
     # Kill focused window
-    bindsym $mod+Shift+q kill
     bindsym $mod+q kill
     
     # Start your launcher
@@ -1229,6 +1228,7 @@ $term is set to "sway-scratch-terminal
     assign [class="jetbrains-studio"] 3
     assign [class="jetbrains-idea-ce"] 3
     assign [class="jetbrains-clion"] 3
+    assign [class="QtCreator"] 3
     assign [class="Hexchat"] 8
     assign [app_id="telegram"] 8
     assign [class="discord"] 8
@@ -1255,6 +1255,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
+    bindsym $mod+Shift+q exec sway-do-tool "QtCreator" "qtcreator"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
@@ -2123,7 +2124,7 @@ Load a host specific kanshi file if it exists
 
 ### ~/bin/sway/sway-lock-utils
 
-Just a gathering place of locky/suspendy type things&#x2026;
+Just a gathering place of locky/suspendy type things&hellip;
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -2240,7 +2241,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf930ff2"></a>
+<a id="org9a23b3c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2322,7 +2323,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf930ff2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9a23b3c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3020,7 +3021,7 @@ potentially need some gpg keys : not tangled
 
 ### keys     :crypt:
 
-&#x2013;&#x2014;BEGIN PGP MESSAGE&#x2013;&#x2014;
+&ndash;&mdash;BEGIN PGP MESSAGE&ndash;&mdash;
 hQEMA7IjL5SkHG4iAQgAnAMLgodgtOc1tsGz6mRqJbkJsM+R+5MTPdsOdml6xMoL
 xFZjkYTDUGa3G6PsQHpbJ/tjD+6B4qmZIymq1EReWPtrepGGN6DNG8hLPVNnQ+9N
 WAFaK1o+gzzfsw9XuptT5Um47k2G3zm019mGKDe0OwYJJ/r/DTHpz9yI9nj5lVdq
@@ -3033,7 +3034,7 @@ g44XzdKHAV0o0Q/ZPPnJU4dlKc9nRkNS3MzpORmUGAT1/FSwt+q7uzpuBTZ1crGl
 P/fo8sDBBu2QBoL2+gQZ11l7uSZMjTCR/8msBO5LbLDmyOUposbv6va1dzPN898F
 ZsaqN9VNjV2b75kQiPJsZaoekClV7yOFc10/VRKBFD1MlspEovrIpReI9by6azIU
 =nb0T
-&#x2013;&#x2014;END PGP MESSAGE&#x2013;&#x2014;
+&ndash;&mdash;END PGP MESSAGE&ndash;&mdash;
 
 
 # Email Related
