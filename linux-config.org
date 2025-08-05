@@ -1438,7 +1438,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
-    bindsym $mod+Shift+q exec sway-do-tool "QtCreator" "qtcreator"
+    bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"

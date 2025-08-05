@@ -1255,7 +1255,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
-    bindsym $mod+Shift+q exec sway-do-tool "QtCreator" "qtcreator"
+    bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
@@ -2241,7 +2241,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9a23b3c"></a>
+<a id="orge24fb4d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2323,7 +2323,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9a23b3c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge24fb4d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
