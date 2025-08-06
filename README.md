@@ -1030,6 +1030,9 @@ Override in .profile.local
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+    
+    #float xterm (primarily for debugging qtconsole)
+    for_window [class="XTerm"] floating enable
 
 
 ### host specific     :scale:scaling:
@@ -2241,7 +2244,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org26ba507"></a>
+<a id="org380a42b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2323,7 +2326,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org26ba507).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org380a42b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

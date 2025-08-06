@@ -1029,7 +1029,7 @@ Override in .profile.local
   bar {
   swaybar_command waybar
   }
-  
+
   bindsym $mod+b exec killall -SIGUSR1 waybar
 
   set $mode_system System (b) blank (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
@@ -1203,6 +1203,10 @@ Override in .profile.local
   # Show the next scratchpad window or hide the focused scratchpad window.
   # If there are multiple scratchpad windows, this command cycles through them.
   bindsym $mod+minus scratchpad show
+
+  #float xterm (primarily for debugging qtconsole)
+  for_window [class="XTerm"] floating enable
+
 
 #+end_src
 
