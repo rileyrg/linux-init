@@ -3837,6 +3837,25 @@ https://github.com/Jwink3101/syncrclone
   OpenAudible/books/
 #+end_src
 
+** cloud rsync between machines
+#+begin_src conf :tangle ~/cloud/.rsync-ignore
+  .syncrclone/backups/
+  .syncrclone/logs/
+  .syncrclone/*.json.xz
+
+  .local/
+
+  # Documents/Calibre Library/
+  # Android/Sdk/
+
+  Documents/Personal/email/
+
+  projects/QT/*/build
+  CMakeLists.txt.user
+  CMakeLists.txt.user.*
+#+end_src
+
+
 ** Google Translate Helpers
 #+begin_src bash
   sudo apt install translate-shell

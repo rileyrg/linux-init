@@ -2241,7 +2241,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge24fb4d"></a>
+<a id="org26ba507"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2323,7 +2323,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge24fb4d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org26ba507).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3654,6 +3654,24 @@ update sw
     Documents/.syncrclone/
     OpenAudible/aax/
     OpenAudible/books/
+
+
+## cloud rsync between machines
+
+    .syncrclone/backups/
+    .syncrclone/logs/
+    .syncrclone/*.json.xz
+    
+    .local/
+    
+    # Documents/Calibre Library/
+    # Android/Sdk/
+    
+    Documents/Personal/email/
+    
+    projects/QT/*/build
+    CMakeLists.txt.user
+    CMakeLists.txt.user.*
 
 
 ## Google Translate Helpers
