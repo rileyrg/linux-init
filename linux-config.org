@@ -119,6 +119,10 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   Xft.rgba: rgb
   Xft.lcdfilter: lcddefault
 
+  xterm*background: black
+  xterm*foreground: white
+
+
   ! Fonts {{{
   #ifdef SRVR_t460
   Xft.dpi:       104

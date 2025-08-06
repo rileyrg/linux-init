@@ -9,6 +9,10 @@ Xft.dpi: 96
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 
+xterm*background: black
+xterm*foreground: white
+
+
 ! Fonts {{{
 #ifdef SRVR_t460
 Xft.dpi:       104
