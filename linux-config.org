@@ -3698,12 +3698,10 @@ update sw
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   string="$(uname -r)"
-  if [[ $string == *"arch"* ]]; then
-      if command -v "pikaur"; then
-          pikaur -Syu
-      else
-          sudo pacman -Syu
-      fi
+  if command -v "pikaur"; then
+      pikaur -Syu
+  elif command -v "pacman"; then
+      sudo pacman -Syu
   else
       export DEBIAN_FRONTEND=noninteractive
       sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y

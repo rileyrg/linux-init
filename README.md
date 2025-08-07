@@ -2248,7 +2248,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgce89e0f"></a>
+<a id="orgf8354b7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2330,7 +2330,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgce89e0f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf8354b7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3556,12 +3556,10 @@ update sw
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     string="$(uname -r)"
-    if [[ $string == *"arch"* ]]; then
-        if command -v "pikaur"; then
-            pikaur -Syu
-        else
-            sudo pacman -Syu
-        fi
+    if command -v "pikaur"; then
+        pikaur -Syu
+    elif command -v "pacman"; then
+        sudo pacman -Syu
     else
         export DEBIAN_FRONTEND=noninteractive
         sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
