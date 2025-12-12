@@ -1778,7 +1778,7 @@ $term is set to "sway-scratch-terminal
         #Maintained in linux-config.org
         if command -v iwgtk 2>&1 >/dev/null
         then
-            pgrep iwgtk || iwgtk -i &
+            pgrep iwgtk || (sleep 5 && iwgtk -i) &
         else
             pgrep nm-applet || nm-applet &
         fi
@@ -2248,7 +2248,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf8354b7"></a>
+<a id="orgddd4504"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2330,7 +2330,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf8354b7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgddd4504).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
