@@ -2065,7 +2065,7 @@ Load a host specific kanshi file if it exists
 3.  config-t14s
 
         profile home-dp{
-        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+        output 'ASUSTek COMPUTER INC AS' mode 2560x1440 position 0,0
         output 'Synaptics Inc Non-PnP 0x00BC614E' mode 1920x1080 position 2560,0
         output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
         }
@@ -2077,6 +2077,11 @@ Load a host specific kanshi file if it exists
         profile home-no-lap{
         output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+        }
+    
+        profile home-dp{
+        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0
+        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0
         }
 
 4.  config-xmgneo
@@ -2095,18 +2100,7 @@ Load a host specific kanshi file if it exists
         output DP-1  enable mode 2560x1440 position 0,0
         }
 
-5.  config-thinkpadt460
-
-        profile {
-        output eDP-1 enable mode 1366×768   position 0,0
-        }
-        
-        profile {
-        output eDP-1 enable mode 1366×768  position 1920,0
-        output DP-4 enable mode 1920x1080 position 0,0
-        }
-
-6.  config-x1c6
+5.  config-x1c6
 
         profile {
         output eDP-1 enable mode 1920x1080  position 0,0
@@ -2122,7 +2116,7 @@ Load a host specific kanshi file if it exists
         output HDMI-A-1 enable mode 2560x1440 position 0,0
         }
 
-7.  config-x13amdg4
+6.  config-x13amdg4
 
         profile {
         output eDP-1 enable mode 1920x1200  position 0,0
@@ -2248,7 +2242,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgddd4504"></a>
+<a id="orge0339e9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2330,7 +2324,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgddd4504).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge0339e9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -2256,9 +2256,9 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 #+end_src
 
 **** config-t14s
-#+begin_src conf :tangle "dot-config/kanshi/config-t14s"
+#+begin_src conf :tangle "dot-config/kanshi/config-mercury"
   profile home-dp{
-  output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
+  output 'ASUSTek COMPUTER INC AS' mode 2560x1440 position 0,0
   output 'Synaptics Inc Non-PnP 0x00BC614E' mode 1920x1080 position 2560,0
   output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
   }
@@ -2270,6 +2270,15 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
   profile home-no-lap{
   output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
   output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
+  }
+#+end_src
+#+begin_src conf :tangle "dot-config/kanshi/config-hercules"
+  profile home-dp2{
+  output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
+  output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1.3
+  }
+  profile home-dpL{
+  output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
   }
 #+end_src
 **** config-xmgneo
@@ -2288,17 +2297,6 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
   output DP-1  enable mode 2560x1440 position 0,0
   }
 
-#+end_src
-**** config-thinkpadt460
-#+begin_src conf :tangle "dot-config/kanshi/config-thinkpadt460"
-  profile {
-  output eDP-1 enable mode 1366×768   position 0,0
-  }
-
-  profile {
-  output eDP-1 enable mode 1366×768  position 1920,0
-  output DP-4 enable mode 1920x1080 position 0,0
-  }
 #+end_src
 **** config-x1c6
 #+begin_src conf :tangle "dot-config/kanshi/config-x1c6"
