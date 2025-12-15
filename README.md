@@ -858,7 +858,11 @@ Override in .profile.local
     mouse_warping output
     
     bar {
-    swaybar_command waybar
+      swaybar_command waybar
+      position top
+      hidden_state hide
+      mode hide
+      modifier Mod4  
     }
     
     bindsym $mod+b exec killall -SIGUSR1 waybar
@@ -1285,11 +1289,11 @@ $term is set to "sway-scratch-terminal
     #   exec mako
     #  exec bluetooth-headphone-controls
       exec sway-idle
-      exec sway-kanshi
+      exec sway-kanshi 
       exec blueman-applet &>/dev/null
       exec waybar-network-applet
       # exec gpg-cache
-      exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sway-workspace-position; swaymsg workspace 1; '
+      exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 
 
 ## waybar config
@@ -1301,8 +1305,9 @@ $term is set to "sway-scratch-terminal
         "layer": "top",
         "mode": "hide",
         "position": "top",
-        "height": 22,
+        "height": 16,
         "width": 0,
+        "ipc": true,
     
         "modules-left": [
             "sway/workspaces",
@@ -1520,17 +1525,16 @@ $term is set to "sway-scratch-terminal
 
 ### ~/.config/waybar/style.css
 
-    *{
+    *
+    {
+        font-size: 18pt;
+    }
+    #waybar {
         border: none;
-        background: rgba(28, 28, 28, 0.6);
         border-radius: 0;
         font-family: "JetBrainsMono Nerd Font";
-        font-size: 10pt;
         min-height: 0;
-    }
-    
-    #waybar {
-        background: rgba(28, 28, 28, 0.6);
+        background-color: rgba(28, 28, 28, 1);
         color: #e4e4e4;
     }
     
@@ -1550,7 +1554,7 @@ $term is set to "sway-scratch-terminal
         border-bottom-left-radius: 10px;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
-        background: rgba(28, 28, 28, 0.6);
+        background-color: rgba(28, 28, 28, 1);
     }
     
     #workspaces button {
@@ -2043,11 +2047,13 @@ Load a host specific kanshi file if it exists
     config="${HOME}/.config/kanshi/config-$(hostname)"
     if [ -f  "$config" ]; then
         echo  "kanshi -c $config"
-        kanshi -c "$config"
+        kanshi -c "$config" &
     else
         echo "kanshi default config"
-        kanshi
+        kanshi &
     fi
+    sleep 1
+    sway-workspace-position
 
 1.  config
 
@@ -2079,15 +2085,24 @@ Load a host specific kanshi file if it exists
         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
         }
     
-        profile hercules-dp{
-        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
-        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1.3
-        }
         profile hercules-dpL{
-        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
+        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
+        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
+        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
         }
         profile hercules-dpR{
-        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.3
+        #output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.4
+        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1
+        #output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 0,0 scale 1
+        }
+        profile hercules-dp{
+        # note that position of the right is set at res of first / scale factor  - needed for mouse to span screens
+        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
+        # output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 2742,0 scale 1.4
+         output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
+         output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1
+        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
+        # output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 2560,0 scale 1
         }
 
 4.  config-xmgneo
@@ -2248,7 +2263,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5bb4b64"></a>
+<a id="org9078ce0"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2330,7 +2345,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5bb4b64).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9078ce0).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

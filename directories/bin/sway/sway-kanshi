@@ -5,8 +5,10 @@ pkill kanshi
 config="${HOME}/.config/kanshi/config-$(hostname)"
 if [ -f  "$config" ]; then
     echo  "kanshi -c $config"
-    kanshi -c "$config"
+    kanshi -c "$config" &
 else
     echo "kanshi default config"
-    kanshi
+    kanshi &
 fi
+sleep 1
+sway-workspace-position

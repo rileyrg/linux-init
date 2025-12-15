@@ -24,7 +24,11 @@ font pango: "JetBrainsMono Nerd Font 6"
 mouse_warping output
 
 bar {
-swaybar_command waybar
+  swaybar_command waybar
+  position top
+  hidden_state hide
+  mode hide
+  modifier Mod4  
 }
 
 bindsym $mod+b exec killall -SIGUSR1 waybar
@@ -295,11 +299,11 @@ bindsym $mod+Control+shift+u exec sway-workspace-populate
 #   exec mako
 #  exec bluetooth-headphone-controls
   exec sway-idle
-  exec sway-kanshi
+  exec sway-kanshi 
   exec blueman-applet &>/dev/null
   exec waybar-network-applet
   # exec gpg-cache
-  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed"); sway-workspace-position; swaymsg workspace 1; '
+  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3

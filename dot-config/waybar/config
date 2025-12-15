@@ -2,8 +2,9 @@
     "layer": "top",
     "mode": "hide",
     "position": "top",
-    "height": 22,
+    "height": 16,
     "width": 0,
+    "ipc": true,
     
     "modules-left": [
         "sway/workspaces",
