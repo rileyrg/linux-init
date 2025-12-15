@@ -1,7 +1,10 @@
-profile home-dp2{
+profile hercules-dp{
 output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
 output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1.3
 }
-profile home-dpL{
+profile hercules-dpL{
 output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
+}
+profile hercules-dpR{
+output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.3
 }

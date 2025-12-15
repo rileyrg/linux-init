@@ -2079,9 +2079,15 @@ Load a host specific kanshi file if it exists
         output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
         }
     
-        profile home-dp{
-        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0
-        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0
+        profile hercules-dp{
+        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
+        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1.3
+        }
+        profile hercules-dpL{
+        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.3
+        }
+        profile hercules-dpR{
+        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.3
         }
 
 4.  config-xmgneo
@@ -2116,7 +2122,7 @@ Load a host specific kanshi file if it exists
         output HDMI-A-1 enable mode 2560x1440 position 0,0
         }
 
-6.  config-x13amdg4
+6.  config-x13
 
         profile {
         output eDP-1 enable mode 1920x1200  position 0,0
@@ -2242,7 +2248,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge0339e9"></a>
+<a id="org5bb4b64"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2324,7 +2330,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge0339e9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5bb4b64).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
