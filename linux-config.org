@@ -3731,7 +3731,8 @@ vpn [on|off]
   if command -v "mullvad"; then
       case "$1" in
           off) mullvad disconnect && echo "vpn disconnected";;
-          ,*) mullvad connect && echo "vpn connected"
+          on) mullvad connect && echo "vpn connected";;
+          ,*) mullvad status
       esac
   else
       echo "mullvad not installed"
