@@ -2731,7 +2731,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-chrome"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-   google-chrome --hide-crash-restore-bubble --new-window --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"  &
+   google-chrome "$@"  &
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:
