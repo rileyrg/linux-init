@@ -2263,7 +2263,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9078ce0"></a>
+<a id="orgdc5b3a2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2345,7 +2345,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9078ce0).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgdc5b3a2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3578,6 +3578,22 @@ update sw
     else
         export DEBIAN_FRONTEND=noninteractive
         sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
+    fi
+
+
+## ~/bin/vpn
+
+vpn [on|off]
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if command -v "mullvad"; then
+        case "$1" in
+            off) mullvad disconnect && echo "vpn disconnected";;
+            *) mullvad connect && echo "vpn connected"
+        esac
+    else
+        echo "mullvad not installed"
     fi
 
 

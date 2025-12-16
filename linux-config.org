@@ -3723,6 +3723,22 @@ update sw
       sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
   fi
 #+end_src
+** ~/bin/vpn
+vpn [on|off]
+#+begin_src bash :tangle "~/bin/vpn"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  if command -v "mullvad"; then
+      case "$1" in
+          off) mullvad disconnect && echo "vpn disconnected";;
+          ,*) mullvad connect && echo "vpn connected"
+      esac
+  else
+      echo "mullvad not installed"
+  fi
+#+end_src
+
+
 ** rclone
 https://rclone.org/
 *** CANCELLED ~/bin/rclone-gdrive-sync                            :CANCELLED:
