@@ -47,7 +47,7 @@ bindsym Return mode "default"
 bindsym Escape mode "default"
 }
 
-bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
+bindsym Control+Alt+Delete exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
 
 #
 # Resizing containers:

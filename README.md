@@ -881,7 +881,7 @@ Override in .profile.local
     bindsym Escape mode "default"
     }
     
-    bindsym $mod+Control+q exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
+    bindsym Control+Alt+Delete exec command -v wlogout && wlogout || swaymsg 'mode "$mode_system"'
     
     #
     # Resizing containers:
@@ -2263,7 +2263,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org234dccb"></a>
+<a id="orgbc5abb4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2345,7 +2345,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org234dccb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgbc5abb4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
