@@ -681,7 +681,7 @@ this goes into my .profile
     #!/usr/bin/env bash
     #Maintained in linux-config.org
     set -x
-     unison  -auto -silent -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer cloud/ cloud/ ssh://${1:-server}/cloud/
+     unison  -auto -silent -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer newer cloud/ ssh://${1:-server}/cloud/
     set +x
 
 
@@ -2272,7 +2272,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org64c9d24"></a>
+<a id="org40c00cd"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2354,7 +2354,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org64c9d24).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org40c00cd).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
