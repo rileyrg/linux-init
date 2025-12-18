@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #Maintained in linux-config.org
 set -x
- unison  -auto -silent -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer newer cloud/ ssh://${1:-server}/cloud/
+ unison  -auto -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer newer cloud/ ssh://${1:-server}/cloud/
 set +x
