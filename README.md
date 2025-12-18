@@ -55,8 +55,7 @@ NB - NOT Exported as lots of things want to update it
     Xft.lcdfilter: lcddefault
     
     xterm*background: black
-    xterm*foreground: white
-    
+    xxterm*foreground: white
     
     ! Fonts {{{
     #ifdef SRVR_t460
@@ -78,6 +77,9 @@ NB - NOT Exported as lots of things want to update it
     Xft.dpi:       96
     #endif
     #ifdef SRVR_xmgneo
+    Xft.dpi:       188
+    #endif
+    #ifdef SRVR_hercules
     Xft.dpi:       188
     #endif
     ! }}}
@@ -2272,7 +2274,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org407df75"></a>
+<a id="orgd7a9eb4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2354,7 +2356,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org407df75).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd7a9eb4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
