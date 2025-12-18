@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #Maintained in linux-config.org
- [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" $* || kitty $*
+[ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" $* || kitty $*
