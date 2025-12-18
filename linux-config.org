@@ -1029,7 +1029,7 @@ Override in .profile.local
   set $right l
 
 
-  set $term 'kitty'
+  set $term 'sway-kitty'
   set $menu 'sway-launcher'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current '
@@ -1309,7 +1309,7 @@ $term is set to "sway-scratch-terminal
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
+  swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && sway-kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
 #+end_src
 *** navigation                                  :navigation
 #+begin_src conf
@@ -1351,7 +1351,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   # Maintained in linux-config.org
   dynamic_lines=true
   gtk_dark=true
-  terminal=kitty
+  terminal=sway-kitty
 #+end_src
 ***** ~/.config/wofi/style.css
 #+begin_src css :tangle ~/.config/wofi/style.css
@@ -1470,8 +1470,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
-    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && sway-kitty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
@@ -2257,6 +2257,12 @@ Load a host specific kanshi file if it exists
   sleep 1
   sway-workspace-position
 #+end_src
+*** ~/bin/sway/sway-kitty
+#+begin_src bash :tangle "~/bin/sway/sway-kitty"
+  #!/usr/bin/env bash
+  #Maintained in linux-config.org
+   [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" $* || kitty $*
+#+end_src
 **** config
 #+begin_src conf :tangle "dot-config/kanshi/config"
   profile {
@@ -2736,6 +2742,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
   # Maintained in linux-config.org
   MOZ_ENABLE_WAYLAND=1 firefox --name=wwwemail --new-window "https://www.gmail.com" &
 #+end_src
+
 *** ~/bin/sway/sway-chrome
 :PROPERTIES:
 :END:
@@ -4025,6 +4032,7 @@ fi
   export _JAVA_AWT_WM_NONREPARENTING=1
   pgrep emacs > /dev/null || (emacs --daemon="general" > /dev/null 2>&1 & )
   [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
+
 #+end_src
 
 ** sway config

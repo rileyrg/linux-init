@@ -11,7 +11,7 @@ set $up k
 set $right l
 
 
-set $term 'kitty'
+set $term 'sway-kitty'
 set $menu 'sway-launcher'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current '
@@ -291,8 +291,8 @@ bindsym $mod+Control+Shift+d exec sway-screen-menu
 bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
 bindsym $mod+Control+p exec sway-htop
 bindsym $mod+Control+Shift+p exec htop-regexp
-bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
-bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
+bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && sway-kitty
+bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
 bindsym $mod+Control+w exec sway-workspace-position
 bindsym $mod+Control+shift+u exec sway-workspace-populate
 

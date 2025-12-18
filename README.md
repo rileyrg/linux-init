@@ -856,7 +856,7 @@ Override in .profile.local
     set $right l
     
     
-    set $term 'kitty'
+    set $term 'sway-kitty'
     set $menu 'sway-launcher'
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current '
@@ -1119,7 +1119,7 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
+        swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && sway-kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
 
 
 ### navigation                                  :navigation
@@ -1164,7 +1164,7 @@ $term is set to "sway-scratch-terminal
             # Maintained in linux-config.org
             dynamic_lines=true
             gtk_dark=true
-            terminal=kitty
+            terminal=sway-kitty
     
     5.  ~/.config/wofi/style.css
     
@@ -1286,8 +1286,8 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && kitty
-    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && kitty tmux new
+    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && sway-kitty
+    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 
@@ -2066,6 +2066,13 @@ Load a host specific kanshi file if it exists
     sleep 1
     sway-workspace-position
 
+
+### ~/bin/sway/sway-kitty
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+     [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" $* || kitty $*
+
 1.  config
 
         profile {
@@ -2274,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd7a9eb4"></a>
+<a id="org1f780f0"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2356,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd7a9eb4).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1f780f0).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

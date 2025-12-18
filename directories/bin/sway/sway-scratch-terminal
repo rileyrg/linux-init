@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #Maintained in linux-config.org
-swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
+swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && sway-kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
