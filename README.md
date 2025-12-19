@@ -2281,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgacba68c"></a>
+<a id="org75aeee4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgacba68c).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org75aeee4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2735,8 +2735,9 @@ clangd lsp formatting
           - bugprone-*
           - cppcoreguidelines-*
         Remove:
-          - readability-magic-numbers
           - cppcoreguidelines-avoid-magic-numbers
+          - modernize-use-trailing-*
+          - readability-magic-numbers
           - readability-identifier-length
     
         FastCheckFilter: None  # Loose, Strict, None
