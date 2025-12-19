@@ -8,6 +8,9 @@ InlayHints:
   DeducedTypes: true
   DefaultArguments: false
   TypeNameLimit: 24
+
+CompileFlags:
+  Add: [-Wunused-variable]
   
 Diagnostics:
   UnusedIncludes: Strict
@@ -20,7 +23,9 @@ Diagnostics:
       - performance-*
       - bugprone-*
       - cppcoreguidelines-*
+      - clang-analyzer-*
     Remove:
+      - cppcoreguidelines-owning-memory
       - cppcoreguidelines-avoid-magic-numbers
       - modernize-use-trailing-*
       - readability-magic-numbers
