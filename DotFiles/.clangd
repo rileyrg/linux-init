@@ -1,0 +1,16 @@
+# Maintained in linux-config.org
+
+# clangd configuration : https://clangd.llvm.org/config.html
+CompileFlags:
+    # directory to search for compilation database.
+    CompilationDatabase: build.debug, build/debug, build
+
+    # https://github.com/clangd/clangd/issues/662
+    Add: -Wno-unknown-warning-option
+
+    # Remove: [-m*, -f*]
+
+Diagnostics:
+    ClangTidy:
+        # https://github.com/llvm/llvm-project/issues/109367
+        Remove: boost-use-ranges

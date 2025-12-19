@@ -94,6 +94,8 @@
 !/DotFiles/.bash_profile
 !/DotFiles/.bash_profile.local.example
 !/DotFiles/.clang-format
+!/DotFiles/.clangd
+!/DotFiles/.clang-tidy
 !/DotFiles/.gdbinit
 !/DotFiles/.ignore
 !/DotFiles/.lldbinit
