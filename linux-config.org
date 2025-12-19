@@ -2910,64 +2910,37 @@ https://docs.flutter.dev/get-started/install/linux
 #+begin_src bash :tangle "DotFiles/.profile"
   export PATH="${HOME}"/bin/llvm:"${HOME}"/bin/llvm/build/bin:"$PATH"
 #+end_src
-*** clang-tidy
-#+begin_src conf :tangle "DotFiles/.clang-tidy"
-  # Maintained in linux-config.org
-  ---
-  Checks: "*,
-          -abseil-*,
-          -altera-*,
-          -android-*,
-          -fuchsia-*,
-          -google-*,
-          -llvm*,
-          -zircon-*,
-          -modernize-use-trailing-return-type,
-          -readability-else-after-return,
-          -readability-static-accessed-through-instance,
-          -readability-avoid-const-params-in-decls,
-          -cppcoreguidelines-non-private-member-variables-in-classes,
-          -misc-non-private-member-variables-in-classes,
-          -misc-no-recursion,
-          -misc-use-anonymous-namespace,
-          -misc-use-internal-linkage
-          -cplusplus*,
-          -*-identifier-length,
-          -*-magic-numbers,
-          -*-const-or-ref-data-members,
-  "
-  WarningsAsErrors: ''
-  HeaderFilterRegex: ''
-  FormatStyle:     none
-
-  CheckOptions:
-    - key: readability-identifier-length.IgnoredVariableNames
-      value: 'x|y|z'
-    - key: readability-identifier-length.IgnoredParameterNames
-      value: 'x|y|z'
-    - key: readability-function-cognitive-complexity.IgnoreMacros
-      value: true
-      
-#+end_src
 *** clangd
 #+begin_src conf :tangle "DotFiles/.clangd"
   # Maintained in linux-config.org
-
-  # clangd configuration : https://clangd.llvm.org/config.html
-  CompileFlags:
-      # directory to search for compilation database.
-      CompilationDatabase: build.debug, build/debug, build
-
-      # https://github.com/clangd/clangd/issues/662
-      Add: -Wno-unknown-warning-option
-
-      # Remove: [-m*, -f*]
-
+  # https://clangd.llvm.org/config#files
+  InlayHints:
+    BlockEnd: false
+    Designators: true
+    Enabled: true
+    ParameterNames: true
+    DeducedTypes: true
+    DefaultArguments: false
+    TypeNameLimit: 24
+    
   Diagnostics:
-      ClangTidy:
-          # https://github.com/llvm/llvm-project/issues/109367
-          Remove: boost-use-ranges
-          
+    UnusedIncludes: Strict
+
+    ClangTidy:
+      # https://clang.llvm.org/extra/clang-tidy/checks/list.html
+      Add:
+        - readability-*
+        - modernize-*
+        - performance-*
+        - bugprone-*
+        - cppcoreguidelines-*
+      Remove:
+        - readability-magic-numbers
+        - cppcoreguidelines-avoid-magic-numbers
+        - readability-identifier-length
+        
+      FastCheckFilter: None  # Loose, Strict, None
+      
 #+end_src
 *** lldb                                                               :lldb:
 **** ~/.lldbinit

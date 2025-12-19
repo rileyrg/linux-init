@@ -2281,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf5f01e6"></a>
+<a id="orgacba68c"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf5f01e6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgacba68c).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2710,63 +2710,36 @@ clangd lsp formatting
     export PATH="${HOME}"/bin/llvm:"${HOME}"/bin/llvm/build/bin:"$PATH"
 
 
-### clang-tidy
-
-    # Maintained in linux-config.org
-    ---
-    Checks: "*,
-            -abseil-*,
-            -altera-*,
-            -android-*,
-            -fuchsia-*,
-            -google-*,
-            -llvm*,
-            -zircon-*,
-            -modernize-use-trailing-return-type,
-            -readability-else-after-return,
-            -readability-static-accessed-through-instance,
-            -readability-avoid-const-params-in-decls,
-            -cppcoreguidelines-non-private-member-variables-in-classes,
-            -misc-non-private-member-variables-in-classes,
-            -misc-no-recursion,
-            -misc-use-anonymous-namespace,
-            -misc-use-internal-linkage
-            -cplusplus*,
-            -*-identifier-length,
-            -*-magic-numbers,
-            -*-const-or-ref-data-members,
-    "
-    WarningsAsErrors: ''
-    HeaderFilterRegex: ''
-    FormatStyle:     none
-    
-    CheckOptions:
-      - key: readability-identifier-length.IgnoredVariableNames
-        value: 'x|y|z'
-      - key: readability-identifier-length.IgnoredParameterNames
-        value: 'x|y|z'
-      - key: readability-function-cognitive-complexity.IgnoreMacros
-        value: true
-
-
 ### clangd
 
     # Maintained in linux-config.org
-    
-    # clangd configuration : https://clangd.llvm.org/config.html
-    CompileFlags:
-        # directory to search for compilation database.
-        CompilationDatabase: build.debug, build/debug, build
-    
-        # https://github.com/clangd/clangd/issues/662
-        Add: -Wno-unknown-warning-option
-    
-        # Remove: [-m*, -f*]
+    # https://clangd.llvm.org/config#files
+    InlayHints:
+      BlockEnd: false
+      Designators: true
+      Enabled: true
+      ParameterNames: true
+      DeducedTypes: true
+      DefaultArguments: false
+      TypeNameLimit: 24
     
     Diagnostics:
-        ClangTidy:
-            # https://github.com/llvm/llvm-project/issues/109367
-            Remove: boost-use-ranges
+      UnusedIncludes: Strict
+    
+      ClangTidy:
+        # https://clang.llvm.org/extra/clang-tidy/checks/list.html
+        Add:
+          - readability-*
+          - modernize-*
+          - performance-*
+          - bugprone-*
+          - cppcoreguidelines-*
+        Remove:
+          - readability-magic-numbers
+          - cppcoreguidelines-avoid-magic-numbers
+          - readability-identifier-length
+    
+        FastCheckFilter: None  # Loose, Strict, None
 
 
 ### lldb     :lldb:
