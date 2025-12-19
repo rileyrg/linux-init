@@ -2261,7 +2261,7 @@ Load a host specific kanshi file if it exists
 #+begin_src bash :tangle "~/bin/sway/sway-kitty"
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" $* || kitty $*
+  [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" "$@" || kitty "$@"
 #+end_src
 **** config
 #+begin_src conf :tangle "dot-config/kanshi/config"
@@ -2749,7 +2749,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 #+begin_src bash :tangle "~/bin/sway/sway-chrome"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-   google-chrome "$@"  &
+   google-chrome --hide-crash-restore-bubble --new-window --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"  &
 #+end_src
 *** ~/bin/sway/sway-firefox
 :PROPERTIES:
