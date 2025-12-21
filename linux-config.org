@@ -745,7 +745,7 @@ this goes into my .profile
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   set -x
-   unison  -auto -terse -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+   unison  -auto -terse -ignore 'Name {thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
   set +x
 #+end_src 
 
@@ -4068,7 +4068,6 @@ fi
 #+begin_src bash :tangle "DotFiles/.profile"
   # fix for java apps in sway
   export _JAVA_AWT_WM_NONREPARENTING=1
-  pgrep emacs > /dev/null || (emacs --daemon="general" > /dev/null 2>&1 & )
   [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
 
 #+end_src

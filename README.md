@@ -683,7 +683,7 @@ this goes into my .profile
     #!/usr/bin/env bash
     #Maintained in linux-config.org
     set -x
-     unison  -auto -terse -ignore 'Name {.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+     unison  -auto -terse -ignore 'Name {thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
     set +x
 
 
@@ -2281,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf2f75f9"></a>
+<a id="orgab59fa1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf2f75f9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgab59fa1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3894,7 +3894,6 @@ out of date
 
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
-    pgrep emacs > /dev/null || (emacs --daemon="general" > /dev/null 2>&1 & )
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
 
 
