@@ -1999,7 +1999,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle ~/bin/sway/waybar-power-draw
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
+  [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 #+end_src 
 
 **** ~/bin/sway/waybar-weather-json

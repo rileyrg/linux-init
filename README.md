@@ -1802,7 +1802,7 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
-        awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
+        [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
 8.  ~/bin/sway/waybar-weather-json
 
@@ -2281,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgab59fa1"></a>
+<a id="orge5b8996"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgab59fa1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge5b8996).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
