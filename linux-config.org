@@ -1185,7 +1185,7 @@ Override in .profile.local
   bindsym $mod+control+down move container to output down; focus output down;
   bindsym $mod+control+up move container to output up; focus output up;
 
-  bindsym $mod+Control+m exec sway-display-swap
+  bindsym $mod+m exec sway-display-swap
   bindsym $mod+Tab workspace back_and_forth
 
   #
@@ -1463,9 +1463,9 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
-    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
-    bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
+    bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
+    bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
+    bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop

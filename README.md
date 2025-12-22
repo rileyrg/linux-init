@@ -1012,7 +1012,7 @@ Override in .profile.local
     bindsym $mod+control+down move container to output down; focus output down;
     bindsym $mod+control+up move container to output up; focus output up;
     
-    bindsym $mod+Control+m exec sway-display-swap
+    bindsym $mod+m exec sway-display-swap
     bindsym $mod+Tab workspace back_and_forth
     
     #
@@ -1279,9 +1279,9 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
     bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
-    bindsym $mod+Control+i exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
-    bindsym $mod+Control+d exec sway-do-tool "Emacs-dired" || emacsclient -s "dired" -n -c  && sleep 0.5  && sway-do-tool "Emacs-dired"
-    bindsym $mod+Control+e exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
+    bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
+    bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
+    bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
     bindsym $mod+Control+Shift+d exec sway-screen-menu
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
@@ -2281,7 +2281,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge5b8996"></a>
+<a id="org59e69de"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge5b8996).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org59e69de).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
