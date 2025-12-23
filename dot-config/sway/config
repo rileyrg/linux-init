@@ -30,8 +30,7 @@ mouse_warping output
 bar {
 swaybar_command waybar
 position top
-hidden_state hide
-mode hide
+mode dock
 modifier Mod4  
 }
 

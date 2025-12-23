@@ -875,8 +875,7 @@ Override in .profile.local
     bar {
     swaybar_command waybar
     position top
-    hidden_state hide
-    mode hide
+    mode dock
     modifier Mod4  
     }
     
@@ -2294,7 +2293,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb1e58a6"></a>
+<a id="orgc553755"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2376,7 +2375,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb1e58a6).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc553755).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
