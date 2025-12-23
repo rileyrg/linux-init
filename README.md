@@ -1326,18 +1326,12 @@ $term is set to "sway-scratch-terminal
         "modules-left": [
             "sway/workspaces",
             "custom/separator",
-            "cpu",
-            "custom/separator",
-            "memory",
-            "custom/separator",
             "temperature",
             "custom/separator",
             "custom/fanspeed",
         ],
     
         "modules-center": [
-            "custom/weather",
-            "custom/separator",
             "custom/clock",
             "custom/separator",
             "idle_inhibitor",
@@ -1372,7 +1366,7 @@ $term is set to "sway-scratch-terminal
         "temperature": {
             "hwmon-path" : ["/etc/hwmon/hwmon-temp"],
             "critical-threshold": 80,
-            "format": "<span font='16px' >{temperatureC}°C</span>",
+            "format": "<span >{temperatureC}°C</span>",
             "tooltip": false,
         },
     
@@ -1391,7 +1385,7 @@ $term is set to "sway-scratch-terminal
             },
             "disable-scroll": true,
             "all-outputs": false,
-            "format": "<span font='16px' >({name}){icon}</span>",
+            "format": "<span >({name}){icon}</span>",
             "format-icons": {
                 "1": "⌨ Edit",
                 "2": "🔍 Research",
@@ -1412,7 +1406,7 @@ $term is set to "sway-scratch-terminal
     
         "memory": {
             "interval": 5,
-            "format": "<span font='16px' color='#eb8a60'>{}%</span>",
+            "format": "<span color='#eb8a60'>{}%</span>",
         },
     
     
@@ -1428,9 +1422,9 @@ $term is set to "sway-scratch-terminal
                 "warning": 20,
                 "critical": 10
             },
-            "format-charging": "<span font='16px' color='gold'> {capacity}% ({time})</span> ",
-            "format-plugged":  "<span font='16px' color='gold'>{icon}  {capacity}%</span> ",
-            "format-discharging": "<span font='16px' color='yellow'>{icon} {capacity}% ({time})</span>",
+            "format-charging": "<span color='gold'> {capacity}% ({time})</span> ",
+            "format-plugged":  "<span color='gold'>{icon}  {capacity}%</span> ",
+            "format-discharging": "<span color='yellow'>{icon} {capacity}% ({time})</span>",
             "format-icons": ["", "", "", "", ""],
             "on-click" : "sway-htop"
         },
@@ -1444,13 +1438,13 @@ $term is set to "sway-scratch-terminal
         "custom/clock": {
             "interval": 60,
             "exec": "date +'%a, %d %b: %H:%M'",
-            "format": "<span font='16px' >{}</span>",
+            "format": "<span >{}</span>",
             "max-length": 25
         },
     
         "cpu": {
             "interval": 5,
-            "format": "<span font='16px' color='#eb8a60'> {usage}% ({load})</span>",
+            "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
             "states": {
                 "warning": 70,
                 "critical": 90
@@ -1467,13 +1461,13 @@ $term is set to "sway-scratch-terminal
             "on-click-right": "discharge-suspend-toggle"
         },
         "pulseaudio": {
-            "format": "<span font='16px'>{icon} {volume}% {format_source}</span>",
-            "format-muted": "<span font='16px'>🔇 {format_source}</span>",
-            "format-bluetooth": "<span font='16px'>{icon} {volume}% {format_source}</span>",
-            "format-bluetooth-muted": "<span font='16px'>🔇 {format_source}</span>",
+            "format": "<span>{icon} {volume}% {format_source}</span>",
+            "format-muted": "<span>🔇 {format_source}</span>",
+            "format-bluetooth": "<span>{icon} {volume}% {format_source}</span>",
+            "format-bluetooth-muted": "<span>🔇 {format_source}</span>",
     
-            "format-source": "<span font='16px'> {volume}%</span>",
-            "format-source-muted": "<span font='16px'></span>",
+            "format-source": "<span> {volume}%</span>",
+            "format-source-muted": "<span></span>",
     
             "format-icons": {
                 "headphones": "",
@@ -1502,9 +1496,9 @@ $term is set to "sway-scratch-terminal
         },
     
         "custom/fanspeed": {
-            "format": "<span font='16px' color='gold'>🪭{}</span>",
+            "format": "<span>𐘾 {}</span>",
             "exec": "waybar-fanspeed",
-            "interval": 1,
+            "interval": 2,
         },
     
         "custom/uptime": {
@@ -1529,13 +1523,13 @@ $term is set to "sway-scratch-terminal
             "on-click": "blueman-manager"
         },
         "custom/power-draw": {
-            "format": "<span font='16px' color='gold'>⚡{}🔋</span>",
+            "format": "<span color='gold'>⚡{}🔋</span>",
             "interval": 5,
             "exec": "waybar-power-draw",
             "tooltip": "false"
         },
         "power-profiles-daemon": {
-            "format": "<span font='16px' >{icon}{profile}</span> ",
+            "format": "<span>{icon}-{profile}</span> ",
             "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
             "tooltip": true,
             "format-icons": {
@@ -1575,7 +1569,7 @@ $term is set to "sway-scratch-terminal
 
     *
     {
-        font-size: 18pt;
+        font-size: 12pt;
     }
     #waybar {
         border: none;
@@ -2353,7 +2347,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2fab074"></a>
+<a id="org374b8ca"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2435,7 +2429,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2fab074).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org374b8ca).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

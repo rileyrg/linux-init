@@ -9,18 +9,12 @@
     "modules-left": [
         "sway/workspaces",
         "custom/separator",
-        "cpu",
-        "custom/separator",
-        "memory",
-        "custom/separator",
         "temperature",
         "custom/separator",
         "custom/fanspeed",
     ],
 
     "modules-center": [
-        "custom/weather",
-        "custom/separator",
         "custom/clock",
         "custom/separator",
         "idle_inhibitor",
@@ -55,7 +49,7 @@
     "temperature": {
         "hwmon-path" : ["/etc/hwmon/hwmon-temp"],
         "critical-threshold": 80,
-        "format": "<span font='16px' >{temperatureC}°C</span>",
+        "format": "<span >{temperatureC}°C</span>",
         "tooltip": false,
     },
 
@@ -74,7 +68,7 @@
         },
         "disable-scroll": true,
         "all-outputs": false,
-        "format": "<span font='16px' >({name}){icon}</span>",
+        "format": "<span >({name}){icon}</span>",
         "format-icons": {
             "1": "⌨ Edit",
             "2": "🔍 Research",
@@ -95,7 +89,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "<span font='16px' color='#eb8a60'>{}%</span>",
+        "format": "<span color='#eb8a60'>{}%</span>",
     },
 
 
@@ -111,9 +105,9 @@
             "warning": 20,
             "critical": 10
         },
-        "format-charging": "<span font='16px' color='gold'> {capacity}% ({time})</span> ",
-        "format-plugged":  "<span font='16px' color='gold'>{icon}  {capacity}%</span> ",
-        "format-discharging": "<span font='16px' color='yellow'>{icon} {capacity}% ({time})</span>",
+        "format-charging": "<span color='gold'> {capacity}% ({time})</span> ",
+        "format-plugged":  "<span color='gold'>{icon}  {capacity}%</span> ",
+        "format-discharging": "<span color='yellow'>{icon} {capacity}% ({time})</span>",
         "format-icons": ["", "", "", "", ""],
         "on-click" : "sway-htop"
     },
@@ -127,13 +121,13 @@
     "custom/clock": {
         "interval": 60,
         "exec": "date +'%a, %d %b: %H:%M'",
-        "format": "<span font='16px' >{}</span>",
+        "format": "<span >{}</span>",
         "max-length": 25
     },
 
     "cpu": {
         "interval": 5,
-        "format": "<span font='16px' color='#eb8a60'> {usage}% ({load})</span>",
+        "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
         "states": {
             "warning": 70,
             "critical": 90
@@ -150,13 +144,13 @@
         "on-click-right": "discharge-suspend-toggle"
     },
     "pulseaudio": {
-        "format": "<span font='16px'>{icon} {volume}% {format_source}</span>",
-        "format-muted": "<span font='16px'>🔇 {format_source}</span>",
-        "format-bluetooth": "<span font='16px'>{icon} {volume}% {format_source}</span>",
-        "format-bluetooth-muted": "<span font='16px'>🔇 {format_source}</span>",
+        "format": "<span>{icon} {volume}% {format_source}</span>",
+        "format-muted": "<span>🔇 {format_source}</span>",
+        "format-bluetooth": "<span>{icon} {volume}% {format_source}</span>",
+        "format-bluetooth-muted": "<span>🔇 {format_source}</span>",
 
-        "format-source": "<span font='16px'> {volume}%</span>",
-        "format-source-muted": "<span font='16px'></span>",
+        "format-source": "<span> {volume}%</span>",
+        "format-source-muted": "<span></span>",
 
         "format-icons": {
             "headphones": "",
@@ -185,9 +179,9 @@
     },
 
     "custom/fanspeed": {
-        "format": "<span font='16px' color='gold'>🪭{}</span>",
+        "format": "<span>𐘾 {}</span>",
         "exec": "waybar-fanspeed",
-        "interval": 1,
+        "interval": 2,
     },
 
     "custom/uptime": {
@@ -212,13 +206,13 @@
         "on-click": "blueman-manager"
     },
     "custom/power-draw": {
-        "format": "<span font='16px' color='gold'>⚡{}🔋</span>",
+        "format": "<span color='gold'>⚡{}🔋</span>",
         "interval": 5,
         "exec": "waybar-power-draw",
         "tooltip": "false"
     },
     "power-profiles-daemon": {
-        "format": "<span font='16px' >{icon}{profile}</span> ",
+        "format": "<span>{icon}-{profile}</span> ",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
