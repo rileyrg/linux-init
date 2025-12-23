@@ -1621,7 +1621,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       },
 
       "custom/separator": {
-          "format": "|",
+          "format": "<span color='#696969'>|</span>",
           "interval": "once",
           "tooltip": false
       },

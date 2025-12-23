@@ -119,7 +119,7 @@
     },
 
     "custom/separator": {
-        "format": "|",
+        "format": "<span color='#696969'>|</span>",
         "interval": "once",
         "tooltip": false
     },
