@@ -1325,26 +1325,37 @@ $term is set to "sway-scratch-terminal
     
         "modules-left": [
             "sway/workspaces",
+            "custom/separator",
             "cpu",
+            "custom/separator",
             "memory",
+            "custom/separator",
             "temperature",
+            "custom/separator",
+            "custom/fanspeed",
         ],
     
         "modules-center": [
             "custom/weather",
+            "custom/separator",
             "custom/clock",
-            "custom/clock",
+            "custom/separator",
             "idle_inhibitor",
-            "custom/monitors",
+            "custom/separator",
             "custom/monitors",
         ],
     
         "modules-right": [
             "pulseaudio",
+            "custom/separator",
             "backlight",
+            "custom/separator",
             "battery",
+            "custom/separator",
             "power-profiles-daemon",
+            "custom/separator",
             "custom/power-draw", 
+            "custom/separator",
             "tray"
         ],
         "network": {
@@ -1359,10 +1370,9 @@ $term is set to "sway-scratch-terminal
         },
     
         "temperature": {
-    
-            "hwmon-path" : ["/etc/hwmon-temp"],
+            "hwmon-path" : ["/etc/hwmon/hwmon-temp"],
             "critical-threshold": 80,
-            "format": " {temperatureC}°C  ",
+            "format": "<span font='16px' >{temperatureC}°C</span>",
             "tooltip": false,
         },
     
@@ -1381,7 +1391,7 @@ $term is set to "sway-scratch-terminal
             },
             "disable-scroll": true,
             "all-outputs": false,
-            "format": "({name}){icon}",
+            "format": "<span font='16px' >({name}){icon}</span>",
             "format-icons": {
                 "1": "⌨ Edit",
                 "2": "🔍 Research",
@@ -1400,9 +1410,15 @@ $term is set to "sway-scratch-terminal
             "format": "{}"
         },
     
+        "memory": {
+            "interval": 5,
+            "format": "<span font='16px' color='#eb8a60'>{}%</span>",
+        },
+    
+    
         "backlight": {
             //		"device": "acpi_video1",
-            "format": "{icon} {percent}%",
+            "format": "<span font='16px'>{icon} {percent}%</span>",
             "format-icons": ["", ""]
         },
     
@@ -1412,26 +1428,29 @@ $term is set to "sway-scratch-terminal
                 "warning": 20,
                 "critical": 10
             },
-            "format": "<span color='gold'>{icon}</span> {capacity}%",
-    
-            "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
-            "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
-            //		"format-good": "", // An empty format will hide the module
-            "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
+            "format-charging": "<span font='16px' color='gold'> {capacity}% ({time})</span> ",
+            "format-plugged":  "<span font='16px' color='gold'>{icon}  {capacity}%</span> ",
+            "format-discharging": "<span font='16px' color='yellow'>{icon} {capacity}% ({time})</span>",
             "format-icons": ["", "", "", "", ""],
             "on-click" : "sway-htop"
+        },
+    
+        "custom/separator": {
+            "format": "|",
+            "interval": "once",
+            "tooltip": false
         },
     
         "custom/clock": {
             "interval": 60,
             "exec": "date +'%a, %d %b: %H:%M'",
-            "format": "{} ",
+            "format": "<span font='16px' >{}</span>",
             "max-length": 25
         },
     
         "cpu": {
             "interval": 5,
-            "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
+            "format": "<span font='16px' color='#eb8a60'> {usage}% ({load})</span>",
             "states": {
                 "warning": 70,
                 "critical": 90
@@ -1448,13 +1467,13 @@ $term is set to "sway-scratch-terminal
             "on-click-right": "discharge-suspend-toggle"
         },
         "pulseaudio": {
-            "format": "{icon} {volume}% {format_source}",
-            "format-muted": "🔇 {format_source}",
-            "format-bluetooth": "{icon} {volume}% {format_source}",
-            "format-bluetooth-muted": "🔇 {format_source}",
+            "format": "<span font='16px'>{icon} {volume}% {format_source}</span>",
+            "format-muted": "<span font='16px'>🔇 {format_source}</span>",
+            "format-bluetooth": "<span font='16px'>{icon} {volume}% {format_source}</span>",
+            "format-bluetooth-muted": "<span font='16px'>🔇 {format_source}</span>",
     
-            "format-source": " {volume}%",
-            "format-source-muted": "",
+            "format-source": "<span font='16px'> {volume}%</span>",
+            "format-source-muted": "<span font='16px'></span>",
     
             "format-icons": {
                 "headphones": "",
@@ -1482,6 +1501,12 @@ $term is set to "sway-scratch-terminal
             "return-type": "json"
         },
     
+        "custom/fanspeed": {
+            "format": "<span font='16px' color='gold'>🪭{}</span>",
+            "exec": "waybar-fanspeed",
+            "interval": 1,
+        },
+    
         "custom/uptime": {
             "format": "<span color='white'>⌛{}</span>",
             "interval": 60,
@@ -1504,13 +1529,13 @@ $term is set to "sway-scratch-terminal
             "on-click": "blueman-manager"
         },
         "custom/power-draw": {
-            "format": "<span color='gold'>⚡{}🔋</span>",
+            "format": "<span font='16px' color='gold'>⚡{}🔋</span>",
             "interval": 5,
             "exec": "waybar-power-draw",
             "tooltip": "false"
         },
         "power-profiles-daemon": {
-            "format": " {icon}{profile} ",
+            "format": "<span font='16px' >{icon}{profile}</span> ",
             "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
             "tooltip": true,
             "format-icons": {
@@ -1799,7 +1824,39 @@ $term is set to "sway-scratch-terminal
         text="{\"text\":\""$t"\",\"tooltip\":\""$o"\"}"
         echo $text
 
-6.  ~/bin/sway/waybar-network-applet
+6.  ~/bin/sway/waybar-fanspeed
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        speed=""
+        output=""
+        cd /sys/class/hwmon
+        for d in hwmon*; do
+            thisoutput=""
+            hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${d}")
+            for fan in {1..10}; do
+                f="${d}/fan${fan}_input"
+                if [ -f "${f}" ];then
+                    speed=$(cat "${f}")
+                    if [ ! "${speed}" = "0" ]; then
+                        if [ ! "${thisoutput}" ];then
+                            thisoutput="hw${hwmon}:"
+                        else
+                            thisoutput="${thisoutput},"
+                        fi
+                        thisoutput="${thisoutput}${fan}:${speed}"
+                    fi
+                fi
+            done
+            if [ "${thisoutput}" ];then
+                output="${output} ${thisoutput} "
+            fi
+        done
+        if [ "${output}" ];then
+            echo "${output:1} "
+        fi
+
+7.  ~/bin/sway/waybar-network-applet
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1810,20 +1867,20 @@ $term is set to "sway-scratch-terminal
             pgrep nm-applet || nm-applet &
         fi
 
-7.  ~/bin/sway/waybar-power-draw
+8.  ~/bin/sway/waybar-power-draw
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
         [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
-8.  ~/bin/sway/waybar-weather-json
+9.  ~/bin/sway/waybar-weather-json
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org 
         sleep 5
         WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 
-9.  ~/bin/sway/waybar-wttr
+10. ~/bin/sway/waybar-wttr
 
         #!/usr/bin/env python
         # Maintained in linux-config.org
@@ -1940,6 +1997,9 @@ $term is set to "sway-scratch-terminal
         
         
         print(json.dumps(data))
+
+
+## 
 
 
 ## swaywm scripts     :sway:wayland:
@@ -2293,7 +2353,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc553755"></a>
+<a id="org833634b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2375,7 +2435,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc553755).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org833634b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

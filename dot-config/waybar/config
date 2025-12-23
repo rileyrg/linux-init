@@ -8,26 +8,37 @@
     
     "modules-left": [
         "sway/workspaces",
+        "custom/separator",
         "cpu",
+        "custom/separator",
         "memory",
+        "custom/separator",
         "temperature",
+        "custom/separator",
+        "custom/fanspeed",
     ],
 
     "modules-center": [
         "custom/weather",
+        "custom/separator",
         "custom/clock",
-        "custom/clock",
+        "custom/separator",
         "idle_inhibitor",
-        "custom/monitors",
+        "custom/separator",
         "custom/monitors",
     ],
 
     "modules-right": [
         "pulseaudio",
+        "custom/separator",
         "backlight",
+        "custom/separator",
         "battery",
+        "custom/separator",
         "power-profiles-daemon",
+        "custom/separator",
         "custom/power-draw", 
+        "custom/separator",
         "tray"
     ],
     "network": {
@@ -42,10 +53,9 @@
     },
 
     "temperature": {
-        
-        "hwmon-path" : ["/etc/hwmon-temp"],
+        "hwmon-path" : ["/etc/hwmon/hwmon-temp"],
         "critical-threshold": 80,
-        "format": " {temperatureC}°C  ",
+        "format": "<span font='16px' >{temperatureC}°C</span>",
         "tooltip": false,
     },
 
@@ -64,7 +74,7 @@
         },
         "disable-scroll": true,
         "all-outputs": false,
-        "format": "({name}){icon}",
+        "format": "<span font='16px' >({name}){icon}</span>",
         "format-icons": {
             "1": "⌨ Edit",
             "2": "🔍 Research",
@@ -83,9 +93,15 @@
         "format": "{}"
     },
 
+    "memory": {
+        "interval": 5,
+        "format": "<span font='16px' color='#eb8a60'>{}%</span>",
+    },
+
+
     "backlight": {
         //		"device": "acpi_video1",
-        "format": "{icon} {percent}%",
+        "format": "<span font='16px'>{icon} {percent}%</span>",
         "format-icons": ["", ""]
     },
 
@@ -95,26 +111,29 @@
             "warning": 20,
             "critical": 10
         },
-        "format": "<span color='gold'>{icon}</span> {capacity}%",
-
-        "format-charging": "<span color='gold'> </span> {capacity}% ({time})",
-        "format-plugged":  "<span color='gold'>{icon}  </span> {capacity}%",
-        //		"format-good": "", // An empty format will hide the module
-        "format-discharging": "<span color='yellow'>{icon}</span> {capacity}% ({time})",
+        "format-charging": "<span font='16px' color='gold'> {capacity}% ({time})</span> ",
+        "format-plugged":  "<span font='16px' color='gold'>{icon}  {capacity}%</span> ",
+        "format-discharging": "<span font='16px' color='yellow'>{icon} {capacity}% ({time})</span>",
         "format-icons": ["", "", "", "", ""],
         "on-click" : "sway-htop"
     },
 
+    "custom/separator": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
+    },
+    
     "custom/clock": {
         "interval": 60,
         "exec": "date +'%a, %d %b: %H:%M'",
-        "format": "{} ",
+        "format": "<span font='16px' >{}</span>",
         "max-length": 25
     },
 
     "cpu": {
         "interval": 5,
-        "format": "<span color='#eb8a60'> {usage}% ({load})</span>",
+        "format": "<span font='16px' color='#eb8a60'> {usage}% ({load})</span>",
         "states": {
             "warning": 70,
             "critical": 90
@@ -131,13 +150,13 @@
         "on-click-right": "discharge-suspend-toggle"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}% {format_source}",
-        "format-muted": "🔇 {format_source}",
-        "format-bluetooth": "{icon} {volume}% {format_source}",
-        "format-bluetooth-muted": "🔇 {format_source}",
+        "format": "<span font='16px'>{icon} {volume}% {format_source}</span>",
+        "format-muted": "<span font='16px'>🔇 {format_source}</span>",
+        "format-bluetooth": "<span font='16px'>{icon} {volume}% {format_source}</span>",
+        "format-bluetooth-muted": "<span font='16px'>🔇 {format_source}</span>",
 
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-source": "<span font='16px'> {volume}%</span>",
+        "format-source-muted": "<span font='16px'></span>",
 
         "format-icons": {
             "headphones": "",
@@ -165,6 +184,12 @@
         "return-type": "json"
     },
 
+    "custom/fanspeed": {
+        "format": "<span font='16px' color='gold'>🪭{}</span>",
+        "exec": "waybar-fanspeed",
+        "interval": 1,
+    },
+
     "custom/uptime": {
         "format": "<span color='white'>⌛{}</span>",
         "interval": 60,
@@ -187,13 +212,13 @@
         "on-click": "blueman-manager"
     },
     "custom/power-draw": {
-        "format": "<span color='gold'>⚡{}🔋</span>",
+        "format": "<span font='16px' color='gold'>⚡{}🔋</span>",
         "interval": 5,
         "exec": "waybar-power-draw",
         "tooltip": "false"
     },
     "power-profiles-daemon": {
-        "format": " {icon}{profile} ",
+        "format": "<span font='16px' >{icon}{profile}</span> ",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {

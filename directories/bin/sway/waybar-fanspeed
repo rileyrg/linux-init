@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+speed=""
+output=""
+cd /sys/class/hwmon
+for d in hwmon*; do
+    thisoutput=""
+    hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${d}")
+    for fan in {1..10}; do
+        f="${d}/fan${fan}_input"
+        if [ -f "${f}" ];then
+            speed=$(cat "${f}")
+            if [ ! "${speed}" = "0" ]; then
+                if [ ! "${thisoutput}" ];then
+                    thisoutput="hw${hwmon}:"
+                else
+                    thisoutput="${thisoutput},"
+                fi
+                thisoutput="${thisoutput}${fan}:${speed}"
+            fi
+        fi
+    done
+    if [ "${thisoutput}" ];then
+        output="${output} ${thisoutput} "
+    fi
+done
+if [ "${output}" ];then
+    echo "${output:1} "
+fi
