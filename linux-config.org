@@ -745,7 +745,7 @@ this goes into my .profile
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   set -x
-   unison  -auto -terse -ignore 'Name {thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+   unison  -auto -terse -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
   set +x
 #+end_src 
 
@@ -1039,14 +1039,18 @@ Override in .profile.local
   font pango: "JetBrainsMono Nerd Font 6"
   #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
 
+  set $cursor_size 308
+  #set $cursor_theme Breeze
+  set $cursor_theme Adwaita
+
   mouse_warping output
 
   bar {
-    swaybar_command waybar
-    position top
-    hidden_state hide
-    mode hide
-    modifier Mod4  
+  swaybar_command waybar
+  position top
+  hidden_state hide
+  mode hide
+  modifier Mod4  
   }
 
   bindsym $mod+b exec killall -SIGUSR1 waybar
@@ -1508,15 +1512,17 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       "modules-left": [
           "sway/workspaces",
           "cpu",
+          "memory",
           "temperature",
-          "memory"
       ],
 
       "modules-center": [
           "custom/weather",
           "custom/clock",
+          "custom/clock",
           "idle_inhibitor",
-          "custom/monitors"
+          "custom/monitors",
+          "custom/monitors",
       ],
 
       "modules-right": [
@@ -1538,6 +1544,13 @@ https://github.com/Alexays/Waybar/wiki/Configuration
           "on-click": "sway-wifi"
       },
 
+      "temperature": {
+          
+          "hwmon-path" : ["/etc/hwmon-temp"],
+          "critical-threshold": 80,
+          "format": " {temperatureC}°C  ",
+          "tooltip": false,
+      },
 
       "sway/workspaces": {
           "persistent_workspaces": {

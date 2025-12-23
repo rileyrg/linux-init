@@ -9,15 +9,17 @@
     "modules-left": [
         "sway/workspaces",
         "cpu",
+        "memory",
         "temperature",
-        "memory"
     ],
 
     "modules-center": [
         "custom/weather",
         "custom/clock",
+        "custom/clock",
         "idle_inhibitor",
-        "custom/monitors"
+        "custom/monitors",
+        "custom/monitors",
     ],
 
     "modules-right": [
@@ -39,6 +41,13 @@
         "on-click": "sway-wifi"
     },
 
+    "temperature": {
+        
+        "hwmon-path" : ["/etc/hwmon-temp"],
+        "critical-threshold": 80,
+        "format": " {temperatureC}°C  ",
+        "tooltip": false,
+    },
 
     "sway/workspaces": {
         "persistent_workspaces": {

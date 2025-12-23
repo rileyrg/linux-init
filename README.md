@@ -683,7 +683,7 @@ this goes into my .profile
     #!/usr/bin/env bash
     #Maintained in linux-config.org
     set -x
-     unison  -auto -terse -ignore 'Name {thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+     unison  -auto -terse -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
     set +x
 
 
@@ -866,14 +866,18 @@ Override in .profile.local
     font pango: "JetBrainsMono Nerd Font 6"
     #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
     
+    set $cursor_size 308
+    #set $cursor_theme Breeze
+    set $cursor_theme Adwaita
+    
     mouse_warping output
     
     bar {
-      swaybar_command waybar
-      position top
-      hidden_state hide
-      mode hide
-      modifier Mod4  
+    swaybar_command waybar
+    position top
+    hidden_state hide
+    mode hide
+    modifier Mod4  
     }
     
     bindsym $mod+b exec killall -SIGUSR1 waybar
@@ -1323,15 +1327,17 @@ $term is set to "sway-scratch-terminal
         "modules-left": [
             "sway/workspaces",
             "cpu",
+            "memory",
             "temperature",
-            "memory"
         ],
     
         "modules-center": [
             "custom/weather",
             "custom/clock",
+            "custom/clock",
             "idle_inhibitor",
-            "custom/monitors"
+            "custom/monitors",
+            "custom/monitors",
         ],
     
         "modules-right": [
@@ -1353,6 +1359,13 @@ $term is set to "sway-scratch-terminal
             "on-click": "sway-wifi"
         },
     
+        "temperature": {
+    
+            "hwmon-path" : ["/etc/hwmon-temp"],
+            "critical-threshold": 80,
+            "format": " {temperatureC}°C  ",
+            "tooltip": false,
+        },
     
         "sway/workspaces": {
             "persistent_workspaces": {
@@ -2281,7 +2294,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org59e69de"></a>
+<a id="orgb1e58a6"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2363,7 +2376,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org59e69de).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb1e58a6).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -21,14 +21,18 @@ set $wallpaper '~/Pictures/Wallpapers/current '
 font pango: "JetBrainsMono Nerd Font 6"
 #DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
 
+set $cursor_size 308
+#set $cursor_theme Breeze
+set $cursor_theme Adwaita
+
 mouse_warping output
 
 bar {
-  swaybar_command waybar
-  position top
-  hidden_state hide
-  mode hide
-  modifier Mod4  
+swaybar_command waybar
+position top
+hidden_state hide
+mode hide
+modifier Mod4  
 }
 
 bindsym $mod+b exec killall -SIGUSR1 waybar
