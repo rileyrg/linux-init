@@ -1822,23 +1822,21 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        speed=""
         output=""
         cd /sys/class/hwmon
         for d in hwmon*; do
             thisoutput=""
-            hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${d}")
             for fan in {1..10}; do
                 f="${d}/fan${fan}_input"
                 if [ -f "${f}" ];then
                     speed=$(cat "${f}")
                     if [ ! "${speed}" = "0" ]; then
                         if [ ! "${thisoutput}" ];then
-                            thisoutput="hw${hwmon}:"
+                            thisoutput="<span color='gold'>${d}</span>:"
                         else
-                            thisoutput="${thisoutput},"
+                            thisoutput="${thisoutput} "
                         fi
-                        thisoutput="${thisoutput}${fan}:${speed}"
+                        thisoutput="${thisoutput}<span color='orange'>${fan}</span> <span color='green'>${speed}</span>"
                     fi
                 fi
             done
@@ -1847,7 +1845,7 @@ $term is set to "sway-scratch-terminal
             fi
         done
         if [ "${output}" ];then
-            echo "${output:1} "
+            echo "${output} "
         fi
 
 7.  ~/bin/sway/waybar-network-applet
@@ -2347,7 +2345,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org374b8ca"></a>
+<a id="org3654c25"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2429,7 +2427,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org374b8ca).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3654c25).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
