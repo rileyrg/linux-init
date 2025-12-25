@@ -8,7 +8,7 @@ while read -r fanfile ; do
         hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
         if [ ! "${hwmon}" = "${curhwmon}" ]; then
             curhwmon="${hwmon}"
-            thisoutput="hwmon${hwmon}:"
+            thisoutput="<span color='gold'>hwmon${hwmon}</span>:"
         else
             thisoutput=""
         fi
