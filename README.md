@@ -1826,17 +1826,18 @@ $term is set to "sway-scratch-terminal
         cd /sys/class/hwmon
         for d in hwmon*; do
             thisoutput=""
-            for fan in {1..10}; do
-                f="${d}/fan${fan}_input"
-                if [ -f "${f}" ];then
-                    speed=$(cat "${f}")
+            for fan in "${d}"/fan*_input; do
+                if [ -f "${fan}" ];then
+                    speed=$(cat "${fan}")
                     if [ ! "${speed}" = "0" ]; then
                         if [ ! "${thisoutput}" ];then
                             thisoutput="<span color='gold'>${d}</span>:"
                         else
                             thisoutput="${thisoutput} "
                         fi
-                        thisoutput="${thisoutput}<span color='orange'>${fan}</span> <span color='green'>${speed}</span>"
+                        fanfile=$(basename ${fan})
+                        fanid=$(sed 's/[^0-9]//g' <<< ${fanfile%_*})
+                        thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed}</span>"
                     fi
                 fi
             done
@@ -2345,7 +2346,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3654c25"></a>
+<a id="org88a8329"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2427,7 +2428,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3654c25).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org88a8329).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

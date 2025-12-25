@@ -2022,17 +2022,18 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   cd /sys/class/hwmon
   for d in hwmon*; do
       thisoutput=""
-      for fan in {1..10}; do
-          f="${d}/fan${fan}_input"
-          if [ -f "${f}" ];then
-              speed=$(cat "${f}")
+      for fan in "${d}"/fan*_input; do
+          if [ -f "${fan}" ];then
+              speed=$(cat "${fan}")
               if [ ! "${speed}" = "0" ]; then
                   if [ ! "${thisoutput}" ];then
                       thisoutput="<span color='gold'>${d}</span>:"
                   else
                       thisoutput="${thisoutput} "
                   fi
-                  thisoutput="${thisoutput}<span color='orange'>${fan}</span> <span color='green'>${speed}</span>"
+                  fanfile=$(basename ${fan})
+                  fanid=$(sed 's/[^0-9]//g' <<< ${fanfile%_*})
+                  thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed}</span>"
               fi
           fi
       done
