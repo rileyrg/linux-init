@@ -2018,32 +2018,26 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle ~/bin/sway/waybar-fanspeed
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  output=""
   cd /sys/class/hwmon
-  for d in hwmon*; do
-      thisoutput=""
-      for fan in "${d}"/fan*_input; do
-          if [ -f "${fan}" ];then
-              speed=$(cat "${fan}")
-              if [ ! "${speed}" = "0" ]; then
-                  if [ ! "${thisoutput}" ];then
-                      thisoutput="<span color='gold'>${d}</span>:"
-                  else
-                      thisoutput="${thisoutput} "
-                  fi
-                  fanfile=$(basename ${fan})
-                  fanid=$(sed 's/[^0-9]//g' <<< ${fanfile%_*})
-                  thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed}</span>"
-              fi
+  curhwmon=""
+  while read -r fanfile ; do
+      speed=$(cat "${fanfile}")
+      if [ ! "${speed}" = "0" ]; then
+          hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
+          if [ ! "${hwmon}" = "${curhwmon}" ]; then
+              curhwmon="${hwmon}"
+              thisoutput="hwmon${hwmon}:"
+          else
+              thisoutput=""
           fi
-      done
-      if [ "${thisoutput}" ];then
-          output="${output} ${thisoutput} "
+          f=$(basename "${fanfile}")
+          fanid=$(sed 's/[^0-9]//g' <<<  ${f})
+          thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+          output="${output}${thisoutput}"
       fi
-  done
-  if [ "${output}" ];then
-      echo "${output} "
-  fi
+  done < <(find -L . -maxdepth 2 -type f -name "fan*input" | sort )
+
+  echo "${output:-No Active Fans Read}"
 #+end_src
 
 **** ~/bin/sway/waybar-network-applet

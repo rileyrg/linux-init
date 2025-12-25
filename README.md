@@ -1822,32 +1822,27 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        output=""
         cd /sys/class/hwmon
-        for d in hwmon*; do
-            thisoutput=""
-            for fan in "${d}"/fan*_input; do
-                if [ -f "${fan}" ];then
-                    speed=$(cat "${fan}")
-                    if [ ! "${speed}" = "0" ]; then
-                        if [ ! "${thisoutput}" ];then
-                            thisoutput="<span color='gold'>${d}</span>:"
-                        else
-                            thisoutput="${thisoutput} "
-                        fi
-                        fanfile=$(basename ${fan})
-                        fanid=$(sed 's/[^0-9]//g' <<< ${fanfile%_*})
-                        thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed}</span>"
-                    fi
+        curhwmon=""
+        output=""
+        while read -r fanfile ; do
+            speed=$(cat "${fanfile}")
+            if [ ! "${speed}" = "0" ]; then
+                hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
+                if [ ! "${hwmon}" = "${curhwmon}" ]; then
+                    curhwmon="${hwmon}"
+                    thisoutput="hwmon${hwmon}:"
+                else
+                    thisoutput=""
                 fi
-            done
-            if [ "${thisoutput}" ];then
-                output="${output} ${thisoutput} "
+                f=$(basename "${fanfile}")
+                fanid=$(sed 's/[^0-9]//g' <<<  ${f})
+                thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+                output="${output}${thisoutput}"
             fi
-        done
-        if [ "${output}" ];then
-            echo "${output} "
-        fi
+        done < <(find -L . -maxdepth 2 -type f -name "fan*input" | sort )
+        
+        echo "${output}"
 
 7.  ~/bin/sway/waybar-network-applet
 
@@ -2346,7 +2341,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org88a8329"></a>
+<a id="org31212fd"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2428,7 +2423,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org88a8329).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org31212fd).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
