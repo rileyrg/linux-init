@@ -2030,12 +2030,10 @@ https://github.com/Alexays/Waybar/wiki/Configuration
           else
               thisoutput=""
           fi
-          f=$(basename "${fanfile}")
-          fanid=$(sed 's/[^0-9]//g' <<<  ${f})
-          thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
-          output="${output}${thisoutput}"
+          fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
+          output="${output}${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
       fi
-  done < <(find -L . -maxdepth 2 -type f -name "fan*input" | sort )
+  done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort )
 
   echo "${output:-No Active Fans Read}"
 #+end_src

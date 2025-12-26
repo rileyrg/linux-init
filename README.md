@@ -1834,12 +1834,10 @@ $term is set to "sway-scratch-terminal
                 else
                     thisoutput=""
                 fi
-                f=$(basename "${fanfile}")
-                fanid=$(sed 's/[^0-9]//g' <<<  ${f})
-                thisoutput="${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
-                output="${output}${thisoutput}"
+                fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
+                output="${output}${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
             fi
-        done < <(find -L . -maxdepth 2 -type f -name "fan*input" | sort )
+        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort )
         
         echo "${output:-No Active Fans Read}"
 
@@ -2340,7 +2338,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd2957ed"></a>
+<a id="org8d63a01"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2422,7 +2420,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd2957ed).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8d63a01).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
