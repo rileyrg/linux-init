@@ -183,6 +183,7 @@
         "format": "<span>𐘾 {}</span>",
         "exec": "waybar-fanspeed",
         "interval": 1,
+        "return-type": "json",
     },
 
     "custom/uptime": {

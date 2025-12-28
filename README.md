@@ -1500,6 +1500,7 @@ $term is set to "sway-scratch-terminal
             "format": "<span>𐘾 {}</span>",
             "exec": "waybar-fanspeed",
             "interval": 1,
+            "return-type": "json",
         },
     
         "custom/uptime": {
@@ -1825,47 +1826,24 @@ $term is set to "sway-scratch-terminal
         #Maintained in linux-config.org
         cd /sys/class/hwmon
         curhwmon=""
+        output=""
         while read -r fanfile ; do
             speed=$(cat "${fanfile}")
             if [ ! "${speed}" = "0" ]; then
                 hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
                 if [ ! "${hwmon}" = "${curhwmon}" ]; then
                     curhwmon="${hwmon}"
-                    thisoutput="<span color='gold'>hwmon${hwmon}</span>:"
-                else
-                    thisoutput=""
+                    output="${output}<span color='gold'>hwmon${hwmon}</span>:"
                 fi
                 fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
-                output="${output}${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+                output="${output}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
             fi
-        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort )
-        
-        echo "${output:-No Active Fans Read}"
+        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort)
+        text="${output:-No Active Fans Read}"
+        tooltip="Buzz"
+        echo $(jq --null-input --arg text "${text}" --arg tooltip "${tooltip}" '{"text": $text,"tooltip":$tooltip'})
 
-7.  ~/bin/sway/waybar-fanspeed
-
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        cd /sys/class/hwmon
-        curhwmon=""
-        while read -r fanfile ; do
-            speed=$(cat "${fanfile}")
-            if [ ! "${speed}" = "0" ]; then
-                hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
-                if [ ! "${hwmon}" = "${curhwmon}" ]; then
-                    curhwmon="${hwmon}"
-                    thisoutput="<span color='gold'>hwmon${hwmon}</span>:"
-                else
-                    thisoutput=""
-                fi
-                fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
-                output="${output}${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
-            fi
-        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort )
-        
-        echo "${output:-No Active Fans Read}"
-
-8.  ~/bin/sway/waybar-temperature
+7.  ~/bin/sway/waybar-temperature
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1876,24 +1854,25 @@ $term is set to "sway-scratch-terminal
         else
             color="darkgreen"
         fi
-        tempC="<span color=\"${color}\">${tempC}</span>"
+        text="<span color=\"${color}\">${tempC}</span>"
+        tooltip="Warming"
         # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
-        echo $(jq --null-input --arg tempC "$tempC" --arg tt "Warming..." '{"text": $tempC,"tooltip":$tt'})
+        echo $(jq --null-input --arg text "${text}" --arg tooltip "warming" '{"text": $text,"tooltip":$tooltip'})
 
-9.  ~/bin/sway/waybar-power-draw
+8.  ~/bin/sway/waybar-power-draw
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
         [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
-10. ~/bin/sway/waybar-weather-json
+9.  ~/bin/sway/waybar-weather-json
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org 
         sleep 5
         WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 
-11. ~/bin/sway/waybar-wttr
+10. ~/bin/sway/waybar-wttr
 
         #!/usr/bin/env python
         # Maintained in linux-config.org
@@ -2366,7 +2345,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0d0aa41"></a>
+<a id="orgc619c4e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2448,7 +2427,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0d0aa41).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc619c4e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

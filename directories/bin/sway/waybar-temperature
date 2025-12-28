@@ -7,6 +7,7 @@ if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then
 else
     color="darkgreen"
 fi
-tempC="<span color=\"${color}\">${tempC}</span>"
+text="<span color=\"${color}\">${tempC}</span>"
+tooltip="Warming"
 # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
-echo $(jq --null-input --arg tempC "$tempC" --arg tt "Warming..." '{"text": $tempC,"tooltip":$tt'})
+echo $(jq --null-input --arg text "${text}" --arg tooltip "warming" '{"text": $text,"tooltip":$tooltip'})
