@@ -1326,7 +1326,7 @@ $term is set to "sway-scratch-terminal
         "modules-left": [
             "sway/workspaces",
             "custom/separator",
-            "temperature",
+            "custom/temperature",
             "custom/separator",
             "custom/fanspeed",
         ],
@@ -1361,13 +1361,6 @@ $term is set to "sway-scratch-terminal
             "interval": 60,
             "tooltip-format": "{ifname}  {ipaddr}",
             "on-click": "sway-wifi"
-        },
-    
-        "temperature": {
-            "hwmon-path" : ["/etc/hwmon/hwmon-temp"],
-            "critical-threshold": 80,
-            "format": "<span >{temperatureC}°C</span>",
-            "tooltip": false,
         },
     
         "sway/workspaces": {
@@ -1495,10 +1488,17 @@ $term is set to "sway-scratch-terminal
             "return-type": "json"
         },
     
+        "custom/temperature": {
+            "format": "{}",
+            "exec": "waybar-temperature",
+            "interval": 1,
+        },
+    
+    
         "custom/fanspeed": {
             "format": "<span>𐘾 {}</span>",
             "exec": "waybar-fanspeed",
-            "interval": 2,
+            "interval": 1,
         },
     
         "custom/uptime": {
@@ -1841,31 +1841,56 @@ $term is set to "sway-scratch-terminal
         
         echo "${output:-No Active Fans Read}"
 
-7.  ~/bin/sway/waybar-network-applet
+7.  ~/bin/sway/waybar-fanspeed
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        if command -v iwgtk 2>&1 >/dev/null
-        then
-            pgrep iwgtk || (sleep 5 && iwgtk -i) &
-        else
-            pgrep nm-applet || nm-applet &
-        fi
+        cd /sys/class/hwmon
+        curhwmon=""
+        while read -r fanfile ; do
+            speed=$(cat "${fanfile}")
+            if [ ! "${speed}" = "0" ]; then
+                hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
+                if [ ! "${hwmon}" = "${curhwmon}" ]; then
+                    curhwmon="${hwmon}"
+                    thisoutput="<span color='gold'>hwmon${hwmon}</span>:"
+                else
+                    thisoutput=""
+                fi
+                fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
+                output="${output}${thisoutput}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+            fi
+        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort )
+        
+        echo "${output:-No Active Fans Read}"
 
-8.  ~/bin/sway/waybar-power-draw
+8.  ~/bin/sway/waybar-temperature
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        temp=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
+        temp="${temp%????}"
+        if [[ ${temp} -gt "${FANSPEED_REDLINE:-65}" ]]; then
+            color="red"
+        else
+            color="darkgreen"
+        fi
+        echo "<span color=\"${color}\">${temp}</span>°C"
+
+9.  ~/bin/sway/waybar-power-draw
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
         [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
-9.  ~/bin/sway/waybar-weather-json
+10. ~/bin/sway/waybar-weather-json
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org 
         sleep 5
         WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 
-10. ~/bin/sway/waybar-wttr
+11. ~/bin/sway/waybar-wttr
 
         #!/usr/bin/env python
         # Maintained in linux-config.org
@@ -2338,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org8d63a01"></a>
+<a id="org10e6d00"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2420,7 +2445,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8d63a01).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org10e6d00).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

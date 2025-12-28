@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#Maintained in linux-config.org
+temp=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
+temp="${temp%????}"
+if [[ ${temp} -gt "${FANSPEED_REDLINE:-65}" ]]; then
+    color="red"
+else
+    color="darkgreen"
+fi
+echo "<span color=\"${color}\">${temp}</span>°C"
