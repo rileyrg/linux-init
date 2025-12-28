@@ -172,8 +172,9 @@
     },
 
     "custom/temperature": {
-        "format": "{}",
+        "format": "<span>{}</span>°C",
         "exec": "waybar-temperature",
+        "return-type": "json",
         "interval": 1,
     },
 

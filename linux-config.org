@@ -1674,8 +1674,9 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       },
 
       "custom/temperature": {
-          "format": "{}",
+          "format": "<span>{}</span>°C",
           "exec": "waybar-temperature",
+          "return-type": "json",
           "interval": 1,
       },
 
@@ -2067,15 +2068,17 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle ~/bin/sway/waybar-temperature
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  temp=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
-  temp="${temp%????}"
-  if [[ ${temp} -gt "${FANSPEED_REDLINE:-65}" ]]; then
+  tempC=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
+  tempC="${tempC%????}"
+  if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then
       color="red"
   else
       color="darkgreen"
   fi
-  echo "<span color=\"${color}\">${temp}</span>°C"
-#+end_src 
+  tempC="<span color=\"${color}\">${tempC}</span>"
+  # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
+  echo $(jq --null-input --arg tempC "$tempC" --arg tt "Warming..." '{"text": $tempC,"tooltip":$tt'})
+#+end_src
 
 **** ~/bin/sway/waybar-power-draw
 #+begin_src bash :tangle ~/bin/sway/waybar-power-draw
