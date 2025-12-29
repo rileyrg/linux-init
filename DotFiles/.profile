@@ -70,7 +70,7 @@ if [ -z "$SSH_CONNECTION" ]; then
     (pgrep -f "discharge-suspend" > /dev/null ||  discharge-suspend &) 2>&1
 fi
 
-export XKB_DEFAULT_LAYOUT=de
+# export XKB_DEFAULT_LAYOUT=de
 # export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 export PATH="${HOME}/bin/thirdparty/flutter/bin:$PATH"

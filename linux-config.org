@@ -880,7 +880,7 @@ It works with your existing i3 configuration and supports most of i3's features,
 Set keyboard layout.
 Override in .profile.local
 #+begin_src bash :tangle "DotFiles/.profile"
-  export XKB_DEFAULT_LAYOUT=de
+  # export XKB_DEFAULT_LAYOUT=de
   # export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 #+end_src
 ** sway json fun                                                   :noexport:
@@ -1483,14 +1483,16 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 
 *** sway startup processes
 #+begin_src  conf
-#   exec mako
-#  exec bluetooth-headphone-controls
-  exec sway-idle
-  exec sway-kanshi 
-  exec blueman-applet &>/dev/null
-  exec waybar-network-applet
-  # exec gpg-cache
-  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
+  #   exec mako
+  #  exec bluetooth-headphone-controls
+    # configure keyboard layout using xkb values
+    exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
+    exec sway-idle
+    exec sway-kanshi 
+    exec blueman-applet &>/dev/null
+    exec waybar-network-applet
+    # exec gpg-cache
+    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 #+end_src
 
 ** waybar config

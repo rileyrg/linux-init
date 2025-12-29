@@ -834,7 +834,7 @@ It works with your existing i3 configuration and supports most of i3's features,
 Set keyboard layout.
 Override in .profile.local
 
-    export XKB_DEFAULT_LAYOUT=de
+    # export XKB_DEFAULT_LAYOUT=de
     # export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 
@@ -1302,6 +1302,8 @@ $term is set to "sway-scratch-terminal
 
     #   exec mako
     #  exec bluetooth-headphone-controls
+      # configure keyboard layout using xkb values
+      exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
       exec sway-idle
       exec sway-kanshi 
       exec blueman-applet &>/dev/null
@@ -2355,7 +2357,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org429c337"></a>
+<a id="orga45c76f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2437,7 +2439,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org429c337).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga45c76f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

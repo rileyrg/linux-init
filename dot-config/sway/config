@@ -301,6 +301,8 @@ bindsym $mod+Control+shift+u exec sway-workspace-populate
 
 #   exec mako
 #  exec bluetooth-headphone-controls
+  # configure keyboard layout using xkb values
+  exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
   exec sway-idle
   exec sway-kanshi 
   exec blueman-applet &>/dev/null
