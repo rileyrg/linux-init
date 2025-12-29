@@ -3,11 +3,10 @@
 tempC=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
 tempC="${tempC%????}"
 if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then
-    color="red"
+    class="hot"
 else
-    color="darkgreen"
+    class="cool"
 fi
-text="<span color=\"${color}\">${tempC}</span>"
 tooltip="Warming"
 # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
-echo $(jq --null-input --arg text "${text}" --arg tooltip "warming" '{"text": $text,"tooltip":$tooltip'})
+echo $(jq --null-input --arg text "${tempC}" --arg class "${class}" --arg alt "${class}"  --arg tooltip "warming" '{"text": $text,"alt": $alt,  "class": $class, "tooltip":$tooltip'})

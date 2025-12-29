@@ -1489,7 +1489,11 @@ $term is set to "sway-scratch-terminal
         },
     
         "custom/temperature": {
-            "format": "<span>{}</span>°C",
+            "format": "{icon}{text}°C",
+            "format-icons": {
+                "cool":"",
+                "hot":"💀",
+            }, 
             "exec": "waybar-temperature",
             "return-type": "json",
             "interval": 1,
@@ -1700,6 +1704,13 @@ $term is set to "sway-scratch-terminal
     #tray {
         margin-left: 1px;
     }
+    
+    #custom-temperature.hot{
+        color: red;
+    }
+    #custom-temperature.cool{
+        color: green;
+    }
 
 
 ### waybar utility scripts
@@ -1850,14 +1861,13 @@ $term is set to "sway-scratch-terminal
         tempC=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
         tempC="${tempC%????}"
         if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then
-            color="red"
+            class="hot"
         else
-            color="darkgreen"
+            class="cool"
         fi
-        text="<span color=\"${color}\">${tempC}</span>"
         tooltip="Warming"
         # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
-        echo $(jq --null-input --arg text "${text}" --arg tooltip "warming" '{"text": $text,"tooltip":$tooltip'})
+        echo $(jq --null-input --arg text "${tempC}" --arg class "${class}" --arg alt "${class}"  --arg tooltip "warming" '{"text": $text,"alt": $alt,  "class": $class, "tooltip":$tooltip'})
 
 8.  ~/bin/sway/waybar-power-draw
 
@@ -2345,7 +2355,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc619c4e"></a>
+<a id="orge898ea5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2427,7 +2437,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc619c4e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge898ea5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

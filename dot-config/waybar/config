@@ -172,7 +172,11 @@
     },
 
     "custom/temperature": {
-        "format": "<span>{}</span>°C",
+        "format": "{icon}{text}°C",
+        "format-icons": {
+            "cool":"",
+            "hot":"💀",
+        }, 
         "exec": "waybar-temperature",
         "return-type": "json",
         "interval": 1,

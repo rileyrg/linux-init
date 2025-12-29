@@ -129,3 +129,10 @@
 #tray {
     margin-left: 1px;
 }
+
+#custom-temperature.hot{
+    color: red;
+}
+#custom-temperature.cool{
+    color: green;
+}
