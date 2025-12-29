@@ -1281,7 +1281,7 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
-    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
     bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
@@ -1289,8 +1289,8 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && sway-kitty
-    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && sway-kitty
+    bindsym $mod+Control+return exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 
@@ -1311,8 +1311,9 @@ $term is set to "sway-scratch-terminal
       # exec gpg-cache
       exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 
+\*\* waybar config
 
-## waybar config
+:header-args:json: :tangle "~/.config/waybar/config"
 
 <https://github.com/Alexays/Waybar/wiki/Configuration>
 
@@ -2357,7 +2358,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga45c76f"></a>
+<a id="orgddf692a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2439,7 +2440,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga45c76f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgddf692a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

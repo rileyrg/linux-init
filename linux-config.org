@@ -1465,7 +1465,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
-    bindsym $mod+Control+Shift+s exec sway-do-tool "Steam" "steam"
+    bindsym $mod+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
     bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
@@ -1473,8 +1473,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     bindsym $mod+Control+f exec command -v thunar && thunar || nautilus
     bindsym $mod+Control+p exec sway-htop
     bindsym $mod+Control+Shift+p exec htop-regexp
-    bindsym $mod+Control+f10 exec sway-notify "Opening NEW terminal instance" && sway-kitty
-    bindsym $mod+Control+t exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
+    bindsym $mod+Control+t exec sway-notify "Opening NEW terminal instance" && sway-kitty
+    bindsym $mod+Control+return exec sway-notify "Opening NEW tmux terminal instance" && sway-kitty tmux new
     bindsym $mod+Control+w exec sway-workspace-position
     bindsym $mod+Control+shift+u exec sway-workspace-populate
 #+end_src
@@ -1495,7 +1495,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
     exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 #+end_src
 
-** waybar config
+ ** waybar config
 :PROPERTIES:
 :header-args:json: :tangle "~/.config/waybar/config"
 :END:
