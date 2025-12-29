@@ -835,7 +835,7 @@ Set keyboard layout.
 Override in .profile.local
 
     export XKB_DEFAULT_LAYOUT=de
-    export XKB_DEFAULT_OPTIONS=ctrl:nocaps
+    # export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 
 
 ## SwayWM config
@@ -1489,7 +1489,7 @@ $term is set to "sway-scratch-terminal
         },
     
         "custom/temperature": {
-            "format": "{icon}{text}°C",
+            "format": "<span color='white'>{icon}</span><span>{text}</span><span color='gold'>°C</span>",
             "format-icons": {
                 "cool":"",
                 "hot":"💀",
@@ -2355,7 +2355,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge898ea5"></a>
+<a id="org429c337"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2437,7 +2437,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge898ea5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org429c337).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

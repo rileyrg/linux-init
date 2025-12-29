@@ -881,7 +881,7 @@ Set keyboard layout.
 Override in .profile.local
 #+begin_src bash :tangle "DotFiles/.profile"
   export XKB_DEFAULT_LAYOUT=de
-  export XKB_DEFAULT_OPTIONS=ctrl:nocaps
+  # export XKB_DEFAULT_OPTIONS=ctrl:nocaps
 #+end_src
 ** sway json fun                                                   :noexport:
 *** cur ws
@@ -1674,7 +1674,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       },
 
       "custom/temperature": {
-          "format": "{icon}{text}°C",
+          "format": "<span color='white'>{icon}</span><span>{text}</span><span color='gold'>°C</span>",
           "format-icons": {
               "cool":"",
               "hot":"💀",

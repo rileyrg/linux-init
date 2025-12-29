@@ -172,7 +172,7 @@
     },
 
     "custom/temperature": {
-        "format": "{icon}{text}°C",
+        "format": "<span color='white'>{icon}</span><span>{text}</span><span color='gold'>°C</span>",
         "format-icons": {
             "cool":"",
             "hot":"💀",
