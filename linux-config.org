@@ -744,8 +744,15 @@ this goes into my .profile
 #+begin_src  bash :tangle ~/bin/sync-bi
   #!/usr/bin/env bash
   #Maintained in linux-config.org
+  if [[ $# -eq 0 ]]; then
+      dest="server";
+      args="";
+  else
+      dest="${@: -1}"
+      args="${@:1:$#-1}"
+  fi
   set -x
-   unison  -auto -terse -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+  unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
   set +x
 #+end_src 
 

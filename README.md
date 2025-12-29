@@ -682,8 +682,15 @@ this goes into my .profile
 
     #!/usr/bin/env bash
     #Maintained in linux-config.org
+    if [[ $# -eq 0 ]]; then
+        dest="server";
+        args="";
+    else
+        dest="${@: -1}"
+        args="${@:1:$#-1}"
+    fi
     set -x
-     unison  -auto -terse -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${1:-server}/cloud/
+    unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
     set +x
 
 
@@ -2358,7 +2365,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgddf692a"></a>
+<a id="org0cf6bb2"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2440,7 +2447,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgddf692a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0cf6bb2).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
