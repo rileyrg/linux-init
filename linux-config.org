@@ -1503,11 +1503,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+end_src
 
  ** waybar config
-:PROPERTIES:
-:header-args:json: :tangle "~/.config/waybar/config"
-:END:
 https://github.com/Alexays/Waybar/wiki/Configuration
-#+begin_src json
+#+begin_src json :tangle "~/.config/waybar/config"
 
   {
       "layer": "top",
@@ -1690,14 +1687,14 @@ https://github.com/Alexays/Waybar/wiki/Configuration
           }, 
           "exec": "waybar-temperature",
           "return-type": "json",
-          "interval": 1,
+          "interval": 5,
       },
 
 
       "custom/fanspeed": {
           "format": "<span>𐘾 {}</span>",
           "exec": "waybar-fanspeed",
-          "interval": 1,
+          "interval": 5,
           "return-type": "json",
       },
 

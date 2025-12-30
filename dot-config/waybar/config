@@ -179,14 +179,14 @@
         }, 
         "exec": "waybar-temperature",
         "return-type": "json",
-        "interval": 1,
+        "interval": 5,
     },
 
 
     "custom/fanspeed": {
         "format": "<span>𐘾 {}</span>",
         "exec": "waybar-fanspeed",
-        "interval": 1,
+        "interval": 5,
         "return-type": "json",
     },
 

@@ -1319,9 +1319,6 @@ $term is set to "sway-scratch-terminal
       exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 
 \*\* waybar config
-
-:header-args:json: :tangle "~/.config/waybar/config"
-
 <https://github.com/Alexays/Waybar/wiki/Configuration>
 
     
@@ -1506,14 +1503,14 @@ $term is set to "sway-scratch-terminal
             }, 
             "exec": "waybar-temperature",
             "return-type": "json",
-            "interval": 1,
+            "interval": 5,
         },
     
     
         "custom/fanspeed": {
             "format": "<span>𐘾 {}</span>",
             "exec": "waybar-fanspeed",
-            "interval": 1,
+            "interval": 5,
             "return-type": "json",
         },
     
@@ -2365,7 +2362,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0cf6bb2"></a>
+<a id="orge940018"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2447,7 +2444,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0cf6bb2).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge940018).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
