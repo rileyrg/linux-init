@@ -2378,23 +2378,14 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 #+end_src
 #+begin_src conf :tangle "dot-config/kanshi/config-hercules"
   profile hercules-dpL{
-  # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
   output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
-  # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
   }
   profile hercules-dpR{
-  #output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.4
   output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1
-  #output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 0,0 scale 1
   }
   profile hercules-dp{
-  # note that position of the right is set at res of first / scale factor  - needed for mouse to span screens
-  # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
-  # output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 2742,0 scale 1.4
    output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
    output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1
-  # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
-  # output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 2560,0 scale 1
   }
 #+end_src
 **** config-xmgneo
@@ -4147,6 +4138,7 @@ fi
 #+end_src
 ** ~/.profile
 #+begin_src bash :tangle "DotFiles/.profile"
+  export CXX="/usr/bin/clang++"
   # fix for java apps in sway
   export _JAVA_AWT_WM_NONREPARENTING=1
   [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"

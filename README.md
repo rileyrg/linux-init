@@ -2185,23 +2185,14 @@ Load a host specific kanshi file if it exists
         }
     
         profile hercules-dpL{
-        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
         output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
-        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
         }
         profile hercules-dpR{
-        #output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1.4
         output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1
-        #output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 0,0 scale 1
         }
         profile hercules-dp{
-        # note that position of the right is set at res of first / scale factor  - needed for mouse to span screens
-        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1.4
-        # output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 2742,0 scale 1.4
          output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
          output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1
-        # output 'Dell Inc. DELL S2725QS 6PNK364' mode 2560x1440@120 position 0,0 scale 1
-        # output 'Dell Inc. DELL S2725QS 5T9K364' mode 2560x1440@120 position 2560,0 scale 1
         }
 
 4.  config-xmgneo
@@ -2362,7 +2353,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge940018"></a>
+<a id="org42205ff"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2444,7 +2435,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge940018).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org42205ff).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3973,6 +3964,7 @@ out of date
 
 ## ~/.profile
 
+    export CXX="/usr/bin/clang++"
     # fix for java apps in sway
     export _JAVA_AWT_WM_NONREPARENTING=1
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
