@@ -1886,7 +1886,9 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
+        if [[ -z ${WAYBAR_FANSPEED_COLORS} ]];then
+            WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
+        fi
         numColors=${#WAYBAR_FANSPEED_COLORS[@]}
         WAYBAR_FANSPEED_MAXRPM=${WAYBAR_FANSPEED_MAXRPM:-4000}
         WAYBAR_FANSPEED_DIVISOR=$((WAYBAR_FANSPEED_MAXRPM / numColors))
@@ -2396,7 +2398,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3b2d950"></a>
+<a id="orgc447b7e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2478,7 +2480,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3b2d950).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc447b7e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

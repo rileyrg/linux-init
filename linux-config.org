@@ -2083,7 +2083,9 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle ~/bin/sway/waybar-fanspeed
   #!/usr/bin/env bash
   #Maintained in linux-config.org
-  WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
+  if [[ -z ${WAYBAR_FANSPEED_COLORS} ]];then
+      WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
+  fi
   numColors=${#WAYBAR_FANSPEED_COLORS[@]}
   WAYBAR_FANSPEED_MAXRPM=${WAYBAR_FANSPEED_MAXRPM:-4000}
   WAYBAR_FANSPEED_DIVISOR=$((WAYBAR_FANSPEED_MAXRPM / numColors))
