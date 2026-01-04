@@ -7,6 +7,5 @@ if [[ -z $DOT_PROFILE_SOURCED ]]; then
     fi
 fi
 if [ "$(tty)" = "/dev/tty1" ];then
-    chuck
     sway-autostart
 fi

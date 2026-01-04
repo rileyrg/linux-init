@@ -376,7 +376,6 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   plugins=(
       zsh-autosuggestions
       dotenv
-      chucknorris
       vi-mode
       tmux
       safe-paste
@@ -436,7 +435,6 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
       fi
   fi
   if [ "$(tty)" = "/dev/tty1" ];then
-      chuck
       sway-autostart
   fi
 #+end_src

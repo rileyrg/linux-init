@@ -309,7 +309,6 @@ NB - NOT Exported as lots of things want to update it
     plugins=(
         zsh-autosuggestions
         dotenv
-        chucknorris
         vi-mode
         tmux
         safe-paste
@@ -366,7 +365,6 @@ NB - NOT Exported as lots of things want to update it
         fi
     fi
     if [ "$(tty)" = "/dev/tty1" ];then
-        chuck
         sway-autostart
     fi
 
@@ -2398,7 +2396,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc447b7e"></a>
+<a id="org61af1b3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2480,7 +2478,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc447b7e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org61af1b3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

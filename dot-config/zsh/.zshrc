@@ -80,7 +80,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
     zsh-autosuggestions
     dotenv
-    chucknorris
     vi-mode
     tmux
     safe-paste
