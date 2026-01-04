@@ -1886,15 +1886,17 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        colors=(green orange orange red red)
-        WAYBAR_FANSPEED_DIVISOR=${WAYBAR_FANSPEED_DIVISOR:-1000}
+        WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
+        numColors=${#WAYBAR_FANSPEED_COLORS[@]}
+        WAYBAR_FANSPEED_MAXRPM=${WAYBAR_FANSPEED_MAXRPM:-4000}
+        WAYBAR_FANSPEED_DIVISOR=$((WAYBAR_FANSPEED_MAXRPM / numColors))
         while true;do
             readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
             output=""
             for fan in "${fans[@]}"; do
                 IFS=: read -r fanid rpm <<< "${fan}"
                 if [ ! "${rpm}" = "0" ]; then
-                    color=${colors[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
+                    color=${WAYBAR_FANSPEED_COLORS[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
                     output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
                 fi
             done
@@ -2394,7 +2396,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5c3e0ed"></a>
+<a id="org3b2d950"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2476,7 +2478,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5c3e0ed).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3b2d950).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
