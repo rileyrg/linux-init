@@ -1508,10 +1508,18 @@ $term is set to "sway-scratch-terminal
     
     
         "custom/fanspeed": {
-            "format": "<span>𐘾 {}</span>",
+            "format": "<span>󰈐 {}</span>",
             "exec": "waybar-fanspeed",
             "interval": 5,
             "return-type": "json",
+        },
+    
+        "custom/fanspin": {
+            "exec": "waybar-fanspin",
+            "interval": 3, 
+            "format": " {text}",
+            "tooltip": false,
+            "tooltip-format": "Fan:{text}",
         },
     
         "custom/uptime": {
@@ -1838,7 +1846,61 @@ $term is set to "sway-scratch-terminal
         text="{\"text\":\""$t"\",\"tooltip\":\""$o"\"}"
         echo $text
 
-6.  ~/bin/sway/waybar-fanspeed
+6.  ~/bin/sway/waybar-fanspin
+
+        #!/usr/bin/env bash
+        #Maintained in linux-config.org
+        #!/usr/bin/env bash
+        
+        # https://github.com/nirabyte/dotfiles/blob/main/waybar/scripts/fan-spin.sh
+        
+        while true; do
+          # Get CPU fan RPM from sensors
+          rpm=$(sensors | awk '/cpu_fan:/ {print $2}' | tr -d 'RPM')
+        
+          # Ensure numeric
+          if ! [[ "$rpm" =~ ^[0-9]+$ ]]; then
+            rpm=0
+          fi
+        
+          # If RPM = 0, show static fan icon with 0 RPM
+          if (( rpm == 0 )); then
+            echo " 󰈐 0 RPM"
+            sleep 1
+            continue
+          fi
+        
+          # Map RPM to speed multiplier using your breakpoints
+          min_rpm=0
+          mid_rpm=1800
+          max_rpm=3500
+        
+          if (( rpm <= mid_rpm )); then
+            fanSpeed=$(awk -v r="$rpm" -v m="$mid_rpm" \
+              'BEGIN{ printf "%.2f", (r/m) * 0.5 }')
+          else
+            fanSpeed=$(awk -v r="$rpm" -v m="$mid_rpm" -v M="$max_rpm" \
+              'BEGIN{ s = 0.5 + (r-m)/(M-m)*0.5; if(s>1) s=1; printf "%.2f", s }')
+          fi
+        
+          # Convert fanSpeed to delay (higher speed → lower delay)
+          min_delay=0.05
+          max_delay=0.4
+        
+          delay=$(awk -v fs="$fanSpeed" -v mn="$min_delay" -v mx="$max_delay" \
+            'BEGIN{ d = mx - fs*(mx - mn); printf "%.3f", d }')
+        
+          # Spinner frames
+          frames=(" |" " /" " —" " \\")
+        
+          # Print each frame with RPM
+          for f in "${frames[@]}"; do
+            echo "$f $rpm RPM"
+            sleep "$delay"
+          done
+        done
+
+7.  ~/bin/sway/waybar-fanspeed
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1861,7 +1923,7 @@ $term is set to "sway-scratch-terminal
         tooltip="Buzz"
         echo $(jq --null-input --arg text "${text}" --arg tooltip "${tooltip}" '{"text": $text,"tooltip":$tooltip'})
 
-7.  ~/bin/sway/waybar-temperature
+8.  ~/bin/sway/waybar-temperature
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1876,20 +1938,20 @@ $term is set to "sway-scratch-terminal
         # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
         echo $(jq --null-input --arg text "${tempC}" --arg class "${class}" --arg alt "${class}"  --arg tooltip "warming" '{"text": $text,"alt": $alt,  "class": $class, "tooltip":$tooltip'})
 
-8.  ~/bin/sway/waybar-power-draw
+9.  ~/bin/sway/waybar-power-draw
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
         [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
-9.  ~/bin/sway/waybar-weather-json
+10. ~/bin/sway/waybar-weather-json
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org 
         sleep 5
         WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 
-10. ~/bin/sway/waybar-wttr
+11. ~/bin/sway/waybar-wttr
 
         #!/usr/bin/env python
         # Maintained in linux-config.org
@@ -2353,7 +2415,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org42205ff"></a>
+<a id="org73ba609"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2435,7 +2497,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org42205ff).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org73ba609).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

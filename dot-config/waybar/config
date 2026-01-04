@@ -184,10 +184,18 @@
 
 
     "custom/fanspeed": {
-        "format": "<span>𐘾 {}</span>",
+        "format": "<span>󰈐 {}</span>",
         "exec": "waybar-fanspeed",
         "interval": 5,
         "return-type": "json",
+    },
+
+    "custom/fanspin": {
+        "exec": "waybar-fanspin",
+        "interval": 3, 
+        "format": " {text}",
+        "tooltip": false,
+        "tooltip-format": "Fan:{text}",
     },
 
     "custom/uptime": {
