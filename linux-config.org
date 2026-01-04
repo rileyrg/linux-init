@@ -2095,10 +2095,10 @@ https://github.com/Alexays/Waybar/wiki/Configuration
           IFS=: read -r fanid rpm <<< "${fan}"
           if [ ! "${rpm}" = "0" ]; then
               color=${colors[$(( rpm / FANSPEED_DIVISOR))]};
-              output="${output}<span color='orange'>${fanid}:</span><span color='${color}'>${rpm} </span>"
+              output="${output}<span color='gray'>${fanid}:</span><span color='${color}'>${rpm} </span>"
           fi
       done
-      sleep 1
+      sleep ${WAYBAR_FANSPEED_SLEEP:-2}
       echo $(jq --null-input --arg text "${output}" '{"text": $text}')
   done
 #+end_src

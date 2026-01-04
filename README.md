@@ -1898,10 +1898,10 @@ $term is set to "sway-scratch-terminal
                 IFS=: read -r fanid rpm <<< "${fan}"
                 if [ ! "${rpm}" = "0" ]; then
                     color=${colors[$(( rpm / FANSPEED_DIVISOR))]};
-                    output="${output}<span color='orange'>${fanid}:</span><span color='${color}'>${rpm} </span>"
+                    output="${output}<span color='gray'>${fanid}:</span><span color='${color}'>${rpm} </span>"
                 fi
             done
-            sleep 1
+            sleep ${WAYBAR_FANSPEED_SLEEP:-2}
             echo $(jq --null-input --arg text "${output}" '{"text": $text}')
         done
 
@@ -2397,7 +2397,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf16bd08"></a>
+<a id="org058223f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2479,7 +2479,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf16bd08).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org058223f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
