@@ -3,17 +3,15 @@
 colors=(green orange orange red red)
 WAYBAR_FANSPEED_DIVISOR=${WAYBAR_FANSPEED_DIVISOR:-1000}
 while true;do
-    f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
-    readarray -t fans <<< $(echo -e "${f}")
+    readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
     output=""
-    color="gray"
     for fan in "${fans[@]}"; do
         IFS=: read -r fanid rpm <<< "${fan}"
         if [ ! "${rpm}" = "0" ]; then
             color=${colors[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
-            output="${output}<span color='gray'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
+            output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
         fi
     done
-    echo ${output:-"No 󰈐 Spinning"}
-    sleep ${WAYBAR_FANSPEED_SLEEP:-2}
+    echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐 Spinning"}}
+    sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
 done
