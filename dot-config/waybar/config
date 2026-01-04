@@ -186,7 +186,6 @@
     "custom/fanspeed": {
         "format": "<span>󰈐 {}</span>",
         "exec": "waybar-fanspeed",
-        "interval": 5,
         "return-type": "json",
     },
 

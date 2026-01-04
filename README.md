@@ -1510,7 +1510,6 @@ $term is set to "sway-scratch-terminal
         "custom/fanspeed": {
             "format": "<span>󰈐 {}</span>",
             "exec": "waybar-fanspeed",
-            "interval": 5,
             "return-type": "json",
         },
     
@@ -1889,18 +1888,22 @@ $term is set to "sway-scratch-terminal
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        
-        f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
-        readarray -t fans <<< $(echo -e "${f}")
-        output=""
-        for fan in "${fans[@]}"; do
-            IFS=: read -r fanid rpm <<< "${fan}"
-            if [ ! "${rpm}" = "0" ]; then
-                output="${output}<span color='orange'>${fanid}:</span><span color='green'>${rpm} </span>"
-            fi
+        colors=(green orange orange red red)
+        FANSPEED_DIVISOR=${FANSPEED_DIVISOR:-1000}
+        while true;do
+            f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
+            readarray -t fans <<< $(echo -e "${f}")
+            output=""
+            for fan in "${fans[@]}"; do
+                IFS=: read -r fanid rpm <<< "${fan}"
+                if [ ! "${rpm}" = "0" ]; then
+                    color=${colors[$(( rpm / FANSPEED_DIVISOR))]};
+                    output="${output}<span color='orange'>${fanid}:</span><span color='${color}'>${rpm} </span>"
+                fi
+            done
+            sleep 1
+            echo $(jq --null-input --arg text "${output}" '{"text": $text}')
         done
-        
-        echo $(jq --null-input --arg text "${output}" '{"text": $text}')
 
 8.  ~/bin/sway/waybar-temperature
 
@@ -2394,7 +2397,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgf303c62"></a>
+<a id="orgf16bd08"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2476,7 +2479,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf303c62).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf16bd08).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
