@@ -1692,9 +1692,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
 
       "custom/fanspeed": {
-          "format": "<span>󰈐 {}</span>",
           "exec": "waybar-fanspeed",
-          "return-type": "json",
       },
 
       "custom/fanspin": {
@@ -2091,15 +2089,16 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
       readarray -t fans <<< $(echo -e "${f}")
       output=""
+      color="gray"
       for fan in "${fans[@]}"; do
           IFS=: read -r fanid rpm <<< "${fan}"
           if [ ! "${rpm}" = "0" ]; then
               color=${colors[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
-              output="${output}<span color='gray'>${fanid}:</span><span color='${color}'>${rpm} </span>"
+              output="${output}<span color='gray'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
           fi
       done
+      echo ${output:-"No 󰈐 Spinning"}
       sleep ${WAYBAR_FANSPEED_SLEEP:-2}
-      echo $(jq --null-input --arg text "${output}" '{"text": $text}')
   done
 #+end_src
 

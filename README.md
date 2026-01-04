@@ -1508,9 +1508,7 @@ $term is set to "sway-scratch-terminal
     
     
         "custom/fanspeed": {
-            "format": "<span>󰈐 {}</span>",
             "exec": "waybar-fanspeed",
-            "return-type": "json",
         },
     
         "custom/fanspin": {
@@ -1894,15 +1892,16 @@ $term is set to "sway-scratch-terminal
             f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
             readarray -t fans <<< $(echo -e "${f}")
             output=""
+            color="gray"
             for fan in "${fans[@]}"; do
                 IFS=: read -r fanid rpm <<< "${fan}"
                 if [ ! "${rpm}" = "0" ]; then
                     color=${colors[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
-                    output="${output}<span color='gray'>${fanid}:</span><span color='${color}'>${rpm} </span>"
+                    output="${output}<span color='gray'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
                 fi
             done
+            echo ${output:-"No 󰈐 Spinning"}
             sleep ${WAYBAR_FANSPEED_SLEEP:-2}
-            echo $(jq --null-input --arg text "${output}" '{"text": $text}')
         done
 
 8.  ~/bin/sway/waybar-temperature
@@ -2397,7 +2396,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org68f05a0"></a>
+<a id="org0d250f3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2479,7 +2478,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org68f05a0).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0d250f3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
