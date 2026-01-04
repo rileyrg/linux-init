@@ -1889,7 +1889,7 @@ $term is set to "sway-scratch-terminal
         #!/usr/bin/env bash
         #Maintained in linux-config.org
         colors=(green orange orange red red)
-        FANSPEED_DIVISOR=${FANSPEED_DIVISOR:-1000}
+        WAYBAR_FANSPEED_DIVISOR=${WAYBAR_FANSPEED_DIVISOR:-1000}
         while true;do
             f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
             readarray -t fans <<< $(echo -e "${f}")
@@ -2397,7 +2397,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org058223f"></a>
+<a id="orgdfe9caf"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2479,7 +2479,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org058223f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgdfe9caf).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

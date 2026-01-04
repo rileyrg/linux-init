@@ -2086,7 +2086,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   #!/usr/bin/env bash
   #Maintained in linux-config.org
   colors=(green orange orange red red)
-  FANSPEED_DIVISOR=${FANSPEED_DIVISOR:-1000}
+  WAYBAR_FANSPEED_DIVISOR=${WAYBAR_FANSPEED_DIVISOR:-1000}
   while true;do
       f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
       readarray -t fans <<< $(echo -e "${f}")
