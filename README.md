@@ -1854,74 +1854,53 @@ $term is set to "sway-scratch-terminal
         
         # https://github.com/nirabyte/dotfiles/blob/main/waybar/scripts/fan-spin.sh
         
-        while true; do
-          # Get CPU fan RPM from sensors
-          rpm=$(sensors | awk '/cpu_fan:/ {print $2}' | tr -d 'RPM')
+        while read -r fanfile; do
+            speed=$(cat "$fanfile" 2>/dev/null)
+            (( speed > max_speed )) && max_speed=$speed
+            (( speed > 0 )) && (( active_count++ ))
+        done < <(find /sys/class/hwmon -type f -name "fan*_input" 2>/dev/null)
         
-          # Ensure numeric
-          if ! [[ "$rpm" =~ ^[0-9]+$ ]]; then
-            rpm=0
-          fi
-        
-          # If RPM = 0, show static fan icon with 0 RPM
-          if (( rpm == 0 )); then
-            echo " 󰈐 0 RPM"
+        if (( max_speed == 0 )); then
+            echo "󰈐 0 RPM"
             sleep 1
             continue
-          fi
+        fi
         
-          # Map RPM to speed multiplier using your breakpoints
-          min_rpm=0
-          mid_rpm=1800
-          max_rpm=3500
+        if (( max_speed <= mid_rpm )); then
+            fanSpeed=$(awk -v r="$max_speed" -v m="$mid_rpm" 'BEGIN { printf "%.2f", (r/m) * 0.5 }')
+        else
+            fanSpeed=$(awk -v r="$max_speed" -v m="$mid_rpm" -v M="$max_rpm" \\
+                'BEGIN { s = 0.5 + (r-m)/(M-m)*0.5; if (s>1) s=1; printf "%.2f", s }')
+        fi
         
-          if (( rpm <= mid_rpm )); then
-            fanSpeed=$(awk -v r="$rpm" -v m="$mid_rpm" \
-              'BEGIN{ printf "%.2f", (r/m) * 0.5 }')
-          else
-            fanSpeed=$(awk -v r="$rpm" -v m="$mid_rpm" -v M="$max_rpm" \
-              'BEGIN{ s = 0.5 + (r-m)/(M-m)*0.5; if(s>1) s=1; printf "%.2f", s }')
-          fi
+        delay=$(awk -v fs="$fanSpeed" -v mn="$min_delay" -v mx="$max_delay" \\
+            'BEGIN { d = mx - fs*(mx - mn); printf "%.3f", d }')
         
-          # Convert fanSpeed to delay (higher speed → lower delay)
-          min_delay=0.05
-          max_delay=0.4
-        
-          delay=$(awk -v fs="$fanSpeed" -v mn="$min_delay" -v mx="$max_delay" \
-            'BEGIN{ d = mx - fs*(mx - mn); printf "%.3f", d }')
-        
-          # Spinner frames
-          frames=(" |" " /" " —" " \\")
-        
-          # Print each frame with RPM
-          for f in "${frames[@]}"; do
-            echo "$f $rpm RPM"
+        for frame in "${frames[@]}"; do
+            if (( active_count > 1 )); then
+                echo "$frame ${max_speed} RPM ($active_count fans)"
+            else
+                echo "$frame ${max_speed} RPM"
+            fi
             sleep "$delay"
-          done
         done
 
 7.  ~/bin/sway/waybar-fanspeed
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
-        cd /sys/class/hwmon
-        curhwmon=""
+        
+        f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
+        readarray -t fans <<< $(echo -e "${f}")
         output=""
-        while read -r fanfile ; do
-            speed=$(cat "${fanfile}")
-            if [ ! "${speed}" = "0" ]; then
-                hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
-                if [ ! "${hwmon}" = "${curhwmon}" ]; then
-                    curhwmon="${hwmon}"
-                    output="${output}<span color='gold'>hwmon${hwmon}</span>:"
-                fi
-                fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
-                output="${output}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+        for fan in "${fans[@]}"; do
+            IFS=: read -r fanid rpm <<< "${fan}"
+            if [ ! "${rpm}" = "0" ]; then
+                output="${output}<span color='orange'>${fanid}:</span><span color='green'>${rpm} </span>"
             fi
-        done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort)
-        text="${output:-No Active Fans Read}"
-        tooltip="Buzz"
-        echo $(jq --null-input --arg text "${text}" --arg tooltip "${tooltip}" '{"text": $text,"tooltip":$tooltip'})
+        done
+        
+        echo $(jq --null-input --arg text "${output}" '{"text": $text}')
 
 8.  ~/bin/sway/waybar-temperature
 
@@ -2415,7 +2394,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org73ba609"></a>
+<a id="orgf303c62"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2497,7 +2476,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org73ba609).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgf303c62).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

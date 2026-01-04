@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
 #Maintained in linux-config.org
-cd /sys/class/hwmon
-curhwmon=""
+
+f=$(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan//g' | sed 's/: /:/')
+readarray -t fans <<< $(echo -e "${f}")
 output=""
-while read -r fanfile ; do
-    speed=$(cat "${fanfile}")
-    if [ ! "${speed}" = "0" ]; then
-        hwmon=$(sed 's@^[^0-9]*\([0-9]\+\).*@\1@' <<< "${fanfile}")
-        if [ ! "${hwmon}" = "${curhwmon}" ]; then
-            curhwmon="${hwmon}"
-            output="${output}<span color='gold'>hwmon${hwmon}</span>:"
-        fi
-        fanid=$(sed 's/[^0-9]//g' <<<  $(basename "${fanfile}"))
-        output="${output}<span color='orange'>${fanid} </span><span color='green'>${speed} </span>"
+for fan in "${fans[@]}"; do
+    IFS=: read -r fanid rpm <<< "${fan}"
+    if [ ! "${rpm}" = "0" ]; then
+        output="${output}<span color='orange'>${fanid}:</span><span color='green'>${rpm} </span>"
     fi
-done < <(find -L . -maxdepth 2 -type f -name "fan*input" 2> /dev/null | sort)
-text="${output:-No Active Fans Read}"
-tooltip="Buzz"
-echo $(jq --null-input --arg text "${text}" --arg tooltip "${tooltip}" '{"text": $text,"tooltip":$tooltip'})
+done
+
+echo $(jq --null-input --arg text "${output}" '{"text": $text}')
