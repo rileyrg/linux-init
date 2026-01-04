@@ -2094,7 +2094,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       for fan in "${fans[@]}"; do
           IFS=: read -r fanid rpm <<< "${fan}"
           if [ ! "${rpm}" = "0" ]; then
-              color=${colors[$(( rpm / FANSPEED_DIVISOR))]};
+              color=${colors[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
               output="${output}<span color='gray'>${fanid}:</span><span color='${color}'>${rpm} </span>"
           fi
       done
