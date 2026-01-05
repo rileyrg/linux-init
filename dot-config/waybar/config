@@ -187,14 +187,6 @@
         "exec": "waybar-fanspeed",
     },
 
-    "custom/fanspin": {
-        "exec": "waybar-fanspin",
-        "interval": 3, 
-        "format": " {text}",
-        "tooltip": false,
-        "tooltip-format": "Fan:{text}",
-    },
-
     "custom/uptime": {
         "format": "<span color='white'>⌛{}</span>",
         "interval": 60,

@@ -1509,14 +1509,6 @@ $term is set to "sway-scratch-terminal
             "exec": "waybar-fanspeed",
         },
     
-        "custom/fanspin": {
-            "exec": "waybar-fanspin",
-            "interval": 3, 
-            "format": " {text}",
-            "tooltip": false,
-            "tooltip-format": "Fan:{text}",
-        },
-    
         "custom/uptime": {
             "format": "<span color='white'>⌛{}</span>",
             "interval": 60,
@@ -1841,46 +1833,7 @@ $term is set to "sway-scratch-terminal
         text="{\"text\":\""$t"\",\"tooltip\":\""$o"\"}"
         echo $text
 
-6.  ~/bin/sway/waybar-fanspin
-
-        #!/usr/bin/env bash
-        #Maintained in linux-config.org
-        #!/usr/bin/env bash
-        
-        # https://github.com/nirabyte/dotfiles/blob/main/waybar/scripts/fan-spin.sh
-        
-        while read -r fanfile; do
-            speed=$(cat "$fanfile" 2>/dev/null)
-            (( speed > max_speed )) && max_speed=$speed
-            (( speed > 0 )) && (( active_count++ ))
-        done < <(find /sys/class/hwmon -type f -name "fan*_input" 2>/dev/null)
-        
-        if (( max_speed == 0 )); then
-            echo "󰈐 0 RPM"
-            sleep 1
-            continue
-        fi
-        
-        if (( max_speed <= mid_rpm )); then
-            fanSpeed=$(awk -v r="$max_speed" -v m="$mid_rpm" 'BEGIN { printf "%.2f", (r/m) * 0.5 }')
-        else
-            fanSpeed=$(awk -v r="$max_speed" -v m="$mid_rpm" -v M="$max_rpm" \\
-                'BEGIN { s = 0.5 + (r-m)/(M-m)*0.5; if (s>1) s=1; printf "%.2f", s }')
-        fi
-        
-        delay=$(awk -v fs="$fanSpeed" -v mn="$min_delay" -v mx="$max_delay" \\
-            'BEGIN { d = mx - fs*(mx - mn); printf "%.3f", d }')
-        
-        for frame in "${frames[@]}"; do
-            if (( active_count > 1 )); then
-                echo "$frame ${max_speed} RPM ($active_count fans)"
-            else
-                echo "$frame ${max_speed} RPM"
-            fi
-            sleep "$delay"
-        done
-
-7.  ~/bin/sway/waybar-fanspeed
+6.  ~/bin/sway/waybar-fanspeed
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1904,7 +1857,7 @@ $term is set to "sway-scratch-terminal
             sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
         done
 
-8.  ~/bin/sway/waybar-temperature
+7.  ~/bin/sway/waybar-temperature
 
         #!/usr/bin/env bash
         #Maintained in linux-config.org
@@ -1919,20 +1872,20 @@ $term is set to "sway-scratch-terminal
         # https://github.com/Alexays/Waybar/wiki/Module:-Custom#return-type
         echo $(jq --null-input --arg text "${tempC}" --arg class "${class}" --arg alt "${class}"  --arg tooltip "warming" '{"text": $text,"alt": $alt,  "class": $class, "tooltip":$tooltip'})
 
-9.  ~/bin/sway/waybar-power-draw
+8.  ~/bin/sway/waybar-power-draw
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org
         [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 
-10. ~/bin/sway/waybar-weather-json
+9.  ~/bin/sway/waybar-weather-json
 
         #!/usr/bin/env bash
         # Maintained in linux-config.org 
         sleep 5
         WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 
-11. ~/bin/sway/waybar-wttr
+10. ~/bin/sway/waybar-wttr
 
         #!/usr/bin/env python
         # Maintained in linux-config.org
@@ -2396,7 +2349,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org61af1b3"></a>
+<a id="orga4f57df"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2478,7 +2431,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org61af1b3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4f57df).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
