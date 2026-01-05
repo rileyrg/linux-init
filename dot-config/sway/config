@@ -244,7 +244,7 @@ bindsym $mod+y exec sway-clipboard-history-select
 bindsym $mod+Control+y exec sway-clipboard-history-clear
 
 bindsym XF86AudioMute exec  sway-volume-notify "0"
-bindsym $mod+XF86AudioMute exec  pavucontrol
+bindsym $mod+XF86AudioMute exec  sway-audio-control
 bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
 bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
 # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify

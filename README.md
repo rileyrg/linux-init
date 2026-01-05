@@ -1229,7 +1229,7 @@ $term is set to "sway-scratch-terminal
 
         
         bindsym XF86AudioMute exec  sway-volume-notify "0"
-        bindsym $mod+XF86AudioMute exec  pavucontrol
+        bindsym $mod+XF86AudioMute exec  sway-audio-control
         bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
         bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
         # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
@@ -1477,7 +1477,7 @@ $term is set to "sway-scratch-terminal
                 "default": ["🔈", "🔉", "🔊"]
             },
             "on-click": "pulse-volume toggle",
-            "on-click-right": "pavucontrol"
+            "on-click-right": "sway-audio-control"
         },
     
         "tray": {
@@ -2349,7 +2349,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga4f57df"></a>
+<a id="org79a43e3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2431,7 +2431,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga4f57df).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org79a43e3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2572,6 +2572,15 @@ Thanks: <https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_triv
     else
         sway-notify "🔊${volumep}%"
     fi
+
+
+### ~/bin/sway/sway-audio-control
+
+Launch the wayland pwvucontrol instance if it exists, else pavucontrol
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    command -v pwvucontrol && pwvucontrol || pavucontrol
 
 
 ### ~/bin/sway/sway-weather

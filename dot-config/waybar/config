@@ -155,7 +155,7 @@
             "default": ["🔈", "🔉", "🔊"]
         },
         "on-click": "pulse-volume toggle",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "sway-audio-control"
     },
 
     "tray": {

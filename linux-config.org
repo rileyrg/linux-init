@@ -1415,7 +1415,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+begin_src conf
 
   bindsym XF86AudioMute exec  sway-volume-notify "0"
-  bindsym $mod+XF86AudioMute exec  pavucontrol
+  bindsym $mod+XF86AudioMute exec  sway-audio-control
   bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
   bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
   # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
@@ -1661,7 +1661,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
               "default": ["🔈", "🔉", "🔊"]
           },
           "on-click": "pulse-volume toggle",
-          "on-click-right": "pavucontrol"
+          "on-click-right": "sway-audio-control"
       },
 
       "tray": {
@@ -2777,6 +2777,15 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
       sway-notify "🔊${volumep}%"
   fi
 #+end_src
+
+*** ~/bin/sway/sway-audio-control
+Launch the wayland pwvucontrol instance if it exists, else pavucontrol
+#+begin_src bash :tangle "~/bin/sway/sway-audio-control"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  command -v pwvucontrol && pwvucontrol || pavucontrol
+#+end_src
+
 
 *** ~/bin/sway/sway-weather
 :PROPERTIES:
