@@ -45,7 +45,7 @@ NB - NOT Exported as lots of things want to update it
 
     ! Maintained in linux-config.org
     ! Use a truetype font and size.
-    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+    *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-24-*-*-*-*-*-*
     Xft.autohint: 0
     Xft.antialias: 1
     Xft.hinting: true
@@ -54,8 +54,11 @@ NB - NOT Exported as lots of things want to update it
     Xft.rgba: rgb
     Xft.lcdfilter: lcddefault
     
+    xterm*faceName: JetBrainsMono
+    xterm*faceSize: 14
+    
     xterm*background: black
-    xxterm*foreground: white
+    xterm*foreground: white
     
     ! Fonts {{{
     #ifdef SRVR_t460
@@ -2349,7 +2352,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org79a43e3"></a>
+<a id="org380bcbc"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2431,7 +2434,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org79a43e3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org380bcbc).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

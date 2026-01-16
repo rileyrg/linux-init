@@ -110,7 +110,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 #+begin_src conf :tangle "DotFiles/.Xdefaults"
   ! Maintained in linux-config.org
   ! Use a truetype font and size.
-  ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+  ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-24-*-*-*-*-*-*
   Xft.autohint: 0
   Xft.antialias: 1
   Xft.hinting: true
@@ -119,8 +119,11 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   Xft.rgba: rgb
   Xft.lcdfilter: lcddefault
 
+  xterm*faceName: JetBrainsMono
+  xterm*faceSize: 14
+
   xterm*background: black
-  xxterm*foreground: white
+  xterm*foreground: white
 
   ! Fonts {{{
   #ifdef SRVR_t460

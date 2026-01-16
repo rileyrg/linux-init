@@ -1,6 +1,6 @@
 ! Maintained in linux-config.org
 ! Use a truetype font and size.
-*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-14-*-*-*-*-*-*
+*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-24-*-*-*-*-*-*
 Xft.autohint: 0
 Xft.antialias: 1
 Xft.hinting: true
@@ -9,8 +9,11 @@ Xft.dpi: 96
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
 
+xterm*faceName: JetBrainsMono
+xterm*faceSize: 14
+
 xterm*background: black
-xxterm*foreground: white
+xterm*foreground: white
 
 ! Fonts {{{
 #ifdef SRVR_t460
