@@ -32,6 +32,8 @@
 !/etc/zsh/zshprofile
 
 !/dot-config
+!/dot-config/kitty
+!/dot-config/kitty/*
 
 !/dot-config/alacritty
 !/dot-config/alacritty/*
