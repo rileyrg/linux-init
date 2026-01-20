@@ -1856,7 +1856,7 @@ $term is set to "sway-scratch-terminal
                     output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
                 fi
             done
-            echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐 Spinning"}}
+            echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
             sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
         done
 
@@ -2352,7 +2352,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org380bcbc"></a>
+<a id="org48e6555"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2434,7 +2434,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org380bcbc).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org48e6555).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

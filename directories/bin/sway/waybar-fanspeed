@@ -16,6 +16,6 @@ while true;do
             output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
         fi
     done
-    echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐 Spinning"}}
+    echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
     sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
 done
