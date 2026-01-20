@@ -3969,13 +3969,13 @@ https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle "~/bin/gdrive-mount"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  rclone-mount gdrive "$1"
+  rclone-mount gdrive "$@"
 #+end_src
 *** ~/bin/hetzner-mount
 #+begin_src bash :tangle "~/bin/hetzner-mount"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  rclone-mount hetzner "$1"
+  rclone-mount hetzner "$@"
 #+end_src
 *** ~/bin/syncrclone-htop
 #+begin_src bash :tangle "~/bin/syncrclone-htop"
