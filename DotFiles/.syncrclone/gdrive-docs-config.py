@@ -25,7 +25,7 @@ This is *ALWAYS* evaluated from the parent of this file.
 #
 #  See docs/config_tips.md for some helpful tips and tricks
 remoteA = "/home/rgr/cloud/homefiles/directories/Documents/"
-remoteB = "gdrive:cloud/homefiles/directories/Documents"
+remoteB = "gdrive:cloud/homefiles/directories/Documents/"
 
 # (ADVANCED USAGE) Specify where to store past file lists, backups, logs, locks, etc.
 # This value must be either:
