@@ -1,5 +1,8 @@
 # Maintained in linux-config.org
 
+include /etc/sway/config.d/*
+
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 set $super Mod4
@@ -312,8 +315,5 @@ exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "$
 for_window [class="STM32CubeIDE"] floating enable
 assign [class="STM32CubeIDE"] 3
 assign [title="STM32CubeIDE"] 3
-
-include /etc/sway/config.d/*
-include config-vars.d/*
 
 include "${HOME}/.config/sway/host-config-$(hostname)"
