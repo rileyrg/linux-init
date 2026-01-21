@@ -211,8 +211,6 @@ bindsym $mod+minus scratchpad show
 #float xterm (primarily for debugging qtconsole)
 for_window [class="XTerm"] floating enable
 
-include "${HOME}/.config/sway/host-config-$(hostname)"
-
 for_window [title="sway-launcher"] floating enable
 
 # done in sway-workspace-init
@@ -317,3 +315,5 @@ assign [title="STM32CubeIDE"] 3
 
 include /etc/sway/config.d/*
 include config-vars.d/*
+
+include "${HOME}/.config/sway/host-config-$(hostname)"

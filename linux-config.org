@@ -1240,39 +1240,6 @@ Override in .profile.local
 
 #+end_src
 
-*** host specific                                             :scale:scaling:
-#+begin_src conf
-  include "${HOME}/.config/sway/host-config-$(hostname)"
-#+end_src
-**** Hercules
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-hercules"
-:END:
-#+begin_src conf
-  #Maintained in linux-config.org
-  output DP-1  mode 3840x2160@120Hz  pos 0 0
-  output DP-2  mode 3840x2160@120Hz  pos 3840 0
-#+end_src
-
-**** Thinkpad T14s
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-x13"
-:END:
-#+begin_src conf
-  #Maintained in linux-config.org
-  output eDP-1 mode 1920x1200
-#+end_src
-
-
-**** Thinkpad T14s
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-t14s"
-:END:
-#+begin_src conf
-  #Maintained in linux-config.org
-  output eDP-1 mode 1920x1080@60hz
-#+end_src
-
 *** launcher
 #+begin_src conf
   for_window [title="sway-launcher"] floating enable
@@ -2590,14 +2557,14 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
   # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-  swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
+  # swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
 
-  if [ "$leftOutput" != "$rightOutput" ]; then
-      swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
-      if [ "$rightOutput" != "${rightMostOutput}" ]; then
-          swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
-      fi
-  fi
+  # if [ "$leftOutput" != "$rightOutput" ]; then
+  #     swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
+  #     if [ "$rightOutput" != "${rightMostOutput}" ]; then
+  #         swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
+  #     fi
+  # fi
 
   swaymsg "
      workspace 1; move workspace to output $leftOutput;
@@ -4149,8 +4116,43 @@ fi
 
 #+end_src
 
+* host specific                                               :scale:scaling:
+** outputs
+*** Hercules
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-hercules"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 stretch pos 0 0
+  output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 stretch pos 3840 0
+#+end_src
+
+*** Thinkpad X13
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-x13"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output eDP-1 mode 1920x1200 bg ${HOME}/Pictures/Wallpapers/s1 stretch
+#+end_src
+
+
+*** Thinkpad T14s
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-t14s"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output eDP-1 mode 1920x1080@60hz
+#+end_src
+
 ** sway config
+
 #+begin_src conf :tangle ~/.config/sway/config
   include /etc/sway/config.d/*
   include config-vars.d/*
+
+  include "${HOME}/.config/sway/host-config-$(hostname)"
+
 #+end_src

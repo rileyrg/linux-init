@@ -12,14 +12,14 @@ sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOut
 curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
 # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
+# swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
 
-if [ "$leftOutput" != "$rightOutput" ]; then
-    swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
-    if [ "$rightOutput" != "${rightMostOutput}" ]; then
-        swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
-    fi
-fi
+# if [ "$leftOutput" != "$rightOutput" ]; then
+#     swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
+#     if [ "$rightOutput" != "${rightMostOutput}" ]; then
+#         swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
+#     fi
+# fi
 
 swaymsg "
    workspace 1; move workspace to output $leftOutput;

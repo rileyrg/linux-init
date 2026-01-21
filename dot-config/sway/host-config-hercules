@@ -1,3 +1,3 @@
 #Maintained in linux-config.org
-output DP-1  mode 3840x2160@120Hz  pos 0 0
-output DP-2  mode 3840x2160@120Hz  pos 3840 0
+output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 stretch pos 0 0
+output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 stretch pos 3840 0

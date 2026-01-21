@@ -1065,27 +1065,6 @@ Override in .profile.local
     for_window [class="XTerm"] floating enable
 
 
-### host specific     :scale:scaling:
-
-    include "${HOME}/.config/sway/host-config-$(hostname)"
-
-1.  Hercules
-
-        #Maintained in linux-config.org
-        output DP-1  mode 3840x2160@120Hz  pos 0 0
-        output DP-2  mode 3840x2160@120Hz  pos 3840 0
-
-2.  Thinkpad T14s
-
-        #Maintained in linux-config.org
-        output eDP-1 mode 1920x1200
-
-3.  Thinkpad T14s
-
-        #Maintained in linux-config.org
-        output eDP-1 mode 1920x1080@60hz
-
-
 ### launcher
 
     for_window [title="sway-launcher"] floating enable
@@ -2353,7 +2332,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5e67aac"></a>
+<a id="orgd7b69fa"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2386,14 +2365,14 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
     # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
-    swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
+    # swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
     
-    if [ "$leftOutput" != "$rightOutput" ]; then
-        swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
-        if [ "$rightOutput" != "${rightMostOutput}" ]; then
-            swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
-        fi
-    fi
+    # if [ "$leftOutput" != "$rightOutput" ]; then
+    #     swaybg -o  ${rightOutput} -i ${HOME}/Pictures/Wallpapers/s2 -m fill &
+    #     if [ "$rightOutput" != "${rightMostOutput}" ]; then
+    #         swaybg -o ${rightMostOutput} -i ${HOME}/Pictures/Wallpapers/s3 -m fill  &
+    #     fi
+    # fi
     
     swaymsg "
        workspace 1; move workspace to output $leftOutput;
@@ -2435,7 +2414,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5e67aac).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd7b69fa).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3979,8 +3958,35 @@ out of date
     [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
 
 
+# host specific     :scale:scaling:
+
+
+## outputs
+
+
+### Hercules
+
+    #Maintained in linux-config.org
+    output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 stretch pos 0 0
+    output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 stretch pos 3840 0
+
+
+### Thinkpad X13
+
+    #Maintained in linux-config.org
+    output eDP-1 mode 1920x1200 bg ${HOME}/Pictures/Wallpapers/s1 stretch
+
+
+### Thinkpad T14s
+
+    #Maintained in linux-config.org
+    output eDP-1 mode 1920x1080@60hz
+
+
 ## sway config
 
     include /etc/sway/config.d/*
     include config-vars.d/*
+    
+    include "${HOME}/.config/sway/host-config-$(hostname)"
 
