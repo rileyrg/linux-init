@@ -2332,7 +2332,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd7b69fa"></a>
+<a id="orgd73bbb4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2414,7 +2414,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd7b69fa).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd73bbb4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3967,8 +3967,8 @@ out of date
 ### Hercules
 
     #Maintained in linux-config.org
-    output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 stretch pos 0 0
-    output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 stretch pos 3840 0
+    output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 0 0
+    output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 3840 0
 
 
 ### Thinkpad X13
