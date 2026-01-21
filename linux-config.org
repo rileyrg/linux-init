@@ -1244,37 +1244,33 @@ Override in .profile.local
 #+begin_src conf
   include "${HOME}/.config/sway/host-config-$(hostname)"
 #+end_src
+**** Hercules
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-hercules"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output DP-1  mode 3840x2160@120Hz  pos 0 0
+  output DP-2  mode 3840x2160@120Hz  pos 3840 0
+#+end_src
+
+**** Thinkpad T14s
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-x13"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output eDP-1 mode 1920x1200
+#+end_src
+
+
 **** Thinkpad T14s
 :PROPERTIES:
 :header-args:conf: :tangle "~/.config/sway/host-config-t14s"
 :END:
-***** scaling
 #+begin_src conf
   #Maintained in linux-config.org
-  output eDP-1 mode 1920x1080@60hz scale 1.0
-#+end_src
-
-**** XMG Neo
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-xmgneo"
-:END:
-***** scaling
-#+begin_src conf
-  #Maintained in linux-config.org
-  output eDP-1 mode 2560x1440@165hz scale 1.15
-#+end_src
-
-*** CANCELLED xrdb integration                                    :CANCELLED:
-CLOSED: [2023-12-13 Wed 13:12]
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/config"
-:ID:       28b74638-3fc4-499c-bb15-3360f58bccae
-:END:
-:LOGBOOK:
-- State "CANCELLED"  from              [2023-12-13 Wed 13:12]
-:END:
-#+begin_src conf :tangle no
-  exec xrdb -merge ~/.Xresources
+  output eDP-1 mode 1920x1080@60hz
 #+end_src
 
 *** launcher
@@ -1493,14 +1489,15 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+begin_src  conf
   #   exec mako
   #  exec bluetooth-headphone-controls
-    # configure keyboard layout using xkb values
-    exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
-    exec sway-idle
-    exec sway-kanshi 
-    exec blueman-applet &>/dev/null
-    exec waybar-network-applet
-    # exec gpg-cache
-    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
+  # configure keyboard layout using xkb values
+  exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
+  exec sway-idle
+  # exec sway-kanshi 
+  exec sway-workspace-position 
+  exec blueman-applet &>/dev/null
+  exec waybar-network-applet
+  # exec gpg-cache
+  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 #+end_src
 
  ** waybar config
@@ -1694,6 +1691,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 
       "custom/fanspeed": {
           "exec": "waybar-fanspeed",
+          "interval": 2,
       },
 
       "custom/uptime": {
@@ -2042,19 +2040,16 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   numColors=${#WAYBAR_FANSPEED_COLORS[@]}
   WAYBAR_FANSPEED_MAXRPM=${WAYBAR_FANSPEED_MAXRPM:-4000}
   WAYBAR_FANSPEED_DIVISOR=$((WAYBAR_FANSPEED_MAXRPM / numColors))
-  while true;do
-      readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
-      output=""
-      for fan in "${fans[@]}"; do
-          IFS=: read -r fanid rpm <<< "${fan}"
-          if [ ! "${rpm}" = "0" ]; then
-              color=${WAYBAR_FANSPEED_COLORS[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
-              output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
-          fi
-      done
-      echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
-      sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
+  readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
+  output=""
+  for fan in "${fans[@]}"; do
+      IFS=: read -r fanid rpm <<< "${fan}"
+      if [ ! "${rpm}" = "0" ]; then
+          color=${WAYBAR_FANSPEED_COLORS[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
+          output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
+      fi
   done
+  echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
 #+end_src
 
 

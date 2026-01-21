@@ -1069,19 +1069,21 @@ Override in .profile.local
 
     include "${HOME}/.config/sway/host-config-$(hostname)"
 
-1.  Thinkpad T14s
+1.  Hercules
 
-    1.  scaling
-    
-            #Maintained in linux-config.org
-            output eDP-1 mode 1920x1080@60hz scale 1.0
+        #Maintained in linux-config.org
+        output DP-1  mode 3840x2160@120Hz  pos 0 0
+        output DP-2  mode 3840x2160@120Hz  pos 3840 0
 
-2.  XMG Neo
+2.  Thinkpad T14s
 
-    1.  scaling
-    
-            #Maintained in linux-config.org
-            output eDP-1 mode 2560x1440@165hz scale 1.15
+        #Maintained in linux-config.org
+        output eDP-1 mode 1920x1200
+
+3.  Thinkpad T14s
+
+        #Maintained in linux-config.org
+        output eDP-1 mode 1920x1080@60hz
 
 
 ### launcher
@@ -1310,14 +1312,15 @@ $term is set to "sway-scratch-terminal
 
     #   exec mako
     #  exec bluetooth-headphone-controls
-      # configure keyboard layout using xkb values
-      exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
-      exec sway-idle
-      exec sway-kanshi 
-      exec blueman-applet &>/dev/null
-      exec waybar-network-applet
-      # exec gpg-cache
-      exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
+    # configure keyboard layout using xkb values
+    exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
+    exec sway-idle
+    # exec sway-kanshi 
+    exec sway-workspace-position 
+    exec blueman-applet &>/dev/null
+    exec waybar-network-applet
+    # exec gpg-cache
+    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
 
 \*\* waybar config
 <https://github.com/Alexays/Waybar/wiki/Configuration>
@@ -1510,6 +1513,7 @@ $term is set to "sway-scratch-terminal
     
         "custom/fanspeed": {
             "exec": "waybar-fanspeed",
+            "interval": 2,
         },
     
         "custom/uptime": {
@@ -1846,19 +1850,16 @@ $term is set to "sway-scratch-terminal
         numColors=${#WAYBAR_FANSPEED_COLORS[@]}
         WAYBAR_FANSPEED_MAXRPM=${WAYBAR_FANSPEED_MAXRPM:-4000}
         WAYBAR_FANSPEED_DIVISOR=$((WAYBAR_FANSPEED_MAXRPM / numColors))
-        while true;do
-            readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
-            output=""
-            for fan in "${fans[@]}"; do
-                IFS=: read -r fanid rpm <<< "${fan}"
-                if [ ! "${rpm}" = "0" ]; then
-                    color=${WAYBAR_FANSPEED_COLORS[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
-                    output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
-                fi
-            done
-            echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
-            sleep ${WAYBAR_FANSPEED_POLLTIME:-2}
+        readarray -t fans <<< $(sensors | \grep -i "^fan" | awk '{print $1,$2}' | sed 's/fan// ; s/: /:/')
+        output=""
+        for fan in "${fans[@]}"; do
+            IFS=: read -r fanid rpm <<< "${fan}"
+            if [ ! "${rpm}" = "0" ]; then
+                color=${WAYBAR_FANSPEED_COLORS[$(( rpm / WAYBAR_FANSPEED_DIVISOR))]};
+                output="${output}<span color='gold'>󰈐 ${fanid}:</span><span color='${color}'>${rpm} </span>"
+            fi
         done
+        echo ${output:-${WAYBAR_FANSPEED_NOFANSTEXT:-"No 󰈐󰈐󰈐 Spinning"}}
 
 7.  ~/bin/sway/waybar-temperature
 
@@ -2352,7 +2353,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge580c83"></a>
+<a id="org5e67aac"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2434,7 +2435,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge580c83).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5e67aac).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -185,6 +185,7 @@
 
     "custom/fanspeed": {
         "exec": "waybar-fanspeed",
+        "interval": 2,
     },
 
     "custom/uptime": {
