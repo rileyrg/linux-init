@@ -191,7 +191,8 @@ bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
 
 # Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+control+space floating toggle
+bindsym $mod+control+s sticky toggle
 
 # Swap focus between the tiling area and the floating area
 bindsym $mod+space focus mode_toggle
@@ -287,7 +288,6 @@ bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
 bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
 bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
 bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
-bindsym $mod+Shift+s exec sway-do-tool "Steam" "steam"
 bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
 bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
 bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"

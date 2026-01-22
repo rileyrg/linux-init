@@ -8,5 +8,5 @@ else
     args="${@:1:$#-1}"
 fi
 set -x
-unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
+unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,.cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
 set +x

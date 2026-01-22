@@ -134,7 +134,7 @@ NB - NOT Exported as lots of things want to update it
     
     #alias man=eman
     
-    export PATH="${HOME}/bin":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/bin/thirdparty/emacs/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
+    export PATH="${HOME}/bin":"${HOME}/bin/bin-nosync":"${HOME}/bin/sway":"${HOME}/.local/bin":"${HOME}/.emacs.d/bin":"${HOME}/.cargo/bin":"./node_modules/.bin":"${PATH}"
     
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
     export USE_GPG_FOR_SSH="yes" # used in xsession
@@ -691,7 +691,7 @@ this goes into my .profile
         args="${@:1:$#-1}"
     fi
     set -x
-    unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,thirdparty/emacs,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
+    unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,.cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
     set +x
 
 
@@ -1044,7 +1044,8 @@ Override in .profile.local
     bindsym $mod+f fullscreen
     
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+control+space floating toggle
+    bindsym $mod+control+s sticky toggle
     
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
@@ -1273,7 +1274,6 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
-    bindsym $mod+Shift+s exec sway-do-tool "Steam" "steam"
     bindsym $mod+Control+e exec sway-do-tool "Emacs-irc" || emacsclient -s "irc" -c -n  && sleep 0.5 && sway-do-tool "Emacs-irc"
     bindsym $mod+Control+i exec sway-do-tool "Emacs-info" || emacsclient -s "info" -n -c  && sleep 0.5  && sway-do-tool "Emacs-info"
     bindsym $mod+Control+m exec sway-do-tool "Emacs-email" || emacsclient -s "email" -n -c  && sleep 0.5  && sway-do-tool "Emacs-email"
@@ -2335,7 +2335,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org0a574ec"></a>
+<a id="org5dcfcb7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2417,7 +2417,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org0a574ec).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5dcfcb7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
