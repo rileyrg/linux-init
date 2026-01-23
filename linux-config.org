@@ -4147,7 +4147,7 @@ fi
 :END:
 #+begin_src conf
   #Maintained in linux-config.org
-  output eDP-1 mode 1920x1080@60hz
+  output eDP-1 mode 1920x1080@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
 ** sway config
