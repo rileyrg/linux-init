@@ -1096,8 +1096,8 @@ Override in .profile.local
 
 4.  brightness     :brightness:
 
-        bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
-        bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
+        bindsym --locked XF86MonBrightnessUp exec --no-startup-id sway-brightness +${BRIGHTNESS_DELTA:-15}
+        bindsym --locked XF86MonBrightnessDown exec --no-startup-id sway-brightness ${BRIGHTNESS_DELTA:-15}-
 
 5.  gaps
 
@@ -2030,6 +2030,17 @@ $term is set to "sway-scratch-terminal
     fi
 
 
+### ~/bin/sway/sway-brightness
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    if command -v light; then
+        sway-notify "brightness: $(light -G)"
+    else
+        sway-notify "light not installed"
+    fi
+
+
 ### ~/bin/sway/sway-brightness-notify
 
     #!/usr/bin/env bash
@@ -2335,7 +2346,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org95711e1"></a>
+<a id="org89393ac"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2417,7 +2428,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org95711e1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org89393ac).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
-brightnessctl set "$1"
-sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
+if command -v light; then
+    sway-notify "brightness: $(light -G)"
+else
+    sway-notify "light not installed"
+fi
