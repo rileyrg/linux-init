@@ -1270,8 +1270,8 @@ Override in .profile.local
 #+end_src
 **** brightness                                                  :brightness:
 #+begin_src conf
-  bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +${BRIGHTNESS_DELTA:-15} && sway-brightness-notify
-  bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set ${BRIGHTNESS_DELTA:-15}- && sway-brightness-notify
+  bindsym --locked XF86MonBrightnessUp exec --no-startup-id sway-brightness +${BRIGHTNESS_DELTA:-15}
+  bindsym --locked XF86MonBrightnessDown exec --no-startup-id sway-brightness ${BRIGHTNESS_DELTA:-15}-
 #+end_src
 **** gaps
 #+begin_src conf
@@ -2207,8 +2207,18 @@ https://github.com/Alexays/Waybar/wiki/Configuration
       fi
   fi
 #+end_src
+
+*** ~/bin/sway/sway-brightness
+#+begin_src bash :tangle "~/bin/sway/sway-brightness"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  brightnessctl set "$1"
+  sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
+#+end_src
+
+
 *** ~/bin/sway/sway-brightness-notify
-#+begin_src bash :tangle "~/bin/sway/sway-brightness-notify"
+#+begin_src bash :tanglxe "~/bin/sway/sway-brightness-notify"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
