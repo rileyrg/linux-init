@@ -2,3 +2,4 @@
 # Maintained in linux-config.org
 clipman clear -a
 sway-notify "Clipboard history cleared."
+exit 0

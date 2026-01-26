@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
 sway-do-tool "Emacs-general" || emacsclient -s "general" -n -c && sleep 1 && sway-do-tool "Emacs-general"
+exit 0

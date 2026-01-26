@@ -740,6 +740,7 @@ this goes into my .profile
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     sway-do-tool "Emacs-general" || emacsclient -s "general" -n -c && sleep 1 && sway-do-tool "Emacs-general"
+    exit 0
 
 
 ## Vim
@@ -1153,6 +1154,7 @@ $term is set to "sway-scratch-terminal
             # Maintained in linux-config.org
             clipman clear -a
             sway-notify "Clipboard history cleared."
+            exit 0
     
     3.  Wofi Config
     
@@ -2038,7 +2040,7 @@ $term is set to "sway-scratch-terminal
     #!/usr/bin/env bash 
     # Maintained in linux-config.org
     if command -v light; then
-        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-10%}
+        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10%"}
         if [[ "$1" == "-" ]]; then
             light -U ${BRIGHTNESS_DELTA}
         else
@@ -2064,7 +2066,9 @@ $term is set to "sway-scratch-terminal
     
     else
         sway-notify "backlight support  not installed"
+        exit 1
     fi
+    exit 0
 
 
 ### ~/bin/sway/sway-brightness-notify
@@ -2072,6 +2076,7 @@ $term is set to "sway-scratch-terminal
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
+    exit 0
 
 
 ### ~/bin/sway/sway-bluetooth
@@ -2079,6 +2084,7 @@ $term is set to "sway-scratch-terminal
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     exec sway-oneterminal "bluetoothctl" "bluetoothctl"
+    exit 0
 
 
 ### ~/bin/sway/sway-do-tool
@@ -2172,6 +2178,7 @@ Load a host specific kanshi file if it exists
     #!/usr/bin/env bash
     #Maintained in linux-config.org
     [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" "$@" || kitty "$@"
+    exit 0
 
 1.  config
 
@@ -2372,7 +2379,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org073b713"></a>
+<a id="orgc99c1ea"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2454,7 +2461,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org073b713).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc99c1ea).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
