@@ -2053,6 +2053,15 @@ $term is set to "sway-scratch-terminal
             brightnessctl set "+${BRIGHTNESS_DELTA}"
         fi
         sway-notify "brightness: $(brightnessctl get)"
+    elif command -v xbacklight; then
+        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10"}
+        if [[ "$1" == "-" ]]; then
+            xbacklight -dec "${BRIGHTNESS_DELTA}"
+        else
+            xbacklight -inc "${BRIGHTNESS_DELTA}"
+        fi
+        sway-notify "brightness: $(xbacklight -get)"
+    
     else
         sway-notify "backlight support  not installed"
     fi
@@ -2363,7 +2372,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org6ec4745"></a>
+<a id="org073b713"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2445,7 +2454,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6ec4745).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org073b713).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

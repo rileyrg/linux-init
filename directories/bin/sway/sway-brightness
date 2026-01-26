@@ -16,6 +16,15 @@ elif command -v brightnessctl; then
         brightnessctl set "+${BRIGHTNESS_DELTA}"
     fi
     sway-notify "brightness: $(brightnessctl get)"
+elif command -v xbacklight; then
+    BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10"}
+    if [[ "$1" == "-" ]]; then
+        xbacklight -dec "${BRIGHTNESS_DELTA}"
+    else
+        xbacklight -inc "${BRIGHTNESS_DELTA}"
+    fi
+    sway-notify "brightness: $(xbacklight -get)"
+    
 else
     sway-notify "backlight support  not installed"
 fi
