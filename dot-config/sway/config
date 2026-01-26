@@ -2,6 +2,9 @@
 
 include /etc/sway/config.d/*
 
+input * {
+    xkb_layout "de"
+}
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
@@ -229,8 +232,8 @@ set $laptop-id `sway-laptop-id`
 bindswitch lid:on exec "sway-screen disable $laptop-id"
 bindswitch lid:off exec "sway-screen enable $laptop-id"
 
-bindsym --locked XF86MonBrightnessUp exec --no-startup-id sway-brightness +${BRIGHTNESS_DELTA:-15}
-bindsym --locked XF86MonBrightnessDown exec --no-startup-id sway-brightness ${BRIGHTNESS_DELTA:-15}-
+bindsym --locked XF86MonBrightnessUp exec sway-brightness + 
+bindsym --locked XF86MonBrightnessDown exec sway-brightness -
 
 gaps inner  1
 gaps outer  0
