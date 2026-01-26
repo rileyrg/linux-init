@@ -2250,13 +2250,6 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+end_src
 
 
-*** ~/bin/sway/sway-brightness-notify
-#+begin_src bash :tanglxe "~/bin/sway/sway-brightness-notify"
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
-  exit 0
-#+end_src
 *** ~/bin/sway/sway-bluetooth
 :PROPERTIES:
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9

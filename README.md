@@ -2071,14 +2071,6 @@ $term is set to "sway-scratch-terminal
     exit 0
 
 
-### ~/bin/sway/sway-brightness-notify
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    sway-notify "☼:$(printf "%.0f" `brightnessctl g`)"
-    exit 0
-
-
 ### ~/bin/sway/sway-bluetooth
 
     #!/usr/bin/env bash
@@ -2379,7 +2371,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgc99c1ea"></a>
+<a id="org638a26b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2461,7 +2453,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgc99c1ea).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org638a26b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
