@@ -1,19 +1,21 @@
 #!/usr/bin/env bash 
 # Maintained in linux-config.org
-sway-notify "arg 1: $1, arg 2:$2"
-
 if command -v light; then
-    BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-2}
+    BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-10%}
+    if [[ "$1" == "-" ]]; then
+        light -U ${BRIGHTNESS_DELTA}
+    else
+        light -A ${BRIGHTNESS_DELTA}
+    fi
     sway-notify "brightness: $(light -G)"
 elif command -v brightnessctl; then
-    BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-2000}
+    BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10%"}
     if [[ "$1" == "-" ]]; then
-        echo "minus"
-        htbrightnessctl set "10%-"
+        brightnessctl set "${BRIGHTNESS_DELTA}-"
     else
-        echo "positive"
-        brightnessctl set "+10%"
+        brightnessctl set "+${BRIGHTNESS_DELTA}"
     fi
+    sway-notify "brightness: $(brightnessctl get)"
 else
-    sway-notify "light not installed"
+    sway-notify "backlight support  not installed"
 fi

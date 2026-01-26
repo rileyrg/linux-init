@@ -2037,22 +2037,24 @@ $term is set to "sway-scratch-terminal
 
     #!/usr/bin/env bash 
     # Maintained in linux-config.org
-    sway-notify "arg 1: $1, arg 2:$2"
-    
     if command -v light; then
-        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-2}
+        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-10%}
+        if [[ "$1" == "-" ]]; then
+            light -U ${BRIGHTNESS_DELTA}
+        else
+            light -A ${BRIGHTNESS_DELTA}
+        fi
         sway-notify "brightness: $(light -G)"
     elif command -v brightnessctl; then
-        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-2000}
+        BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10%"}
         if [[ "$1" == "-" ]]; then
-            echo "minus"
-            htbrightnessctl set "10%-"
+            brightnessctl set "${BRIGHTNESS_DELTA}-"
         else
-            echo "positive"
-            brightnessctl set "+10%"
+            brightnessctl set "+${BRIGHTNESS_DELTA}"
         fi
+        sway-notify "brightness: $(brightnessctl get)"
     else
-        sway-notify "light not installed"
+        sway-notify "backlight support  not installed"
     fi
 
 
@@ -2361,7 +2363,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9e2e236"></a>
+<a id="org6ec4745"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2443,7 +2445,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9e2e236).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6ec4745).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
