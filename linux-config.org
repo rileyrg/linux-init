@@ -2370,6 +2370,30 @@ output HDMI-A-2  enable mode 1920x1080 position 2560,116
 }
 #+end_src
 
+**** wireplumber config
+stop audio going to sleep
+#+begin_src conf :tangle "dot-config/wireplumber/wireplumber.conf.d/50-local.conf"
+  monitor.alsa.rules = [
+     {
+       matches = [
+         {
+           # Matches all sources
+           node.name = "~alsa_input.*"
+         },
+         {
+           # Matches all sinks
+           node.name = "~alsa_output.*"
+         }
+       ]
+       actions = {
+         update-props = {
+           session.suspend-timeout-seconds = 0
+         }
+       }
+     }
+   ]
+#+end_src 
+
 **** config-t14s
 #+begin_src conf :tangle "dot-config/kanshi/config-mercury"
   profile home-dp{

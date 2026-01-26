@@ -2192,7 +2192,31 @@ Load a host specific kanshi file if it exists
         output HDMI-A-2  enable mode 1920x1080 position 2560,116
         }
 
-3.  config-t14s
+3.  wireplumber config
+
+    stop audio going to sleep
+    
+        monitor.alsa.rules = [
+           {
+             matches = [
+               {
+                 # Matches all sources
+                 node.name = "~alsa_input.*"
+               },
+               {
+                 # Matches all sinks
+                 node.name = "~alsa_output.*"
+               }
+             ]
+             actions = {
+               update-props = {
+                 session.suspend-timeout-seconds = 0
+               }
+             }
+           }
+         ]
+
+4.  config-t14s
 
         profile home-dp{
         output 'ASUSTek COMPUTER INC AS' mode 2560x1440 position 0,0
@@ -2220,7 +2244,7 @@ Load a host specific kanshi file if it exists
          output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1
         }
 
-4.  config-xmgneo
+5.  config-xmgneo
 
         {
         output eDP-1 enable enable mode 2560x1440  position 0,0
@@ -2236,7 +2260,7 @@ Load a host specific kanshi file if it exists
         output DP-1  enable mode 2560x1440 position 0,0
         }
 
-5.  config-x1c6
+6.  config-x1c6
 
         profile {
         output eDP-1 enable mode 1920x1080  position 0,0
@@ -2252,7 +2276,7 @@ Load a host specific kanshi file if it exists
         output HDMI-A-1 enable mode 2560x1440 position 0,0
         }
 
-6.  config-x13
+7.  config-x13
 
         profile {
         output eDP-1 enable mode 1920x1200  position 0,0
@@ -2378,7 +2402,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org8862858"></a>
+<a id="org811a4bd"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2460,7 +2484,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org8862858).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org811a4bd).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
