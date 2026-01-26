@@ -320,3 +320,4 @@ assign [class="STM32CubeIDE"] 3
 assign [title="STM32CubeIDE"] 3
 
 include "${HOME}/.config/sway/host-config-$(hostname)"
+exec sway-bell
