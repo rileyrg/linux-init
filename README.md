@@ -2035,6 +2035,13 @@ $term is set to "sway-scratch-terminal
     fi
 
 
+### ~/bin/sway/sway-bell
+
+    #!/usr/bin/env bash
+    #Maintained in linux-config.org
+    printf '\a'
+
+
 ### ~/bin/sway/sway-brightness
 
     #!/usr/bin/env bash 
@@ -2063,8 +2070,8 @@ $term is set to "sway-scratch-terminal
             xbacklight -inc "${BRIGHTNESS_DELTA}"
         fi
         sway-notify "brightness: $(xbacklight -get)"
-    
     else
+        sway-bell
         sway-notify "backlight support  not installed"
         exit 1
     fi
@@ -2371,7 +2378,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org638a26b"></a>
+<a id="org3e2de55"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2453,7 +2460,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org638a26b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3e2de55).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

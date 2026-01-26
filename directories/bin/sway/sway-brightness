@@ -24,8 +24,8 @@ elif command -v xbacklight; then
         xbacklight -inc "${BRIGHTNESS_DELTA}"
     fi
     sway-notify "brightness: $(xbacklight -get)"
-    
 else
+    sway-bell
     sway-notify "backlight support  not installed"
     exit 1
 fi
