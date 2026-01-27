@@ -2407,7 +2407,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcaa8cd3"></a>
+<a id="org070e195"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2489,7 +2489,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcaa8cd3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org070e195).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3668,8 +3668,8 @@ strip debug info and store elsewhere
 
     #!/usr/bin/env bash
     #Maintained in linux-config.org
-    mountpoint=${1:-"/media/rsnapshot"};
-    rsnapshottype=${2:-"alpha"};
+    mountpoint=${2:-"/media/rsnapshot"};
+    rsnapshottype=${1:-"alpha"};
     if $(/usr/bin/mountpoint -q $mountpoint); then
         echo "$mountpoint is mounted";
         /usr/bin/rsnapshot -v "$rsnapshottype";
