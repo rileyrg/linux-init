@@ -4225,6 +4225,5 @@ fi
 #+begin_src conf :tangle ~/.config/sway/config
 
   include "${HOME}/.config/sway/host-config-$(hostname)"
-  exec sway-bell
 
 #+end_src

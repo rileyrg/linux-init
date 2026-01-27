@@ -2402,7 +2402,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org811a4bd"></a>
+<a id="org2f21f4d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2484,7 +2484,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org811a4bd).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2f21f4d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -4057,5 +4057,4 @@ out of date
 
     
     include "${HOME}/.config/sway/host-config-$(hostname)"
-    exec sway-bell
 
