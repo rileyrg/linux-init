@@ -53,6 +53,9 @@ fi
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_DESKTOP=sway
 
+export XCURSOR_SIZE=32
+export XCURSOR_THEME=Adwaita
+
 export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
 systemctl start --user mbsync.timer

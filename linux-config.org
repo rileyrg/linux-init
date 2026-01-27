@@ -214,6 +214,9 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   export XDG_CURRENT_DESKTOP=sway
   export XDG_SESSION_DESKTOP=sway
 
+  export XCURSOR_SIZE=32
+  export XCURSOR_THEME=Adwaita
+
   export GRIM_DEFAULT_DIR="${HOME}/tmp"
 
   systemctl start --user mbsync.timer
@@ -1032,6 +1035,8 @@ Override in .profile.local
   input * {
       xkb_layout "de"
   }
+
+  seat seat0 xcursor_theme Adwaita 32
 
   # Logo key. Use Mod1 for Alt.
   set $mod Mod4

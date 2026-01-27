@@ -6,6 +6,8 @@ input * {
     xkb_layout "de"
 }
 
+seat seat0 xcursor_theme Adwaita 32
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 set $super Mod4

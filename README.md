@@ -148,6 +148,9 @@ NB - NOT Exported as lots of things want to update it
     export XDG_CURRENT_DESKTOP=sway
     export XDG_SESSION_DESKTOP=sway
     
+    export XCURSOR_SIZE=32
+    export XCURSOR_THEME=Adwaita
+    
     export GRIM_DEFAULT_DIR="${HOME}/tmp"
     
     systemctl start --user mbsync.timer
@@ -859,6 +862,8 @@ Override in .profile.local
     input * {
         xkb_layout "de"
     }
+    
+    seat seat0 xcursor_theme Adwaita 32
     
     # Logo key. Use Mod1 for Alt.
     set $mod Mod4
@@ -2402,7 +2407,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2f21f4d"></a>
+<a id="orgcaa8cd3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2484,7 +2489,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2f21f4d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcaa8cd3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
