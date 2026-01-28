@@ -2097,7 +2097,7 @@ $term is set to "sway-scratch-terminal
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    sway -d 2> ~/sway.log
+    sway -d 2> ~/tmp/sway.log
     exit 0
 
 
@@ -2337,11 +2337,11 @@ Just a gathering place of locky/suspendy type things&hellip;
             systemctl poweroff
             ;;
         blank)
-            sway-dpms off
+            sway-display disable
             [ -f "${HOME}/.screen-blank.local" ] && . "${HOME}/.screen-blank.local"
             ;;
         unblank)
-            sway-dpms on
+            sway-display enable
             [ -f "${HOME}/.screen-unblank.local" ] && . "${HOME}/.screen-unblank.local"
             ;;
         *)
@@ -2417,13 +2417,11 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4a19ecb"></a>
+<a id="org5d6ca9b"></a>
 
 ### ~/bin/sway/sway-screen
 
 `enable` or `disable`. Won't allow you to turn off the sole enabled display.
-
-:ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -2499,7 +2497,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4a19ecb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5d6ca9b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2512,6 +2510,16 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
             sway-screen $c $m
         fi
     fi
+    exit 0
+
+
+### ~/bin/sway/sway-display
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    STATE="${1:-enable}"
+    DISP="${2:-*}"
+    swaymsg "output $DISP $STATE"
     exit 0
 
 

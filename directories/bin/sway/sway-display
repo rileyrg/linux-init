@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+STATE="${1:-enable}"
+DISP="${2:-*}"
+swaymsg "output $DISP $STATE"
+exit 0

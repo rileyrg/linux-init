@@ -33,11 +33,11 @@ case "$1" in
         systemctl poweroff
         ;;
     blank)
-        sway-dpms off
+        sway-display disable
         [ -f "${HOME}/.screen-blank.local" ] && . "${HOME}/.screen-blank.local"
         ;;
     unblank)
-        sway-dpms on
+        sway-display enable
         [ -f "${HOME}/.screen-unblank.local" ] && . "${HOME}/.screen-unblank.local"
         ;;
     *)

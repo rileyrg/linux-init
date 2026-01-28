@@ -2279,7 +2279,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle "~/bin/sway/sway-debug"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  sway -d 2> ~/sway.log
+  sway -d 2> ~/tmp/sway.log
   exit 0
 #+end_src
 
@@ -2524,11 +2524,11 @@ Just a gathering place of locky/suspendy type things...
           systemctl poweroff
           ;;
       blank)
-          sway-dpms off
+          sway-display disable
           [ -f "${HOME}/.screen-blank.local" ] && . "${HOME}/.screen-blank.local"
           ;;
       unblank)
-          sway-dpms on
+          sway-display enable
           [ -f "${HOME}/.screen-unblank.local" ] && . "${HOME}/.screen-unblank.local"
           ;;
       ,*)
@@ -2618,9 +2618,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 :ID:       539e9065-2df6-44ac-9ce8-530f9fd9e3c4
 :END:
 ~enable~ or ~disable~. Won't allow you to turn off the sole enabled display.
-:PROPERTIES:
-:ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
-:END:
 #+begin_src bash :tangle "~/bin/sway/sway-screen"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
@@ -2714,6 +2711,19 @@ Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-
   fi
   exit 0
 #+end_src
+
+
+*** ~/bin/sway/sway-display
+#+begin_src bash :tangle ~/bin/sway/sway-display
+#!/usr/bin/env bash
+# Maintained in linux-config.org
+STATE="${1:-enable}"
+DISP="${2:-*}"
+swaymsg "output $DISP $STATE"
+exit 0
+#+end_src 
+
+
 *** ~/bin/sway/sway-display-swap
 https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src bash :tangle ~/bin/sway/sway-display-swap

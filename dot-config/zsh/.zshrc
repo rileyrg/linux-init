@@ -120,6 +120,8 @@ command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
+
+
 xhost +local: > /dev/null 2>&1
 
 export NVM_DIR="$HOME/.config/nvm"
