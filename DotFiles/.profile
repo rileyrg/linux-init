@@ -26,6 +26,8 @@ export VISUAL="emacsclient -r"
 export HISTSIZE=2056
 export HISTCONTROL=ignoreboth:erasedups
 
+export HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
+
 # export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
 
 export ARDUINO_SDK_PATH="${HOME}"/cloud/homefiles/development/arduino/arduinoSDK

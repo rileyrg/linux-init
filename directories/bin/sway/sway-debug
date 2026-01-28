@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+sway -d 2> ~/tmp/sway.log
+

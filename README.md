@@ -121,6 +121,8 @@ NB - NOT Exported as lots of things want to update it
     export HISTSIZE=2056
     export HISTCONTROL=ignoreboth:erasedups
     
+    export HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
+    
     # export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
     
     export ARDUINO_SDK_PATH="${HOME}"/cloud/homefiles/development/arduino/arduinoSDK
@@ -321,8 +323,6 @@ NB - NOT Exported as lots of things want to update it
         colored-man-pages
         zsh-syntax-highlighting
     )
-    export HISTFILE=${XDG_CONFIG_HOME}/zsh/.zsh_history_$HOST
-    
     setopt EXTENDED_HISTORY
     setopt SHARE_HISTORY
     setopt HIST_IGNORE_SPACE
@@ -356,6 +356,8 @@ NB - NOT Exported as lots of things want to update it
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+    
+    
     
     xhost +local: > /dev/null 2>&1
 
@@ -2091,6 +2093,14 @@ $term is set to "sway-scratch-terminal
     exit 0
 
 
+### ~/bin/sway/sway-debug
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    sway -d 2> ~/sway.log
+    exit 0
+
+
 ### ~/bin/sway/sway-do-tool
 
     #!/usr/bin/env bash
@@ -2407,7 +2417,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org070e195"></a>
+<a id="org4a19ecb"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2489,7 +2499,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org070e195).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4a19ecb).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
