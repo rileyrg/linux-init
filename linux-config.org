@@ -1271,7 +1271,7 @@ Override in .profile.local
   set $trans 0.7
   set $alphamark "α"
   for_window [con_mark=$alphamark] opacity set $trans
-  bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
+  bindsym $mod+Control+o mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
 #+end_src
 **** lid                                                      :lid:clamshell:
 #+begin_src conf
@@ -1397,7 +1397,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 #+begin_src conf
 
   bindsym XF86AudioMute exec  sway-volume-notify "0"
-  bindsym $mod+XF86AudioMute exec  sway-audio-control
+  bindsym $mod+control+XF86AudioMute exec  sway-audio-control
+  bindsym $mod+control+a exec  sway-audio-control
   bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
   bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
   # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
@@ -3027,12 +3028,12 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
 
 ** gdb related
 
-#+begin_src  config :tangle "DotFiles/.gdbinit"
+#+begin_src  config :tangle "dot-config/gdbinit"
   # Maintained in linux-config.org
   set auto-load safe-path /
   set auto-load local-gdbinit on
   set history save on
-  set history filename ~/.gdb_history
+  set history filename ~/.config/gdb/gdbhistory
   set history size 32768
   set history expansion on
   set debuginfod enabled on

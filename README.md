@@ -1097,7 +1097,7 @@ Override in .profile.local
         set $trans 0.7
         set $alphamark "α"
         for_window [con_mark=$alphamark] opacity set $trans
-        bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
+        bindsym $mod+Control+o mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
 
 3.  lid     :lid:clamshell:
 
@@ -1229,7 +1229,8 @@ $term is set to "sway-scratch-terminal
 
         
         bindsym XF86AudioMute exec  sway-volume-notify "0"
-        bindsym $mod+XF86AudioMute exec  sway-audio-control
+        bindsym $mod+control+XF86AudioMute exec  sway-audio-control
+        bindsym $mod+control+a exec  sway-audio-control
         bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
         bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
         # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
@@ -2417,7 +2418,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org343ded1"></a>
+<a id="orgd13f44e"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2497,7 +2498,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org343ded1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd13f44e).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2831,7 +2832,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
     set auto-load safe-path /
     set auto-load local-gdbinit on
     set history save on
-    set history filename ~/.gdb_history
+    set history filename ~/.config/gdb/gdbhistory
     set history size 32768
     set history expansion on
     set debuginfod enabled on

@@ -228,7 +228,7 @@ for_window [title="sway-launcher"] floating enable
 set $trans 0.7
 set $alphamark "α"
 for_window [con_mark=$alphamark] opacity set $trans
-bindsym $mod+Control+a mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
+bindsym $mod+Control+o mark --toggle "$alphamark" ; [con_id=__focused__] opacity set 1 ; [con_mark=$alphamark con_id=__focused__] opacity set $trans
 
 set $laptop-id `sway-laptop-id`
 bindswitch lid:on exec "sway-screen disable $laptop-id"
@@ -251,7 +251,8 @@ bindsym $mod+y exec sway-clipboard-history-select
 bindsym $mod+Control+y exec sway-clipboard-history-clear
 
 bindsym XF86AudioMute exec  sway-volume-notify "0"
-bindsym $mod+XF86AudioMute exec  sway-audio-control
+bindsym $mod+control+XF86AudioMute exec  sway-audio-control
+bindsym $mod+control+a exec  sway-audio-control
 bindsym XF86AudioRaiseVolume exec sway-volume-notify "+"
 bindsym XF86AudioLowerVolume exec sway-volume-notify "-"
 # bindsym XF86AudioRaiseVolume exec pulse-volume "+5%" && sway-volume-notify
