@@ -3024,6 +3024,22 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
 #+end_src 
 
 * Programming Related                                           :programming:
+
+** gdb related
+
+#+begin_src  config :tangle "DotFiles/.gdbinit"
+  # Maintained in linux-config.org
+  set auto-load safe-path /
+  set auto-load local-gdbinit on
+  set history save on
+  set history filename ~/.gdb_history
+  set history size 32768
+  set history expansion on
+  set debuginfod enabled on
+  set output-radix 16
+  set disassembly-flavor intel
+#+end_src
+
 ** clang-format
 clangd lsp formatting
 #+begin_src  config :tangle "DotFiles/.clang-format"
