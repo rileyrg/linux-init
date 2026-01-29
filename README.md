@@ -2418,7 +2418,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgd13f44e"></a>
+<a id="org93a23ac"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2498,7 +2498,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd13f44e).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93a23ac).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2832,6 +2832,8 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
     set auto-load safe-path /
     set auto-load local-gdbinit on
     set history save on
+    set history remove-duplicates unlimited
+    set history on
     set history filename ~/.config/gdb/gdbhistory
     set history size 32768
     set history expansion on

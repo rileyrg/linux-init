@@ -1,0 +1,90 @@
+file /home/rgr/cloud/homefiles/directories/development/projects/c/hello-world/hello-world
+break hello-world.c:14
+clear hello-world.c:14
+ b
+b 14
+r
+info locals
+quit
+display locals
+x/4i $px
+x/i $pc
+x/i4 $pc
+x/41 $pc
+si
+next
+step
+bt
+finish
+graph display eax
+graph display `info locals`
+
+file emacs
+b main
+run
+list
+file advanced
+l
+c
+q
+p arr
+tui
+watch i
+asm
+s
+p toy
+o
+so
+p/x toy
+tui enable 
+i
+p mom
+i msg
+p msg
+file build.debug/main
+pwd
+cd developement
+eit
+l 1355
+b 1359
+file emacs.debug
+file ./emacs.debug
+file .debug/emacs.debug 
+add-symbol-file .debug/emacs.debug 
+exit
+run main
+continue
+watch x
+reverse-continue 
+continue 
+watch c
+set var x=2
+set variable x=2
+print x=3
+rn
+record
+b 11
+gef-init
+gef
+1-stack-list-variables --all-values
+2-stack-list-variables --simple-values
+3-stack-list-frames
+4-break-list
+display /4i $pc 
+del 1
+next 1
+cont
+file ./.gdbinit
+file ../.gdbinit
+n
+quit+
+set annotate 1
+set filename-display absolute
+disassemble 
+display /4i $pc
+display off
+display
+undisplay 1
+layout regs
+layout src
+layout asm

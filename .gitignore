@@ -32,6 +32,10 @@
 !/etc/zsh/zshprofile
 
 !/dot-config
+
+!/dot-config/gdb
+!/dot-config/gdb/*
+
 !/dot-config/kitty
 !/dot-config/kitty/*
 
