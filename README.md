@@ -352,7 +352,6 @@ NB - NOT Exported as lots of things want to update it
     DEFAULT_USER=$USER
     # Set up fzf key bindings and fuzzy completion
     source <(fzf --zsh)
-    command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
     
     [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
         source "$EAT_SHELL_INTEGRATION_DIR/zsh"
@@ -422,6 +421,7 @@ Directory is [here](.oh-my-zsh/).
 
     export FZF_TMUX_OPTS=1
     export FZF_TMUX_OPTS="-d 40%"
+    command -v "fd" >> /dev/null && export FZF_DEFAULT_COMMAND="fd . $HOME"
 
 
 ### .config/tmux/tmux.conf
@@ -2418,7 +2418,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org93a23ac"></a>
+<a id="orga897106"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2498,7 +2498,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93a23ac).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga897106).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2563,7 +2563,7 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    exec kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
+    exec sway-kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
 
 
 ### ~/bin/sway/sway-launcher-ulauncher
@@ -2833,13 +2833,13 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
     set auto-load local-gdbinit on
     set history save on
     set history remove-duplicates unlimited
-    set history on
     set history filename ~/.config/gdb/gdbhistory
     set history size 32768
     set history expansion on
     set debuginfod enabled on
     set output-radix 16
     set disassembly-flavor intel
+    set disassemble-next-line on
 
 
 ## clang-format

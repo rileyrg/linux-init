@@ -419,7 +419,6 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   DEFAULT_USER=$USER
   # Set up fzf key bindings and fuzzy completion
   source <(fzf --zsh)
-  command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
 
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/zsh"
@@ -489,6 +488,7 @@ Directory is [[file:.oh-my-zsh/][here]].
 #+begin_src bash
   export FZF_TMUX_OPTS=1
   export FZF_TMUX_OPTS="-d 40%"
+  command -v "fd" >> /dev/null && export FZF_DEFAULT_COMMAND="fd . $HOME"
 #+end_src
 
 *** .config/tmux/tmux.conf
@@ -2760,7 +2760,7 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-fzf
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  exec kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
+  exec sway-kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
 #+end_src
 *** ~/bin/sway/sway-launcher-ulauncher
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-ulauncher
@@ -3040,6 +3040,7 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
   set debuginfod enabled on
   set output-radix 16
   set disassembly-flavor intel
+  set disassemble-next-line on
 #+end_src
 
 ** clang-format

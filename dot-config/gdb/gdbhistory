@@ -88,3 +88,73 @@ undisplay 1
 layout regs
 layout src
 layout asm
+l
+b main
+run
+del 2
+b
+clear 3
+clear 1
+info break
+del 1
+del 3
+q
+display /4i $pc
+show disassemble-next-line 
+show display
+display /4i $pc-3
+del 3
+undisplay 3 2
+undisplay 3 2 1
+display
+display /4i $pc-2
+display /4i $pc-2i
+layout src
+layout asm
+display /3i $pc-3
+undisplay 
+clear
+disable tui
+tui disable 
+l
+run
+ni
+si
+n
+q
+disable tui
+tui disable  d
+tui disable  d e
+enable
+tui enable 
+display /3i $pc-3
+run
+n
+ni
+display
+undisplay
+history
+exit
+xxx
+
+! disp
+display
+help history
+help 
+help support
+help
+history help
+history
+exit
+q
+run
+display /4i $pc
+undisplay
+run
+s
+layout asm
+layout source
+layout src
+n
+c
+e

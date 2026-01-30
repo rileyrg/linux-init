@@ -67,6 +67,7 @@ test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
 export FZF_TMUX_OPTS=1
 export FZF_TMUX_OPTS="-d 40%"
+command -v "fd" >> /dev/null && export FZF_DEFAULT_COMMAND="fd . $HOME"
 
 # export BAT_POWER_SUSPEND_LEVEL=30
 # export BAT_POWER_SUSPEND_POLL_CYCLE=300

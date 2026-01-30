@@ -115,7 +115,6 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 DEFAULT_USER=$USER
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
-command -v "fdfind" >> /dev/null && export FZF_DEFAULT_COMMAND="fdfind . $HOME"
 
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
