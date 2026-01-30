@@ -3050,7 +3050,9 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
   set debuginfod enabled on
   set output-radix 16
   set disassembly-flavor intel
-  # set disassemble-next-line on
+
+  alias don = set disassemble-next-line on
+  alias doff = set disassemble-next-line off
 #+end_src
 
 ** clang-format

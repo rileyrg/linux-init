@@ -2425,7 +2425,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orga471af3"></a>
+<a id="org9d1979d"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2505,7 +2505,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orga471af3).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d1979d).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2846,7 +2846,9 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
     set debuginfod enabled on
     set output-radix 16
     set disassembly-flavor intel
-    # set disassemble-next-line on
+    
+    alias don = set disassemble-next-line on
+    alias doff = set disassemble-next-line off
 
 
 ## clang-format
