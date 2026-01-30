@@ -9,4 +9,4 @@ set history expansion on
 set debuginfod enabled on
 set output-radix 16
 set disassembly-flavor intel
-set disassemble-next-line on
+# set disassemble-next-line on
