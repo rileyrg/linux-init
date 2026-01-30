@@ -33,6 +33,9 @@
 
 !/dot-config
 
+!/dot-config/fd
+!/dot-config/fd/*
+
 !/dot-config/gdb
 !/dot-config/gdb/*
 

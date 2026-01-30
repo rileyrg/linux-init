@@ -480,6 +480,14 @@ Directory is [[file:.oh-my-zsh/][here]].
   }
 #+end_src
 
+** fd                                                                    :fd:
+:PROPERTIES:
+:header-args:bash: :tangle "dot-config/fd/ignore"
+:END:
+#+begin_src bash
+  /home/rgr/cloud
+#+end_src
+
 ** Tmux                                                                :tmux:
 *** ~/.profile
 :PROPERTIES:
@@ -488,7 +496,9 @@ Directory is [[file:.oh-my-zsh/][here]].
 #+begin_src bash
   export FZF_TMUX_OPTS=1
   export FZF_TMUX_OPTS="-d 40%"
-  command -v "fd" >> /dev/null && export FZF_DEFAULT_COMMAND="fd . $HOME"
+  export FZF_DEFAULT_COMMAND='fd -t f --follow'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fd -t d --follow"
 #+end_src
 
 *** .config/tmux/tmux.conf
