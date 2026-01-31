@@ -485,7 +485,9 @@ Directory is [[file:.oh-my-zsh/][here]].
 :header-args:bash: :tangle "dot-config/fd/ignore"
 :END:
 #+begin_src bash
-  /home/rgr/cloud
+  cloud/
+  .wine/
+  Games/drive_c/
 #+end_src
 
 ** Tmux                                                                :tmux:
@@ -496,9 +498,9 @@ Directory is [[file:.oh-my-zsh/][here]].
 #+begin_src bash
   export FZF_TMUX_OPTS=1
   export FZF_TMUX_OPTS="-d 40%"
-  export FZF_DEFAULT_COMMAND='fd -t f --follow'
+  export FZF_DEFAULT_COMMAND="fd -t f --follow --hidden --no-ignore-vcs"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="fd -t d --follow"
+  export FZF_ALT_C_COMMAND="fd -t d --follow --hidden --no-ignore-vcs"
 #+end_src
 
 *** .config/tmux/tmux.conf

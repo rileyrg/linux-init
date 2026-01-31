@@ -67,9 +67,9 @@ test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
 export FZF_TMUX_OPTS=1
 export FZF_TMUX_OPTS="-d 40%"
-export FZF_DEFAULT_COMMAND='fd -t f --follow'
+export FZF_DEFAULT_COMMAND="fd -t f --follow --hidden --no-ignore-vcs"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -t d --follow"
+export FZF_ALT_C_COMMAND="fd -t d --follow --hidden --no-ignore-vcs"
 
 # export BAT_POWER_SUSPEND_LEVEL=30
 # export BAT_POWER_SUSPEND_POLL_CYCLE=300

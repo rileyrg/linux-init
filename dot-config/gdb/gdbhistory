@@ -158,3 +158,14 @@ layout src
 n
 c
 e
+help
+history
+help data output-radix
+e
+l
+show output-radix 
+show history
+x/4i $px
+exit
+b main
+q

@@ -416,7 +416,9 @@ Directory is [here](.oh-my-zsh/).
 
 ## fd     :fd:
 
-    /home/rgr/cloud
+    cloud/
+    .wine/
+    Games/drive_c/
 
 
 ## Tmux     :tmux:
@@ -426,9 +428,9 @@ Directory is [here](.oh-my-zsh/).
 
     export FZF_TMUX_OPTS=1
     export FZF_TMUX_OPTS="-d 40%"
-    export FZF_DEFAULT_COMMAND='fd -t f --follow'
+    export FZF_DEFAULT_COMMAND="fd -t f --follow --hidden --no-ignore-vcs"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    export FZF_ALT_C_COMMAND="fd -t d --follow"
+    export FZF_ALT_C_COMMAND="fd -t d --follow --hidden --no-ignore-vcs"
 
 
 ### .config/tmux/tmux.conf
@@ -2425,7 +2427,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9d1979d"></a>
+<a id="org22cda9a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2505,7 +2507,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9d1979d).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org22cda9a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
