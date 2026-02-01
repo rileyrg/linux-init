@@ -487,7 +487,8 @@ Directory is [[file:.oh-my-zsh/][here]].
 #+begin_src bash
   cloud/
   .wine/
-  Games/drive_c/
+  Games/drive_c/g
+  /home/rsnapshot/
 #+end_src
 
 ** Tmux                                                                :tmux:
@@ -4268,6 +4269,15 @@ fi
 #+begin_src conf
   #Maintained in linux-config.org
   output eDP-1 mode 1920x1200 bg ${HOME}/Pictures/Wallpapers/s1 stretch
+#+end_src
+
+*** Thinkpad X1C6
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-x1c6"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
 

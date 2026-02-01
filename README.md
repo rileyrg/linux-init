@@ -418,7 +418,8 @@ Directory is [here](.oh-my-zsh/).
 
     cloud/
     .wine/
-    Games/drive_c/
+    Games/drive_c/g
+    /home/rsnapshot/
 
 
 ## Tmux     :tmux:
@@ -2427,7 +2428,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org22cda9a"></a>
+<a id="org4b2a221"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2507,7 +2508,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org22cda9a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4b2a221).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -4096,6 +4097,12 @@ out of date
 
     #Maintained in linux-config.org
     output eDP-1 mode 1920x1200 bg ${HOME}/Pictures/Wallpapers/s1 stretch
+
+
+### Thinkpad X1C6
+
+    #Maintained in linux-config.org
+    output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 
 
 ### Thinkpad T14s

@@ -1,0 +1,2 @@
+#Maintained in linux-config.org
+output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
