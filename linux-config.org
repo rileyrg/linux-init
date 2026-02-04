@@ -2239,8 +2239,8 @@ More a proof of concept using bash to set keybindings
   # Maintained in linux-config.org
   displays=$(sway-active-monitor-ids)
   count=1;
-  while IFS= read -r line ; do
-      swaymsg "bindsym \$mod+control+${count} output ${line} power toggle"
+  while IFS= read -r displayID ; do
+      swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"
       ((count++))
   done <<< "$displays"
 #+end_src

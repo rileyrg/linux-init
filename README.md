@@ -2056,8 +2056,8 @@ More a proof of concept using bash to set keybindings
     # Maintained in linux-config.org
     displays=$(sway-active-monitor-ids)
     count=1;
-    while IFS= read -r line ; do
-        swaymsg "bindsym \$mod+control+${count} output ${line} power toggle"
+    while IFS= read -r displayID ; do
+        swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"
         ((count++))
     done <<< "$displays"
 
@@ -2450,7 +2450,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org5aefea5"></a>
+<a id="org3f73d2a"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2530,7 +2530,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5aefea5).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3f73d2a).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
