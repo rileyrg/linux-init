@@ -2224,6 +2224,14 @@ https://github.com/Alexays/Waybar/wiki/Configuration
   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.dpms and .active) | .name'
 #+end_src
 
+*** ~/bin/sway/sway-active-monitor-ids
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-ids
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
+#+end_src
+
+
 *** ~/bin/sway/sway-active-monitor-names
 #+begin_src bash :tangle ~/bin/sway/sway-active-monitor-names
   #!/usr/bin/env bash
@@ -2237,7 +2245,7 @@ More a proof of concept using bash to set keybindings
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-toggles
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  displays=$(sway-active-monitor-ids)
+  displays=$(sway-monitor-ids)
   count=1;
   while IFS= read -r displayID ; do
       swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"

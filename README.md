@@ -2041,6 +2041,13 @@ $term is set to "sway-scratch-terminal
     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.dpms and .active) | .name'
 
 
+### ~/bin/sway/sway-active-monitor-ids
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
+
+
 ### ~/bin/sway/sway-active-monitor-names
 
     #!/usr/bin/env bash
@@ -2054,7 +2061,7 @@ More a proof of concept using bash to set keybindings
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    displays=$(sway-active-monitor-ids)
+    displays=$(sway-monitor-ids)
     count=1;
     while IFS= read -r displayID ; do
         swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"
@@ -2450,7 +2457,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3f73d2a"></a>
+<a id="org2057611"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2530,7 +2537,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3f73d2a).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2057611).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
