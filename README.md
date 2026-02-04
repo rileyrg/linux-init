@@ -1080,7 +1080,7 @@ Override in .profile.local
     # toggle displays
     # bindsym $mod+control+1 output $DISP1 power toggle
     # bindsym $mod+control+2 output $DISP2 power toggle
-    exec sway-monitor-toggles
+    exec sway-monitor-apply-toggles
     
     #
     # Scratchpad:
@@ -2027,35 +2027,35 @@ $term is set to "sway-scratch-terminal
 ## swaywm scripts     :sway:wayland:
 
 
-### ~/bin/sway-active-monitors-count
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length'
-
-
-### ~/bin/sway/sway-active-monitor-ids
-
-    #!/usr/bin/env bash
-    # Maintained in linux-config.org
-    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.dpms and .active) | .name'
-
-
-### ~/bin/sway/sway-active-monitor-ids
+### ~/bin/sway/sway-monitor-ids
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
 
 
-### ~/bin/sway/sway-active-monitor-names
+### ~/bin/sway-monitor-active-count
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active)|(.make + " " + .model + " " + .serial)'
+    swaymsg -t get_outputs | jq  -r '[ .[] | select(.power) ] | length'
 
 
-### ~/bin/sway/sway-monitor-toggles
+### ~/bin/sway/sway-monitor-active-ids
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.power) | .name'
+
+
+### ~/bin/sway/sway-monitor-active-names
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.power)|(.make + " " + .model + " " + .serial)'
+
+
+### ~/bin/sway/sway-monitor-apply-toggles
 
 More a proof of concept using bash to set keybindings
 
@@ -2457,7 +2457,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2057611"></a>
+<a id="org69b38af"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2537,7 +2537,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2057611).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org69b38af).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

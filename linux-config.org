@@ -1256,7 +1256,7 @@ Override in .profile.local
   # toggle displays
   # bindsym $mod+control+1 output $DISP1 power toggle
   # bindsym $mod+control+2 output $DISP2 power toggle
-  exec sway-monitor-toggles
+  exec sway-monitor-apply-toggles
 
   #
   # Scratchpad:
@@ -2210,39 +2210,40 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 ** 
 
 ** swaywm scripts                                              :sway:wayland:
-*** ~/bin/sway-active-monitors-count
-#+begin_src bash :tangle ~/bin/sway/sway-active-monitors-count
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length'
-#+end_src
 
-*** ~/bin/sway/sway-active-monitor-ids
-#+begin_src bash :tangle ~/bin/sway/sway-active-monitor-ids
-  #!/usr/bin/env bash
-  # Maintained in linux-config.org
-  swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.dpms and .active) | .name'
-#+end_src
-
-*** ~/bin/sway/sway-active-monitor-ids
+*** ~/bin/sway/sway-monitor-ids
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-ids
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
+#+end_src
+
+*** ~/bin/sway-monitor-active-count
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-active-count
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    swaymsg -t get_outputs | jq  -r '[ .[] | select(.power) ] | length'
+#+end_src
+
+*** ~/bin/sway/sway-monitor-active-ids
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-active-ids
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
+  swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.power) | .name'
 #+end_src
 
 
-*** ~/bin/sway/sway-active-monitor-names
-#+begin_src bash :tangle ~/bin/sway/sway-active-monitor-names
+*** ~/bin/sway/sway-monitor-active-names
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-active-names
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active)|(.make + " " + .model + " " + .serial)'
+   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.power)|(.make + " " + .model + " " + .serial)'
 #+end_src
 
-*** ~/bin/sway/sway-monitor-toggles
+*** ~/bin/sway/sway-monitor-apply-toggles
 More a proof of concept using bash to set keybindings
 
-#+begin_src bash :tangle ~/bin/sway/sway-monitor-toggles
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-apply-toggles
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   displays=$(sway-monitor-ids)
