@@ -1078,8 +1078,9 @@ Override in .profile.local
     bindsym $mod+a focus parent
     
     # toggle displays
-    bindsym $mod+control+1 output $DISP1 power toggle
-    bindsym $mod+control+2 output $DISP2 power toggle
+    # bindsym $mod+control+1 output $DISP1 power toggle
+    # bindsym $mod+control+2 output $DISP2 power toggle
+    exec sway-monitor-toggles
     
     #
     # Scratchpad:
@@ -2047,6 +2048,20 @@ $term is set to "sway-scratch-terminal
      swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.dpms and .active)|(.make + " " + .model + " " + .serial)'
 
 
+### ~/bin/sway/sway-monitor-toggles
+
+More a proof of concept using bash to set keybindings
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    displays=$(sway-active-monitor-ids)
+    count=1;
+    while IFS= read -r line ; do
+        swaymsg "bindsym \$mod+control+${count} output ${line} power toggle"
+        ((count++))
+    done <<< "$displays"
+
+
 ### ~/bin/sway/sway-autostart
 
     #!/usr/bin/env bash
@@ -2435,7 +2450,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org93f1433"></a>
+<a id="org5aefea5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2515,7 +2530,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93f1433).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org5aefea5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
