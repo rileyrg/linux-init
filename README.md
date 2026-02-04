@@ -893,6 +893,9 @@ Override in .profile.local
     set $editor 'sway-editor'
     set $wallpaper '~/Pictures/Wallpapers/current '
     
+    set $DISP1 "DP-1"
+    set $DISP2 "DP-2"
+    
     # Font  for window titles. Will also be used by the bar unless a different font
     # is used in the bar {} block below.
     font pango: "JetBrainsMono Nerd Font 6"
@@ -1073,6 +1076,10 @@ Override in .profile.local
     
     # Move focus to the parent container
     bindsym $mod+a focus parent
+    
+    # toggle displays
+    bindsym $mod+control+1 output $DISP1 power toggle
+    bindsym $mod+control+2 output $DISP2 power toggle
     
     #
     # Scratchpad:
@@ -2428,7 +2435,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4b2a221"></a>
+<a id="org93f1433"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2508,7 +2515,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4b2a221).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org93f1433).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

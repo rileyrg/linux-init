@@ -1069,6 +1069,9 @@ Override in .profile.local
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current '
 
+  set $DISP1 "DP-1"
+  set $DISP2 "DP-2"
+
   # Font  for window titles. Will also be used by the bar unless a different font
   # is used in the bar {} block below.
   font pango: "JetBrainsMono Nerd Font 6"
@@ -1249,6 +1252,10 @@ Override in .profile.local
 
   # Move focus to the parent container
   bindsym $mod+a focus parent
+
+  # toggle displays
+  bindsym $mod+control+1 output $DISP1 power toggle
+  bindsym $mod+control+2 output $DISP2 power toggle
 
   #
   # Scratchpad:
