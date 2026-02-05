@@ -296,7 +296,7 @@ bindsym $mod+g exec "goldendict \\"`xclip -o -selection clipboard`\\""
 bindsym $mod+Print exec sway-screenshot -i
 bindsym $mod+Control+Print exec sway-screen-recorder
 
-bindsym $mod+Shift+f exec "sway-chrome"
+bindsym $mod+Shift+f exec "sway-www"
 bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
 bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
 bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
