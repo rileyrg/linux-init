@@ -85,6 +85,7 @@ plugins=(
     safe-paste
     colored-man-pages
     zsh-syntax-highlighting
+    zsh-cheatsheet
 )
 setopt EXTENDED_HISTORY
 setopt SHARE_HISTORY

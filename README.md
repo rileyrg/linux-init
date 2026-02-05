@@ -322,6 +322,7 @@ NB - NOT Exported as lots of things want to update it
         safe-paste
         colored-man-pages
         zsh-syntax-highlighting
+        zsh-cheatsheet
     )
     setopt EXTENDED_HISTORY
     setopt SHARE_HISTORY
@@ -2457,7 +2458,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org69b38af"></a>
+<a id="orge5d8dd7"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2537,7 +2538,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org69b38af).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge5d8dd7).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2717,7 +2718,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    sway-chrome "$@" &
+    ${SWAY_WWW:-sway-chrome} "$@" &
 
 
 ### ~/bin/sway/sway-email

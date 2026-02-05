@@ -389,6 +389,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
       safe-paste
       colored-man-pages
       zsh-syntax-highlighting
+      zsh-cheatsheet
   )
   setopt EXTENDED_HISTORY
   setopt SHARE_HISTORY
@@ -423,7 +424,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
       source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 
-  
+
 
   xhost +local: > /dev/null 2>&1
 
@@ -2921,7 +2922,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 #+begin_src bash :tangle "~/bin/sway/sway-www"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  sway-chrome "$@" &
+  ${SWAY_WWW:-sway-chrome} "$@" &
 #+end_src
 *** ~/bin/sway/sway-email
 :PROPERTIES:
