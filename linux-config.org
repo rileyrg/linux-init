@@ -2213,6 +2213,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 ** swaywm scripts                                              :sway:wayland:
 
 *** ~/bin/sway/sway-monitor-ids
+return all monitors regardless of state, ordered by X position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-ids
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -2223,18 +2224,27 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-count
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    swaymsg -t get_outputs | jq  -r '[ .[] | select(.power) ] | length'
+    swaymsg -t get_outputs | jq  -r '.[] | select(.power) | length'
 #+end_src
 
 *** ~/bin/sway/sway-monitor-active-ids
+return all monitors that are currently on, ordered by x position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-ids
   #!/usr/bin/env bash
   # Maintained in linux-config.org
   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.power) | .name'
 #+end_src
 
+*** ~/bin/sway/sway-monitor-names
+return the real names of all monitors , ordered by x position, regardless of state
+#+begin_src bash :tangle ~/bin/sway/sway-monitor-names
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | (.make + " " + .model + " " + .serial) '
+#+end_src
 
 *** ~/bin/sway/sway-monitor-active-names
+return the real names of powered on monitors, ordered by X position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-names
   #!/usr/bin/env bash
   # Maintained in linux-config.org

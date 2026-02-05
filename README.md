@@ -2030,6 +2030,8 @@ $term is set to "sway-scratch-terminal
 
 ### ~/bin/sway/sway-monitor-ids
 
+return all monitors regardless of state, ordered by X position
+
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
@@ -2039,17 +2041,30 @@ $term is set to "sway-scratch-terminal
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    swaymsg -t get_outputs | jq  -r '[ .[] | select(.power) ] | length'
+    swaymsg -t get_outputs | jq  -r '.[] | select(.power) | length'
 
 
 ### ~/bin/sway/sway-monitor-active-ids
+
+return all monitors that are currently on, ordered by x position
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.power) | .name'
 
 
+### ~/bin/sway/sway-monitor-names
+
+return the real names of all monitors , ordered by x position, regardless of state
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | (.make + " " + .model + " " + .serial) '
+
+
 ### ~/bin/sway/sway-monitor-active-names
+
+return the real names of powered on monitors, ordered by X position
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
@@ -2458,7 +2473,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orge5d8dd7"></a>
+<a id="org4516495"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2538,7 +2553,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orge5d8dd7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4516495).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
