@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Maintained in linux-config.org
+prefix=${1:-"\$mod+control"};
 displays=$(sway-monitor-ids)
 count=1;
 while IFS= read -r displayID ; do
-    swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"
+    bindString="bindsym ${prefix}+${count} output ${displayID} power toggle"
+    swaymsg "${bindString}" 
     ((count++))
 done <<< "$displays"

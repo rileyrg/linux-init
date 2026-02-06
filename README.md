@@ -1081,7 +1081,7 @@ Override in .profile.local
     # toggle displays
     # bindsym $mod+control+1 output $DISP1 power toggle
     # bindsym $mod+control+2 output $DISP2 power toggle
-    exec sway-monitor-apply-toggles
+    exec sway-monitor-apply-toggles "$mod+control"
     
     #
     # Scratchpad:
@@ -2077,10 +2077,12 @@ More a proof of concept using bash to set keybindings
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
+    prefix=${1:-"\$mod+control"};
     displays=$(sway-monitor-ids)
     count=1;
     while IFS= read -r displayID ; do
-        swaymsg "bindsym \$mod+control+${count} output ${displayID} power toggle"
+        bindString="bindsym ${prefix}+${count} output ${displayID} power toggle"
+        swaymsg "${bindString}" 
         ((count++))
     done <<< "$displays"
 
@@ -2473,7 +2475,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org2e80987"></a>
+<a id="org3acb303"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2553,7 +2555,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2e80987).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3acb303).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
