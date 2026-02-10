@@ -169,3 +169,13 @@ x/4i $px
 exit
 b main
 q
+tui
+tui enable
+b main
+r
+layout asm
+layout src
+set disassembl-next-line on
+set disassemble-next-line on
+n
+s

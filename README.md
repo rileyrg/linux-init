@@ -1301,8 +1301,10 @@ $term is set to "sway-scratch-terminal
     bindsym $mod+Control+Print exec sway-screen-recorder
     
     bindsym $mod+Shift+f exec "sway-www"
+    bindsym $mod+Shift+a exec "sway-www --new-window https://www.amazon.de/gp/css/order-history/ref=nav_youraccount_orders"
+    bindsym $mod+Shift+w exec "sway-www --new-window https://web.whatsapp.com/"
+    
     bindsym $mod+Shift+m exec sway-do-tool "wwwemail" "sway-email"
-    bindsym $mod+Shift+a exec sway-do-tool "android-studio" "studio"
     bindsym $mod+Shift+i exec sway-do-tool "jetbrains-idea-ce" "idea"
     bindsym $mod+Shift+c exec sway-do-tool "jetbrains-clion" "clion"
     bindsym $mod+Shift+q exec sway-do-tool "QtCreator" " QT_SCALE_FACTOR=1.3 qtcreator"
@@ -2475,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org3acb303"></a>
+<a id="org10a6120"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2555,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3acb303).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org10a6120).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
