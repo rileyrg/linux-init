@@ -707,7 +707,7 @@ this goes into my .profile
         args="${@:1:$#-1}"
     fi
     set -x
-    unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,.cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
+    unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,Documents/AudioBooks,.cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
     set +x
 
 
@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org10a6120"></a>
+<a id="orgb745602"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org10a6120).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb745602).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
