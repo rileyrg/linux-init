@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb745602"></a>
+<a id="orgabd45e5"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb745602).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgabd45e5).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
