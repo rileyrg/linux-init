@@ -4003,6 +4003,14 @@ update sw
       sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
   fi
 #+end_src
+** pikaur config
+update sw
+#+begin_src conf :tangle "dot-config/pikaur/config"
+  # Maintained in linux-config.org
+  [Review]
+  NoDiff = true
+#+end_src
+
 ** ~/bin/vpn
 vpn [on|off]
 #+begin_src bash :tangle "~/bin/vpn"

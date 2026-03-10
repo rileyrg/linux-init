@@ -63,6 +63,9 @@
 !/dot-config/i3status
 !/dot-config/i3status/config
 
+!/dot-config/pikaur
+!/dot-config/pikaur/config
+
 !/dot-config/polybar
 !/dot-config/polybar/config
 
