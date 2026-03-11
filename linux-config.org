@@ -4005,10 +4005,65 @@ update sw
 #+end_src
 ** pikaur config
 update sw
-#+begin_src conf :tangle "dot-config/pikaur/config"
+#+begin_src conf :tangle "dot-config/pikaur.conf"
   # Maintained in linux-config.org
-  [Review]
-  NoDiff = true
+  [sync]
+  alwaysshowpkgorigin = no
+  develpkgsexpiration = -1
+  upgradesorting = versiondiff
+  showdownloadsize = no
+  ignoreoutofdateaurupgrades = no
+
+  [build]
+  keepbuilddir = no
+  keepdevbuilddir = yes
+  keepbuilddeps = no
+  gpgdir = 
+  skipfailedbuild = no
+  dynamicusers = never
+  ignorearch = no
+
+  [review]
+  noedit = no
+  donteditbydefault = no
+  nodiff = yes
+  gitdiffargs = --ignore-space-change,--ignore-all-space
+  diffpager = auto
+  hidedifffiles = .SRCINFO
+
+  [colors]
+  version = 10
+  versiondiffold = 11
+  versiondiffnew = 9
+
+  [ui]
+  requireenterconfirm = yes
+  printcommands = no
+  aursearchsorting = hottest
+  displaylastupdated = no
+  groupbyrepository = yes
+  reversesearchsorting = no
+  warnaboutpackageupdates = 
+  warnaboutnondefaultprivilegeescalationtool = yes
+
+  [misc]
+  cachepath = /home/rgr/.cache
+  datapath = /home/rgr/.local/share
+  pacmanpath = pacman
+  privilegeescalationtool = sudo
+  privilegeescalationtarget = pikaur
+  userid = 0
+  preserveenv = PKGDEST,VISUAL,EDITOR,http_proxy,https_proxy,ftp_proxy,HTTP_PROXY,HTTPS_PROXY,FTP_PROXY,ALL_PROXY
+  groupid = 0
+
+  [network]
+  aururl = https://aur.archlinux.org
+  newsurl = https://archlinux.org/feeds/news/
+  socks5proxy = 
+  aurhttpproxy = 
+  aurhttpsproxy = 
+
+
 #+end_src
 
 ** ~/bin/vpn

@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org873ff29"></a>
+<a id="org9ce5ed9"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org873ff29).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9ce5ed9).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3873,8 +3873,61 @@ update sw
 update sw
 
     # Maintained in linux-config.org
-    [Review]
-    NoDiff = true
+    [sync]
+    alwaysshowpkgorigin = no
+    develpkgsexpiration = -1
+    upgradesorting = versiondiff
+    showdownloadsize = no
+    ignoreoutofdateaurupgrades = no
+    
+    [build]
+    keepbuilddir = no
+    keepdevbuilddir = yes
+    keepbuilddeps = no
+    gpgdir = 
+    skipfailedbuild = no
+    dynamicusers = never
+    ignorearch = no
+    
+    [review]
+    noedit = no
+    donteditbydefault = no
+    nodiff = yes
+    gitdiffargs = --ignore-space-change,--ignore-all-space
+    diffpager = auto
+    hidedifffiles = .SRCINFO
+    
+    [colors]
+    version = 10
+    versiondiffold = 11
+    versiondiffnew = 9
+    
+    [ui]
+    requireenterconfirm = yes
+    printcommands = no
+    aursearchsorting = hottest
+    displaylastupdated = no
+    groupbyrepository = yes
+    reversesearchsorting = no
+    warnaboutpackageupdates = 
+    warnaboutnondefaultprivilegeescalationtool = yes
+    
+    [misc]
+    cachepath = /home/rgr/.cache
+    datapath = /home/rgr/.local/share
+    pacmanpath = pacman
+    privilegeescalationtool = sudo
+    privilegeescalationtarget = pikaur
+    userid = 0
+    preserveenv = PKGDEST,VISUAL,EDITOR,http_proxy,https_proxy,ftp_proxy,HTTP_PROXY,HTTPS_PROXY,FTP_PROXY,ALL_PROXY
+    groupid = 0
+    
+    [network]
+    aururl = https://aur.archlinux.org
+    newsurl = https://archlinux.org/feeds/news/
+    socks5proxy = 
+    aurhttpproxy = 
+    aurhttpsproxy = 
 
 
 ## ~/bin/vpn
