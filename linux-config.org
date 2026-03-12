@@ -4024,7 +4024,7 @@ update sw
   ignorearch = no
 
   [review]
-  noedit = no
+  noedit = yes
   donteditbydefault = no
   nodiff = yes
   gitdiffargs = --ignore-space-change,--ignore-all-space

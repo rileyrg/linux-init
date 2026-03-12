@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org9ce5ed9"></a>
+<a id="orgb70c9aa"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org9ce5ed9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb70c9aa).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3890,7 +3890,7 @@ update sw
     ignorearch = no
     
     [review]
-    noedit = no
+    noedit = yes
     donteditbydefault = no
     nodiff = yes
     gitdiffargs = --ignore-space-change,--ignore-all-space
