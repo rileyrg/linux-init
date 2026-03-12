@@ -2,7 +2,7 @@
 # Maintained in linux-config.org
 string="$(uname -r)"
 if command -v "pikaur"; then
-    pikaur -Syu
+    pikaur -Syu --noedit --nodiff
 elif command -v "pacman"; then
     sudo pacman -Syu
 else

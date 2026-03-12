@@ -3995,7 +3995,7 @@ update sw
   # Maintained in linux-config.org
   string="$(uname -r)"
   if command -v "pikaur"; then
-      pikaur -Syu
+      pikaur -Syu --noedit --nodiff
   elif command -v "pacman"; then
       sudo pacman -Syu
   else
@@ -4003,69 +4003,6 @@ update sw
       sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
   fi
 #+end_src
-** pikaur config
-update sw
-#+begin_src conf :tangle "dot-config/pikaur.conf"
-  # Maintained in linux-config.org
-  [sync]
-  alwaysshowpkgorigin = no
-  develpkgsexpiration = -1
-  upgradesorting = versiondiff
-  showdownloadsize = no
-  ignoreoutofdateaurupgrades = no
-
-  [build]
-  keepbuilddir = no
-  keepdevbuilddir = yes
-  keepbuilddeps = no
-  gpgdir = 
-  skipfailedbuild = no
-  dynamicusers = never
-  ignorearch = no
-
-  [review]
-  noedit = yes
-  donteditbydefault = no
-  nodiff = yes
-  gitdiffargs = --ignore-space-change,--ignore-all-space
-  diffpager = auto
-  hidedifffiles = .SRCINFO
-
-  [colors]
-  version = 10
-  versiondiffold = 11
-  versiondiffnew = 9
-
-  [ui]
-  requireenterconfirm = yes
-  printcommands = no
-  aursearchsorting = hottest
-  displaylastupdated = no
-  groupbyrepository = yes
-  reversesearchsorting = no
-  warnaboutpackageupdates = 
-  warnaboutnondefaultprivilegeescalationtool = yes
-
-  [misc]
-  cachepath = /home/rgr/.cache
-  datapath = /home/rgr/.local/share
-  pacmanpath = pacman
-  privilegeescalationtool = sudo
-  privilegeescalationtarget = pikaur
-  userid = 0
-  preserveenv = PKGDEST,VISUAL,EDITOR,http_proxy,https_proxy,ftp_proxy,HTTP_PROXY,HTTPS_PROXY,FTP_PROXY,ALL_PROXY
-  groupid = 0
-
-  [network]
-  aururl = https://aur.archlinux.org
-  newsurl = https://archlinux.org/feeds/news/
-  socks5proxy = 
-  aurhttpproxy = 
-  aurhttpsproxy = 
-
-
-#+end_src
-
 ** ~/bin/vpn
 vpn [on|off]
 #+begin_src bash :tangle "~/bin/vpn"

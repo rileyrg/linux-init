@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgb70c9aa"></a>
+<a id="orgcb56f1b"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb70c9aa).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcb56f1b).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -3859,75 +3859,13 @@ update sw
     # Maintained in linux-config.org
     string="$(uname -r)"
     if command -v "pikaur"; then
-        pikaur -Syu
+        pikaur -Syu --noedit --nodiff
     elif command -v "pacman"; then
         sudo pacman -Syu
     else
         export DEBIAN_FRONTEND=noninteractive
         sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y
     fi
-
-
-## pikaur config
-
-update sw
-
-    # Maintained in linux-config.org
-    [sync]
-    alwaysshowpkgorigin = no
-    develpkgsexpiration = -1
-    upgradesorting = versiondiff
-    showdownloadsize = no
-    ignoreoutofdateaurupgrades = no
-    
-    [build]
-    keepbuilddir = no
-    keepdevbuilddir = yes
-    keepbuilddeps = no
-    gpgdir = 
-    skipfailedbuild = no
-    dynamicusers = never
-    ignorearch = no
-    
-    [review]
-    noedit = yes
-    donteditbydefault = no
-    nodiff = yes
-    gitdiffargs = --ignore-space-change,--ignore-all-space
-    diffpager = auto
-    hidedifffiles = .SRCINFO
-    
-    [colors]
-    version = 10
-    versiondiffold = 11
-    versiondiffnew = 9
-    
-    [ui]
-    requireenterconfirm = yes
-    printcommands = no
-    aursearchsorting = hottest
-    displaylastupdated = no
-    groupbyrepository = yes
-    reversesearchsorting = no
-    warnaboutpackageupdates = 
-    warnaboutnondefaultprivilegeescalationtool = yes
-    
-    [misc]
-    cachepath = /home/rgr/.cache
-    datapath = /home/rgr/.local/share
-    pacmanpath = pacman
-    privilegeescalationtool = sudo
-    privilegeescalationtarget = pikaur
-    userid = 0
-    preserveenv = PKGDEST,VISUAL,EDITOR,http_proxy,https_proxy,ftp_proxy,HTTP_PROXY,HTTPS_PROXY,FTP_PROXY,ALL_PROXY
-    groupid = 0
-    
-    [network]
-    aururl = https://aur.archlinux.org
-    newsurl = https://archlinux.org/feeds/news/
-    socks5proxy = 
-    aurhttpproxy = 
-    aurhttpsproxy = 
 
 
 ## ~/bin/vpn
