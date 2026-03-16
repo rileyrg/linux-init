@@ -1270,7 +1270,7 @@ $term is set to "sway-scratch-terminal
 ### apps default workspace
 
     # assign [title="dbg:"] 3
-    #assign [app_id="Alacritty"] 1
+    assign [app_id="com.saivert.pwvucontrol"] 1
     #assign [class="Ardour"] 6
     assign [class="Code"] 3
     assign [class="calibre"] 5
@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="orgcb56f1b"></a>
+<a id="org699a1b4"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgcb56f1b).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org699a1b4).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

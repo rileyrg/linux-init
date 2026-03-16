@@ -1440,7 +1440,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 *** apps default workspace
 #+begin_src conf
   # assign [title="dbg:"] 3
-  #assign [app_id="Alacritty"] 1
+  assign [app_id="com.saivert.pwvucontrol"] 1
   #assign [class="Ardour"] 6
   assign [class="Code"] 3
   assign [class="calibre"] 5

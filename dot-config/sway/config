@@ -273,7 +273,7 @@ bindsym $mod+Control+Shift+a exec pulse-restart
 bindsym --locked XF86Wlan exec sleep 1 && sway-notify "WLAN is $(nmcli radio wifi)."
 
 # assign [title="dbg:"] 3
-#assign [app_id="Alacritty"] 1
+assign [app_id="com.saivert.pwvucontrol"] 1
 #assign [class="Ardour"] 6
 assign [class="Code"] 3
 assign [class="calibre"] 5
