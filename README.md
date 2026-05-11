@@ -2477,7 +2477,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org699a1b4"></a>
+<a id="org4dea679"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2557,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org699a1b4).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4dea679).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2716,7 +2716,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 
     #!/usr/bin/env bash
     # Maintained in linux-config.org
-    command -v pwvucontrol && pwvucontrol || pavucontrol
+    command -v pwvucontrol && pwvucontrol || flatpak run com.saivert.pwvucontrol || pavucontrol
 
 
 ### ~/bin/sway/sway-weather

@@ -2909,7 +2909,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 #+begin_src bash :tangle "~/bin/sway/sway-audio-control"
   #!/usr/bin/env bash
   # Maintained in linux-config.org
-  command -v pwvucontrol && pwvucontrol || pavucontrol
+  command -v pwvucontrol && pwvucontrol || flatpak run com.saivert.pwvucontrol || pavucontrol
 #+end_src
 
 
