@@ -228,6 +228,21 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
 #+end_src
 
+*** ~/.profile.local.sample
+:PROPERTIES:
+:END:
+
+#+begin_src bash :tangle "DotFiles/.profile.local.sample"
+  #!/usr/bin/env bash
+  # Maintained in linux-config.org
+  export SWAYIDLEHOOK_BLANK=300
+  export BRIGHTNESS_DELTA=2000
+  export TEMP_REDLINE=65
+  export WAYBAR_FANSPEED_MAXRPM=8000
+  export WAYBAR_FANSPEED_POLLTIME=5
+  export SWAY_WWW=brave
+#+end_src
+
 *** ~/.bash_profile
 :PROPERTIES:
 :ID:       606c1aee-d313-42f6-a174-3f9e9fa97548

@@ -161,6 +161,18 @@ NB - NOT Exported as lots of things want to update it
     test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
 
+### ~/.profile.local.sample
+
+    #!/usr/bin/env bash
+    # Maintained in linux-config.org
+    export SWAYIDLEHOOK_BLANK=300
+    export BRIGHTNESS_DELTA=2000
+    export TEMP_REDLINE=65
+    export WAYBAR_FANSPEED_MAXRPM=8000
+    export WAYBAR_FANSPEED_POLLTIME=5
+    export SWAY_WWW=brave
+
+
 ### ~/.bash\_profile
 
     #!/usr/bin/env bash
@@ -2477,7 +2489,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org4dea679"></a>
+<a id="org1b31884"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2557,7 +2569,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org4dea679).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1b31884).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

@@ -110,6 +110,7 @@
 !/DotFiles/.lldbinit
 !/DotFiles/.mbsyncrc
 !/DotFiles/.profile
+!/DotFiles/.profile.local.sample
 !/DotFiles/.ripgreprc
 !/DotFiles/.syncrclone
 
