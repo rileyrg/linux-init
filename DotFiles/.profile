@@ -65,6 +65,7 @@ systemctl start --user mbsync.timer
 #homebrew
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 
+
 export FZF_TMUX_OPTS=1
 export FZF_TMUX_OPTS="-d 40%"
 export FZF_DEFAULT_COMMAND="fd -t f --follow --hidden --no-ignore-vcs"
@@ -105,6 +106,7 @@ export PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 export ANDROID_STUDIO_HOME="${HOME}/bin/thirdparty/android-studio"
 export PATH="${PATH}:${ANDROID_STUDIO_HOME}/bin"
 
+
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -119,3 +121,4 @@ export CXX="/usr/bin/clang++"
 # fix for java apps in sway
 export _JAVA_AWT_WM_NONREPARENTING=1
 [ -f "${HOME}/.profile.local" ] && . "${HOME}/.profile.local"
+

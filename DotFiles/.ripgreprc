@@ -1,3 +1,4 @@
+
 # Maintained in linux-config.org
 # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
 --max-columns=150
@@ -12,3 +13,5 @@
 
 #ignore .gitignore
 # --no-ignore-vcs
+
+

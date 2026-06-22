@@ -4342,6 +4342,15 @@ fi
   output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
+*** IntelNUC
+:PROPERTIES:
+:header-args:conf: :tangle "~/.config/sway/host-config-intelnuc"
+:END:
+#+begin_src conf
+  #Maintained in linux-config.org
+  output DP-1 mode 2560x1440@99.901hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
+#+end_src
+
 
 *** Thinkpad T14s
 :PROPERTIES:

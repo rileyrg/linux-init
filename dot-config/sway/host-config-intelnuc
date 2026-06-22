@@ -1,0 +1,2 @@
+#Maintained in linux-config.org
+output DP-1 mode 2560x1440@99.901hz bg ${HOME}/Pictures/Wallpapers/s1 stretch

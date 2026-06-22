@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ #!/usr/bin/env bash
  #Maintained in linux-config.org
 [ -z  $(command -v lynx) ] && echo "install lynx" && exit 1
 [ -z  $(command -v pandoc) ] && echo "install pandoc" && exit 1

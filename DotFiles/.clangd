@@ -32,3 +32,4 @@ Diagnostics:
       - readability-identifier-length
       
     FastCheckFilter: None  # Loose, Strict, None
+    

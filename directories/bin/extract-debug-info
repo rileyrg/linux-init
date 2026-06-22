@@ -42,3 +42,4 @@ objcopy --only-keep-debug "${tostripfile}" "${debugdir}/${debugfile}"
 strip --strip-debug  "${tostripfile}"
 #objcopy --add-gnu-debuglink="${debugdir}/${debugfile}" "${tostripfile}"
 chmod -x "${debugdir}/${debugfile}"
+

@@ -7,3 +7,4 @@ elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
 # else
 #     emacsclient -c -a "" &
 fi
+

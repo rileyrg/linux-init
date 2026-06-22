@@ -41,3 +41,4 @@ if [ ! -z "$connections" ]; then
 else
     echo "🔌"
 fi
+

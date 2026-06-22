@@ -6,3 +6,4 @@ Type=simple
 ExecStart=/home/rgr/bin/getmails
 
 RuntimeMaxSec=1200
+
