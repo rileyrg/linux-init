@@ -787,7 +787,7 @@ this goes into my .profile
       args="${@:1:$#-1}"
   fi
   set -x
-  unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,Documents/AudioBooks,.cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
+  unison  -auto -terse ${args} -ignore 'Name {c/linux/linux-stable,cache,Documents/AudioBooks,.cache,eln-cache,bin/bin-nosync,.syncrclone/backups,.syncrclone/logs}' -prefer newer ~/cloud/ ssh://${dest}/cloud/
   set +x
 #+end_src 
 

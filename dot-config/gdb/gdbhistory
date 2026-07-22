@@ -179,3 +179,18 @@ set disassembl-next-line on
 set disassemble-next-line on
 n
 s
+b main
+run
+l
+n
+q
+run
+l
+s
+o
+f
+fin
+n
+p app.
+p app
+q
