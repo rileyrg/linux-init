@@ -2388,7 +2388,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org6bcfeb1"></a>
+<a id="org80c9e49"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2427,8 +2427,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     #     fi
     # fi
     
-    sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
-    
     swaymsg "
        workspace 4; move workspace to output $rightMostOutput;
        workspace 5; move workspace to output $rightMostOutput;
@@ -2441,6 +2439,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
        workspace 1; move workspace to output $rightOutput;
     workspace $curr;
      "
+    sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     sway-notify "Workspaces moved to correct monitors"
 
 
@@ -2471,7 +2470,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6bcfeb1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org80c9e49).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -4052,7 +4051,7 @@ out of date
 ### Hercules
 
     #Maintained in linux-config.org
-    output HDMI-A-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
+    output HDMI-A-1 mode 3840x2160@60Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
     output DP-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 3840 0
     output DP-2 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 7680 0
 

@@ -2621,8 +2621,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   #     fi
   # fi
 
-  sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
-
   swaymsg "
      workspace 4; move workspace to output $rightMostOutput;
      workspace 5; move workspace to output $rightMostOutput;
@@ -2635,6 +2633,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
      workspace 1; move workspace to output $rightOutput;
   workspace $curr;
    "
+  sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
   sway-notify "Workspaces moved to correct monitors"
 
 #+end_src
@@ -4216,7 +4215,7 @@ fi
 :END:
 #+begin_src conf
   #Maintained in linux-config.org
-  output HDMI-A-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
+  output HDMI-A-1 mode 3840x2160@60Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
   output DP-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 3840 0
   output DP-2 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 7680 0
 #+end_src
