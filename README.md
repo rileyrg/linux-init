@@ -1346,8 +1346,8 @@ $term is set to "sway-scratch-terminal
     exec blueman-applet &>/dev/null
     exec waybar-network-applet
     # exec gpg-cache
-    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 5 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
-    exec sway-workspace-position
+    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 5 && sway-notify "~/.sway.login processed")'
+    exec 'sleep 5; sway-workspace-position; swaymsg "workspace 1" '
 
 \*\* waybar config
 <https://github.com/Alexays/Waybar/wiki/Configuration>
@@ -2388,7 +2388,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org35dcc09"></a>
+<a id="org6bcfeb1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2415,7 +2415,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     rightOutput=${rightOutput:-${leftOutput}}
     rightMostOutput=${rightMostOutput:-${rightOutput}}
     
-    sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
     
     # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
@@ -2428,18 +2427,21 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     #     fi
     # fi
     
+    sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
+    
     swaymsg "
-       workspace 1; move workspace to output $leftOutput;
-       workspace 2; move workspace to output $rightOutput;
-       workspace 3; move workspace to output $leftOutput;
-       workspace 4; move workspace to output $rightOutput;
-       workspace 5; move workspace to output $rightOutput;
+       workspace 4; move workspace to output $rightMostOutput;
+       workspace 5; move workspace to output $rightMostOutput;
        workspace 6; move workspace to output $rightMostOutput;
        workspace 7; move workspace to output $rightMostOutput;
        workspace 8; move workspace to output $rightMostOutput;
        workspace 9; move workspace to output $leftOutput;
-       workspace $curr;
+       workspace 2; move workspace to output $rightOutput;
+       workspace 3; move workspace to output $rightMostOutput;
+       workspace 1; move workspace to output $rightOutput;
+    workspace $curr;
      "
+    sway-notify "Workspaces moved to correct monitors"
 
 
 ### ~/bin/sway/sway-workspace-populate
@@ -2469,7 +2471,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org35dcc09).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6bcfeb1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

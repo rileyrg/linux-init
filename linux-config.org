@@ -1517,8 +1517,8 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
   exec blueman-applet &>/dev/null
   exec waybar-network-applet
   # exec gpg-cache
-  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 5 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
-  exec sway-workspace-position
+  exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 5 && sway-notify "~/.sway.login processed")'
+  exec 'sleep 5; sway-workspace-position; swaymsg "workspace 1" '
 #+end_src
 
  ** waybar config
@@ -2609,7 +2609,6 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   rightOutput=${rightOutput:-${leftOutput}}
   rightMostOutput=${rightMostOutput:-${rightOutput}}
 
-  sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
   # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
@@ -2622,18 +2621,21 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   #     fi
   # fi
 
+  sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
+
   swaymsg "
-     workspace 1; move workspace to output $leftOutput;
-     workspace 2; move workspace to output $rightOutput;
-     workspace 3; move workspace to output $leftOutput;
-     workspace 4; move workspace to output $rightOutput;
-     workspace 5; move workspace to output $rightOutput;
+     workspace 4; move workspace to output $rightMostOutput;
+     workspace 5; move workspace to output $rightMostOutput;
      workspace 6; move workspace to output $rightMostOutput;
      workspace 7; move workspace to output $rightMostOutput;
      workspace 8; move workspace to output $rightMostOutput;
      workspace 9; move workspace to output $leftOutput;
-     workspace $curr;
+     workspace 2; move workspace to output $rightOutput;
+     workspace 3; move workspace to output $rightMostOutput;
+     workspace 1; move workspace to output $rightOutput;
+  workspace $curr;
    "
+  sway-notify "Workspaces moved to correct monitors"
 
 #+end_src
 

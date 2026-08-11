@@ -8,7 +8,6 @@ export rightMostOutput=${outputs[2]}
 rightOutput=${rightOutput:-${leftOutput}}
 rightMostOutput=${rightMostOutput:-${rightOutput}}
 
-sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
 curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 
 # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
@@ -21,16 +20,19 @@ curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
 #     fi
 # fi
 
+sway-notify "Left:${leftOutput}, Right:${rightOutput}, Rightmost: ${rightMostOutput}"
+
 swaymsg "
-   workspace 1; move workspace to output $leftOutput;
-   workspace 2; move workspace to output $rightOutput;
-   workspace 3; move workspace to output $leftOutput;
-   workspace 4; move workspace to output $rightOutput;
-   workspace 5; move workspace to output $rightOutput;
+   workspace 4; move workspace to output $rightMostOutput;
+   workspace 5; move workspace to output $rightMostOutput;
    workspace 6; move workspace to output $rightMostOutput;
    workspace 7; move workspace to output $rightMostOutput;
    workspace 8; move workspace to output $rightMostOutput;
    workspace 9; move workspace to output $leftOutput;
-   workspace $curr;
+   workspace 2; move workspace to output $rightOutput;
+   workspace 3; move workspace to output $rightMostOutput;
+   workspace 1; move workspace to output $rightOutput;
+workspace $curr;
  "
+sway-notify "Workspaces moved to correct monitors"
 
