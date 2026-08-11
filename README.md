@@ -1343,12 +1343,11 @@ $term is set to "sway-scratch-terminal
     # configure keyboard layout using xkb values
     exec 'swaymsg input type:keyboard xkb_layout "${XKB_DEFAULT_LAYOUT:-de}"'
     exec sway-idle
-    # exec sway-kanshi 
-    exec sway-workspace-position 
     exec blueman-applet &>/dev/null
     exec waybar-network-applet
     # exec gpg-cache
-    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 1 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
+    exec 'sway-workspace-populate-conditional; [ -f "${HOME}/.sway.login" ]  && . "${HOME}/.sway.login" && (sleep 5 && sway-notify "~/.sway.login processed");  swaymsg workspace 1; '
+    exec sway-workspace-position
 
 \*\* waybar config
 <https://github.com/Alexays/Waybar/wiki/Configuration>
@@ -2238,27 +2237,6 @@ More a proof of concept using bash to set keybindings
     exec sway-oneterminal "Processes" btop
 
 
-### ~/bin/sway/sway-kanshi
-
-Monitor control with hotplug <https://github.com/emersion/kanshi>
-Load a host specific kanshi file if it exists
-
-    #!/usr/bin/env bash
-    #Maintained in linux-config.org
-    # pidof kanshi && echo "kanshi process $(pidof kanshi) already running. Exiting." && exit 0
-    pkill kanshi
-    config="${HOME}/.config/kanshi/config-$(hostname)"
-    if [ -f  "$config" ]; then
-        echo  "kanshi -c $config"
-        kanshi -c "$config" &
-    else
-        echo "kanshi default config"
-        kanshi &
-    fi
-    sleep 1
-    sway-workspace-position
-
-
 ### ~/bin/sway/sway-kitty
 
     #!/usr/bin/env bash
@@ -2266,20 +2244,7 @@ Load a host specific kanshi file if it exists
     [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" "$@" || kitty "$@"
     exit 0
 
-1.  config
-
-        profile {
-        output eDP-1 enable position 0,0
-        }
-
-2.  config-um690
-
-        {
-        output HDMI-A-1  enable mode 2560x1440 position 0,0
-        output HDMI-A-2  enable mode 1920x1080 position 2560,116
-        }
-
-3.  wireplumber config
+1.  wireplumber config
 
     stop audio going to sleep
     
@@ -2302,72 +2267,6 @@ Load a host specific kanshi file if it exists
              }
            }
          ]
-
-4.  config-t14s
-
-        profile home-dp{
-        output 'ASUSTek COMPUTER INC AS' mode 2560x1440 position 0,0
-        output 'Synaptics Inc Non-PnP 0x00BC614E' mode 1920x1080 position 2560,0
-        output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
-        }
-        profile home-hdmi{
-        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
-        output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
-        output 'AU Optronics 0x573D Unknown' mode 1920x1080 position 3000,1080
-        }
-        profile home-no-lap{
-        output 'ASUSTek COMPUTER INC ASUS PB278QV 0x00030ADB' mode 2560x1440 position 0,0
-        output 'HKC OVERSEAS LIMITED 22N1 0000000000001' mode 1920x1080 position 2560,0
-        }
-    
-        profile hercules-dpL{
-        output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
-        }
-        profile hercules-dpR{
-        output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 0,0 scale 1
-        }
-        profile hercules-dp{
-         output 'Dell Inc. DELL S2725QS 6PNK364' mode 3840x2160@120 position 0,0 scale 1
-         output 'Dell Inc. DELL S2725QS 5T9K364' mode 3840x2160@120 position 3840,0 scale 1
-        }
-
-5.  config-xmgneo
-
-        {
-        output eDP-1 enable enable mode 2560x1440  position 0,0
-        }
-        
-        {
-        output eDP-1 enable mode 2560x1440 position 2560,0
-        output HDMI-A-1  enable mode 2560x1440 position 0,0
-        }
-        
-        {
-        output eDP-1 enable mode 2560x1440 position 2560,0
-        output DP-1  enable mode 2560x1440 position 0,0
-        }
-
-6.  config-x1c6
-
-        profile {
-        output eDP-1 enable mode 1920x1080  position 0,0
-        }
-        
-        profile {
-        output eDP-1 disable
-        output DP-1 enable mode 2560x1440 position 0,0
-        }
-        
-        profile {
-        output eDP-1 disable
-        output HDMI-A-1 enable mode 2560x1440 position 0,0
-        }
-
-7.  config-x13
-
-        profile {
-        output eDP-1 enable mode 1920x1200  position 0,0
-        }
 
 
 ### ~/bin/sway/sway-lock-utils
@@ -2489,7 +2388,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org1ee67b7"></a>
+<a id="org35dcc09"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2538,6 +2437,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
        workspace 6; move workspace to output $rightMostOutput;
        workspace 7; move workspace to output $rightMostOutput;
        workspace 8; move workspace to output $rightMostOutput;
+       workspace 9; move workspace to output $leftOutput;
        workspace $curr;
      "
 
@@ -2569,7 +2469,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1ee67b7).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org35dcc09).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -4150,8 +4050,9 @@ out of date
 ### Hercules
 
     #Maintained in linux-config.org
-    output DP-1  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 0 0
-    output DP-2  mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 3840 0
+    output HDMI-A-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
+    output DP-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 3840 0
+    output DP-2 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 7680 0
 
 
 ### Thinkpad X13
