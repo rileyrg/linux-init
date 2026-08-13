@@ -1,0 +1,2 @@
+#Maintained in linux-config.org
+output HDMI-A-1  mode 3840x2160@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch

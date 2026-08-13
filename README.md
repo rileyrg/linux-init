@@ -2388,7 +2388,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org80c9e49"></a>
+<a id="org1cb1dfe"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2470,7 +2470,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org80c9e49).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org1cb1dfe).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -4068,22 +4068,10 @@ out of date
     output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 
 
-### IntelNUC
-
-    #Maintained in linux-config.org
-    output DP-1 mode 2560x1440@99.901hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
-
-
-### Mifcom-Arch
+### ser9
 
     #Maintained in linux-config.org
     output HDMI-A-1  mode 3840x2160@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
-
-
-### Thinkpad T14s
-
-    #Maintained in linux-config.org
-    output eDP-1 mode 1920x1080@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
 
 
 ## sway config

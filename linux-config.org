@@ -4238,33 +4238,16 @@ fi
   output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
-*** IntelNUC
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-intelnuc"
-:END:
-#+begin_src conf
-  #Maintained in linux-config.org
-  output DP-1 mode 2560x1440@99.901hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
-#+end_src
 
-*** Mifcom-Arch
+*** ser9
 :PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-mifcom-arch"
+:header-args:conf: :tangle "~/.config/sway/host-config-ser9"
 :END:
 #+begin_src conf
   #Maintained in linux-config.org
   output HDMI-A-1  mode 3840x2160@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
-
-*** Thinkpad T14s
-:PROPERTIES:
-:header-args:conf: :tangle "~/.config/sway/host-config-t14s"
-:END:
-#+begin_src conf
-  #Maintained in linux-config.org
-  output eDP-1 mode 1920x1080@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
-#+end_src
 
 ** sway config
 
