@@ -2587,9 +2587,13 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 #+begin_src bash :tangle "~/bin/sway/sway-exit"
   #!/usr/bin/env bash
   # Maintained in https://github.com/rileyrg/linux-init
-  ### kill browser properly so no annoying "restore tabs" prompt
+
+  #### kill browser properly so no annoying "restore tabs" prompt
   IFS='-' read -r browser string <<< "$SWAY_WWW"
   pkill -f $browser
+
+  [ -f "${HOME}/.sway-exit" ] && . "$HOME/.sway-exit"
+
   sleep 1
   swaymsg exit
 #+end_src 

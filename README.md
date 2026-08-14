@@ -2392,14 +2392,18 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
     #!/usr/bin/env bash
     # Maintained in https://github.com/rileyrg/linux-init
-    ### kill browser properly so no annoying "restore tabs" prompt
+    
+    #### kill browser properly so no annoying "restore tabs" prompt
     IFS='-' read -r browser string <<< "$SWAY_WWW"
     pkill -f $browser
+    
+    [ -f "${HOME}/.sway-exit" ] && . "$HOME/.sway-exit"
+    
     sleep 1
     swaymsg exit
 
 
-<a id="orgd9fe5e1"></a>
+<a id="org13c1a33"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2487,7 +2491,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd9fe5e1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org13c1a33).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
