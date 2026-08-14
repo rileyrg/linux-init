@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 # https://askubuntu.com/a/1272865/232407
 export LC_ALL=C
 

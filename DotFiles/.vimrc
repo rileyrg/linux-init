@@ -1,4 +1,4 @@
-" Maintained in linux-config.org
+" Maintained in https://github.com/rileyrg/linux-init
 set nocompatible              " be iMproved, required
 filetype off                  " required
 

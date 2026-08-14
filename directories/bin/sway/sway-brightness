@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 if command -v light; then
     BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10%"}
     if [[ "$1" == "-" ]]; then

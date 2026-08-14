@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 mountpoint=${2:-"/media/rsnapshot"};
 rsnapshottype=${1:-"alpha"};
 if $(/usr/bin/mountpoint -q $mountpoint); then

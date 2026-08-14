@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 logger -t "startup-initfile"  BASH_PROFILE
 [ -f ~/.profile ] && . ~/.profile || true
 [ -f ~/.bashrc ] && . ~/.bashrc || true

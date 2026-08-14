@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 if pidof dropbox &> /dev/null ; then
     stat=$(dropbox status | sed -n 1p)
     echo "${stat}"; echo "";

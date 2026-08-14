@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 [ -f ~/.post-blank ]  && . ~/.post-blank
 command -v brightnessctl && brightnessctl -r

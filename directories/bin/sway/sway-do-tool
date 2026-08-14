@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 
 # NB ths is currently lazy. It uses brute force, and i need to do some get_tree jq stuff instead to
 # get the app_id/class instance instead. But.. it works.

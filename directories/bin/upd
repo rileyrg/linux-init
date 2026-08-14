@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 string="$(uname -r)"
 if command -v "pikaur"; then
     pikaur -Syu --noedit --nodiff

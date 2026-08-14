@@ -1,4 +1,4 @@
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 logger -t "startup-initfile"  ZSHRC
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 export TERM="kitty"

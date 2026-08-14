@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 if ! (clipman pick --tool="wofi" --max-items=30); then
     sway-notify "Clipboard History Is Empty"
     exit 1

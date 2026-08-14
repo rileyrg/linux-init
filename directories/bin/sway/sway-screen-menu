@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 m=$(swaymsg -t get_outputs | jq -r '.[] |  "\(.name)\n\(.active)"'  | zenity  --title "Select Display" --list  --text "" --column "Monitor" --column "Enabled")
 if [ ! -z "$m" ]; then
     c="$(zenity  --list  --title "Enable ${m}?" --text "" --radiolist  --column "Pick" --column "Enabled" TRUE enable FALSE disable)"

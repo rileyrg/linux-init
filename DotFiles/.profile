@@ -1,4 +1,4 @@
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 logger -t "startup-initfile"  PROFILE
 
 # ~/.profile: executed by the command interpreter for login shells.

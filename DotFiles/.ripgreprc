@@ -1,5 +1,5 @@
 
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
 --max-columns=150
 

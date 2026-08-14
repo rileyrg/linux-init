@@ -1,4 +1,4 @@
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 set auto-load safe-path /
 set auto-load local-gdbinit on
 set history save on

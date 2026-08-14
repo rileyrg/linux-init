@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 
 # create a lldb debug session unless it already exists.
 # the -d to new session says "dont attach to current terminal"

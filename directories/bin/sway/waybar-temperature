@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 tempC=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
 tempC="${tempC%????}"
 if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then

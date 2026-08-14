@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 filter="${1:-"$(zenity --entry --text "HTop filter" --title "htop regexp")"}"
 [ -z "$filter" ] && exit 1
 session="${2:-"htop-filter-${filter//[^[:alnum:]]/}"}"

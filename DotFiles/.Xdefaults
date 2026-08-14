@@ -1,4 +1,4 @@
-! Maintained in linux-config.org
+! Maintained in https://github.com/rileyrg/linux-init
 ! Use a truetype font and size.
 *.font: -*-JetBrainsMono Nerd Font-*-*-*-*-24-*-*-*-*-*-*
 Xft.autohint: 0

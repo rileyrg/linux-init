@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 
 import json
 import requests

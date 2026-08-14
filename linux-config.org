@@ -108,7 +108,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 * Basic shell things
 ** X/Sway common
 #+begin_src conf :tangle "DotFiles/.Xdefaults"
-  ! Maintained in linux-config.org
+  ! Maintained in https://github.com/rileyrg/linux-init
   ! Use a truetype font and size.
   ,*.font: -*-JetBrainsMono Nerd Font-*-*-*-*-24-*-*-*-*-*-*
   Xft.autohint: 0
@@ -159,7 +159,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 :END:
 
 #+begin_src bash :tangle "DotFiles/.profile"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   logger -t "startup-initfile"  PROFILE
 
   # ~/.profile: executed by the command interpreter for login shells.
@@ -234,7 +234,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
 #+begin_src bash :tangle "DotFiles/.profile.local.sample"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   export SWAYIDLEHOOK_BLANK=300
   export BRIGHTNESS_DELTA=2000
   export TEMP_REDLINE=65
@@ -250,7 +250,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
 #+begin_src bash :tangle "DotFiles/.bash_profile"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   logger -t "startup-initfile"  BASH_PROFILE
   [ -f ~/.profile ] && . ~/.profile || true
   [ -f ~/.bashrc ] && . ~/.bashrc || true
@@ -259,7 +259,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 *** ~/.bashrc
 #+begin_src bash :tangle "DotFiles/.bashrc"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   logger -t "startup-initfile"  BASHRC
   # ~/.bashrc: executed by bash(1) for non-login shells.
   # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -317,7 +317,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 ** ZSH Related
 *** ~/.config/zsh/.zshrc
 #+begin_src zsh :tangle "dot-config/zsh/.zshrc"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   logger -t "startup-initfile"  ZSHRC
   [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
   export TERM="kitty"
@@ -449,7 +449,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 
 *** ~/.config/zsh/.zlogin
 #+begin_src bash :tangle "~/.config/zsh/.zlogin"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   logger -t "startup-initfile"  ZLOGIN
   # [ -s "${HOME}/.rvm/scripts/rvm" ] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
   if [[ -z $DOT_PROFILE_SOURCED ]]; then
@@ -463,11 +463,11 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 #+end_src
 *** zprofile
 #+begin_src bash :tangle "~/.config/zsh/.zprofile"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 #+end_src
 *** ~/.zshenv
 #+begin_src bash :tangle "~/cloud/homefiles/DotFiles/.zshenv"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if [ -z "$XDG_CONFIG_HOME" ] && [ -d "${HOME}/.config" ]
   then
       export XDG_CONFIG_HOME="${HOME}/.config"
@@ -482,7 +482,7 @@ CLOSED: [2021-01-11 Mo 01:36] SCHEDULED: <2021-01-10 Sun>
 Directory is [[file:.oh-my-zsh/][here]].
 ***** Aliases ~/.config/zsh/oh-my-zsh/custom/aliases.zsh
 #+begin_src conf :tangle "~/.config/zsh/oh-my-zsh/custom/aliases.zsh"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   alias grep="grep -n --color"
   alias hg='history|grep'
   alias vi='vim'
@@ -522,7 +522,7 @@ Directory is [[file:.oh-my-zsh/][here]].
 
 *** .config/tmux/tmux.conf
 #+begin_src conf :tangle "dot-config/tmux/tmux.conf"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   # Change the prefix key to C-a
   set-option -g status on
   set-option -g status-interval 1
@@ -620,14 +620,14 @@ Directory is [[file:.oh-my-zsh/][here]].
 *** ~/bin/tmux-current-session
 #+begin_src bash :tangle ~/bin/tmux-current-session
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   echo "$(tmux list-panes -t "$TMUX_PANE" -F '#S' | head -n1)"
 #+end_src
 *** ~/bin/tmux-pane-tty
 Written to find the tty for a pane in order to redirect gef context source to a voltron pane
 #+begin_src bash :tangle ~/bin/tmux-pane-tty
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   session="${1:-""}"
   [ -z ${session} ] && exit 1
   pane_index="${2:-0}"
@@ -660,7 +660,7 @@ I launch it from my *.profile*. see below.
 
 #+begin_src bash :tangle "~/bin/discharge-suspend"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   # loop and check power levels every BAT_POWER_SUSPEND_POLL_CYCLE seconds. When a certain
   # threshold, BAT_POWER_SUSPEND_LEVEL, is reached then, unless there is
@@ -746,7 +746,7 @@ toggle existence of *~/.BAT_POWER_SUSPEND_SUSPEND*
 
 #+begin_src bash :tangle "~/bin/discharge-suspend-toggle"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if [ -f ~/.BAT_POWER_SUSPEND_SUSPEND ];then
       rm ~/.BAT_POWER_SUSPEND_SUSPEND;
       sway-notify "Auto suspend re-enabled"
@@ -778,7 +778,7 @@ this goes into my .profile
 ** sync-bi
 #+begin_src  bash :tangle ~/bin/sync-bi
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if [[ $# -eq 0 ]]; then
       dest="server";
       args="";
@@ -794,7 +794,7 @@ this goes into my .profile
 ** sync-to
 #+begin_src  bash :tangle ~/bin/sync-to
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   set -x
   rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ~/cloud/ ${1:-richiehh}:cloud/
   set +x
@@ -802,7 +802,7 @@ this goes into my .profile
 ** sync-from
 #+begin_src  bash :tangle ~/bin/sync-from
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   set -x
   cwd=$(pwd)
   rsync -avx --exclude-from "${HOME}/cloud/.rsync-ignore" --delete ${1:-richiehh}:cloud/ ${HOME}/cloud/
@@ -818,7 +818,7 @@ this goes into my .profile
 ** ~/bin/network-online
 #+begin_src bash :tangle "~/bin/network-online"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   wget -q --spider http://google.com
 #+end_src
 * Editors
@@ -826,14 +826,14 @@ this goes into my .profile
 *** sway-editor
 #+begin_src  bash  :tangle "~/bin/sway/sway-editor"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-do-tool "Emacs-general" || emacsclient -s "general" -n -c && sleep 1 && sway-do-tool "Emacs-general"
   exit 0
 #+end_src 
 ** Vim
 *** ~/.vimrc
 #+begin_src conf :tangle "DotFiles/.vimrc"
-  " Maintained in linux-config.org
+  " Maintained in https://github.com/rileyrg/linux-init
   set nocompatible              " be iMproved, required
   filetype off                  " required
 
@@ -889,7 +889,7 @@ this goes into my .profile
 * ripgrep
 ** ~/.ignore
 #+begin_src conf :tangle "DotFiles/.ignore"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   ,*~
   .git
   cache
@@ -898,7 +898,7 @@ this goes into my .profile
 ** ~/.ripgreprc
 #+begin_src conf :tangle "DotFiles/.ripgreprc"
 
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
   --max-columns=150
 
@@ -1059,7 +1059,7 @@ Override in .profile.local
 :END:
 *** general
 #+begin_src conf
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   include /etc/sway/config.d/*
 
@@ -1334,7 +1334,7 @@ $term is set to "sway-scratch-terminal
 **** ~/bin/sway/sway-scratch-terminal
 #+begin_src bash :tangle "~/bin/sway/sway-scratch-terminal"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   swaymsg "[title=ScratchTerminal] scratchpad show " ||  (sway-notify "created new scratchpad terminal" && sway-kitty --title "ScratchTerminal" -e tmux new-session -A -s ScratchTerminal)
 #+end_src
 *** navigation                                  :navigation
@@ -1355,7 +1355,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 ***** sway-clipboard-history-select
 #+begin_src bash :tangle ~/bin/sway/sway-clipboard-history-select
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if ! (clipman pick --tool="wofi" --max-items=30); then
       sway-notify "Clipboard History Is Empty"
       exit 1
@@ -1366,7 +1366,7 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 ***** sway-clipboard-history-clear
   #+begin_src bash  :tangle ~/bin/sway/sway-clipboard-history-clear
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   clipman clear -a
   sway-notify "Clipboard history cleared."
   exit 0
@@ -1375,14 +1375,14 @@ A basic [[https://github.com/yory8/clipman][clipboard manager]] for Wayland, wit
 ***** ~/.config/wofi/config
 [[http://manpages.ubuntu.com/manpages/impish/man5/wofi.5.html][Configuration]] file
 #+begin_src conf :tangle ~/.config/wofi/config
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   dynamic_lines=true
   gtk_dark=true
   terminal=sway-kitty
 #+end_src
 ***** ~/.config/wofi/style.css
 #+begin_src css :tangle ~/.config/wofi/style.css
-  /* Maintained in linux-config.org */
+  /* Maintained in https://github.com/rileyrg/linux-init */
   window {
       margin: 0px;
       border: 1px solid #c0c0c0;
@@ -1929,7 +1929,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-bluetooth
 #+begin_src bash :tangle ~/bin/sway/waybar-bluetooth
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   get_from_file() {
       dev=$1
@@ -1978,7 +1978,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-dropbox-json
 #+begin_src bash :tangle ~/bin/sway/waybar-dropbox-json
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if ( ! dropbox running ); then
       fullstat="$(dropbox status)"
       stat="$(sed -n 1p <<< $fullstat)"
@@ -2004,7 +2004,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-dropbox-status
 #+begin_src bash :tangle ~/bin/sway/waybar-dropbox-status
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if pidof dropbox &> /dev/null ; then
       stat=$(dropbox status | sed -n 1p)
       echo "${stat}"; echo "";
@@ -2041,7 +2041,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-monitors
 #+begin_src bash :tangle ~/bin/sway/waybar-monitors
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   l=$(swaymsg -t get_outputs | jq  -r '[ .[] | select(.dpms and .active) ] | length')
   o=$(swaymsg -t get_outputs | jq  -r '. | map(.name) | join(",")')
   t=""
@@ -2054,7 +2054,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-fanspeed
 #+begin_src bash :tangle ~/bin/sway/waybar-fanspeed
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if [[ -z ${WAYBAR_FANSPEED_COLORS} ]];then
       WAYBAR_FANSPEED_COLORS=(green green green gold orange red)
   fi
@@ -2077,7 +2077,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-temperature
 #+begin_src bash :tangle ~/bin/sway/waybar-temperature
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   tempC=$(sensors | grep -i "tctl" | cut -d'+' -f2-|xargs)
   tempC="${tempC%????}"
   if [[ ${tempC} -gt "${TEMP_REDLINE:-65}" ]]; then
@@ -2093,14 +2093,14 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-power-draw
 #+begin_src bash :tangle ~/bin/sway/waybar-power-draw
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   [ ! -f "/sys/class/power_supply/BAT0/power_now" ]  && echo "N/A" ||  awk '{print $1*10^-6 "W "}' /sys/class/power_supply/BAT0/power_now
 #+end_src 
 
 **** ~/bin/sway/waybar-weather-json
 #+begin_src bash :tangle ~/bin/sway/waybar-weather-json
   #!/usr/bin/env bash
-  # Maintained in linux-config.org 
+  # Maintained in https://github.com/rileyrg/linux-init 
   sleep 5
   WTTR_LOCATION="${1:-"Grömitz,DE"}"  waybar-wttr
 #+end_src 
@@ -2108,7 +2108,7 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 **** ~/bin/sway/waybar-wttr
 #+begin_src bash :tangle ~/bin/sway/waybar-wttr
   #!/usr/bin/env python
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   import json
   import requests
@@ -2232,14 +2232,14 @@ https://github.com/Alexays/Waybar/wiki/Configuration
 return all monitors regardless of state, ordered by X position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-ids
     #!/usr/bin/env bash
-    # Maintained in linux-config.org
+    # Maintained in https://github.com/rileyrg/linux-init
     swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | .name'
 #+end_src
 
 *** ~/bin/sway-monitor-active-count
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-count
     #!/usr/bin/env bash
-    # Maintained in linux-config.org
+    # Maintained in https://github.com/rileyrg/linux-init
     swaymsg -t get_outputs | jq  -r '.[] | select(.power) | length'
 #+end_src
 
@@ -2247,7 +2247,7 @@ return all monitors regardless of state, ordered by X position
 return all monitors that are currently on, ordered by x position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-ids
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | select(.power) | .name'
 #+end_src
 
@@ -2255,7 +2255,7 @@ return all monitors that are currently on, ordered by x position
 return the real names of all monitors , ordered by x position, regardless of state
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-names
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] | (.make + " " + .model + " " + .serial) '
 #+end_src
 
@@ -2263,7 +2263,7 @@ return the real names of all monitors , ordered by x position, regardless of sta
 return the real names of powered on monitors, ordered by X position
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-active-names
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
    swaymsg -t get_outputs | jq  -r 'sort_by(.rect.x) | .[] |  select(.power)|(.make + " " + .model + " " + .serial)'
 #+end_src
 
@@ -2271,7 +2271,7 @@ return the real names of powered on monitors, ordered by X position
 More a proof of concept using bash to set keybindings
 #+begin_src bash :tangle ~/bin/sway/sway-monitor-apply-toggles
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   prefix=${1:-"\$mod+control"};
   displays=$(sway-monitor-ids)
   count=1;
@@ -2285,7 +2285,7 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-autostart
 #+begin_src bash :tangle "~/bin/sway/sway-autostart"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if [ -f "${HOME}/.SWAY_START" ] && [ -z "$SSH_CONNECTION" ]; then
       if  [ "$(hostname)" = "xmgneo" ];then
           sway --my-next-gpu-wont-be-nvidia &
@@ -2298,14 +2298,14 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-bell
 #+begin_src bash :tangle "~/bin/sway/sway-bell"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   printf '\a'
 #+end_src
 
 *** ~/bin/sway/sway-brightness
 #+begin_src bash :tangle "~/bin/sway/sway-brightness"
   #!/usr/bin/env bash 
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if command -v light; then
       BRIGHTNESS_DELTA=${BRIGHTNESS_DELTA:-"10%"}
       if [[ "$1" == "-" ]]; then
@@ -2345,7 +2345,7 @@ More a proof of concept using bash to set keybindings
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-bluetooth"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   exec sway-oneterminal "bluetoothctl" "bluetoothctl"
   exit 0
 #+end_src
@@ -2353,7 +2353,7 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-debug
 #+begin_src bash :tangle "~/bin/sway/sway-debug"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway -d 2> ~/tmp/sway.log
   exit 0
 #+end_src
@@ -2362,7 +2362,7 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-do-tool
 #+begin_src bash :tangle "~/bin/sway/sway-do-tool"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   # NB ths is currently lazy. It uses brute force, and i need to do some get_tree jq stuff instead to
   # get the app_id/class instance instead. But.. it works.
@@ -2391,7 +2391,7 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-oneterminal
 #+begin_src bash :tangle "~/bin/sway/sway-oneterminal"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
 
   sessionname="${1:-`pwd`}"
   title="${ONETERM_TITLE:-${sessionname}}"
@@ -2409,7 +2409,7 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-dpms
 #+begin_src bash :tangle "~/bin/sway/sway-dpms"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   DPMS="${1:-on}"
   DISP="${2:-*}"
   currentDPMS="$(swaymsg -t get_outputs | jq -r '.[0]'.dpms)"
@@ -2418,13 +2418,13 @@ More a proof of concept using bash to set keybindings
 *** ~/bin/sway/sway-htop
 #+begin_src bash :tangle "~/bin/sway/sway-htop"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   exec sway-oneterminal "Processes" btop
 #+end_src
 *** ~/bin/sway/sway-kitty
 #+begin_src bash :tangle "~/bin/sway/sway-kitty"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   [ -f "${HOME}/.config/kitty/kitty-$(hostname).conf" ] && kitty -c "${HOME}/.config/kitty/kitty-$(hostname).conf" "$@" || kitty "$@"
   exit 0
 #+end_src
@@ -2459,7 +2459,7 @@ stop audio going to sleep
 Just a gathering place of locky/suspendy type things...
 #+begin_src bash :tangle "~/bin/sway/sway-lock-utils"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   lock() {
       pidof swaylock || swaylock -f -i ~/Pictures/LockScreen/current -s fill -c 000000
       sway-notify "unlocked"
@@ -2516,7 +2516,7 @@ Just a gathering place of locky/suspendy type things...
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-idle"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   pkill swayidle
   exec swayidle -w \
        timeout 1 '' \
@@ -2547,7 +2547,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 #+begin_src bash :tangle ~/bin/sway/sway-laptop-id
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   id="${LAPTOP_ID:-'eDP-1'}"
   id=$( swaymsg -t get_outputs | jq -r ".[] | select (.name == \"${id}\") | .name")
   if [ -z  "$id" ];then
@@ -2561,7 +2561,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-lock"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-lock-utils lock
 #+end_src
 *** ~/bin/sway/sway-blank
@@ -2570,7 +2570,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-blank"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-lock-utils blank
 #+end_src
 *** ~/bin/sway/sway-notify
@@ -2579,7 +2579,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-notify"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   notify-send -t ${2:-5000} "${1}" || true
 #+end_src
 *** ~/bin/sway/sway-screen
@@ -2589,7 +2589,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 ~enable~ or ~disable~. Won't allow you to turn off the sole enabled display.
 #+begin_src bash :tangle "~/bin/sway/sway-screen"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   m="${2:-$(swaymsg -t get_outputs | jq -r '.[0].name')}"
   c="${1:-enable}"
   [ "$c" = "disable" ] && [ "$(sway-active-monitors-count)" = "1" ] && sway-notify "Not turning off single display $m" && exit 1
@@ -2600,7 +2600,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 *** ~/bin/sway/sway-workspace-position
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-position"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   mapfile -t outputs  < <( sway-active-monitor-ids )
   export leftOutput=${outputs[0]}
   export rightOutput=${outputs[1]}
@@ -2641,7 +2641,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 *** ~/bin/sway/sway-workspace-populate
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-populate"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   swaymsg "workspace 8; layout stacking;sleep 0.3;"
   sway-www "https://web.whatsapp.com/"
   sway-www "https://web.telegram.org/k/"
@@ -2654,7 +2654,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 *** ~/bin/sway/sway-workspace-populate-conditional
 #+begin_src bash :tangle "~/bin/sway/sway-workspace-populate-conditional"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if [ -f "${HOME}/.sway-workspace-populate" ]; then
       sway-workspace-populate
   elif [ -f "${HOME}/.sway-workspace-populate-user" ]; then
@@ -2672,7 +2672,7 @@ Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-screen-menu"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   m=$(swaymsg -t get_outputs | jq -r '.[] |  "\(.name)\n\(.active)"'  | zenity  --title "Select Display" --list  --text "" --column "Monitor" --column "Enabled")
   if [ ! -z "$m" ]; then
       c="$(zenity  --list  --title "Enable ${m}?" --text "" --radiolist  --column "Pick" --column "Enabled" TRUE enable FALSE disable)"
@@ -2687,7 +2687,7 @@ Gui to select a display and enable/disable it. Calls down to [[id:539e9065-2df6-
 *** ~/bin/sway/sway-display
 #+begin_src bash :tangle ~/bin/sway/sway-display
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 STATE="${1:-enable}"
 DISP="${2:-*}"
 swaymsg "output $DISP $STATE"
@@ -2699,7 +2699,7 @@ exit 0
 https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src bash :tangle ~/bin/sway/sway-display-swap
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   DISPLAY_CONFIG=($(swaymsg -t get_outputs | jq -r '.[]|"\(.name):\(.current_workspace)"'))
 
@@ -2717,25 +2717,25 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 *** ~/bin/sway/sway-launcher-wofi
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-wofi
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   exec dmenu_path | wofi --show drun,dmenu -i | xargs swaymsg exec --
 #+end_src
 *** ~/bin/sway/sway-launcher-rofi
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-rofi
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   exec rofi -combi-modi window,drun,ssh,run -show combi -show-icons
 #+end_src
 *** ~/bin/sway/sway-launcher-fzf
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-fzf
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   exec sway-kitty --title "sway-launcher" -e bash -c "dmenu_path | fzf | xargs swaymsg exec"
 #+end_src
 *** ~/bin/sway/sway-launcher-ulauncher
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-ulauncher
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if ! pgrep "ulauncher"; then
       ulauncher
   else
@@ -2745,14 +2745,14 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 *** ~/bin/sway/sway-launcher
 #+begin_src bash :tangle ~/bin/sway/sway-launcher
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-launcher-fzf
 #+end_src
 *** ~/bin/sway/sway-screenshot
 Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
 #+begin_src bash :tangle ~/bin/sway/sway-screenshot
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   # thanks to: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
 
   DIR=${HOME}/tmp/Screenshots
@@ -2775,7 +2775,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 *** ~/bin/sway/sway-screen-recorder
 #+begin_src bash :tangle ~/bin/sway/sway-screen-recorder
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if pgrep -x "wf-recorder"; then
       sway-notify "stopping wf-recorder"
       # sigint
@@ -2789,7 +2789,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 *** ~/bin/sway/sway-volume-notify
 #+begin_src bash :tangle "~/bin/sway/sway-volume-notify"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if [[ "$1" = "0" ]]; then
       wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
   elif [[ "$1" =  "+" ]]; then
@@ -2818,7 +2818,7 @@ Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivi
 Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 #+begin_src bash :tangle "~/bin/sway/sway-audio-control"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   command -v pwvucontrol && pwvucontrol || flatpak run com.saivert.pwvucontrol || pavucontrol
 #+end_src
 
@@ -2829,13 +2829,13 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-weather"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-www "https://www.accuweather.com/en/de/gr%C3%B6mitz/23743/hourly-weather-forecast/176248"
 #+end_src
 *** sway-nvidia                                                 :nvidia:dgpu:
 #+begin_src bash :tangle "~/bin/sway/sway-nvidia"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway --my-next-gpu-wont-be-nvidia "$@"
 #+end_src
 *** ~/bin/sway/sway-www
@@ -2844,7 +2844,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-www"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   ${SWAY_WWW:-sway-chrome} "$@" &
 #+end_src
 *** ~/bin/sway/sway-email
@@ -2853,7 +2853,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-email"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   MOZ_ENABLE_WAYLAND=1 firefox --name=wwwemail --new-window "https://www.gmail.com" &
 #+end_src
 
@@ -2862,7 +2862,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-chrome"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
    google-chrome --hide-crash-restore-bubble --new-window --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"  &
 #+end_src
 *** ~/bin/sway/sway-firefox
@@ -2870,7 +2870,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-firefox"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   MOZ_ENABLE_WAYLAND=1 firefox --new-window "$1" &>/dev/null &
 #+end_src
 *** ~/bin/sway/sway-wifi
@@ -2879,7 +2879,7 @@ Launch the wayland pwvucontrol instance if it exists, else pavucontrol
 :END:
 #+begin_src bash :tangle "~/bin/sway/sway-wifi"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sway-oneterminal "wifi" "nmtui"  &>/dev/null
 #+end_src
 ** wayland utils
@@ -2890,7 +2890,7 @@ default-timeout=10000
 *** wlogout
 **** readme
 #+begin_src  text :tangle "~/.config/wlogout/README"
-Layout maintained in linux-config.org
+Layout maintained in https://github.com/rileyrg/linux-init
 https://github.com/ArtsyMacaw/wlogout/blob/master/layout
 #+end_src 
 
@@ -2999,7 +2999,7 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
 ** gdb related
 
 #+begin_src config :tangle "dot-config/gdb/gdbinit"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   set auto-load safe-path /
   set auto-load local-gdbinit on
   set history save on
@@ -3018,7 +3018,7 @@ https://github.com/ArtsyMacaw/wlogout/blob/master/layout
 ** clang-format
 clangd lsp formatting
 #+begin_src  config :tangle "DotFiles/.clang-format"
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 BasedOnStyle: Google
 Language: Cpp
 IndentWidth: 4
@@ -3046,7 +3046,7 @@ https://docs.flutter.dev/get-started/install/linux
 #+end_src
 *** clangd
 #+begin_src conf :tangle "DotFiles/.clangd"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   # https://clangd.llvm.org/config#files
   InlayHints:
     BlockEnd: false
@@ -3085,7 +3085,7 @@ https://docs.flutter.dev/get-started/install/linux
 *** lldb                                                               :lldb:
 **** ~/.lldbinit
 #+begin_src conf :tangle "DotFiles/.lldbinit"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   #settings write -f .lldb-settings-local-start
   #settings read  -f .lldb-settings-local
@@ -3142,7 +3142,7 @@ https://docs.flutter.dev/get-started/install/linux
 Create a session but let someone else do the attach
 #+begin_src bash :tangle ~/bin/llvm/lldb-ui-session
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
 
   # create a lldb debug session unless it already exists.
   # the -d to new session says "dont attach to current terminal"
@@ -3188,7 +3188,7 @@ Create a session but let someone else do the attach
 ***** ~/bin/llvm/lldb-ui
 #+begin_src bash :tangle ~/bin/llvm/lldb-ui
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   directory="${1:-`pwd`}"
   session="$(lldb-ui-session "${directory}" "$2")"
   ONETERM_TITLE="dbg:lldb-$session"  sway-oneterminal "$session"
@@ -3199,49 +3199,49 @@ Create a session but let someone else do the attach
 ****** ~/bin/llvm/voltron-backtrace
 #+begin_src bash :tangle ~/bin/llvm/voltron-backtrace
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'thread backtrace'
 #+end_src
 ****** ~/bin/llvm/voltron-breakpoints
 #+begin_src bash :tangle ~/bin/llvm/voltron-breakpoints
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'breakpoint list'
 #+end_src
 ****** ~/bin/llvm/voltron-disassembly
 #+begin_src bash :tangle ~/bin/llvm/voltron-disassembly
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'disassemble --pc --context '"${1:-4}"' --count '"${2:-4}"''
 #+end_src
 ****** ~/bin/llvm/voltron-disassembly-mixed
 #+begin_src bash :tangle ~/bin/llvm/voltron-disassembly-mixed
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'disassemble --mixed --pc --context '"${1:-1}"' --count '"${2:-32}"''
 #+end_src
 ****** ~/bin/llvm/voltron-locals
 #+begin_src bash :tangle ~/bin/llvm/voltron-locals
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'frame variable' --lexer c
 #+end_src
 ****** ~/bin/llvm/voltron-registers
 #+begin_src bash :tangle ~/bin/llvm/voltron-registers
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v registers
 #+end_src
 ****** ~/bin/llvm/voltron-source
 #+begin_src bash :tangle ~/bin/llvm/voltron-source
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v c 'source list -a $rip -c '"${1:-32}"''
   #+end_src
 ****** ~/bin/llvm/voltron-stack
 #+begin_src bash :tangle ~/bin/llvm/voltron-stack
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   voltron v stack
   #+end_src
 ***** lldb python scripting                                          :python:
@@ -3297,7 +3297,7 @@ https://pypi.org/project/ipdb/
 https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 ***** ~/.ipdb
 #+begin_src conf :tangle "DotFiles/.ipdb"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   context=5
 #+end_src
 ** platformio                                                    :platformio:
@@ -3355,7 +3355,7 @@ https://hasil-sharma.github.io/2017-05-13-python-ipdb/
 :END:
 #+begin_src bash :tangle "~/bin/stm32cubeide-uninstall"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   version="${1:-${STM32CUBEIDE_VERSION:-"1.9.0"}}"
   echo "Removing st-stm32cubeide-${version}"
   sudo dpkg -r st-stm32cubeide-"$version"
@@ -3371,7 +3371,7 @@ This is a bit defunct now (may 2022) as they have packaged their code into exes.
 :END:
 #+begin_src bash :tangle no
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   java -jar ~/bin/thirdparty/STM32CubeMX/STM32CubeMX
 #+end_src
 ***** sway
@@ -3387,19 +3387,19 @@ This is a bit defunct now (may 2022) as they have packaged their code into exes.
 pending deletion
 #+begin_src bash :tangle no
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   JAVA_AWT_WM_NONREPARENTING=1 GDK_BACKEND=x11 exec "/opt/st/stm32cubeide_${STM32CUBEIDE_VERSION:-"1.7.0"}/stm32cubeide"
 #+end_src
 * PGP/GNUPG/GPG
 ** ~/.gnupg/gpg.conf
 #+begin_src conf :tangle "~/.gnupg/gpg.conf"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   use-agent
 #+end_src
 
 ** ~/.gnupg/gpg-agent.conf
 #+begin_src conf :tangle "~/.gnupg/gpg-agent.conf"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   #gpg-preset-passphrase
   allow-preset-passphrase
   pinentry-program /usr/bin/pinentry
@@ -3449,7 +3449,7 @@ mu4e includes [[https://www.djcbsoftware.nl/code/mu/mu4e/Indexing-your-messages.
 *** mbsync config
 Note the [[https://wiki.archlinux.org/index.php/Isync][PassCmd]] - since I use gpg then that's the way to go.
 #+begin_src conf :tangle "DotFiles/.mbsyncrc"
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   Create  Both
   Expunge Both
   SyncState *
@@ -3612,7 +3612,7 @@ and activate them
 ** ~/bin/getmails
 #+begin_src bash :tangle "~/bin/getmails"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if ! $(pidof -xq "mbsync"); then
       if [ $# -eq 0 ]; then
           mbsync -a
@@ -3627,7 +3627,7 @@ and activate them
 keep the arch and aur packages installed backed up
 #+begin_src bash :tangle "~/bin/arch-backup"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   pacman -Qqen > ~/cloud/homefiles/etc/arch/pkglist-repo.txt
   pacman -Qqem > ~/cloud/homefiles/etc/arch/pkglist-aur.txt
 #+end_src
@@ -3635,7 +3635,7 @@ keep the arch and aur packages installed backed up
 install packages from backup catalog
 #+begin_src bash :tangle "~/bin/arch-restore"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   sudo pacman -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-repo.txt
   pikaur -S --needed - < ~/cloud/homefiles/etc/arch/pkglist-aur.txt
 #+end_src
@@ -3655,14 +3655,14 @@ Enable bluetooth multimedia pause/ play
 :END:
 #+begin_src bash :tangle "~/bin/bluetooth-headphone-controls"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   pkill mpris-proxy
   mpris-proxy
 #+end_src
 ** ~/bin/edit
 #+begin_src bash :tangle "~/bin/edit"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   ${VISUAL:-${EDITOR:-vi}} "${@}"
 #+end_src
 ** ~/bin/eman
@@ -3670,7 +3670,7 @@ Use emacs for manpages if it's running
 might be an idea set an alias such as 'alias man=eman'
 #+begin_src bash :tangle "~/bin/eman"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   mp="${1:-man}"
   if pidof emacs; then
       emacsclient -c -e "(manual-entry \"-a ${mp}\")" &> /dev/null &
@@ -3681,7 +3681,7 @@ might be an idea set an alias such as 'alias man=eman'
 ** ~/bin/expert-advice
 #+begin_src bash :tangle "~/bin/expert-advice"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   f=$(command -v fortune &>/dev/null && fortune || echo "I don't need to study a subject to have my own truths. Because own truths ARE a thing in 2020.")
   if [ "$1" = "t" ]
   then
@@ -3696,7 +3696,7 @@ might be an idea set an alias such as 'alias man=eman'
 strip debug info and store elsewhere
 #+begin_src bash :tangle "~/bin/extract-debug-info"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   scriptdir=`dirname ${0}`
   scriptdir=`(cd ${scriptdir}; pwd)`
   scriptname=`basename ${0}`
@@ -3744,7 +3744,7 @@ strip debug info and store elsewhere
 ** ~/bin/htop-regexp
 #+begin_src bash :tangle ~/bin/htop-regexp
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   filter="${1:-"$(zenity --entry --text "HTop filter" --title "htop regexp")"}"
   [ -z "$filter" ] && exit 1
   session="${2:-"htop-filter-${filter//[^[:alnum:]]/}"}"
@@ -3760,7 +3760,7 @@ strip debug info and store elsewhere
 ** ~/bin/make-compile_commands
 #+begin_src bash :tangle "~/bin/make-compile_commands"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   make --always-make --dry-run \
       | grep -wE 'gcc|g++' \
       | grep -w '\-c' \
@@ -3771,7 +3771,7 @@ strip debug info and store elsewhere
 ** ~/bin/md-read
 #+begin_src bash :tangle "~/bin/md-read"
    #!/usr/bin/env bash
-   #Maintained in linux-config.org
+   #Maintained in https://github.com/rileyrg/linux-init
   [ -z  $(command -v lynx) ] && echo "install lynx" && exit 1
   [ -z  $(command -v pandoc) ] && echo "install pandoc" && exit 1
   pandoc "$1" | lynx -stdin
@@ -3779,20 +3779,20 @@ strip debug info and store elsewhere
 ** ~/bin/random-man-page
 #+begin_src bash :tangle "~/bin/random-man-page"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   page="$(find /usr/share/man/man1 -type f | sort -R | head -n1)"
   eman "$page"
 #+end_src
 ** ~/bin/remove-broken-symlinks
 #+begin_src bash :tangle "~/bin/remove-broken-symlinks"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   find -L . -name . -o -type d -prune -o -type l -exec rm {} +
 #+end_src
 ** ~/bin/remove-conflicted-copies
 #+begin_src bash :tangle "~/bin/remove-conflicted-copies"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if [ "$1" == "--f" ]; then
       find ~/Dropbox/ -path "*(*'s conflicted copy [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]*" -exec rm -f {} \;
       find ~/Dropbox/ -path "*(*s in Konflikt stehende Kopie [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]*" -exec rm -f {} \;
@@ -3812,7 +3812,7 @@ strip debug info and store elsewhere
 ** ~/bin/rsnapshot-if-mounted
 #+begin_src bash :tangle ~/bin/rsnapshot-if-mounted
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   mountpoint=${2:-"/media/rsnapshot"};
   rsnapshottype=${1:-"alpha"};
   if $(/usr/bin/mountpoint -q $mountpoint); then
@@ -3825,7 +3825,7 @@ strip debug info and store elsewhere
 
 ** ~/cloud/etc/rsnapshot/excludes
 #+begin_src conf :tangle ~/cloud/homefiles/etc/rsnapshot/excludes
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   - /home/rgr/.local/share/Steam/
   - /home/rgr/Mail/
   - /home/rgr/Maildir/
@@ -3840,13 +3840,13 @@ strip debug info and store elsewhere
 ** ~/bin/sharemouse
 #+begin_src bash :tangle "~/bin/sharemouse"
     #!/usr/bin/env bash
-    #Maintained in linux-config.org
+    #Maintained in https://github.com/rileyrg/linux-init
     exec ssh -X ${1-192.168.2.100} x2x -east -to :0
 #+end_src
 ** ~/bin/wifi-toggle
 #+begin_src bash :tangle "~/bin/wifi-toggle"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   status="$(nmcli radio wifi)"
   if [ "$status" = "enabled" ]; then
       nmcli radio wifi off
@@ -3860,7 +3860,7 @@ strip debug info and store elsewhere
 ** ~/bin/enable-disable-wifi
 #+begin_src bash :tangle "~/bin/enable-disable-wifi"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
 
   if LANG=C nmcli dev | grep -q '\sethernet\s\+connected\s'; then
       if [ -f "${HOME}"/.wifi-and-eth ]; then
@@ -3878,7 +3878,7 @@ strip debug info and store elsewhere
 ** ~/bin/70-wifi-wired-exclusive.sh
 #+begin_src bash :tangle "~/bin/70-wifi-wired-exclusive.sh"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   # https://askubuntu.com/a/1272865/232407
   export LC_ALL=C
 
@@ -3902,7 +3902,7 @@ strip debug info and store elsewhere
 update sw
 #+begin_src bash :tangle "~/bin/upd"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   string="$(uname -r)"
   if command -v "pikaur"; then
       pikaur -Syu --noedit --nodiff
@@ -3917,7 +3917,7 @@ update sw
 vpn [on|off]
 #+begin_src bash :tangle "~/bin/vpn"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if command -v "mullvad"; then
       case "$1" in
           off) mullvad disconnect && echo "vpn disconnected";;
@@ -3940,7 +3940,7 @@ CLOSED: [2023-11-16 Thu 12:17]
 :END:
 #+begin_src bash :tangle "no"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   me=$(basename "$0")
   LOGFILE="$HOME/tmp/${me}_$(date +"%Y_%m_%d_%I_%M_%p").log"
 
@@ -3984,28 +3984,28 @@ CLOSED: [2023-11-16 Thu 12:17]
 https://github.com/Jwink3101/syncrclone
 #+begin_src bash :tangle ~/bin/syncrclone-gdrive-docs
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   syncrclone "$HOME"/.syncrclone/gdrive-docs-config.py
 #+end_src
 
 *** ~/bin/syncrclone-gdrive
 #+begin_src bash :tangle ~/bin/syncrclone-gdrive
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   syncrclone "$HOME"/.syncrclone/gdrive-config.py
 #+end_src
 
 *** ~/bin/hetzner-du
 #+begin_src bash :tangle "~/bin/hetzner-du"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   echo "df -h"  | sftp u377059@u377059.your-storagebox.de
 #+end_src
 
 *** ~/bin/rclone-mount
 #+begin_src bash :tangle "~/bin/rclone-mount"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   remote=${1:-"hetzner"}
   if [ -d ~/$remote ]; then
       umount ~/${remote}
@@ -4021,25 +4021,25 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/gdrive-mount
 #+begin_src bash :tangle "~/bin/gdrive-mount"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   rclone-mount gdrive "$@"
 #+end_src
 *** ~/bin/hetzner-mount
 #+begin_src bash :tangle "~/bin/hetzner-mount"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   rclone-mount hetzner "$@"
 #+end_src
 *** ~/bin/syncrclone-htop
 #+begin_src bash :tangle "~/bin/syncrclone-htop"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   htop -F "syncrclone"
 #+end_src
 *** ~/bin/syncrclone-once
 #+begin_src bash :tangle "~/bin/syncrclone-once"
   #!/usr/bin/env bash
-  # Maintained in linux-config.org
+  # Maintained in https://github.com/rileyrg/linux-init
   if ! network-online; then
       echo "offline"
       exit 1
@@ -4059,7 +4059,7 @@ https://github.com/Jwink3101/syncrclone
 
 ** cloud rsync between machines
 #+begin_src conf :tangle ~/cloud/homefiles/.rsync-ignore
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   cloud/.syncrclone/
   Documents/.syncrclone/
   OpenAudible/aax/
@@ -4092,7 +4092,7 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/google-trans
 #+begin_src bash :tangle "~/bin/google-trans"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   src=$1;shift;
   dst=$1;shift;
   txt=$@;
@@ -4101,20 +4101,20 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/google-trans-de-en
 #+begin_src bash :tangle "~/bin/google-trans-de-en"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   trans -e google -s de -t en -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
 #+end_src
 *** ~/bin/google-trans-en-de
 #+begin_src bash :tangle "~/bin/google-trans-en-de"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   trans -e google -s en -t de -show-original y -show-original-phonetics y -show-translation y -no-ansi -show-translation-phonetics n -show-prompt-message n -show-languages y -show-original-dictionary y -show-dictionary y -show-alternatives y "$@"
 #+end_src
 ** Security/Locking/GPG
 *** ~/bin/gpg-cache
 #+begin_src bash :tangle "~/bin/gpg-cache"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   if ! pidof gpg-agent; then
       cachefile="${1:-"${HOME}/.gnupg/auth/cache-keys"}"
       if [ -f "$cachefile" ]; then
@@ -4131,7 +4131,7 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/pre-lock
 #+begin_src bash :tangle "~/bin/pre-lock"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   [ -f "${HOME}"/.pre-lock ]  && . "${HOME}"/.pre-lock
 #+end_src
 **** Sample .pre-lock
@@ -4142,7 +4142,7 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/post-lock
 #+begin_src bash :tangle "~/bin/post-lock"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   [ -f "${HOME}"/.post-lock  ]  && . "${HOME}"/.post-lock
 #+end_src
 **** Sample .post-lock
@@ -4153,14 +4153,14 @@ https://github.com/Jwink3101/syncrclone
 *** ~/bin/pre-blank
 #+begin_src bash :tangle "~/bin/pre-blank"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   command -v brightnessctl && brightnessctl -s
   [ -f ~/.pre-blank ]  && . ~/.pre-blank
 #+end_src
 *** ~/bin/post-blank
 #+begin_src bash :tangle "~/bin/post-blank"
   #!/usr/bin/env bash
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   [ -f ~/.post-blank ]  && . ~/.post-blank
   command -v brightnessctl && brightnessctl -r
 #+end_src
@@ -4169,13 +4169,13 @@ out of date
 
 #+begin_src bash :tangle "~/bin/AIS"
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 TMUX= tmux new  -A -s "AIS" AIScatcher
 #+end_src
 
 #+begin_src bash :tangle "~/bin/AIScheck"
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 if ! pgrep AIS-catcher >/dev/null
 then
     echo "`date`: AIS-catcher down. Restarting." >> "${HOME}/.AISStatus"
@@ -4185,7 +4185,7 @@ fi
 
 #+begin_src bash :tangle "~/bin/AIScatcher"
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 "${HOME}/bin/AIS-catcher"  -d:0 -u 127.0.0.1 2345
 #+end_src
 
@@ -4214,7 +4214,7 @@ fi
 :header-args:conf: :tangle "~/.config/sway/host-config-hercules"
 :END:
 #+begin_src conf
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   output HDMI-A-1 mode 3840x2160@60Hz  bg ${HOME}/Pictures/Wallpapers/s3 fill pos 0 0
   output DP-1 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s1 fill pos 3840 0
   output DP-2 mode 3840x2160@120Hz  bg ${HOME}/Pictures/Wallpapers/s2 fill pos 7680 0
@@ -4225,7 +4225,7 @@ fi
 :header-args:conf: :tangle "~/.config/sway/host-config-x13"
 :END:
 #+begin_src conf
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   output eDP-1 mode 1920x1200 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
@@ -4234,7 +4234,7 @@ fi
 :header-args:conf: :tangle "~/.config/sway/host-config-x1c6"
 :END:
 #+begin_src conf
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   output eDP-1 mode 1920x1080 bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 
@@ -4244,7 +4244,7 @@ fi
 :header-args:conf: :tangle "~/.config/sway/host-config-ser9"
 :END:
 #+begin_src conf
-  #Maintained in linux-config.org
+  #Maintained in https://github.com/rileyrg/linux-init
   output HDMI-A-1  mode 3840x2160@60hz bg ${HOME}/Pictures/Wallpapers/s1 stretch
 #+end_src
 

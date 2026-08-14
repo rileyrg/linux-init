@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Maintained in linux-config.org
+#Maintained in https://github.com/rileyrg/linux-init
 if ! pidof gpg-agent; then
     cachefile="${1:-"${HOME}/.gnupg/auth/cache-keys"}"
     if [ -f "$cachefile" ]; then

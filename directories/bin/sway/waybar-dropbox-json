@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Maintained in linux-config.org
+# Maintained in https://github.com/rileyrg/linux-init
 if ( ! dropbox running ); then
     fullstat="$(dropbox status)"
     stat="$(sed -n 1p <<< $fullstat)"
