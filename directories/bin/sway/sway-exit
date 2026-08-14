@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 # Maintained in https://github.com/rileyrg/linux-init
 
+sway-notify "Processing sway exit script ..."
+
+[ -f "${HOME}/.sway-exit-bg" ] &&  (swaybg -i "${HOME}/.sway-exit-bg" -m fill) &
+
 #### kill browser properly so no annoying "restore tabs" prompt
 IFS='-' read -r browser string <<< "$SWAY_WWW"
 pkill -f $browser
 
+pkill -f emacs 
+pkill -f waybar 
+
 [ -f "${HOME}/.sway-exit" ] && . "$HOME/.sway-exit"
 
-sleep 1
+sleep 2
+
+pkill -f swaync
+
 swaymsg exit
