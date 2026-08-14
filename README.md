@@ -2293,7 +2293,7 @@ Just a gathering place of locky/suspendy type things&hellip;
             lock_gpg_clear
             ;;
         logout)
-            swaymsg exit
+            exec sway-exit
             ;;
         suspend)
             systemctl suspend
@@ -2388,7 +2388,18 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     notify-send -t ${2:-5000} "${1}" || true
 
 
-<a id="org99a81a0"></a>
+### ~/bin/sway/sway-exit
+
+    #!/usr/bin/env bash
+    # Maintained in https://github.com/rileyrg/linux-init
+    ### kill browser properly so no annoying "restore tabs" prompt
+    IFS='-' read -r browser string <<< "$SWAY_WWW"
+    pkill -f $browser
+    sleep 1
+    swaymsg exit
+
+
+<a id="orgd9fe5e1"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2415,7 +2426,13 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     rightOutput=${rightOutput:-${leftOutput}}
     rightMostOutput=${rightMostOutput:-${rightOutput}}
     
+    echo $leftOutput
+    echo $rightOutput
+    echo $rightMostOutput
+    
     curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
+    
+    echo $curr;
     
     # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
     # swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
@@ -2470,7 +2487,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org99a81a0).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgd9fe5e1).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

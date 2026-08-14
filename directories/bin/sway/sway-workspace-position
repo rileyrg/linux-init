@@ -8,7 +8,13 @@ export rightMostOutput=${outputs[2]}
 rightOutput=${rightOutput:-${leftOutput}}
 rightMostOutput=${rightMostOutput:-${rightOutput}}
 
+echo $leftOutput
+echo $rightOutput
+echo $rightMostOutput
+
 curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
+
+echo $curr;
 
 # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
 # swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &

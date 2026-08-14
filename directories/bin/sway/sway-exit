@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Maintained in https://github.com/rileyrg/linux-init
+### kill browser properly so no annoying "restore tabs" prompt
+IFS='-' read -r browser string <<< "$SWAY_WWW"
+pkill -f $browser
+sleep 1
+swaymsg exit

@@ -2478,7 +2478,7 @@ Just a gathering place of locky/suspendy type things...
           lock_gpg_clear
           ;;
       logout)
-          swaymsg exit
+          exec sway-exit
           ;;
       suspend)
           systemctl suspend
@@ -2582,6 +2582,18 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   # Maintained in https://github.com/rileyrg/linux-init
   notify-send -t ${2:-5000} "${1}" || true
 #+end_src
+
+*** ~/bin/sway/sway-exit
+#+begin_src bash :tangle "~/bin/sway/sway-exit"
+  #!/usr/bin/env bash
+  # Maintained in https://github.com/rileyrg/linux-init
+  ### kill browser properly so no annoying "restore tabs" prompt
+  IFS='-' read -r browser string <<< "$SWAY_WWW"
+  pkill -f $browser
+  sleep 1
+  swaymsg exit
+#+end_src 
+
 *** ~/bin/sway/sway-screen
 :PROPERTIES:
 :ID:       539e9065-2df6-44ac-9ce8-530f9fd9e3c4
@@ -2609,7 +2621,13 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   rightOutput=${rightOutput:-${leftOutput}}
   rightMostOutput=${rightMostOutput:-${rightOutput}}
 
+  echo $leftOutput
+  echo $rightOutput
+  echo $rightMostOutput
+
   curr=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true) | .name')
+
+  echo $curr;
 
   # swaymsg "output * bg ~/Pictures/Wallpapers/current fill"
   # swaybg -o $leftOutput -i ${HOME}/Pictures/Wallpapers/s1 -m fill &
