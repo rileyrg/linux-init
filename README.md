@@ -2395,7 +2395,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     
     sway-notify "Processing sway exit script ..."
     
-    [ -f "${HOME}/.sway-exit-bg" ] &&  (swaybg -i "${HOME}/.sway-exit-bg" -m fill) &
+    ( [ -f "${HOME}/.sway-exit-bg" ] &&  swaybg -i "${HOME}/.sway-exit-bg" -m fill || [ -f "${HOME}/Pictures/Wallpapers/sway-exit-bg" ] &&  swaybg -i "${HOME}/Pictures/Wallpapers/sway-exit-bg" -m fill ) & 
     
     #### kill browser properly so no annoying "restore tabs" prompt
     IFS='-' read -r browser string <<< "$SWAY_WWW"
@@ -2413,7 +2413,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     swaymsg exit
 
 
-<a id="org6952ae9"></a>
+<a id="org2a86060"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2501,7 +2501,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6952ae9).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2a86060).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

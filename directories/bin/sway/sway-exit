@@ -3,7 +3,7 @@
 
 sway-notify "Processing sway exit script ..."
 
-[ -f "${HOME}/.sway-exit-bg" ] &&  (swaybg -i "${HOME}/.sway-exit-bg" -m fill) &
+( [ -f "${HOME}/.sway-exit-bg" ] &&  swaybg -i "${HOME}/.sway-exit-bg" -m fill || [ -f "${HOME}/Pictures/Wallpapers/sway-exit-bg" ] &&  swaybg -i "${HOME}/Pictures/Wallpapers/sway-exit-bg" -m fill ) & 
 
 #### kill browser properly so no annoying "restore tabs" prompt
 IFS='-' read -r browser string <<< "$SWAY_WWW"
