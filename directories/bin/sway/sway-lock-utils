@@ -27,10 +27,10 @@ case "$1" in
         systemctl hibernate
         ;;
     reboot)
-        systemctl reboot
+        sway-exit reboot
         ;;
     shutdown)
-        systemctl poweroff
+        sway-exit shutdown
         ;;
     blank)
         sway-display disable

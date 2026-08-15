@@ -2302,10 +2302,10 @@ Just a gathering place of locky/suspendy type things&hellip;
             systemctl hibernate
             ;;
         reboot)
-            systemctl reboot
+            sway-exit reboot
             ;;
         shutdown)
-            systemctl poweroff
+            sway-exit shutdown
             ;;
         blank)
             sway-display disable
@@ -2410,10 +2410,16 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     
     pkill -f swaync
     
-    swaymsg exit
+    if [ "$1" == "reboot" ]; then
+        systemctl reboot
+    elif [ "$1" == "shutdown" ]; then
+        systemctl poweroff    
+    else
+        swaymsg exit
+    fi
 
 
-<a id="org2a86060"></a>
+<a id="orgfcbd38f"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2501,7 +2507,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org2a86060).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfcbd38f).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 

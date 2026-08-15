@@ -2487,10 +2487,10 @@ Just a gathering place of locky/suspendy type things...
           systemctl hibernate
           ;;
       reboot)
-          systemctl reboot
+          sway-exit reboot
           ;;
       shutdown)
-          systemctl poweroff
+          sway-exit shutdown
           ;;
       blank)
           sway-display disable
@@ -2602,10 +2602,16 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
   [ -f "${HOME}/.sway-exit" ] && . "$HOME/.sway-exit"
 
   sleep 2
-  
+
   pkill -f swaync
 
-  swaymsg exit
+  if [ "$1" == "reboot" ]; then
+      systemctl reboot
+  elif [ "$1" == "shutdown" ]; then
+      systemctl poweroff    
+  else
+      swaymsg exit
+  fi
 #+end_src 
 
 *** ~/bin/sway/sway-screen

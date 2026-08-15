@@ -18,4 +18,10 @@ sleep 2
 
 pkill -f swaync
 
-swaymsg exit
+if [ "$1" == "reboot" ]; then
+    systemctl reboot
+elif [ "$1" == "shutdown" ]; then
+    systemctl poweroff    
+else
+    swaymsg exit
+fi
