@@ -1159,7 +1159,7 @@ Override in .profile.local
   bindsym $mod+q kill
 
   # Start your launcher
-  bindsym $mod+d exec $menu
+  bindsym $mod+d exec '${SWAY_LAUNCHER:-"$menu"}'
 
   # Start your editor
   bindsym $mod+Shift+e exec $editor

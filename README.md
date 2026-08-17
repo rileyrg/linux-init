@@ -980,7 +980,7 @@ Override in .profile.local
     bindsym $mod+q kill
     
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+d exec '${SWAY_LAUNCHER:-"$menu"}'
     
     # Start your editor
     bindsym $mod+Shift+e exec $editor
@@ -2420,7 +2420,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     fi
 
 
-<a id="org6182ab1"></a>
+<a id="org16858c3"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2508,7 +2508,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org6182ab1).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org16858c3).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
