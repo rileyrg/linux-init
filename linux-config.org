@@ -1161,7 +1161,7 @@ Override in .profile.local
   # Start your launcher
   bindsym $mod+d exec $menu
 
-  bindsym $mod+x exec raffi -p | xargs swaymsg exec --
+  bindsym $mod+x exec fuzzel
 
   # Start your editor
   bindsym $mod+Shift+e exec $editor
@@ -2785,9 +2785,25 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
   # Script filters dynamically populate individual rows in the menu
   addons:
     script_filters:
-      -  name: "exes"
-         command: "list-path-binaries"
-         keyword: "ex"
+      - name: "exes"
+        command: "list-path-binaries"
+        keyword: "x"
+        
+    web_searches:
+      - name: "Google"
+        keyword: "g"
+        url: "https://google.com/search?q={query}"
+        icon: "google"
+
+      - name: "GitHub"
+        keyword: "gh"
+        url: "https://github.com/search?q={query}"
+        icon: "github"
+
+      - name: "Wikipedia"
+        keyword: "wiki"
+        url: "https://en.wikipedia.org/wiki/{query}"
+        icon: "wikipedia"
          
 #+end_src
 
