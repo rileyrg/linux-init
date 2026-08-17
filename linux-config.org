@@ -2811,11 +2811,7 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
 #+begin_src  bash :tangle ~/bin/list-path-binaries
   #!/bin/sh
   # Maintained in https://github.com/rileyrg/linux-init
-  echo "$PATH" | tr ':' '\n' | while read -r dir; do
-      if [ -d "$dir" ]; then
-          find "$dir" -maxdepth 1 -executable -type f -exec basename {} \; 2>/dev/null
-      fi
-  done | sort -u
+  { set -f; IFS=:; for d in $PATH; do set +f; [ -n "$d" ] || d=.; for f in "$d"/.[!.]* "$d"/..?* "$d"/*; do [ -f "$f" ] && [ -x "$f" ] && printf '%s\n' "${f##*/}"; done; done; } | sort
 #+end_src 
 
 *** Fuzzel

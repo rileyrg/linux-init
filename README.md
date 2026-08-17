@@ -2422,7 +2422,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     fi
 
 
-<a id="orgb6dc212"></a>
+<a id="org3381057"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2510,7 +2510,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb6dc212).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org3381057).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2610,11 +2610,7 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
 
         #!/bin/sh
         # Maintained in https://github.com/rileyrg/linux-init
-        echo "$PATH" | tr ':' '\n' | while read -r dir; do
-            if [ -d "$dir" ]; then
-                find "$dir" -maxdepth 1 -executable -type f -exec basename {} \; 2>/dev/null
-            fi
-        done | sort -u
+        { set -f; IFS=:; for d in $PATH; do set +f; [ -n "$d" ] || d=.; for f in "$d"/.[!.]* "$d"/..?* "$d"/*; do [ -f "$f" ] && [ -x "$f" ] && printf '%s\n' "${f##*/}"; done; done; } | sort
 
 
 ### Fuzzel
