@@ -516,7 +516,8 @@ Directory is [here](.oh-my-zsh/).
     bind y set synchronize-panes\; display 'synchronize-panes #{?synchronize-panes,on,off}'
     
     bind K kill-session
-    bind x kill-pane
+    # bind x kill-pane
+    bind x detach-client
     bind X kill-pane -a
     bind c command-prompt -p "window name:" "new-window; rename-window '%%'"
     bind + new-window
@@ -2419,7 +2420,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     fi
 
 
-<a id="orgfcbd38f"></a>
+<a id="orgfeb66eb"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2507,7 +2508,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfcbd38f).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfeb66eb).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
