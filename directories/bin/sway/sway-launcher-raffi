@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Maintained in https://github.com/rileyrg/linux-init
+raffi -p | xargs swaymsg exec --

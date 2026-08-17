@@ -982,6 +982,8 @@ Override in .profile.local
     # Start your launcher
     bindsym $mod+d exec $menu
     
+    bindsym $mod+x exec raffi -p | xargs swaymsg exec --
+    
     # Start your editor
     bindsym $mod+Shift+e exec $editor
     
@@ -2420,7 +2422,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     fi
 
 
-<a id="orgfeb66eb"></a>
+<a id="orgb0d92cf"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2508,7 +2510,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgfeb66eb).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb0d92cf).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2560,6 +2562,67 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
     #!/usr/bin/env bash
     # Maintained in https://github.com/rileyrg/linux-init
     exec dmenu_path | wofi --show drun,dmenu -i | xargs swaymsg exec --
+
+
+### raffi
+
+1.  ~/bin/sway/sway-launcher-raffi
+
+        #!/usr/bin/env bash
+        # Maintained in https://github.com/rileyrg/linux-init
+        raffi -p | xargs swaymsg exec --
+
+2.  ~/.config/raffi/raffi.yaml
+
+        # Maintained in https://github.com/rileyrg/linux-init
+        
+        version: 1
+        
+        launchers:
+          terminal:
+            binary: "zsh"
+            desciption: "open default terminal"
+        
+        # Script filters dynamically populate individual rows in the menu
+        addons:
+          script_filters:
+            -  name: "exes"
+               command: "list-path-binaries"
+               keyword: "ex"
+
+3.  list-path-binaries
+
+        #!/bin/sh
+        # Maintained in https://github.com/rileyrg/linux-init
+        echo "$PATH" | tr ':' '\n' | while read -r dir; do
+            if [ -d "$dir" ]; then
+                find "$dir" -maxdepth 1 -executable -type f -exec basename {} \; 2>/dev/null
+            fi
+        done | sort -u
+
+
+### Fuzzel
+
+1.  ~/.config/fuzzel/fuzzel.ini
+
+        # Maintained in https://github.com/rileyrg/linux-init
+        dpi-aware=yes
+        font=RobotoMonoNerdFont-Thin:size=16
+        terminal=kitty
+        width=50
+        layer=overlay
+        exit-on-keyboard-focus-loss=no
+        inner-pad=15
+        fields=filename,name
+        
+        [colors]
+        background=282a36ff
+        text=f8f8f2ff
+        match=8be9fdff
+        selection-match=8be9fdff
+        selection=44475add
+        selection-text=f8f8f2ff
+        border=bd93f9ff
 
 
 ### ~/bin/sway/sway-launcher-rofi

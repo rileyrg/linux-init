@@ -1161,6 +1161,8 @@ Override in .profile.local
   # Start your launcher
   bindsym $mod+d exec $menu
 
+  bindsym $mod+x exec raffi -p | xargs swaymsg exec --
+
   # Start your editor
   bindsym $mod+Shift+e exec $editor
 
@@ -2759,6 +2761,71 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
   # Maintained in https://github.com/rileyrg/linux-init
   exec dmenu_path | wofi --show drun,dmenu -i | xargs swaymsg exec --
 #+end_src
+
+*** raffi
+
+**** ~/bin/sway/sway-launcher-raffi
+#+begin_src bash :tangle ~/bin/sway/sway-launcher-raffi
+  #!/usr/bin/env bash
+  # Maintained in https://github.com/rileyrg/linux-init
+  raffi -p | xargs swaymsg exec --
+#+end_src
+
+**** ~/.config/raffi/raffi.yaml
+#+begin_src conf :tangle ~/.config/raffi/raffi.yaml
+  # Maintained in https://github.com/rileyrg/linux-init
+
+  version: 1
+
+  launchers:
+    terminal:
+      binary: "zsh"
+      desciption: "open default terminal"
+
+  # Script filters dynamically populate individual rows in the menu
+  addons:
+    script_filters:
+      -  name: "exes"
+         command: "list-path-binaries"
+         keyword: "ex"
+         
+#+end_src
+
+**** list-path-binaries
+#+begin_src  bash :tangle ~/bin/list-path-binaries
+  #!/bin/sh
+  # Maintained in https://github.com/rileyrg/linux-init
+  echo "$PATH" | tr ':' '\n' | while read -r dir; do
+      if [ -d "$dir" ]; then
+          find "$dir" -maxdepth 1 -executable -type f -exec basename {} \; 2>/dev/null
+      fi
+  done | sort -u
+#+end_src 
+
+*** Fuzzel
+**** ~/.config/fuzzel/fuzzel.ini
+#+begin_src conf :tangle ~/.config/fuzzel/fuzzel.ini
+  # Maintained in https://github.com/rileyrg/linux-init
+  dpi-aware=yes
+  font=RobotoMonoNerdFont-Thin:size=16
+  terminal=kitty
+  width=50
+  layer=overlay
+  exit-on-keyboard-focus-loss=no
+  inner-pad=15
+  fields=filename,name
+
+  [colors]
+  background=282a36ff
+  text=f8f8f2ff
+  match=8be9fdff
+  selection-match=8be9fdff
+  selection=44475add
+  selection-text=f8f8f2ff
+  border=bd93f9ff
+#+end_src
+
+
 *** ~/bin/sway/sway-launcher-rofi
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-rofi
   #!/usr/bin/env bash

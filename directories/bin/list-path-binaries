@@ -1,0 +1,7 @@
+#!/bin/sh
+# Maintained in https://github.com/rileyrg/linux-init
+echo "$PATH" | tr ':' '\n' | while read -r dir; do
+    if [ -d "$dir" ]; then
+        find "$dir" -maxdepth 1 -executable -type f -exec basename {} \; 2>/dev/null
+    fi
+done | sort -u

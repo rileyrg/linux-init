@@ -99,6 +99,8 @@ bindsym $mod+q kill
 # Start your launcher
 bindsym $mod+d exec $menu
 
+bindsym $mod+x exec raffi -p | xargs swaymsg exec --
+
 # Start your editor
 bindsym $mod+Shift+e exec $editor
 
