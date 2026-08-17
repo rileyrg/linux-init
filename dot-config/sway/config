@@ -20,7 +20,7 @@ set $right l
 
 
 set $term 'sway-kitty'
-set $menu 'sway-launcher'
+set $menu 'sway-launcher-fuzzel'
 set $editor 'sway-editor'
 set $wallpaper '~/Pictures/Wallpapers/current '
 
@@ -98,8 +98,6 @@ bindsym $mod+q kill
 
 # Start your launcher
 bindsym $mod+d exec $menu
-
-bindsym $mod+x exec sway-launcher-fuzzel
 
 # Start your editor
 bindsym $mod+Shift+e exec $editor

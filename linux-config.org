@@ -1082,7 +1082,7 @@ Override in .profile.local
 
 
   set $term 'sway-kitty'
-  set $menu 'sway-launcher'
+  set $menu 'sway-launcher-fuzzel'
   set $editor 'sway-editor'
   set $wallpaper '~/Pictures/Wallpapers/current '
 
@@ -1160,8 +1160,6 @@ Override in .profile.local
 
   # Start your launcher
   bindsym $mod+d exec $menu
-
-  bindsym $mod+x exec sway-launcher-fuzzel
 
   # Start your editor
   bindsym $mod+Shift+e exec $editor
@@ -2867,12 +2865,6 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
   else
       ulauncher-toggle
   fi
-#+end_src
-*** ~/bin/sway/sway-launcher
-#+begin_src bash :tangle ~/bin/sway/sway-launcher
-  #!/usr/bin/env bash
-  # Maintained in https://github.com/rileyrg/linux-init
-  sway-launcher-fzf
 #+end_src
 *** ~/bin/sway/sway-screenshot
 Thanks: https://www.reddit.com/r/linuxmasterrace/comments/k1bjkp/i_wrote_a_trivial_wrapper_for_taking_screenshots/
