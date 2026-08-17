@@ -1161,7 +1161,7 @@ Override in .profile.local
   # Start your launcher
   bindsym $mod+d exec $menu
 
-  bindsym $mod+x exec fuzzel
+  bindsym $mod+x exec sway-launcher-fuzzel
 
   # Start your editor
   bindsym $mod+Shift+e exec $editor
@@ -2848,6 +2848,14 @@ https://i3wm.org/docs/user-contributed/swapping-workspaces.html
   # Maintained in https://github.com/rileyrg/linux-init
   exec rofi -combi-modi window,drun,ssh,run -show combi -show-icons
 #+end_src
+
+*** ~/bin/sway/sway-launcher-fuzzel
+#+begin_src bash :tangle ~/bin/sway/sway-launcher-fuzzel
+  #!/usr/bin/env bash
+  # Maintained in https://github.com/rileyrg/linux-init
+  exec fuzzel
+#+end_src
+
 *** ~/bin/sway/sway-launcher-fzf
 #+begin_src bash :tangle ~/bin/sway/sway-launcher-fzf
   #!/usr/bin/env bash

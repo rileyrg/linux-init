@@ -99,7 +99,7 @@ bindsym $mod+q kill
 # Start your launcher
 bindsym $mod+d exec $menu
 
-bindsym $mod+x exec fuzzel
+bindsym $mod+x exec sway-launcher-fuzzel
 
 # Start your editor
 bindsym $mod+Shift+e exec $editor

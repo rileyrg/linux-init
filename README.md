@@ -982,7 +982,7 @@ Override in .profile.local
     # Start your launcher
     bindsym $mod+d exec $menu
     
-    bindsym $mod+x exec fuzzel
+    bindsym $mod+x exec sway-launcher-fuzzel
     
     # Start your editor
     bindsym $mod+Shift+e exec $editor
@@ -2422,7 +2422,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
     fi
 
 
-<a id="org53bc885"></a>
+<a id="orgb6dc212"></a>
 
 ### ~/bin/sway/sway-screen
 
@@ -2510,7 +2510,7 @@ but in both cases we check if it exists in the sway tree, and, if not, set it t 
 
 ### ~/bin/sway/sway-screen-menu
 
-Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#org53bc885).
+Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-screen](#orgb6dc212).
 
 :ID:       82455cae-1c48-48b2-a8b3-cb5d44eeaee9
 
@@ -2646,6 +2646,13 @@ Gui to select a display and enable/disable it. Calls down to [~/bin/sway/sway-sc
     #!/usr/bin/env bash
     # Maintained in https://github.com/rileyrg/linux-init
     exec rofi -combi-modi window,drun,ssh,run -show combi -show-icons
+
+
+### ~/bin/sway/sway-launcher-fuzzel
+
+    #!/usr/bin/env bash
+    # Maintained in https://github.com/rileyrg/linux-init
+    exec fuzzel
 
 
 ### ~/bin/sway/sway-launcher-fzf
