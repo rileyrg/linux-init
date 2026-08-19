@@ -3,7 +3,7 @@
 :END:
 #+TITLE: linux init  configuration
 #+AUTHOR: rileyrg
-#+EMAIL: rileyrg at g m x dot de
+#+EMAIL: rgr DOT linux AT gmx DOT de
 #+LANGUAGE: en
 #+STARTUP: showall
 
@@ -24,7 +24,7 @@
 #+FILETAGS: :linux:
 
 * tasks test                                                       :noexport:
-** CANCELLED check linux config tasks in agenda                   :CANCELLED:
+** CANCELLED check Linux config tasks in agenda                   :CANCELLED:
 CLOSED: [2023-11-27 Mon 05:00] SCHEDULED: <2023-08-03 Thu>
 :LOGBOOK:
 - State "CANCELLED"  from "TODO"       [2023-11-27 Mon 05:00]
