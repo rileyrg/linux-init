@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-#Maintained in https://github.com/rileyrg/linux-init
-"${HOME}/bin/AIS-catcher"  -d:0 -u 127.0.0.1 2345

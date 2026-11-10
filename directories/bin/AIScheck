@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-#Maintained in https://github.com/rileyrg/linux-init
-if ! pgrep AIS-catcher >/dev/null
-then
-    echo "`date`: AIS-catcher down. Restarting." >> "${HOME}/.AISStatus"
-    "${HOME}/bin/AIScatcher" &> /dev/null &
-fi
